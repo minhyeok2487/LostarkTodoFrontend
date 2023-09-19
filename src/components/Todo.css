@@ -1,0 +1,122 @@
+.wrap {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.setting-wrap {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  max-width: 1740px;
+  width: 100%;
+}
+
+.content-box {
+  font-weight: bold;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+  height: 48px;
+  margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.character-info-mini {
+  height: 80px;
+  color: white;
+  padding-left: 10px;
+  padding-top: 5px;
+  background-size: 120%;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+@media (max-width: 1300px) {
+  .sort-wrap {
+    display: none; /* 요소 숨기기 */
+  }
+}
+
+.todo-wrap {
+  max-width: 1740px;
+  margin-top: 10px;
+}
+
+.character-info {
+  height: 150px;
+  color: white;
+  padding-left: 20px;
+  padding-top: 5px;
+  background-size: 140%;
+  border-radius: 5px;
+}
+
+.content-wrap {
+  background-color: antiquewhite;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 0px;
+  border-radius: 4px;
+  margin-bottom: 1px;
+}
+
+.content {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  font-size: 13px;
+}
+
+.content-button {
+  width: 60px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.5s;
+  font-weight: bold;
+}
+
+.gauge-wrap {
+  width: 20%;
+  height: 100%;
+  border-radius: 4px;
+  border: 1px solid rgb(136, 136, 136);
+  display: flex;
+  flex-direction: row;
+}
+
+.gauge {
+  width: 50%;
+  height: 100%;
+}
+
+.ing {
+  background: #aae4e6;
+}
+
+.done {
+  background: #0ec0c3;
+  color: gray;
+}
+
+.text-done {
+  color: gray;
+  text-decoration: line-through;
+}
+
+.gold-border {
+  border: 2px solid gold; 
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px gold;
+  background-color: black;
+  width: fit-content;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 12px;
+}
