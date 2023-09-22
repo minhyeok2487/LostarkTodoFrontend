@@ -74,7 +74,7 @@
 }
 
 .content-button {
-  width: 60px;
+  width: 50px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 13px;
@@ -119,4 +119,22 @@
   padding-left: 10px;
   padding-right: 10px;
   margin-bottom: 12px;
+}
+
+.input-field {
+  position: relative;
+}
+.input-field input {
+  height: 12px;
+  width: 100px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 3px;
+  background: transparent;
+  color: rgb(80, 80, 80);
+  outline: none;
+  border: 0px solid gray;
+}
+input:focus {
+  border: 2px solid #ffcc00;
 }

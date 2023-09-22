@@ -20,7 +20,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import Button from '@mui/material/Button';
 
 export default function Todo() {
@@ -319,10 +319,10 @@ export default function Todo() {
                         setShowLinearProgress(false);
                     });
             }
-            return character; 
+            return character;
         });
         setCharacters(updatedCharacters);
-   
+
     };
 
     //5.골드획득 캐릭터 업데이트
@@ -360,7 +360,7 @@ export default function Todo() {
                         const updateContent = {
                             characterName: character.characterName,
                             todoId: todoId,
-                            todoCheck: todo.check,
+                            message: todo.check,
                         };
                         call("/character/week/check", "PATCH", updateContent)
                             .then((response) => { });
@@ -373,8 +373,52 @@ export default function Todo() {
             return character;
         });
         setCharacters(updatedCharacters);
-
     };
+
+    const updateWeekMessage = (characterId, todoId, message) => {
+        setShowLinearProgress(true);
+        const updatedCharacters = characters.map((character) => {
+            if (character.id === characterId) {
+                const updatedTodoList = character.todoList.map((todo) => {
+                    if (todo.id === todoId) {
+                        const updateContent = {
+                            characterName: character.characterName,
+                            todoId: todoId,
+                            message: message,
+                        };
+                        call("/character/week/message", "PATCH", updateContent)
+                            .then((response) => {
+                                setShowLinearProgress(false);
+                                const inputFieldIcon = document.getElementById("input_field_icon_" + todoId);
+                                if(response.message==="" || response.message===null) {
+                                    inputFieldIcon.style.display = "block";
+                                } else {
+                                    inputFieldIcon.style.display = "none";
+                                }
+                                const updatedTodo = { ...todo, message: response.message };
+                                return updatedTodo;
+                            })
+                            .catch((error) => {
+                                console.error("Error updating todo message:", error.errorMessage);
+                                return todo; // Return the original todo in case of an error
+                            });
+                    }
+                    return todo;
+                });
+                return { ...character, todoList: updatedTodoList };
+            }
+            return character;
+        });
+
+        // Update the state outside the loop
+        setCharacters(updatedCharacters);
+    };
+
+    const changeShow = (todoId) => {
+        const inputField = document.getElementById("input_field_" + todoId);
+        inputField.style.display = "block";
+    }
+
 
 
     /**
@@ -560,7 +604,7 @@ export default function Todo() {
                                         </div>
                                         <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
                                             onContextMenu={(e) => handleDayContentGuage(e, character.id, "chaos")}
-                                            onClick={(e)=>handleDayContentGuage(e,character.id,"chaos")}>
+                                            onClick={(e) => handleDayContentGuage(e, character.id, "chaos")}>
                                             {Array.from({ length: 5 }, (_, index) => (
                                                 <div key={index} className="gauge-wrap">
                                                     <div
@@ -595,7 +639,7 @@ export default function Todo() {
                                         </div>
                                         <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
                                             onContextMenu={(e) => handleDayContentGuage(e, character.id, "guardian")}
-                                            onClick={(e)=>handleDayContentGuage(e,character.id,"guardian")}>
+                                            onClick={(e) => handleDayContentGuage(e, character.id, "guardian")}>
                                             {Array.from({ length: 5 }, (_, index) => (
                                                 <div key={index} className="gauge-wrap">
                                                     <div
@@ -630,26 +674,49 @@ export default function Todo() {
                                                 key={todo.id}
                                                 className="content"
                                                 style={{
+                                                    height: 35,
+
                                                     position: "relative",
-                                                    cursor: "pointer",
                                                     backgroundColor: "lightsteelblue",
-                                                    justifyContent: "space-around",
+                                                    justifyContent: "space-between",
                                                     borderRadius: 5,
                                                     marginTop: 2,
                                                     boxShadow:
                                                         "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
                                                 }}
-                                                onClick={() => updateWeekCheck(character.id, todo.id)}
                                             >
-                                                <span
-                                                    style={{ position: "relative" }}
-                                                    className={`${todo.check === true ? "text-done" : ""}`}
+                                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                                                    <div>
+                                                        {todo.message === null || todo.message === "" ? <AddBoxIcon id={"input_field_icon_" + todo.id} onClick={() => changeShow(todo.id)} /> : ""}
+                                                    </div>
+                                                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                                                        <div
+                                                            className={`${todo.check === true ? "text-done" : ""}`}
+                                                        >
+                                                            {todo.name}
+                                                        </div>
+                                                        <div className={"input-field"} id={"input_field_" + todo.id} style={{ display: todo.message === null || todo.message === "" ? "none" : "block" }}>
+                                                            <input type="text" spellCheck="false" defaultValue={todo.message}
+                                                                onBlur={(e) => updateWeekMessage(character.id, todo.id, e.target.value)}
+                                                                onKeyDown={(e) => {
+                                                                    if (e.key === "Enter") {
+                                                                        updateWeekMessage(character.id, todo.id, e.target.value);
+                                                                        e.target.blur();
+                                                                    }
+                                                                }} 
+                                                                placeholder="간단한 메모 추가"
+                                                                />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    style={{ width: "100px", height: "100%" }}
+                                                    className={`content-button ${todo.check === true ? "done" : ""}`}
+                                                    onClick={() => updateWeekCheck(character.id, todo.id)}
                                                 >
-                                                    {todo.name} {character.goldCharacter ? (todo.gold + " gold") : ""}
-                                                </span>
-                                                <span style={{ position: "absolute", top: 1.5, zoom: 1.3 }}>
-                                                    {todo.check === true ? <CheckCircleIcon /> : ""}
-                                                </span>
+                                                    {character.goldCharacter ? "[" + todo.gold + " gold]" : ""}
+                                                    <div style={{ position: "absolute", top: 15, right: 50, color: "black" }}>{todo.check === true ? <DoneIcon /> : ""}</div>
+                                                </button>
                                             </div>
                                         ))}
                                     </div>
