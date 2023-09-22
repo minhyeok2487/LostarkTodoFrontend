@@ -416,7 +416,12 @@ export default function Todo() {
 
     const changeShow = (todoId) => {
         const inputField = document.getElementById("input_field_" + todoId);
-        inputField.style.display = "block";
+        if(inputField.style.display === "none") {
+            inputField.style.display = "block";
+        } else {
+            inputField.style.display = "none";
+        }
+
     }
 
 
