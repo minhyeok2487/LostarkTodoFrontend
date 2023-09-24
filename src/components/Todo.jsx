@@ -697,6 +697,7 @@ export default function Todo() {
                                                     <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
                                                         <div
                                                             className={`${todo.check === true ? "text-done" : ""}`}
+                                                            style={{marginLeft:2}}
                                                         >
                                                             {todo.name}
                                                         </div>
@@ -715,12 +716,12 @@ export default function Todo() {
                                                     </div>
                                                 </div>
                                                 <button
-                                                    style={{ width: "100px", height: "100%" }}
+                                                    style={{ width: "70px", height: "100%" }}
                                                     className={`content-button ${todo.check === true ? "done" : ""}`}
                                                     onClick={() => updateWeekCheck(character.id, todo.id)}
                                                 >
-                                                    {character.goldCharacter ? "[" + todo.gold + " gold]" : ""}
-                                                    <div style={{ position: "absolute", top: 15, right: 50, color: "black" }}>{todo.check === true ? <DoneIcon /> : ""}</div>
+                                                    {character.goldCharacter ? todo.gold+ " G" : ""}
+                                                    <div style={{ position: "absolute", top: 15, right: 35, color: "black" }}>{todo.check === true ? <DoneIcon /> : ""}</div>
                                                 </button>
                                             </div>
                                         ))}
