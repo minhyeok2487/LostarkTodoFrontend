@@ -9,7 +9,7 @@ const Comment = ({
   deleteComment,
   addComment,
   parentId = null,
-  currentUsername,
+  currentUser
 }) => {
   const isEditing =
     activeComment &&
@@ -20,12 +20,12 @@ const Comment = ({
     activeComment.id === comment.id &&
     activeComment.type === "replying";
   const canDelete =
-    currentUsername === comment.username && replies.length === 0;
-  const canReply = Boolean(currentUsername);
-  const canEdit = currentUsername === comment.username;
+    (currentUser.username === comment.username && replies.length === 0) || currentUser.role === "ADMIN";
+  const canReply = currentUser.role === "ADMIN";
+  const canEdit = currentUser.username === comment.username;
   const replyId = parentId ? parentId : comment.id;
   const lastModifiedDate = new Date(comment.lastModifiedDate).toLocaleDateString();
-  const username = comment.username.substring(0,5)+ '*'.repeat(comment.username.length - 5);;
+  const username = comment.role === "ADMIN"? "관리자" : comment.username.substring(0, 5) + '*'.repeat(comment.username.length - 5);
 
   return (
     <div key={comment.id} className="comment">
@@ -35,7 +35,9 @@ const Comment = ({
       <div className="comment-right-part">
         <div className="comment-content">
           <div>
-            <span className="comment-author">{username}</span>({lastModifiedDate})
+            <span className="comment-author"
+              style={{color: comment.role === "ADMIN" ?  "blue" : ""}}
+            >{username}</span>({lastModifiedDate})
           </div>
         </div>
         {!isEditing && <div className="comment-text">{comment.body}</div>}
@@ -51,7 +53,7 @@ const Comment = ({
           />
         )}
         <div className="comment-actions">
-          {/* {canReply && (
+          {canReply && (
             <div
               className="comment-action"
               onClick={() =>
@@ -60,7 +62,7 @@ const Comment = ({
             >
               Reply
             </div>
-          )} */}
+          )}
           {canEdit && (
             <div
               className="comment-action"
@@ -99,7 +101,7 @@ const Comment = ({
                 addComment={addComment}
                 parentId={comment.id}
                 replies={[]}
-                currentUsername={currentUsername}
+                currentUser={currentUser}
               />
             ))}
           </div>

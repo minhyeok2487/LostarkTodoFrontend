@@ -6,7 +6,7 @@ import CommentForm from "./CommentForm";
 
 const Comments = () => {
     const [backendComments, setBackendComments] = useState([]);
-    const [currentUsername, setCurrentUsername] = useState([]);
+    const [currentUser, setCurrentUser] = useState([]);
     const [activeComment, setActiveComment] = useState(null);
     const rootComments = backendComments.filter(
         (backendComment) => backendComment.parentId === 0
@@ -22,7 +22,7 @@ const Comments = () => {
     useEffect(() => {
         call("/member", "GET", null)
             .then((response) => {
-                setCurrentUsername(response.username);
+                setCurrentUser(response);
             })
             .catch((error) => { console.log(error.errorMessage) });
         // 초기 캐릭터 정보 불러오기
@@ -99,7 +99,7 @@ const Comments = () => {
                         addComment={addComment}
                         deleteComment={deleteComment}
                         updateComment={updateComment}
-                        currentUsername={currentUsername}
+                        currentUser={currentUser}
                     />
                 ))}
 

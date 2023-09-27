@@ -69,7 +69,8 @@
 .comment-author {
   margin-right: 8px;
   font-size: 20px;
-  color: rgb(59, 130, 246);
+  font-weight: bold;
+  color: black;
 }
 
 .comment-text {
