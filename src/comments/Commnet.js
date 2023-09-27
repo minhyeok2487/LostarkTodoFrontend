@@ -20,7 +20,7 @@ const Comment = ({
     activeComment.id === comment.id &&
     activeComment.type === "replying";
   const canDelete =
-    (currentUser.username === comment.username && replies.length === 0) || currentUser.role === "ADMIN";
+    (currentUser.username === comment.username && replies.length === 0);
   const canReply = currentUser.role === "ADMIN";
   const canEdit = currentUser.username === comment.username;
   const replyId = parentId ? parentId : comment.id;
