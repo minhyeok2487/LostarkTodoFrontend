@@ -167,8 +167,11 @@ export default function Todo() {
     //1.반응형 사이트를 위한 메소드 -> 창 크기에 맞게 조절
     const [itemsPerRow, setItemsPerRow] = useState(calculateItemsPerRow());
     function calculateItemsPerRow() {
-        const screenWidth = window.innerWidth;
-        const width = 300;
+        var screenWidth = window.innerWidth;
+        if (screenWidth >= 1300) {
+            screenWidth = 1300;
+        }
+        const width = 250;
         const row = 2;
         if (screenWidth > width * row) {
             return Math.ceil(screenWidth / width);
@@ -280,13 +283,12 @@ export default function Todo() {
                     {Object.entries(todosByCategory).map(([weekCategory, todos], index) => (
                         <div key={index}>
                             <span>{weekCategory}</span>
-                            <div style={{ display: "flex" }}>
+                            <div className="week-category-wrap">
                                 {todos.map((todo, todoIndex) => (
                                     <button
                                         key={todoIndex}
-                                        className={`content-button ${todo.checked === true ? "done" : ""}`}
+                                        className={`${todo.checked === true ? "done" : ""}`}
                                         onClick={() => updateWeekTodo(characterName, todo)}
-                                        style={{ marginRight: "10px", marginBottom: 10, width: 130, height: 55, fontSize: 14 }}
                                     >
                                         {todo.name}
                                     </button>
@@ -390,7 +392,7 @@ export default function Todo() {
                             .then((response) => {
                                 setShowLinearProgress(false);
                                 const inputFieldIcon = document.getElementById("input_field_icon_" + todoId);
-                                if(response.message==="" || response.message===null) {
+                                if (response.message === "" || response.message === null) {
                                     inputFieldIcon.style.display = "block";
                                 } else {
                                     inputFieldIcon.style.display = "none";
@@ -416,7 +418,7 @@ export default function Todo() {
 
     const changeShow = (todoId) => {
         const inputField = document.getElementById("input_field_" + todoId);
-        if(inputField.style.display === "none") {
+        if (inputField.style.display === "none") {
             inputField.style.display = "block";
         } else {
             inputField.style.display = "none";
@@ -510,8 +512,14 @@ export default function Todo() {
             {showLinearProgress && <LinearIndeterminate />}
             <div className="wrap">
                 <div className="setting-wrap">
-                    <div className="content-box" style={{ backgroundColor: "antiquewhite" }}>일일 수익 : {getDayGold.toFixed(2)} / <span style={{ color: "gray" }}>&nbsp;{totalDayGold.toFixed(2)}</span>&nbsp;Gold </div>
-                    <div className="content-box" style={{ backgroundColor: "lightsteelblue" }}>주간 수익 : {getWeekGold.toLocaleString()} / <span style={{ color: "gray" }}>&nbsp;{totalWeekGold.toLocaleString()}</span>&nbsp;Gold</div>
+                    <div className="content-box" style={{ backgroundColor: "antiquewhite" }}>
+                        <p>일일 수익</p>
+                        <p>{getDayGold.toFixed(2)} / <span style={{ color: "gray" }}>&nbsp;{totalDayGold.toFixed(2)}</span>&nbsp;Gold </p>
+                    </div>
+                    <div className="content-box" style={{ backgroundColor: "lightsteelblue" }}>
+                        <p>주간 수익</p>
+                        <p>{getWeekGold.toLocaleString()} / <span style={{ color: "gray" }}>&nbsp;{totalWeekGold.toLocaleString()}</span>&nbsp;Gold</p>
+                    </div>
                     <Accordion style={{ backgroundColor: "#D7DBDD", width: "100%" }} className="sort-wrap">
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
@@ -530,8 +538,8 @@ export default function Todo() {
                                 <GridDropZone
                                     id="characters"
                                     boxesPerRow={itemsPerRow}
-                                    rowHeight={90}
-                                    style={{ height: 90 * Math.ceil(characters.length / itemsPerRow) }}
+                                    rowHeight={80}
+                                    style={{ height: 80 * Math.ceil(characters.length / itemsPerRow) }}
                                 >
                                     {characters.map((character) => (
                                         <GridItem key={character.sortNumber} style={{ width: `${100 / itemsPerRow}%` }}>
@@ -543,7 +551,7 @@ export default function Todo() {
                                                         backgroundColor: "gray", // imgurl이 없을시 배경색을 회색으로 설정
                                                     }}>
                                                     <p>{character.characterName}</p>
-                                                    <h3>Lv. {character.itemLevel}</h3>
+                                                    <p>Lv. {character.itemLevel}</p>
                                                 </div>
                                             </div>
                                         </GridItem>
@@ -562,19 +570,19 @@ export default function Todo() {
                     <Grid container spacing={1.5} overflow={"hidden"} style={{ marginBottom: 20 }}>
                         {characters.map((character) => (
                             <Grid key={character.sortNumber} item >
-                                <div style={{ width: "280px" }}>
+                                <div className="character-wrap">
                                     <div className="character-info"
                                         style={{
                                             backgroundImage: character.characterImage !== null ? `url(${character.characterImage})` : "",
-                                            backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 10px top -100px" : "left 10px top -40px",
+                                            backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 10px top -80px" : "left 10px top -30px",
                                             backgroundColor: "gray", // 배경색을 회색으로 설정
                                         }}>
                                         <div className={character.goldCharacter ? "gold-border" : ""}>
                                             {character.goldCharacter ? "골드 획득 지정 캐릭터" : ""}
                                         </div>
-                                        <h5 style={{ marginTop: character.goldCharacter ? "0" : "" }}>@{character.serverName}  {character.characterClassName}</h5>
-                                        <p>{character.characterName}</p>
-                                        <h3>Lv. {character.itemLevel}</h3>
+                                        <span>@{character.serverName}  {character.characterClassName}</span>
+                                        <h3 style={{margin:0}}>{character.characterName}</h3>
+                                        <h2 style={{margin:0}}>Lv. {character.itemLevel}</h2>
                                     </div>
                                     <div className="content-wrap">
                                         <div className="content">
@@ -595,7 +603,8 @@ export default function Todo() {
                                             <div
                                                 className={`${character.chaosCheck === 2 ? "text-done" : ""}`}
                                             >
-                                                카오스던전 ({character.chaosGold} gold)
+                                                <p>카오스던전</p> 
+                                                <p>({character.chaosGold} gold)</p>
                                             </div>
                                             <SearchIcon onClick={() => openContentModal(character.characterName, "카오스던전")} style={{ cursor: "pointer" }} />
                                             <button
@@ -622,7 +631,7 @@ export default function Todo() {
                                                     ></div>
                                                 </div>
                                             ))}
-                                            <span style={{ position: "absolute", left: 75, top: 5, color: "white", backgroundColor: "rgba(0,0,0,0.3)", width: 140, textAlign: "center", borderRadius: 4 }}>
+                                            <span className="gauge-text">
                                                 휴식게이지 : {character.chaosGauge}
                                             </span>
                                         </div>
@@ -632,7 +641,8 @@ export default function Todo() {
                                             <div
                                                 className={`${character.guardianCheck === 1 ? "text-done" : ""}`}
                                             >
-                                                가디언토벌 ({character.guardianGold} gold)
+                                                <p>가디언토벌</p> 
+                                                <p>({character.guardianGold} gold)</p>
                                             </div>
                                             <SearchIcon onClick={() => openContentModal(character.characterName, "가디언토벌")} style={{ cursor: "pointer" }} />
                                             <button
@@ -657,18 +667,18 @@ export default function Todo() {
                                                     ></div>
                                                 </div>
                                             ))}
-                                            <span style={{ position: "absolute", left: 75, top: 5, color: "white", backgroundColor: "rgba(0,0,0,0.3)", width: 140, textAlign: "center", borderRadius: 4 }}>
+                                            <span className="gauge-text">
                                                 휴식게이지 : {character.guardianGauge}
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-                                <div>
+                                <div className="character-wrap">
                                     <div className="content" style={{ padding: 0, marginTop: 5 }}>
                                         <button
                                             className={"content-button"}
                                             onClick={() => openAddTodoForm(character.characterName, character.goldCharacter)}
-                                            style={{ width: '100%', fontSize: 17 }}
+                                            style={{ width: '100%', fontWeight:"bold",fontSize:16 }}
                                         >
                                             주간숙제 관리
                                         </button>
@@ -680,12 +690,10 @@ export default function Todo() {
                                                 className="content"
                                                 style={{
                                                     height: 35,
-
                                                     position: "relative",
                                                     backgroundColor: "lightsteelblue",
                                                     justifyContent: "space-between",
-                                                    borderRadius: 5,
-                                                    marginTop: 2,
+                                                    fontSize:12,
                                                     boxShadow:
                                                         "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
                                                 }}
@@ -697,7 +705,7 @@ export default function Todo() {
                                                     <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
                                                         <div
                                                             className={`${todo.check === true ? "text-done" : ""}`}
-                                                            style={{marginLeft:2}}
+                                                            style={{ marginLeft: 2, width:"100px" }}
                                                         >
                                                             {todo.name}
                                                         </div>
@@ -709,19 +717,18 @@ export default function Todo() {
                                                                         updateWeekMessage(character.id, todo.id, e.target.value);
                                                                         e.target.blur();
                                                                     }
-                                                                }} 
+                                                                }}
                                                                 placeholder="간단한 메모 추가"
-                                                                />
+                                                            />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <button
-                                                    style={{ width: "70px", height: "100%" }}
                                                     className={`content-button ${todo.check === true ? "done" : ""}`}
                                                     onClick={() => updateWeekCheck(character.id, todo.id)}
                                                 >
-                                                    {character.goldCharacter ? todo.gold+ " G" : ""}
-                                                    <div style={{ position: "absolute", top: 15, right: 35, color: "black" }}>{todo.check === true ? <DoneIcon /> : ""}</div>
+                                                    {character.goldCharacter ? todo.gold + " G" : ""}
+                                                    <div className="todo-button-text">{todo.check === true ? <DoneIcon /> : ""}</div>
                                                 </button>
                                             </div>
                                         ))}
@@ -744,7 +751,8 @@ export default function Todo() {
                         top: "50%", left: "50%",
                         transform: "translate(-50%, -50%)",
                         backgroundColor: "#dddddd",
-                        padding: "20px", width: "auto", overflowY: "auto"
+                        padding: "20px", width: "auto", overflowY: "auto",
+                        maxHeight:400
                     }}>
                         <Typography variant="h5" id="modal-title">
                             {modalTitle}

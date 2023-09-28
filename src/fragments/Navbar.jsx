@@ -3,7 +3,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
@@ -87,21 +86,9 @@ export default function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color='inherit'>
         <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontWeight: 500,
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOA TODO
-          </Typography>
+          <MenuItem onClick={() => (window.location.href = "/")}>
+            <img src='/logo.png' style={{width:150}}/>
+          </MenuItem>
           <MenuItem onClick={() => (window.location.href = "/info")}>
             <p>패치노트</p>
           </MenuItem>
