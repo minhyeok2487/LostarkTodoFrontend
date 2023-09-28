@@ -78,7 +78,9 @@ const Comments = () => {
     return (
         <div className="comments">
             <h3 className="comments-title">방명록</h3>
-            <div className="comment-form-title">하고싶으신 말씀 남겨주시면 됩니다. 사용해주셔서 감사합니다</div>
+            <div className="comment-form-title">
+                <p>하고싶으신 말씀 남겨주시면 됩니다</p>
+            </div>
             <div>
                 <h3>개발중</h3>
                 <ul>

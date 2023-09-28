@@ -1,0 +1,21 @@
+.notification {
+	background: linear-gradient(90deg, #ff0000, #ffff00, #ff00f3, #0033ff, #ff00c4, #ff0000);
+	background-size: 400%;
+	letter-spacing: 10px;
+    font-size: 17px;
+	font-weight: bold;
+	word-spacing: 5px;
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	animation: animate 10s linear infinite;
+}
+
+@keyframes animate {
+	0% {
+		background-position: 0%;
+	}
+
+	100% {
+		background-position: 400%;
+	}
+}

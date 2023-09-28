@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './Navbar.css';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -83,21 +84,22 @@ export default function Navbar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color='inherit'>
-        <Toolbar>
-          <MenuItem onClick={() => (window.location.href = "/")}>
-            <img src='/logo.png' style={{width:150}}/>
-          </MenuItem>
-          <MenuItem onClick={() => (window.location.href = "/info")}>
-            <p>패치노트</p>
-          </MenuItem>
-          <MenuItem onClick={() => (window.location.href = "/comments")}>
-            <p>방명록</p>
-          </MenuItem>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" color='inherit'>
+          <Toolbar>
+            <MenuItem onClick={() => (window.location.href = "/")}>
+              <img src='/logo.png' style={{ width: 150 }} />
+            </MenuItem>
+            <MenuItem onClick={() => (window.location.href = "/info")}>
+              <p>패치노트</p>
+            </MenuItem>
+            <MenuItem onClick={() => (window.location.href = "/comments")}>
+              <p>방명록</p>
+            </MenuItem>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
               </Badge>
@@ -111,34 +113,38 @@ export default function Navbar() {
                 <NotificationsIcon />
               </Badge>
             </IconButton> */}
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </Box>
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        {renderMobileMenu}
+        {renderMenu}
+      </Box>
+      <Box sx={{ flexGrow: 1, backgroundColor: "#000", fontWeight: "bold", color: "white", textAlign: "center", paddingBottom:0.5, paddingTop:0.5 }}>
+        <span className='notification'>전체적인 출력 디자인을 수정(축소)했습니다. <br />추석연휴 잘보내세요~~ (유용하시다면 방명록 한줄이 힘이 됩니다) </span>
+      </Box>
+    </>
   );
 }
