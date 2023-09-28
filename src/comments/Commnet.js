@@ -21,7 +21,7 @@ const Comment = ({
     activeComment.type === "replying";
   const canDelete =
     (currentUser.username === comment.username && replies.length === 0);
-  const canReply = currentUser.role === "ADMIN";
+  const canReply = (currentUser.role === "ADMIN") || (currentUser.username === comment.username);
   const canEdit = currentUser.username === comment.username;
   const replyId = parentId ? parentId : comment.id;
   const lastModifiedDate = new Date(comment.lastModifiedDate).toLocaleDateString();
