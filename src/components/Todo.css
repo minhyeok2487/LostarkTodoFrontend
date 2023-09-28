@@ -16,6 +16,11 @@
   width: 100%;
 }
 
+.content-button-text {
+  position: absolute;
+  color: black;
+}
+
 .content-box {
   font-weight: bold;
   display: flex;
@@ -226,7 +231,7 @@ input:focus {
     width: 40px;
     font-size: 9px;
   }
-  
+
   .todo-button-text {
     top: 13px;
     right: 12px;

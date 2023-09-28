@@ -85,6 +85,9 @@ export default function Navbar() {
 
   return (
     <>
+      <Box sx={{ flexGrow: 1, backgroundColor: "#000", fontWeight: "bold", color: "white", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
+        <span className='notification'>추석연휴 잘보내세요~~:D (유용하시다면 방명록 한 줄이 힘이 됩니다^^) </span>
+      </Box>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" color='inherit'>
           <Toolbar>
@@ -142,9 +145,7 @@ export default function Navbar() {
         {renderMobileMenu}
         {renderMenu}
       </Box>
-      <Box sx={{ flexGrow: 1, backgroundColor: "#000", fontWeight: "bold", color: "white", textAlign: "center", paddingBottom:0.5, paddingTop:0.5 }}>
-        <span className='notification'>전체적인 출력 디자인을 수정(축소)했습니다. <br />추석연휴 잘보내세요~~ (유용하시다면 방명록 한줄이 힘이 됩니다) </span>
-      </Box>
+
     </>
   );
 }
