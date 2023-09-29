@@ -86,7 +86,7 @@ export default function Navbar() {
   return (
     <>
       <Box sx={{ flexGrow: 1, backgroundColor: "#000", fontWeight: "bold", color: "white", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
-        <span className='notification'>추석연휴 잘보내세요~~:D (유용하시다면 방명록 한 줄이 힘이 됩니다^^) </span>
+        <span className='notification'>추석연휴 잘보내세요~~:D (임시 캐릭터 출력 선택 기능이 추가되었습니다) </span>
       </Box>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" color='inherit'>
