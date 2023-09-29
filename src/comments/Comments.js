@@ -3,6 +3,7 @@ import { call } from "../service/api-service";
 import './Comments.css';
 import Comment from "./Commnet";
 import CommentForm from "./CommentForm";
+import Info from "../components/Info";
 
 const Comments = () => {
     const [backendComments, setBackendComments] = useState([]);
@@ -77,17 +78,26 @@ const Comments = () => {
 
     return (
         <div className="comments">
+            <div>
+                <h3 style={{ margin: 0 }}>2023.09.30</h3>
+                <strong>임시 캐릭터 출력 선택 기능이 추가되었습니다</strong><br />
+                오른쪽하단 "+"버튼을 통해 캐릭터마다 출력하고 싶은 내용을 선택할 수 있습니다.<br />
+                주간 에포나, 토벌전 등 여러가지 숙제 추가 후 추가 업데이트 하겠습니다.
+            </div>
+            <Info />
+
+            <div>
+                <h3>개발 예정</h3>
+                <ul>
+                    <li><strong>주간 에포나, 토벌전 등 원정대 단위 숙제 추가</strong></li>
+                    <li><strong>2주 쿨타임 레이드 체크</strong> - 사람들마다 플레이하는 방식이 달라, 최대한 많은 분들의 요구사항을 만족할 수 있고 편하게 쓰실 수 있는 방법을 고안중입니다.(좀 걸릴것 같습니다..ㅠㅠ) </li>
+                    <li><strong>기록남기기</strong> - 숙제로 얻은 수익을 기록하여 그래프 혹은 표로 볼 수있게 하려고 합니다. </li>
+                    <li><strong>데이터보기</strong> - 일일숙제로 얻는 재화량 통계와 현재 경매장 시세를 확인할 수 있게 하려고 합니다. </li>
+                </ul>
+            </div>
             <h3 className="comments-title">방명록</h3>
             <div className="comment-form-title">
                 <p>하고싶으신 말씀 남겨주시면 됩니다</p>
-            </div>
-            <div>
-                <h3>개발중</h3>
-                <ul>
-                    <li><strong>2주 쿨타임 레이드 체크</strong> - 사람들마다 플레이하는 방식이 달라, 최대한 많은 분들의 요구사항을 만족할 수 있고 편하게 쓰실 수 있는 방법을 고안중입니다. </li>
-                    <li><strong>서버별 표시, 부계정 추가</strong> - 서버별만 분리는 당장가능 하지만, 부계정 추가랑 엮이면 복잡해져서 개발중에 있습니다</li>
-                    <li><strong>도비스, 도가토 등 원정대 단위 숙제 추가</strong> - 위에 기능과 엮인 기능이라 함께 개발중입니다.</li>
-                </ul>
             </div>
             <CommentForm submitLabel="Write" handleSubmit={addComment} />
             <div className="comments-container">

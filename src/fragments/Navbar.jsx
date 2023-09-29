@@ -94,9 +94,6 @@ export default function Navbar() {
             <MenuItem onClick={() => (window.location.href = "/")}>
               <img src='/logo.png' style={{ width: 150 }} />
             </MenuItem>
-            <MenuItem onClick={() => (window.location.href = "/info")}>
-              <p>패치노트</p>
-            </MenuItem>
             <MenuItem onClick={() => (window.location.href = "/comments")}>
               <p>방명록</p>
             </MenuItem>

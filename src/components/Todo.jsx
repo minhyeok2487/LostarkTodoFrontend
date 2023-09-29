@@ -25,6 +25,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
+import BasicSpeedDial from '../fragments/BasicSpeedDial';
 
 
 export default function Todo() {
@@ -38,13 +39,13 @@ export default function Todo() {
         call("/member/characterList/server", "GET", null)
             .then((response) => {
                 setServers(response);
-
                 // 서버 정보가 로드된 후 첫 번째 서버 정보를 사용하여 캐릭터 정보 불러오기
                 const firstServerName = Object.keys(response)[0];
                 setSelectedServer(firstServerName);
                 call("/member/characterList/" + firstServerName, "GET", null)
                     .then((characterResponse) => {
                         setCharacters(characterResponse);
+                        console.log(characterResponse);
                     })
 
             })
@@ -74,7 +75,13 @@ export default function Todo() {
     //------------------------- 일일 수익 & 주간 수익 관련 -------------------------
     //1. 예상 일일 수익
     const totalDayGold = characters.reduce((accumulator, character) => {
-        return accumulator + character.chaosGold + character.guardianGold;
+        if (character.settings.showChaos) {
+            accumulator += character.chaosGold;
+        }
+        if (character.settings.showGuardian) {
+            accumulator += character.guardianGold;
+        }
+        return accumulator;
     }, 0);
 
     //2. 일일 수익
@@ -566,313 +573,313 @@ export default function Todo() {
             });
     }
 
-return (
-    <>
-        {showLinearProgress && <LinearIndeterminate />}
-        <div className="wrap">
-            <div className="setting-wrap">
-                <div className="content-box" style={{ backgroundColor: "antiquewhite" }}>
-                    <p>일일 수익</p>
-                    <p>{getDayGold.toFixed(2)} / <span style={{ color: "gray" }}>&nbsp;{totalDayGold.toFixed(2)}</span>&nbsp;Gold </p>
-                </div>
-                <div className="content-box" style={{ backgroundColor: "lightsteelblue" }}>
-                    <p>주간 수익</p>
-                    <p>{getWeekGold.toLocaleString()} / <span style={{ color: "gray" }}>&nbsp;{totalWeekGold.toLocaleString()}</span>&nbsp;Gold</p>
-                </div>
-                <Accordion style={{ backgroundColor: "#D7DBDD", width: "100%" }} className="sort-wrap">
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        style={{ borderRadius: "5px" }}
-                    >
-                        <Typography fontWeight={"bold"} display={"flex"}>캐릭터 순서 변경
-                            <SaveIcon
-                                onClick={() => saveSort()}
-                                sx={{ display: itemsSwapState ? "flex" : "none", marginLeft: "5px", color: "blueviolet", cursor: "pointer" }}
-                            >
-                            </SaveIcon>
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <GridContextProvider onChange={onChange}>
-                            <GridDropZone
-                                id="characters"
-                                boxesPerRow={itemsPerRow}
-                                rowHeight={80}
-                                style={{ height: 80 * Math.ceil(characters.length / itemsPerRow) }}
-                            >
-                                {characters.map((character) => (
-                                    <GridItem key={character.sortNumber} style={{ width: `${100 / itemsPerRow}%` }}>
-                                        <div style={{ marginRight: 10 }}>
-                                            <div className="character-info-mini"
-                                                style={{
-                                                    backgroundImage: character.characterImage !== null ? `url(${character.characterImage})` : "",
-                                                    backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 25px top -40px" : "left 25px top -20px",
-                                                    backgroundColor: "gray", // imgurl이 없을시 배경색을 회색으로 설정
-                                                }}>
-                                                <p>{character.characterName}</p>
-                                                <p>Lv. {character.itemLevel}</p>
+    return (
+        <>
+            {showLinearProgress && <LinearIndeterminate />}
+            <BasicSpeedDial />
+            <div className="wrap">
+                <div className="setting-wrap">
+                    <div className="content-box" style={{ backgroundColor: "antiquewhite" }}>
+                        <p>일일 수익</p>
+                        <p>{getDayGold.toFixed(2)} / <span style={{ color: "gray" }}>&nbsp;{totalDayGold.toFixed(2)}</span>&nbsp;Gold </p>
+                    </div>
+                    <div className="content-box" style={{ backgroundColor: "lightsteelblue" }}>
+                        <p>주간 수익</p>
+                        <p>{getWeekGold.toLocaleString()} / <span style={{ color: "gray" }}>&nbsp;{totalWeekGold.toLocaleString()}</span>&nbsp;Gold</p>
+                    </div>
+                    <Accordion style={{ backgroundColor: "#D7DBDD", width: "100%" }} className="sort-wrap">
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            style={{ borderRadius: "5px" }}
+                        >
+                            <Typography fontWeight={"bold"} display={"flex"}>캐릭터 순서 변경
+                                <SaveIcon
+                                    onClick={() => saveSort()}
+                                    sx={{ display: itemsSwapState ? "flex" : "none", marginLeft: "5px", color: "blueviolet", cursor: "pointer" }}
+                                >
+                                </SaveIcon>
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <GridContextProvider onChange={onChange}>
+                                <GridDropZone
+                                    id="characters"
+                                    boxesPerRow={itemsPerRow}
+                                    rowHeight={80}
+                                    style={{ height: 80 * Math.ceil(characters.length / itemsPerRow) }}
+                                >
+                                    {characters.map((character) => (
+                                        <GridItem key={character.sortNumber} style={{ width: `${100 / itemsPerRow}%` }}>
+                                            <div style={{ marginRight: 10 }}>
+                                                <div className="character-info-mini"
+                                                    style={{
+                                                        backgroundImage: character.characterImage !== null ? `url(${character.characterImage})` : "",
+                                                        backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 25px top -40px" : "left 25px top -20px",
+                                                        backgroundColor: "gray", // imgurl이 없을시 배경색을 회색으로 설정
+                                                    }}>
+                                                    <p>{character.characterName}</p>
+                                                    <p>Lv. {character.itemLevel}</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </GridItem>
-                                ))}
-                            </GridDropZone>
-                        </GridContextProvider>
-                    </AccordionDetails>
-                </Accordion>
-            </div>
-            <div className="setting-wrap">
-                <Button variant="contained" onClick={() => updateCharacterList()} style={{ cursor: "pointer" }}>
-                    캐릭터 정보 업데이트
-                </Button>
-                <div style={{ backgroundColor: "#DA81F5", borderRadius: 4, marginLeft: 5 }}>
-                    <Button
-                        id="fade-button"
-                        aria-controls={open ? 'fade-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                        onClick={handleClick}
-                        style={{ color: "white" }}
-                    >
-                        {selectedServer}: {servers[selectedServer]}개
+                                        </GridItem>
+                                    ))}
+                                </GridDropZone>
+                            </GridContextProvider>
+                        </AccordionDetails>
+                    </Accordion>
+                </div>
+                <div className="setting-wrap">
+                    <Button variant="contained" onClick={() => updateCharacterList()} style={{ cursor: "pointer" }}>
+                        캐릭터 정보 업데이트
                     </Button>
-                    <Menu
-                        id="fade-menu"
-                        MenuListProps={{
-                            'aria-labelledby': 'fade-button',
-                        }}
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        TransitionComponent={Fade}
+                    <div style={{ backgroundColor: "#DA81F5", borderRadius: 4, marginLeft: 5 }}>
+                        <Button
+                            id="fade-button"
+                            aria-controls={open ? 'fade-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                            onClick={handleClick}
+                            style={{ color: "white" }}
+                        >
+                            {selectedServer}: {servers[selectedServer]}개
+                        </Button>
+                        <Menu
+                            id="fade-menu"
+                            MenuListProps={{
+                                'aria-labelledby': 'fade-button',
+                            }}
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            TransitionComponent={Fade}
+                        >
+                            {serverItems}
+                        </Menu>
+                    </div>
+                    <button
+                        className={`content-button ${characters.length > 0 && characters[0].challengeGuardian === true ? "done" : ""}`}
+                        onClick={() => updateChallenge(characters[0], "Guardian")}
+                        style={{ width: 120, marginLeft: 5 }}
                     >
-                        {serverItems}
-                    </Menu>
+                        도전 가디언 토벌
+                        <div className="content-button-text">
+                            {characters.length > 0 && (characters[0]?.challengeGuardian === true ? <DoneIcon /> : "")}
+                        </div>
+                    </button>
+                    <button
+                        className={`content-button ${characters.length > 0 && characters[0].challengeAbyss === true ? "done" : ""}`}
+                        onClick={() => updateChallenge(characters[0], "Abyss")}
+                        style={{ width: 120, marginLeft: 5 }}
+                    >
+                        도전 어비스 던전
+                        <div className="content-button-text">
+                            {characters.length > 0 && (characters[0]?.challengeAbyss === true ? <DoneIcon /> : "")}
+                        </div>
+                    </button>
                 </div>
-                <button
-                    className={`content-button ${characters.length > 0 && characters[0].challengeGuardian === true ? "done" : ""}`}
-                    onClick={() => updateChallenge(characters[0], "Guardian")}
-                    style={{ width: 120, marginLeft: 5 }}
-                >
-                    도전 가디언 토벌
-                    <div className="content-button-text">
-                        {characters.length > 0 && (characters[0]?.challengeGuardian === true ? <DoneIcon /> : "")}
-                    </div>
-                </button>
-                <button
-                    className={`content-button ${characters.length > 0 && characters[0].challengeAbyss === true ? "done" : ""}`}
-                    onClick={() => updateChallenge(characters[0], "Abyss")}
-                    style={{ width: 120, marginLeft: 5 }}
-                >
-                    도전 어비스 던전
-                    <div className="content-button-text">
-                        {characters.length > 0 && (characters[0]?.challengeAbyss === true ? <DoneIcon /> : "")}
-                    </div>
-                </button>
-            </div>
-            <div className="todo-wrap">
-                <Grid container spacing={1.5} overflow={"hidden"} style={{ marginBottom: 20 }}>
-                    {characters.map((character) => (
-                        <Grid key={character.sortNumber} item >
-                            <div className="character-wrap">
-                                <div className="character-info"
-                                    style={{
-                                        backgroundImage: character.characterImage !== null ? `url(${character.characterImage})` : "",
-                                        backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 10px top -80px" : "left 10px top -30px",
-                                        backgroundColor: "gray", // 배경색을 회색으로 설정
-                                    }}>
-                                    <div className={character.goldCharacter ? "gold-border" : ""}>
-                                        {character.goldCharacter ? "골드 획득 지정 캐릭터" : ""}
-                                    </div>
-                                    <span>@{character.serverName}  {character.characterClassName}</span>
-                                    <h3 style={{ margin: 0 }}>{character.characterName}</h3>
-                                    <h2 style={{ margin: 0 }}>Lv. {character.itemLevel}</h2>
-                                </div>
-                                <div className="content-wrap">
-                                    <div className="content">
-                                        <div
-                                            className={`${character.eponaCheck === true ? "text-done" : ""}`}>
-                                            <span>에포나의뢰 & 출석체크</span>
+                <div className="todo-wrap">
+                    <Grid container spacing={1.5} overflow={"hidden"} style={{ marginBottom: 20 }}>
+                        {characters.map((character) => (
+                            <Grid key={character.sortNumber} item>
+                                <div className="character-wrap">
+                                    <div className="character-info"
+                                        style={{
+                                            backgroundImage: character.characterImage !== null ? `url(${character.characterImage})` : "",
+                                            backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 10px top -80px" : "left 10px top -30px",
+                                            backgroundColor: "gray", // 배경색을 회색으로 설정
+                                        }}>
+                                        <div className={character.goldCharacter ? "gold-border" : ""}>
+                                            {character.goldCharacter ? "골드 획득 지정 캐릭터" : ""}
                                         </div>
-                                        <button
-                                            className={`content-button ${character.eponaCheck === true ? "done" : ""}`}
-                                            onClick={() => handleEponaCheck(character.id)}
-                                        >
-                                            {character.eponaCheck === true ? <DoneIcon /> : <CloseIcon />}
-                                        </button>
+                                        <span>@{character.serverName}  {character.characterClassName}</span>
+                                        <h3 style={{ margin: 0 }}>{character.characterName}</h3>
+                                        <h2 style={{ margin: 0 }}>Lv. {character.itemLevel}</h2>
                                     </div>
-                                </div>
-                                <div className="content-wrap">
-                                    <div className="content">
-                                        <div
-                                            className={`${character.chaosCheck === 2 ? "text-done" : ""}`}
-                                        >
-                                            <p>카오스던전</p>
-                                            <p>({character.chaosGold} gold)</p>
-                                        </div>
-                                        <SearchIcon onClick={() => openContentModal(character.characterName, "카오스던전")} style={{ cursor: "pointer" }} />
-                                        <button
-                                            className={`content-button ${character.chaosCheck === 0 ? "" :
-                                                character.chaosCheck === 1 ? "ing" : "done"
-                                                }`}
-                                            onClick={() => handleChaosCheck(character.id)}
-                                        >
-                                            {character.chaosCheck === 2 ? <DoneIcon /> : <CloseIcon />}
-                                        </button>
-                                    </div>
-                                    <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
-                                        onContextMenu={(e) => handleDayContentGuage(e, character.id, "chaos")}
-                                        onClick={(e) => handleDayContentGuage(e, character.id, "chaos")}>
-                                        {Array.from({ length: 5 }, (_, index) => (
-                                            <div key={index} className="gauge-wrap">
-                                                <div
-                                                    className="gauge"
-                                                    style={{ backgroundColor: index * 2 < character.chaosGauge / 10 ? "#0ec0c3" : undefined }}
-                                                ></div>
-                                                <div
-                                                    className="gauge"
-                                                    style={{ backgroundColor: index * 2 + 1 < character.chaosGauge / 10 ? "#0ec0c3" : undefined }}
-                                                ></div>
-                                            </div>
-                                        ))}
-                                        <span className="gauge-text">
-                                            휴식게이지 : {character.chaosGauge}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="content-wrap">
-                                    <div className="content">
-                                        <div
-                                            className={`${character.guardianCheck === 1 ? "text-done" : ""}`}
-                                        >
-                                            <p>가디언토벌</p>
-                                            <p>({character.guardianGold} gold)</p>
-                                        </div>
-                                        <SearchIcon onClick={() => openContentModal(character.characterName, "가디언토벌")} style={{ cursor: "pointer" }} />
-                                        <button
-                                            className={`content-button ${character.guardianCheck === 1 ? "done" : ""}`}
-                                            onClick={() => handleGuardianCheck(character.id)}
-                                        >
-                                            {character.guardianCheck === 1 ? <DoneIcon /> : <CloseIcon />}
-                                        </button>
-                                    </div>
-                                    <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
-                                        onContextMenu={(e) => handleDayContentGuage(e, character.id, "guardian")}
-                                        onClick={(e) => handleDayContentGuage(e, character.id, "guardian")}>
-                                        {Array.from({ length: 5 }, (_, index) => (
-                                            <div key={index} className="gauge-wrap">
-                                                <div
-                                                    className="gauge"
-                                                    style={{ backgroundColor: index * 2 < character.guardianGauge / 10 ? "#0ec0c3" : undefined }}
-                                                ></div>
-                                                <div
-                                                    className="gauge"
-                                                    style={{ backgroundColor: index * 2 + 1 < character.guardianGauge / 10 ? "#0ec0c3" : undefined }}
-                                                ></div>
-                                            </div>
-                                        ))}
-                                        <span className="gauge-text">
-                                            휴식게이지 : {character.guardianGauge}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="character-wrap">
-                                <div className="content" style={{ padding: 0, marginTop: 5 }}>
-                                    <button
-                                        className={"content-button"}
-                                        onClick={() => openAddTodoForm(character.characterName, character.goldCharacter)}
-                                        style={{ width: '100%', fontWeight: "bold", fontSize: 16 }}
-                                    >
-                                        주간숙제 관리
-                                    </button>
-                                </div>
-                                <div className="character-todo">
-                                    {character.todoList.map((todo) => (
-                                        <div
-                                            key={todo.id}
-                                            className="content"
-                                            style={{
-                                                height: 35,
-                                                position: "relative",
-                                                backgroundColor: "lightsteelblue",
-                                                justifyContent: "space-between",
-                                                fontSize: 12,
-                                                boxShadow:
-                                                    "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
-                                            }}
-                                        >
-                                            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-                                                <div>
-                                                    {todo.message === null || todo.message === "" ? <AddBoxIcon id={"input_field_icon_" + todo.id} onClick={() => changeShow(todo.id)} /> : ""}
-                                                </div>
-                                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                                                    <div
-                                                        className={`${todo.check === true ? "text-done" : ""}`}
-                                                        style={{ marginLeft: 2, width: "100px" }}
-                                                    >
-                                                        {todo.name}
-                                                    </div>
-                                                    <div className={"input-field"} id={"input_field_" + todo.id} style={{ display: todo.message === null || todo.message === "" ? "none" : "block" }}>
-                                                        <input type="text" spellCheck="false" defaultValue={todo.message}
-                                                            onBlur={(e) => updateWeekMessage(character.id, todo.id, e.target.value)}
-                                                            onKeyDown={(e) => {
-                                                                if (e.key === "Enter") {
-                                                                    updateWeekMessage(character.id, todo.id, e.target.value);
-                                                                    e.target.blur();
-                                                                }
-                                                            }}
-                                                            placeholder="간단한 메모 추가"
-                                                        />
-                                                    </div>
-                                                </div>
+                                    <div className="content-wrap" style={{display:character.settings.showEpona ? "block":"none"}}>
+                                        <div className="content">
+                                            <div
+                                                className={`${character.eponaCheck === true ? "text-done" : ""}`}>
+                                                <span>에포나의뢰 & 출석체크</span>
                                             </div>
                                             <button
-                                                className={`content-button ${todo.check === true ? "done" : ""}`}
-                                                onClick={() => updateWeekCheck(character.id, todo.id)}
+                                                className={`content-button ${character.eponaCheck === true ? "done" : ""}`}
+                                                onClick={() => handleEponaCheck(character.id)}
                                             >
-                                                {character.goldCharacter ? todo.gold + " G" : ""}
-                                                <div className="todo-button-text">{todo.check === true ? <DoneIcon /> : ""}</div>
+                                                {character.eponaCheck === true ? <DoneIcon /> : <CloseIcon />}
                                             </button>
                                         </div>
-                                    ))}
+                                    </div>
+                                    <div className="content-wrap" style={{display:character.settings.showChaos ? "block":"none"}}>
+                                        <div className="content">
+                                            <div
+                                                className={`${character.chaosCheck === 2 ? "text-done" : ""}`}
+                                            >
+                                                <p>카오스던전</p>
+                                                <p>({character.chaosGold} gold)</p>
+                                            </div>
+                                            <SearchIcon onClick={() => openContentModal(character.characterName, "카오스던전")} style={{ cursor: "pointer" }} />
+                                            <button
+                                                className={`content-button ${character.chaosCheck === 0 ? "" :
+                                                    character.chaosCheck === 1 ? "ing" : "done"
+                                                    }`}
+                                                onClick={() => handleChaosCheck(character.id)}
+                                            >
+                                                {character.chaosCheck === 2 ? <DoneIcon /> : <CloseIcon />}
+                                            </button>
+                                        </div>
+                                        <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
+                                            onContextMenu={(e) => handleDayContentGuage(e, character.id, "chaos")}
+                                            onClick={(e) => handleDayContentGuage(e, character.id, "chaos")}>
+                                            {Array.from({ length: 5 }, (_, index) => (
+                                                <div key={index} className="gauge-wrap">
+                                                    <div
+                                                        className="gauge"
+                                                        style={{ backgroundColor: index * 2 < character.chaosGauge / 10 ? "#0ec0c3" : undefined }}
+                                                    ></div>
+                                                    <div
+                                                        className="gauge"
+                                                        style={{ backgroundColor: index * 2 + 1 < character.chaosGauge / 10 ? "#0ec0c3" : undefined }}
+                                                    ></div>
+                                                </div>
+                                            ))}
+                                            <span className="gauge-text">
+                                                휴식게이지 : {character.chaosGauge}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="content-wrap" style={{display:character.settings.showGuardian ? "block":"none"}}>
+                                        <div className="content">
+                                            <div
+                                                className={`${character.guardianCheck === 1 ? "text-done" : ""}`}
+                                            >
+                                                <p>가디언토벌</p>
+                                                <p>({character.guardianGold} gold)</p>
+                                            </div>
+                                            <SearchIcon onClick={() => openContentModal(character.characterName, "가디언토벌")} style={{ cursor: "pointer" }} />
+                                            <button
+                                                className={`content-button ${character.guardianCheck === 1 ? "done" : ""}`}
+                                                onClick={() => handleGuardianCheck(character.id)}
+                                            >
+                                                {character.guardianCheck === 1 ? <DoneIcon /> : <CloseIcon />}
+                                            </button>
+                                        </div>
+                                        <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
+                                            onContextMenu={(e) => handleDayContentGuage(e, character.id, "guardian")}
+                                            onClick={(e) => handleDayContentGuage(e, character.id, "guardian")}>
+                                            {Array.from({ length: 5 }, (_, index) => (
+                                                <div key={index} className="gauge-wrap">
+                                                    <div
+                                                        className="gauge"
+                                                        style={{ backgroundColor: index * 2 < character.guardianGauge / 10 ? "#0ec0c3" : undefined }}
+                                                    ></div>
+                                                    <div
+                                                        className="gauge"
+                                                        style={{ backgroundColor: index * 2 + 1 < character.guardianGauge / 10 ? "#0ec0c3" : undefined }}
+                                                    ></div>
+                                                </div>
+                                            ))}
+                                            <span className="gauge-text">
+                                                휴식게이지 : {character.guardianGauge}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <div className="character-wrap">
+                                    <div className="content" style={{ padding: 0, marginTop: 5, display:character.settings.showWeekTodo ? "block":"none" }}>
+                                        <button
+                                            className={"content-button"}
+                                            onClick={() => openAddTodoForm(character.characterName, character.goldCharacter)}
+                                            style={{ width: '100%', fontWeight: "bold", fontSize: 16 }}
+                                        >
+                                            주간숙제 관리
+                                        </button>
+                                    </div>
+                                    <div className="character-todo">
+                                        {character.todoList.map((todo) => (
+                                            <div
+                                                key={todo.id}
+                                                className="content"
+                                                style={{
+                                                    height: 35,
+                                                    position: "relative",
+                                                    backgroundColor: "lightsteelblue",
+                                                    justifyContent: "space-between",
+                                                    fontSize: 12,
+                                                    boxShadow:
+                                                        "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
+                                                }}
+                                            >
+                                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                                                    <div>
+                                                        {todo.message === null || todo.message === "" ? <AddBoxIcon id={"input_field_icon_" + todo.id} onClick={() => changeShow(todo.id)} /> : ""}
+                                                    </div>
+                                                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                                                        <div
+                                                            className={`${todo.check === true ? "text-done" : ""}`}
+                                                            style={{ marginLeft: 2, width: "100px" }}
+                                                        >
+                                                            {todo.name}
+                                                        </div>
+                                                        <div className={"input-field"} id={"input_field_" + todo.id} style={{ display: todo.message === null || todo.message === "" ? "none" : "block" }}>
+                                                            <input type="text" spellCheck="false" defaultValue={todo.message}
+                                                                onBlur={(e) => updateWeekMessage(character.id, todo.id, e.target.value)}
+                                                                onKeyDown={(e) => {
+                                                                    if (e.key === "Enter") {
+                                                                        updateWeekMessage(character.id, todo.id, e.target.value);
+                                                                        e.target.blur();
+                                                                    }
+                                                                }}
+                                                                placeholder="간단한 메모 추가"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    className={`content-button ${todo.check === true ? "done" : ""}`}
+                                                    onClick={() => updateWeekCheck(character.id, todo.id)}
+                                                >
+                                                    {character.goldCharacter ? todo.gold + " G" : ""}
+                                                    <div className="todo-button-text">{todo.check === true ? <DoneIcon /> : ""}</div>
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
 
-                        </Grid>
-                    ))}
-                </Grid>
-            </div>
-            {/* 모달 */}
-            <Modal
-                open={openModal}
-                onClose={closeContentModal}
-                aria-labelledby="modal-title"
-                aria-describedby="modal-description"
-            >
-                <div style={{
-                    position: "absolute",
-                    top: "50%", left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    backgroundColor: "#dddddd",
-                    padding: "20px", width: "auto", overflowY: "auto",
-                    maxHeight: 400
-                }}>
-                    <Typography variant="h5" id="modal-title">
-                        {modalTitle}
-                    </Typography>
-                    <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word", lineHeight: 2, fontWeight: "bold" }}>
-                        {modalContent}
-                    </pre>
+                            </Grid>
+                        ))}
+                    </Grid>
                 </div>
-            </Modal>
-        </div >
+                {/* 모달 */}
+                <Modal
+                    open={openModal}
+                    onClose={closeContentModal}
+                    aria-labelledby="modal-title"
+                    aria-describedby="modal-description"
+                >
+                    <div style={{
+                        position: "absolute",
+                        top: "50%", left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        backgroundColor: "#dddddd",
+                        padding: "20px", width: "auto", overflowY: "auto",
+                        maxHeight: 400
+                    }}>
+                        <Typography variant="h5" id="modal-title">
+                            {modalTitle}
+                        </Typography>
+                        <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word", lineHeight: 2, fontWeight: "bold" }}>
+                            {modalContent}
+                        </pre>
+                    </div>
+                </Modal>
+            </div >
 
-        < Notification
-            message={snackbarMessage}
-            open={openSnackbar}
-            handleClose={handleSnackbarClose}
-        />
-
-    </>
-);
+            < Notification
+                message={snackbarMessage}
+                open={openSnackbar}
+                handleClose={handleSnackbarClose}
+            />
+        </>
+    );
 }

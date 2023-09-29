@@ -7,6 +7,7 @@ import SocialLogin from './components/SocialLogin';
 import SignUp from './components/SignUp';
 import Info from './components/Info';
 import Comments from './comments/Comments';
+import Setting from './components/Setting';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path='sociallogin' element={<SocialLogin />} />
           <Route path='info' element={<Info />} />
           <Route path='comments' element={<Comments />} />
+          <Route path='setting' element={<Setting />} />
         </Routes>
       </BrowserRouter>
     </>
