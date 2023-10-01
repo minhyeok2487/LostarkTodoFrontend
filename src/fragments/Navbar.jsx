@@ -86,7 +86,7 @@ export default function Navbar() {
   return (
     <>
       <Box sx={{ flexGrow: 1, backgroundColor: "#000", fontWeight: "bold", color: "white", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
-        <span className='notification'>추석연휴 잘보내세요~~:D (임시 캐릭터 출력 선택 기능이 추가되었습니다) </span>
+        <span className='notification'>캐릭터 정보 업데이트 기능 수정중입니다. 시간이 조금 걸릴꺼같습니다ㅠㅠ </span>
       </Box>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" color='inherit'>

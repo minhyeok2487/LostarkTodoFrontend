@@ -629,9 +629,9 @@ export default function Todo() {
                     </Accordion>
                 </div>
                 <div className="setting-wrap">
-                    <Button variant="contained" onClick={() => updateCharacterList()} style={{ cursor: "pointer" }}>
+                    {/* <Button variant="contained" onClick={() => updateCharacterList()} style={{ cursor: "pointer" }}>
                         캐릭터 정보 업데이트
-                    </Button>
+                    </Button> */}
                     <div style={{ backgroundColor: "#DA81F5", borderRadius: 4, marginLeft: 5 }}>
                         <Button
                             id="fade-button"
