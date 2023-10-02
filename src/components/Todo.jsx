@@ -228,18 +228,6 @@ export default function Todo() {
 
 
     //-------------------------캐릭터 데이터 업데이트 -------------------------
-    //1.전체 캐릭터 데이터 업데이트
-    const updateCharacterList = () => {
-        setShowLinearProgress(true);
-
-        call("/member/characterList", "PATCH", null)
-            .then((response) => {
-                setShowLinearProgress(false);
-                showMessage("정보 업데이트가 완료되었습니다.");
-                setCharacters(response);
-            })
-    };
-
     //2.캐릭터 휴식게이지 업데이트
     const handleDayContentGuage = async (e, characterId, gaugeType) => {
         e.preventDefault();
@@ -576,18 +564,21 @@ export default function Todo() {
     return (
         <>
             {showLinearProgress && <LinearIndeterminate />}
-            <BasicSpeedDial />
+            <BasicSpeedDial
+                setShowLinearProgress={setShowLinearProgress}
+                setCharacters={setCharacters}
+                showMessage={showMessage}/>
             <div className="wrap">
                 <div className="setting-wrap">
-                    <div className="content-box" style={{ backgroundColor: "antiquewhite" }}>
+                    <div className="content-box">
                         <p>일일 수익</p>
-                        <p>{getDayGold.toFixed(2)} / <span style={{ color: "gray" }}>&nbsp;{totalDayGold.toFixed(2)}</span>&nbsp;Gold </p>
+                        <p>{getDayGold.toFixed(2)} / <span style={{ color: "black" }}>&nbsp;{totalDayGold.toFixed(2)}</span>&nbsp;Gold </p>
                     </div>
-                    <div className="content-box" style={{ backgroundColor: "lightsteelblue" }}>
+                    <div className="content-box">
                         <p>주간 수익</p>
-                        <p>{getWeekGold.toLocaleString()} / <span style={{ color: "gray" }}>&nbsp;{totalWeekGold.toLocaleString()}</span>&nbsp;Gold</p>
+                        <p>{getWeekGold.toLocaleString()} / <span style={{ color: "black" }}>&nbsp;{totalWeekGold.toLocaleString()}</span>&nbsp;Gold</p>
                     </div>
-                    <Accordion style={{ backgroundColor: "#D7DBDD", width: "100%" }} className="sort-wrap">
+                    <Accordion style={{ backgroundColor: "rgba(255, 255, 255, 50%)", width: "100%", border:"1px solid white" }} className="sort-wrap">
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             style={{ borderRadius: "5px" }}
@@ -629,9 +620,6 @@ export default function Todo() {
                     </Accordion>
                 </div>
                 <div className="setting-wrap">
-                    {/* <Button variant="contained" onClick={() => updateCharacterList()} style={{ cursor: "pointer" }}>
-                        캐릭터 정보 업데이트
-                    </Button> */}
                     <div style={{ backgroundColor: "#DA81F5", borderRadius: 4, marginLeft: 5 }}>
                         <Button
                             id="fade-button"
@@ -677,7 +665,7 @@ export default function Todo() {
                         </div>
                     </button>
                 </div>
-                <div className="todo-wrap">
+                <div className="todo-wrap" >
                     <Grid container spacing={1.5} overflow={"hidden"} style={{ marginBottom: 20 }}>
                         {characters.map((character) => (
                             <Grid key={character.sortNumber} item>
@@ -785,11 +773,11 @@ export default function Todo() {
                                     </div>
                                 </div>
                                 <div className="character-wrap">
-                                    <div className="content" style={{ padding: 0, marginTop: 5, display:character.settings.showWeekTodo ? "block":"none" }}>
+                                    <div className="content" style={{ padding: 0, display:character.settings.showWeekTodo ? "block":"none" }}>
                                         <button
                                             className={"content-button"}
                                             onClick={() => openAddTodoForm(character.characterName, character.goldCharacter)}
-                                            style={{ width: '100%', fontWeight: "bold", fontSize: 16 }}
+                                            style={{ width: '101%', fontWeight: "bold", fontSize: 16 }}
                                         >
                                             주간숙제 관리
                                         </button>
@@ -802,11 +790,10 @@ export default function Todo() {
                                                 style={{
                                                     height: 35,
                                                     position: "relative",
-                                                    backgroundColor: "lightsteelblue",
                                                     justifyContent: "space-between",
                                                     fontSize: 12,
-                                                    boxShadow:
-                                                        "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
+                                                    border: "1px solid white",
+                                                    borderRadius:4
                                                 }}
                                             >
                                                 <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>

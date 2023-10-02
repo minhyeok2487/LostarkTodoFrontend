@@ -89,7 +89,7 @@ export default function Navbar() {
         <span className='notification'>캐릭터 정보 업데이트 기능 수정중입니다. 시간이 조금 걸릴꺼같습니다ㅠㅠ </span>
       </Box>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" color='inherit'>
+        <AppBar position="static" color='inherit' style={{backgroundColor: "rgb(230, 230, 230)"}}>
           <Toolbar>
             <MenuItem onClick={() => (window.location.href = "/")}>
               <img src='/logo.png' style={{ width: 150 }} />

@@ -64,17 +64,17 @@ export default function Setting() {
                 <span>(임시디자인 입니다)</span>
                 <Table aria-label="simple table" className="setting-table">
                     <TableHead>
-                        <TableRow>
-                            <TableCell>id</TableCell>
-                            <TableCell align="right">서버</TableCell>
-                            <TableCell align="right">캐릭터 이름</TableCell>
-                            <TableCell align="right">클래스</TableCell>
-                            <TableCell align="right">아이템레벨</TableCell>
-                            <TableCell align="center">캐릭터 출력</TableCell>
-                            <TableCell align="center">출석&에포나</TableCell>
-                            <TableCell align="center">카오스던전</TableCell>
-                            <TableCell align="center">가디언토벌</TableCell>
-                            <TableCell align="center">주간숙제 관리</TableCell>
+                        <TableRow >
+                            <TableCell style={{color:"white", fontWeight:"bold"}} >id</TableCell>
+                            <TableCell style={{color:"white", fontWeight:"bold"}} align="right">서버</TableCell>
+                            <TableCell style={{color:"white", fontWeight:"bold"}} align="right">캐릭터 이름</TableCell>
+                            <TableCell style={{color:"white", fontWeight:"bold"}} align="right">클래스</TableCell>
+                            <TableCell style={{color:"white", fontWeight:"bold"}} align="right">아이템레벨</TableCell>
+                            <TableCell style={{color:"white", fontWeight:"bold"}} align="center">캐릭터 출력</TableCell>
+                            <TableCell style={{color:"white", fontWeight:"bold"}} align="center">출석&에포나</TableCell>
+                            <TableCell style={{color:"white", fontWeight:"bold"}} align="center">카오스던전</TableCell>
+                            <TableCell style={{color:"white", fontWeight:"bold"}} align="center">가디언토벌</TableCell>
+                            <TableCell style={{color:"white", fontWeight:"bold"}} align="center">주간숙제 관리</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -83,13 +83,13 @@ export default function Setting() {
                                 key={setting.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">
+                                <TableCell style={{color:"white"}} component="th" scope="row">
                                     {setting.id}
                                 </TableCell>
-                                <TableCell align="right">{setting.serverName}</TableCell>
-                                <TableCell align="right">{setting.characterName}</TableCell>
-                                <TableCell align="right">{setting.characterClassName}</TableCell>
-                                <TableCell align="right">{setting.itemLevel}</TableCell>
+                                <TableCell style={{color:"white"}} align="right">{setting.serverName}</TableCell>
+                                <TableCell style={{color:"white"}} align="right">{setting.characterName}</TableCell>
+                                <TableCell style={{color:"white"}} align="right">{setting.characterClassName}</TableCell>
+                                <TableCell style={{color:"white"}} align="right">{setting.itemLevel}</TableCell>
                                 <TableCell align="center">{selectSetting(setting.characterName, setting.showCharacter, "showCharacter")}</TableCell>
                                 <TableCell align="center">{selectSetting(setting.characterName, setting.showEpona, "showEpona")}</TableCell>
                                 <TableCell align="center">{selectSetting(setting.characterName, setting.showChaos, "showChaos")}</TableCell>

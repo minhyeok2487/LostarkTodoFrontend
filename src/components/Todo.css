@@ -1,3 +1,8 @@
+:root {
+  --text-color: rgb(220, 220, 220);
+  --button-color: rgb(182, 182, 182);
+}
+
 .wrap {
   font-weight: bold;
   display: flex;
@@ -6,6 +11,7 @@
   padding-left: 20px;
   padding-right: 20px;
   font-size: 13px;
+  color: var(--text-color);
 }
 
 .setting-wrap {
@@ -16,12 +22,25 @@
   width: 100%;
 }
 
+.content-button {
+  width: 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: var(--button-color);
+  transition: background-color 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
 .content-button-text {
   position: absolute;
   color: black;
 }
 
 .content-box {
+  border: 1px solid white;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -73,7 +92,7 @@
 }
 
 .content-wrap {
-  background-color: antiquewhite;
+  border: 1px solid white;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 0px;
   border-radius: 4px;
   margin-bottom: 1px;
@@ -90,16 +109,7 @@
   margin: 0px;
 }
 
-.content-button {
-  width: 40px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.5s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
+
 
 .gauge-wrap {
   width: 20%;
@@ -161,9 +171,9 @@
   font-weight: bold;
   border-radius: 3px;
   background: transparent;
-  color: rgb(80, 80, 80);
   outline: none;
   border: 0px solid gray;
+  color: white;
 }
 
 input:focus {
