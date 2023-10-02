@@ -79,10 +79,9 @@ const Comments = () => {
     return (
         <div className="comments">
             <div>
-                <h3 style={{ margin: 0 }}>2023.09.30</h3>
-                <strong>임시 캐릭터 출력 선택 기능이 추가되었습니다</strong><br />
-                오른쪽하단 "+"버튼을 통해 캐릭터마다 출력하고 싶은 내용을 선택할 수 있습니다.<br />
-                주간 에포나, 토벌전 등 여러가지 숙제 추가 후 추가 업데이트 하겠습니다.
+                <h3 style={{ margin: 0 }}>2023.10.01</h3>
+                <strong>캐릭터 업데이트 기능이 수정되었습니다.</strong><br />
+                화면 오른쪽 하단 "+"버튼에서 사용하실 수 있습니다<br />
             </div>
             <Info />
 
