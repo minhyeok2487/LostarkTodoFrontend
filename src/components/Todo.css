@@ -196,6 +196,7 @@ input:focus {
 
 .week-category-wrap {
   display: flex;
+  flex-direction: column;
 }
 
 .week-category-wrap button {

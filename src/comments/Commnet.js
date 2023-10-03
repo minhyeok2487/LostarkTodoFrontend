@@ -24,7 +24,7 @@ const Comment = ({
   const canReply = (currentUser.role === "ADMIN") || (currentUser.username === comment.username);
   const canEdit = currentUser.username === comment.username;
   const replyId = parentId ? parentId : comment.id;
-  const lastModifiedDate = new Date(comment.lastModifiedDate).toLocaleDateString();
+  const lastModifiedDate = new Date(comment.lastModifiedDate).toLocaleString();
   const username = comment.role === "ADMIN"? "관리자" : comment.username.substring(0, 5) + '*'.repeat(comment.username.length - 5);
 
   return (
@@ -36,7 +36,7 @@ const Comment = ({
         <div className="comment-content">
           <div>
             <span className="comment-author"
-              style={{color: comment.role === "ADMIN" ?  "blue" : ""}}
+              style={{color: comment.role === "ADMIN" ?  "blue" : "WHITE"}}
             >{username}</span>({lastModifiedDate})
           </div>
         </div>

@@ -97,6 +97,9 @@ export default function Navbar() {
             <MenuItem onClick={() => (window.location.href = "/comments")}>
               <p>방명록</p>
             </MenuItem>
+            <MenuItem onClick={() => (window.location.href = "/test")}>
+              <p>테스트</p>
+            </MenuItem>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">

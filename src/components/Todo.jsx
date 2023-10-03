@@ -228,6 +228,18 @@ export default function Todo() {
 
 
     //-------------------------캐릭터 데이터 업데이트 -------------------------
+    //1.전체 캐릭터 데이터 업데이트
+    const updateCharacterList = () => {
+        setShowLinearProgress(true);
+
+        call("/member/characterList", "PATCH", null)
+            .then((response) => {
+                setShowLinearProgress(false);
+                showMessage("정보 업데이트가 완료되었습니다.");
+                setCharacters(response);
+            })
+    };
+
     //2.캐릭터 휴식게이지 업데이트
     const handleDayContentGuage = async (e, characterId, gaugeType) => {
         e.preventDefault();
@@ -777,7 +789,7 @@ export default function Todo() {
                                         <button
                                             className={"content-button"}
                                             onClick={() => openAddTodoForm(character.characterName, character.goldCharacter)}
-                                            style={{ width: '101%', fontWeight: "bold", fontSize: 16 }}
+                                            style={{ width: '100%', fontWeight: "bold", fontSize: 16 }}
                                         >
                                             주간숙제 관리
                                         </button>

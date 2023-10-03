@@ -8,6 +8,7 @@ import SignUp from './components/SignUp';
 import Info from './components/Info';
 import Comments from './comments/Comments';
 import Setting from './components/Setting';
+import TodoTest from './components/TodoTest';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path='info' element={<Info />} />
           <Route path='comments' element={<Comments />} />
           <Route path='setting' element={<Setting />} />
+          <Route path="test" element={<TodoTest />} />
         </Routes>
       </BrowserRouter>
     </>
