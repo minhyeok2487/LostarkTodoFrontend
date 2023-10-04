@@ -86,7 +86,7 @@ export default function Navbar() {
   return (
     <>
       <Box sx={{ flexGrow: 1, backgroundColor: "#000", fontWeight: "bold", color: "white", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
-        <span className='notification'>캐릭터 업데이트 기능이 수정되었습니다. 화면 오른쪽 하단 "+"버튼에서 사용하실 수 있습니다 </span>
+        <span className='notification'>주간숙제 관리 개발중인 버전은 "테스트"탭에서 체험해보실 수 있습니다. </span>
       </Box>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" color='inherit' style={{backgroundColor: "rgb(230, 230, 230)"}}>

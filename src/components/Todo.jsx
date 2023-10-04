@@ -228,18 +228,6 @@ export default function Todo() {
 
 
     //-------------------------캐릭터 데이터 업데이트 -------------------------
-    //1.전체 캐릭터 데이터 업데이트
-    const updateCharacterList = () => {
-        setShowLinearProgress(true);
-
-        call("/member/characterList", "PATCH", null)
-            .then((response) => {
-                setShowLinearProgress(false);
-                showMessage("정보 업데이트가 완료되었습니다.");
-                setCharacters(response);
-            })
-    };
-
     //2.캐릭터 휴식게이지 업데이트
     const handleDayContentGuage = async (e, characterId, gaugeType) => {
         e.preventDefault();
@@ -356,10 +344,7 @@ export default function Todo() {
         setShowLinearProgress(true);
         const updatedCharacters = characters.map((character) => {
             if (character.characterName === characterName) {
-                const updateContent = {
-                    characterName: characterName,
-                };
-                call("/character/gold-character", "POST", updateContent)
+                call("/character/gold-character/"+characterName, "POST", null)
                     .then((response) => {
                         setShowLinearProgress(false);
                         character.goldCharacter = response.goldCharacter;

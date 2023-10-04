@@ -292,33 +292,34 @@ export default function TodoTest() {
                     todosByCategory[todo.weekCategory]['하드'].push(todo);
                 }
             });
-
+            console.log(todosByCategory);
             const content = Object.entries(todosByCategory).map(
                 ([weekCategory, todos], index) => (
                     <div key={index}>
                         <p>{weekCategory}</p>
-                        <div className="week-category-wrap">
+                        <div className="week-category-wrap" style={{ flexDirection: "column" }}>
                             {Object.entries(todos).map(([weekContentCategory, todo], todoIndex) => (
-                                <div key={todoIndex} style={{ display: 'flex' }}>
-                                    <button
-                                        key={todo.id}
-                                        className={`${todo.checked === true ? "done" : ""}`}
-                                        onClick={() => updateWeekTodoAll(characterName, todo)}
-                                        style={{ backgroundColor: "#F8E0E6" }}
-                                    >
-                                        {weekContentCategory} ({todo.reduce((sum, todoItem) => sum + todoItem.gold, 0)}G)
-                                    </button>
-                                    <div></div>
-                                    {todo.map((todoItem) => (
+                                (todo.length > 0 &&
+                                    <div key={todoIndex} style={{ display: 'flex' }}>
                                         <button
-                                            key={todoItem.id}
-                                            className={`${todoItem.checked === true ? "done" : ""}`}
-                                            onClick={() => updateWeekTodo(characterName, todoItem)}
+                                            key={todo.id}
+                                            className={`${todo.checked === true ? "done" : ""}`}
+                                            onClick={() => updateWeekTodoAll(characterName, todo)}
+                                            style={{ backgroundColor: "#F8E0E6" }}
                                         >
-                                            {todoItem.gate}관문 ({todoItem.gold}G)
+                                            {weekContentCategory} ({todo.reduce((sum, todoItem) => sum + todoItem.gold, 0)}G)
                                         </button>
-                                    ))}
-                                </div>
+                                        {todo.map((todoItem) => (
+                                            <button
+                                                key={todoItem.id}
+                                                className={`${todoItem.checked === true ? "done" : ""}`}
+                                                onClick={() => updateWeekTodo(characterName, todoItem)}
+                                            >
+                                                {todoItem.gate}관문 ({todoItem.gold}G)
+                                            </button>
+                                        ))}
+                                    </div>
+                                )
                             ))}
                         </div>
                     </div>
@@ -392,10 +393,7 @@ export default function TodoTest() {
         setShowLinearProgress(true);
         const updatedCharacters = characters.map((character) => {
             if (character.characterName === characterName) {
-                const updateContent = {
-                    characterName: characterName,
-                };
-                call("/character/gold-character", "POST", updateContent)
+                call("/character/gold-character/"+characterName, "POST", null)
                     .then((response) => {
                         setShowLinearProgress(false);
                         character.goldCharacter = response.goldCharacter;
@@ -616,8 +614,8 @@ export default function TodoTest() {
                 setShowLinearProgress={setShowLinearProgress}
                 setCharacters={setCharacters}
                 showMessage={showMessage} />
-            <Box sx={{ flexGrow: 1, backgroundColor:"black", fontWeight:"bold", color: "white", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
-                <span>개발중인 주간숙제 관리 테스트 버전입니다. 생각보다 작업내용이 많아 시간이 걸릴거 같습니다. 최대한 빠르게 해보도록 노력하겠습니다</span>
+            <Box sx={{ flexGrow: 1, backgroundColor: "black", fontWeight: "bold", color: "white", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
+                <span>개발중인 주간숙제 관리 테스트 버전입니다. 생각보다 작업내용이 많아 시간이 걸릴거 같습니다. 최대한 빠르게 해보도록 노력하겠습니다(50% 정도 완료...?)</span>
             </Box>
             <div className="wrap">
                 <div className="setting-wrap">
@@ -835,50 +833,60 @@ export default function TodoTest() {
                                     </div>
                                     <div className="character-todo">
                                         {character.todoList.map((todo) => (
-                                            <div
-                                                key={todo.id}
-                                                className="content"
-                                                style={{
-                                                    height: 35,
-                                                    position: "relative",
-                                                    justifyContent: "space-between",
-                                                    fontSize: 12,
-                                                    border: "1px solid white",
-                                                    borderRadius: 4
-                                                }}
-                                            >
-                                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-                                                    <div>
-                                                        {todo.message === null || todo.message === "" ? <AddBoxIcon id={"input_field_icon_" + todo.id} onClick={() => changeShow(todo.id)} /> : ""}
-                                                    </div>
-                                                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                                                        <div
-                                                            className={`${todo.check === true ? "text-done" : ""}`}
-                                                            style={{ marginLeft: 2, width: "100px" }}
-                                                        >
-                                                            {todo.name}
-                                                        </div>
-                                                        <div className={"input-field"} id={"input_field_" + todo.id} style={{ display: todo.message === null || todo.message === "" ? "none" : "block" }}>
-                                                            <input type="text" spellCheck="false" defaultValue={todo.message}
-                                                                onBlur={(e) => updateWeekMessage(character.id, todo.id, e.target.value)}
-                                                                onKeyDown={(e) => {
-                                                                    if (e.key === "Enter") {
-                                                                        updateWeekMessage(character.id, todo.id, e.target.value);
-                                                                        e.target.blur();
-                                                                    }
-                                                                }}
-                                                                placeholder="간단한 메모 추가"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button
-                                                    className={`content-button ${todo.check === true ? "done" : ""}`}
-                                                // onClick={() => updateWeekCheck(character.id, todo.id)}
+                                            <div className="content-wrap" key={todo.id}>
+                                                <div
+                                                    className="content"
+                                                    style={{
+                                                        height: 35,
+                                                        position: "relative",
+                                                        justifyContent: "space-between",
+                                                        fontSize: 12,
+                                                        border: "1px solid white",
+                                                        borderRadius: 4
+                                                    }}
                                                 >
-                                                    {character.goldCharacter ? todo.gold + " G" : ""}
-                                                    <div className="todo-button-text">{todo.check === true ? <DoneIcon /> : ""}</div>
-                                                </button>
+                                                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                                                        <div>
+                                                            {todo.message === null || todo.message === "" ? <AddBoxIcon id={"input_field_icon_" + todo.id} onClick={() => changeShow(todo.id)} /> : ""}
+                                                        </div>
+                                                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                                                            <div
+                                                                className={`${todo.check === true ? "text-done" : ""}`}
+                                                                style={{ marginLeft: 2, width: "100px" }}
+                                                                dangerouslySetInnerHTML={{ __html: todo.name.replace(/\n/g, "<br />") }}
+                                                            >
+                                                            </div>
+                                                            <div className={"input-field"} id={"input_field_" + todo.id} style={{ display: todo.message === null || todo.message === "" ? "none" : "block" }}>
+                                                                <input type="text" spellCheck="false" defaultValue={todo.message}
+                                                                    onBlur={(e) => updateWeekMessage(character.id, todo.id, e.target.value)}
+                                                                    onKeyDown={(e) => {
+                                                                        if (e.key === "Enter") {
+                                                                            updateWeekMessage(character.id, todo.id, e.target.value);
+                                                                            e.target.blur();
+                                                                        }
+                                                                    }}
+                                                                    placeholder="간단한 메모 추가"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button
+                                                        className={`content-button ${todo.check === true ? "done" : ""}`}
+                                                    // onClick={() => updateWeekCheck(character.id, todo.id)}
+                                                    >
+                                                        {character.goldCharacter ? todo.gold + " G" : ""}
+                                                        <div className="todo-button-text">{todo.check === true ? <DoneIcon /> : ""}</div>
+                                                    </button>
+                                                </div>
+                                                <div className="content" style={{ height: 16, padding: 0, position: "relative" }}>
+                                                    {Array.from({ length: todo.gate }, (_, index) => (
+                                                        <div key={`${todo.id}-${index}`} className="gauge-wrap"
+                                                            style={{ backgroundColor: "#0ec0c3", width: 100 / todo.gate + "%", alignItems: "center", justifyContent: "center", color: "black" }}>
+                                                            <span>{index + 1}관문</span>
+                                                        </div>
+                                                    ))}
+                                                    <span className="gauge-text"></span>
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
