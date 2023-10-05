@@ -11,6 +11,13 @@ import Menu from '@mui/material/Menu';
 import { logout } from '../service/api-service';
 
 export default function Navbar() {
+  const isLogin = () => {
+    if (localStorage.getItem("ACCESS_TOKEN") !== null && localStorage.getItem("ACCESS_TOKEN") !== "null") {
+      return true;
+    } else {
+      return false;
+    }
+  }
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -34,11 +41,9 @@ export default function Navbar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-
-
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
-    (localStorage.getItem("ACCESS_TOKEN") !== null && localStorage.getItem("ACCESS_TOKEN") !== "null") && (
+    (isLogin) && (
       <Menu
         sx={{ mt: '35px' }}
         anchorEl={anchorEl}
@@ -55,7 +60,8 @@ export default function Navbar() {
         open={isMenuOpen}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={logout}>Logout</MenuItem>
+        <MenuItem style={{ color: "black" }} onClick={() => (window.location.href = "/member/apikey")}>apikey 변경</MenuItem>
+        <MenuItem style={{ color: "black" }} onClick={logout}>Logout</MenuItem>
       </Menu>
     )
   );
@@ -64,23 +70,26 @@ export default function Navbar() {
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem onClick={logout}>Logout</MenuItem>
-    </Menu>
+    (isLogin) && (
+      <Menu
+        anchorEl={mobileMoreAnchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        id={mobileMenuId}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={isMobileMenuOpen}
+        onClose={handleMobileMenuClose}
+      >
+        <MenuItem style={{ color: "black" }} onClick={() => (window.location.href = "/member/apikey")}>apikey 변경</MenuItem>
+        <MenuItem style={{ color: "black" }} onClick={logout}>Logout</MenuItem>
+      </Menu>
+    )
   );
 
   return (
@@ -89,7 +98,7 @@ export default function Navbar() {
         <span className='notification'>주간숙제 관리 개발중인 버전은 "테스트"탭에서 체험해보실 수 있습니다. </span>
       </Box>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" color='inherit' style={{backgroundColor: "rgb(230, 230, 230)"}}>
+        <AppBar position="static" color='inherit' style={{ backgroundColor: "rgb(50, 50, 50)" }}>
           <Toolbar>
             <MenuItem onClick={() => (window.location.href = "/")}>
               <img src='/logo.png' style={{ width: 150 }} />
@@ -116,17 +125,19 @@ export default function Navbar() {
                 <NotificationsIcon />
               </Badge>
             </IconButton> */}
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
+              {isLogin &&
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              }
             </Box>
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
               <IconButton

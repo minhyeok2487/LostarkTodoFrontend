@@ -1,6 +1,9 @@
 :root {
   --text-color: rgb(220, 220, 220);
-  --button-color: rgb(182, 182, 182);
+  --button-color: rgb(60, 60, 60);
+}
+* {
+  color: var(--text-color);
 }
 
 .wrap {

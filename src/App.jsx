@@ -9,6 +9,7 @@ import Info from './components/Info';
 import Comments from './comments/Comments';
 import Setting from './components/Setting';
 import TodoTest from './components/TodoTest';
+import ApiKeyUpdateForm from './components/member/ApiKeyUpdateForm';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route path='comments' element={<Comments />} />
           <Route path='setting' element={<Setting />} />
           <Route path="test" element={<TodoTest />} />
+          <Route path='member/apikey' element={<ApiKeyUpdateForm />} />
         </Routes>
       </BrowserRouter>
     </>
