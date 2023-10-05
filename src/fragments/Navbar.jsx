@@ -60,8 +60,8 @@ export default function Navbar() {
         open={isMenuOpen}
         onClose={handleMenuClose}
       >
-        <MenuItem style={{ color: "black" }} onClick={() => (window.location.href = "/member/apikey")}>apikey 변경</MenuItem>
-        <MenuItem style={{ color: "black" }} onClick={logout}>Logout</MenuItem>
+        <MenuItem onClick={() => (window.location.href = "/member/apikey")}>apikey 변경</MenuItem>
+        <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     )
   );
@@ -86,15 +86,15 @@ export default function Navbar() {
         open={isMobileMenuOpen}
         onClose={handleMobileMenuClose}
       >
-        <MenuItem style={{ color: "black" }} onClick={() => (window.location.href = "/member/apikey")}>apikey 변경</MenuItem>
-        <MenuItem style={{ color: "black" }} onClick={logout}>Logout</MenuItem>
+        <MenuItem onClick={() => (window.location.href = "/member/apikey")}>apikey 변경</MenuItem>
+        <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     )
   );
 
   return (
     <>
-      <Box sx={{ flexGrow: 1, backgroundColor: "#000", fontWeight: "bold", color: "white", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
+      <Box sx={{ flexGrow: 1, backgroundColor: "#000", fontWeight: "bold", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
         <span className='notification'>주간숙제 관리 개발중인 버전은 "테스트"탭에서 체험해보실 수 있습니다. </span>
       </Box>
       <Box sx={{ flexGrow: 1 }}>
@@ -103,10 +103,10 @@ export default function Navbar() {
             <MenuItem onClick={() => (window.location.href = "/")}>
               <img src='/logo.png' style={{ width: 150 }} />
             </MenuItem>
-            <MenuItem onClick={() => (window.location.href = "/comments")}>
+            <MenuItem style={{ color: "white" }} onClick={() => (window.location.href = "/comments")}>
               <p>방명록</p>
             </MenuItem>
-            <MenuItem onClick={() => (window.location.href = "/test")}>
+            <MenuItem style={{ color: "white" }} onClick={() => (window.location.href = "/test")}>
               <p>테스트</p>
             </MenuItem>
             <Box sx={{ flexGrow: 1 }} />
@@ -133,7 +133,7 @@ export default function Navbar() {
                   aria-controls={menuId}
                   aria-haspopup="true"
                   onClick={handleProfileMenuOpen}
-                  color="inherit"
+                  style={{ color: "white" }}
                 >
                   <AccountCircle />
                 </IconButton>
@@ -146,7 +146,7 @@ export default function Navbar() {
                 aria-controls={mobileMenuId}
                 aria-haspopup="true"
                 onClick={handleMobileMenuOpen}
-                color="inherit"
+                style={{ color: "white" }}
               >
                 <MoreIcon />
               </IconButton>

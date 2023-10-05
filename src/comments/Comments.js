@@ -79,9 +79,13 @@ const Comments = () => {
     return (
         <div className="comments">
             <div>
-                <h3 style={{ margin: 0 }}>2023.10.01</h3>
-                <strong>캐릭터 업데이트 기능이 수정되었습니다.</strong><br />
-                화면 오른쪽 하단 "+"버튼에서 사용하실 수 있습니다<br />
+                <h3 style={{ margin: 0 }}>2023.10.05</h3>
+                <strong>
+                    <li>주간숙제 관리를 리뉴얼중입니다.</li>
+                    <li>API KEY 업데이트 기능을 추가하였습니다. (캐릭터 업데이트 기능 사용시 API KEY가 필요합니다.)</li>
+                    <li>중복 캐릭터 삭제 기능을 추가하셨습니다.</li>
+                    <li>회원가입시 중복으로 가입되는 문제를 수정하였습니다.</li>
+                </strong>
             </div>
             <Info />
 

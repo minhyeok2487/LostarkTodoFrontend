@@ -303,16 +303,15 @@ export default function TodoTest() {
                                     <div key={todoIndex} style={{ display: 'flex' }}>
                                         <button
                                             key={todo.id}
-                                            className={`${todo.checked === true ? "done" : ""}`}
+                                            className={`button ${todo.checked === true ? "done" : ""}`}
                                             onClick={() => updateWeekTodoAll(characterName, todo)}
-                                            style={{ backgroundColor: "#F8E0E6" }}
                                         >
                                             {weekContentCategory} ({todo.reduce((sum, todoItem) => sum + todoItem.gold, 0)}G)
                                         </button>
                                         {todo.map((todoItem) => (
                                             <button
                                                 key={todoItem.id}
-                                                className={`${todoItem.checked === true ? "done" : ""}`}
+                                                className={`button ${todoItem.checked === true ? "done" : ""}`}
                                                 onClick={() => updateWeekTodo(characterName, todoItem)}
                                             >
                                                 {todoItem.gate}관문 ({todoItem.gold}G)

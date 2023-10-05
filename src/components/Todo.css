@@ -2,9 +2,6 @@
   --text-color: rgb(220, 220, 220);
   --button-color: rgb(60, 60, 60);
 }
-* {
-  color: var(--text-color);
-}
 
 .wrap {
   font-weight: bold;
@@ -30,6 +27,7 @@
   border-radius: 5px;
   cursor: pointer;
   background-color: var(--button-color);
+  color: var(--text-color);
   transition: background-color 0.5s;
   display: flex;
   align-items: center;

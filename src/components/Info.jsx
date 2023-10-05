@@ -7,14 +7,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 function Info() {
     return (
 
-        <div>
+        <div style={{maxHeight:500, overflow:"auto"}}>
             <Accordion >
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <Typography style={{fontWeight:"bold"}}>전체 패치노트 보기</Typography>
+                    <Typography style={{ fontWeight: "bold" }}>전체 패치노트 보기</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography style={{ margin: 20, fontWeight: 600 }}>
@@ -23,6 +23,12 @@ function Info() {
                     <div style={{ fontWeight: 600, lineHeight: 2 }}>
                         <ul>
                             <h1>[패치노트]</h1>
+                            <h3>2023.10.05</h3>
+                            <li>주간숙제 관리를 리뉴얼중입니다.</li>
+                            <li>API KEY 업데이트 기능을 추가하였습니다.<br />
+                                (캐릭터 업데이트 기능 사용시 API KEY가 필요합니다.)</li>
+                            <li>중복 캐릭터 삭제 기능을 추가하셨습니다.</li>
+                            <li>회원가입시 중복으로 가입되는 문제를 수정하였습니다.</li>
                             <h3>2023.10.01</h3>
                             <li>캐릭터 업데이트 기능이 수정되었습니다. 화면 오른쪽 하단 "+"버튼에서 사용하실 수 있습니다</li>
                             <h3>2023.09.30</h3>

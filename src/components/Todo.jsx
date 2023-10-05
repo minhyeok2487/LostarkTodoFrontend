@@ -397,10 +397,10 @@ export default function Todo() {
                             todoId: todoId,
                             message: message,
                         };
+                        const inputFieldIcon = document.getElementById("input_field_icon_" + todoId);
                         call("/character/week/message", "PATCH", updateContent)
                             .then((response) => {
                                 setShowLinearProgress(false);
-                                const inputFieldIcon = document.getElementById("input_field_icon_" + todoId);
                                 if (response.message === "" || response.message === null) {
                                     inputFieldIcon.style.display = "block";
                                 } else {
@@ -410,8 +410,8 @@ export default function Todo() {
                                 return updatedTodo;
                             })
                             .catch((error) => {
-                                console.error("Error updating todo message:", error.errorMessage);
-                                return todo; // Return the original todo in case of an error
+                                setShowLinearProgress(false);
+                                changeShow(todoId);
                             });
                     }
                     return todo;
