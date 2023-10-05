@@ -7,39 +7,27 @@ import LinearIndeterminate from '../fragments/LinearIndeterminate';
 
 function SignUp() {
   const [showLinearProgress, setShowLinearProgress] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     setShowLinearProgress(true);
-    if (submitting) {
-      return;
-    }
-  
-    setSubmitting(true);
-  
+    // 오브젝트에서 form에 저장된 데이터를 맵의 형태로 바꿔줌.
     const data = new FormData(event.target);
     const apiKey = data.get("apiKey");
     const characterName = data.get("characterName");
-  
-    try {
-      await signup({
-        apiKey: apiKey,
-        characterName: characterName,
+    signup({
+      apiKey: apiKey, characterName: characterName
+    })
+      .then((response) => {
+        setShowLinearProgress(false);
+        alert("완료되었습니다.");
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        alert(error.errorMessage);
       });
-  
-      setSubmitting(false);
-      setShowLinearProgress(false);
-      alert("완료되었습니다.");
-      window.location.href = "/";
-    } catch (error) {
-      setShowLinearProgress(false);
-      setSubmitting(false);
-
-      alert(error.errorMessage);
-    }
   };
-  
+
 
   return (
 
