@@ -303,8 +303,9 @@ export default function TodoTest() {
                                     <div key={todoIndex} style={{ display: 'flex' }}>
                                         <button
                                             key={todo.id}
-                                            className={`button ${todo.checked === true ? "done" : ""}`}
+                                            className="button"
                                             onClick={() => updateWeekTodoAll(characterName, todo)}
+                                            style={{backgroundColor:"#F6CEF5"}}
                                         >
                                             {weekContentCategory} ({todo.reduce((sum, todoItem) => sum + todoItem.gold, 0)}G)
                                         </button>
@@ -392,7 +393,7 @@ export default function TodoTest() {
         setShowLinearProgress(true);
         const updatedCharacters = characters.map((character) => {
             if (character.characterName === characterName) {
-                call("/character/gold-character/"+characterName, "POST", null)
+                call("/character/gold-character/" + characterName, "POST", null)
                     .then((response) => {
                         setShowLinearProgress(false);
                         character.goldCharacter = response.goldCharacter;
@@ -411,28 +412,38 @@ export default function TodoTest() {
 
 
     // 캐릭터 주간숙제 체크
-    const updateWeekCheck = (characterId, todoId) => {
+    const updateWeekCheck = async (characterName, todo) => {
+        setShowLinearProgress(true);
         const updatedCharacters = characters.map((character) => {
-            if (character.id === characterId) {
-                const updatedTodoList = character.todoList.map((todo) => {
-                    if (todo.id === todoId) {
-                        const updateContent = {
-                            characterName: character.characterName,
-                            todoId: todoId,
-                            message: todo.check,
-                        };
-                        call("/character/week/check", "PATCH", updateContent)
-                            .then((response) => { });
-                        return { ...todo, check: !todo.check };
-                    }
-                    return todo;
-                });
-                return { ...character, todoList: updatedTodoList };
+            if (character.characterName === characterName) {
+                const updatedCharacter = {
+                    ...character
+                };
+                const updateContent = {
+                    characterName: characterName,
+                    weekCategory: todo.weekCategory,
+                    currentGate: todo.currentGate,
+                    totalGate: todo.totalGate
+                };
+                return call("/character/week-v3/check", "PATCH", updateContent)
+                    .then((response) => {
+                        setShowLinearProgress(false);
+                        updatedCharacter.todoList = response.todoList;
+                        return updatedCharacter;
+                    })
+                    .catch((error) => {
+                        setShowLinearProgress(false);
+                        alert(error.errorMessage);
+                        return null;
+                    });
             }
             return character;
         });
-        setCharacters(updatedCharacters);
+        const updatedCharactersWithTodo = await Promise.all(updatedCharacters);
+        setCharacters(updatedCharactersWithTodo);
     };
+
+
 
     const updateWeekMessage = (characterId, todoId, message) => {
         setShowLinearProgress(true);
@@ -614,7 +625,7 @@ export default function TodoTest() {
                 setCharacters={setCharacters}
                 showMessage={showMessage} />
             <Box sx={{ flexGrow: 1, backgroundColor: "black", fontWeight: "bold", color: "white", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
-                <span>개발중인 주간숙제 관리 테스트 버전입니다. 생각보다 작업내용이 많아 시간이 걸릴거 같습니다. 최대한 빠르게 해보도록 노력하겠습니다(50% 정도 완료...?)</span>
+                <span>개발중인 주간숙제 관리 테스트 버전입니다. 기본적인 로직은 만들어졌고 테스트중입니다.</span>
             </Box>
             <div className="wrap">
                 <div className="setting-wrap">
@@ -850,8 +861,8 @@ export default function TodoTest() {
                                                         </div>
                                                         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
                                                             <div
-                                                                className={`${todo.check === true ? "text-done" : ""}`}
-                                                                style={{ marginLeft: 2, width: "100px" }}
+                                                                className={`${todo.check ? "text-done" : ""}`}
+                                                                style={{ marginLeft: 2, width: "90px" }}
                                                                 dangerouslySetInnerHTML={{ __html: todo.name.replace(/\n/g, "<br />") }}
                                                             >
                                                             </div>
@@ -870,18 +881,21 @@ export default function TodoTest() {
                                                         </div>
                                                     </div>
                                                     <button
-                                                        className={`content-button ${todo.check === true ? "done" : ""}`}
-                                                    // onClick={() => updateWeekCheck(character.id, todo.id)}
+                                                        className={`content-button ${todo.check ? "done" : ""}`}
+                                                        onClick={() => updateWeekCheck(character.characterName, todo)}
                                                     >
                                                         {character.goldCharacter ? todo.gold + " G" : ""}
-                                                        <div className="todo-button-text">{todo.check === true ? <DoneIcon /> : ""}</div>
+                                                        <div className="todo-button-text">{todo.check ? <DoneIcon /> : ""}</div>
                                                     </button>
                                                 </div>
                                                 <div className="content" style={{ height: 16, padding: 0, position: "relative" }}>
-                                                    {Array.from({ length: todo.gate }, (_, index) => (
+                                                    {Array.from({ length: todo.totalGate }, (_, index) => (
                                                         <div key={`${todo.id}-${index}`} className="gauge-wrap"
-                                                            style={{ backgroundColor: "#0ec0c3", width: 100 / todo.gate + "%", alignItems: "center", justifyContent: "center", color: "black" }}>
-                                                            <span>{index + 1}관문</span>
+                                                            style={{
+                                                                backgroundColor: todo.currentGate > index ? "#0ec0c3" : "",
+                                                                width: 100 / todo.totalGate + "%", alignItems: "center", justifyContent: "center", color: "black"
+                                                            }}>
+                                                            <span style={{ color: todo.currentGate > index ? "" : "white" }}>{index + 1}관문</span>
                                                         </div>
                                                     ))}
                                                     <span className="gauge-text"></span>
