@@ -130,7 +130,7 @@ export default function Todo() {
                     chaosCheck: character.chaosCheck,
                     guardianCheck: character.guardianCheck,
                 };
-                call("/character/check", "PATCH", updateContent).then((response) => { });
+                call("/character/day-content/check", "PATCH", updateContent).then((response) => { });
             }
             return character;
         });
@@ -156,7 +156,7 @@ export default function Todo() {
                     chaosCheck: character.chaosCheck,
                     guardianCheck: character.guardianCheck,
                 };
-                call("/character/check", "PATCH", updateContent).then((response) => { });
+                call("/character/day-content/check", "PATCH", updateContent).then((response) => { });
             }
             return character;
         });
@@ -179,7 +179,7 @@ export default function Todo() {
                     chaosCheck: character.chaosCheck,
                     guardianCheck: character.guardianCheck,
                 };
-                call("/character/check", "PATCH", updateContent).then((response) => { });
+                call("/character/day-content/check", "PATCH", updateContent).then((response) => { });
             }
             return character;
         });
@@ -252,7 +252,7 @@ export default function Todo() {
 
                         setShowLinearProgress(true);
 
-                        return call("/character/gauge", "PATCH", updateContent)
+                        return call("/character/day-content/gauge", "PATCH", updateContent)
                             .then((response) => {
                                 setShowLinearProgress(false);
                                 updatedCharacter.chaosGold = response.chaosGold;
@@ -261,7 +261,8 @@ export default function Todo() {
                             })
                             .catch((error) => {
                                 alert(error.errorMessage);
-                                return null;
+                                setShowLinearProgress(false);
+                                return character;
                             });
                     }
                     return character;
@@ -450,7 +451,7 @@ export default function Todo() {
         setModalTitle("[" + character + "] " + category + " 평균 데이터");
 
         // 비동기 작업을 실행하고 작업이 완료되면 모달 컨텐츠를 업데이트하고 모달을 엽니다.
-        call("/character/day-todo/" + character + "/" + category, "GET", null)
+        call("/character/day-content/" + character + "/" + category, "GET", null)
             .then((response) => {
                 if (category === "카오스던전") {
                     var modalContent = (
