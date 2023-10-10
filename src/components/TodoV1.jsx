@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import './Todo.css';
 import { call } from "../service/api-service";
 import Typography from "@mui/material/Typography";
 import SearchIcon from '@mui/icons-material/Search';

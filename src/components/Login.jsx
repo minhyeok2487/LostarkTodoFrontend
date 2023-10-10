@@ -5,6 +5,7 @@ import {
   Typography,
   Button
 } from "@mui/material";
+import '../App.css';
 import { socialLogin } from "../service/api-service";
 
 
@@ -20,15 +21,15 @@ function Login() {
 
   return (
     <>
-      <Container component="main" maxWidth="xs" style={{ marginTop: "15%" }}>
-        <Grid container spacing={2}>
+      <Container component="main" maxWidth="xs" style={{height:"90vh" }}>
+        <Grid container spacing={2} style={{marginTop:"30%"}}>
           <Grid item xs={12}>
-            <Typography component="h1" variant="h5" textAlign={"center"}>
+            <Typography component="h1" variant="h5" textAlign={"center"} style={{color:"var(--text-color)"}}>
               로그인 후 이용해주세요
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Button onClick={() => handleSociallogin("google")} fullWidth variant="contained" style={{ backgroundColor: '#000' }}>
+            <Button onClick={() => handleSociallogin("google")} fullWidth variant="contained">
               구글 로그인
             </Button>
           </Grid>

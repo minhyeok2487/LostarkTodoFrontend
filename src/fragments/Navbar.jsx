@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './Navbar.css';
+import '../App.css';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,6 +11,7 @@ import Menu from '@mui/material/Menu';
 import { logout } from '../service/api-service';
 
 export default function Navbar() {
+
   const isLogin = () => {
     if (localStorage.getItem("ACCESS_TOKEN") !== null && localStorage.getItem("ACCESS_TOKEN") !== "null") {
       return true;
@@ -98,33 +99,19 @@ export default function Navbar() {
         <span className='notification'>방명록 공지사항을 확인해주세요!</span>
       </Box>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" color='inherit' style={{ backgroundColor: "#7275C8" }}>
+        <AppBar position="static" color='inherit' style={{ backgroundColor: "var(--nav-color)" }}>
           <Toolbar>
             <MenuItem onClick={() => (window.location.href = "/")}>
               <img src='/logo.png' style={{ width: 150 }} />
             </MenuItem>
-            <MenuItem style={{ color: "white" }} onClick={() => (window.location.href = "/todo")}>
+            {/* <MenuItem style={{ color: "white" }} onClick={() => (window.location.href = "/todo")}>
               <p>이전버전</p>
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem style={{ color: "white" }} onClick={() => (window.location.href = "/comments")}>
               <p>방명록</p>
             </MenuItem>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
               {isLogin &&
                 <IconButton
                   size="large"

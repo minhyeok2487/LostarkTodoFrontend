@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Container, Grid, Typography, TextField, Button } from "@mui/material";
 import { signup } from "../service/api-service";
 import { Link } from "react-router-dom";
-import './Todo.css';
 import LinearIndeterminate from '../fragments/LinearIndeterminate';
 
 function SignUp() {

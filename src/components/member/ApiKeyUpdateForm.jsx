@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Container, Grid, Typography, TextField, Button } from "@mui/material";
 import { call } from "../../service/api-service";
 import { Link } from "react-router-dom";
-import '../Todo.css';
 import LinearIndeterminate from '../../fragments/LinearIndeterminate';
 
 function ApiKeyUpdateForm() {
@@ -32,15 +31,15 @@ function ApiKeyUpdateForm() {
 
     <>
       {showLinearProgress && <LinearIndeterminate />}
-      <Container component="main" maxWidth="xs" style={{ marginTop: "8%" }}>
-        <form noValidate onSubmit={handleSubmit}>
+      <Container component="main" maxWidth="xs" style={{height:"90vh" }}>
+        <form noValidate onSubmit={handleSubmit} style={{marginTop:"30%"}}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography component="h1" variant="h5" textAlign={"center"}>
+              <Typography component="h1" variant="h5" textAlign={"center"} style={{color:"var(--text-color)"}}>
                 API KEY 업데이트
               </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} >
               <TextField
                 name="apiKey"
                 variant="outlined"
@@ -49,7 +48,7 @@ function ApiKeyUpdateForm() {
                 id="apiKey"
                 label="로스트아크 ApiKey"
               />
-              <Link to="https://canfactory.tistory.com/1081" target="_blank" variant="body2">
+              <Link to="https://canfactory.tistory.com/1081" target="_blank" variant="body2" style={{color:"var(--text-color)"}}>
                 apikey발급을 모르십니까?
               </Link>
             </Grid>

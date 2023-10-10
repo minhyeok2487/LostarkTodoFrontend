@@ -1,0 +1,474 @@
+:root {
+  --background: linear-gradient(to bottom, #9fa5e4, #a4abe4, #a9b2e4, #aeb8e4, #b4bee4, #bdc5e6, #c6cce8, #cfd3ea, #dcdeef, #e8e8f4, #f4f4f9, #ffffff);
+  --nav-color:#7275C8;
+  --text-color: rgb(0, 0, 0);
+  --text-done-color: rgb(50, 50, 50);
+  --button-color: #d0e1f9;
+  --content-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+  --content-border: 1px ridge black;
+}
+
+.ui-dark {
+  --background: linear-gradient(to bottom, #242424, #242424, #242424, #242424, #242424);
+  --nav-color:#313255;
+  --text-color: rgb(255, 255, 255);
+  --text-done-color: rgb(200, 200, 200);
+  --button-color: #4f6580;
+  --content-border: 1px ridge white;
+}
+
+body {
+  background-image: var(--background);
+  background-repeat: no-repeat;
+}
+
+.theme-label {
+  width:100px;
+  height:40px;
+  position: fixed;
+  bottom: 35px; 
+  right: 100px;
+  display: block;
+  background: #ebebeb;
+  border-radius: 100px;
+  box-shadow: inset 0px 5px 15px rgba(0,0,0,0.4), inset 0px -5px 15px rgba(255,255,255,0.4);
+  cursor: pointer;
+  z-index: 9999;
+}
+
+.theme-label:after {
+  content: "";
+  width:36px;
+  height: 36px;
+  position: absolute;
+  top:2.7px;
+  left:2.7px;
+  background: linear-gradient(180deg,#ffcc89,#d8860b);
+  border-radius: 40px;
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+}
+
+.theme-input {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+.theme-input:checked + .theme-label {
+  background: #242424;
+}
+.theme-input:checked + .theme-label:after {
+  left:90px;
+  transform: translateX(-100%);
+  background: linear-gradient(180deg,#777,#3a3a3a);
+}
+.theme-label, .theme-label:after {
+  transition: 0.3s
+}
+.theme-label:active:after{ 
+  width: 50px; 
+}
+
+/* ---------------------- Navbar CSS ---------------------*/
+.notification {
+	background: linear-gradient(90deg, #ff0000, #ffff00, #ff00f3, #0033ff, #ff00c4, #ff0000);
+	background-size: 400%;
+	letter-spacing: 10px;
+    font-size: 17px;
+	font-weight: bold;
+	word-spacing: 5px;
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	animation: animate 10s linear infinite;
+}
+
+@keyframes animate {
+	0% {
+		background-position: 0%;
+	}
+
+	100% {
+		background-position: 400%;
+	}
+}
+/* ---------------------- Todo CSS ---------------------*/
+.wrap {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 13px;
+  color: var(--text-color);
+}
+
+.setting-wrap {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  max-width: 1300px;
+  width: 100%;
+}
+
+.content-button {
+  width: 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: var(--button-color);
+  color: var(--text-color);
+  transition: background-color 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border: none;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.content-button-text {
+  position: absolute;
+  color: black;
+}
+
+.content-box {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 300px;
+  height: 48px;
+  margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-shadow: var(--content-shadow);
+
+}
+
+.content-box p {
+  margin: 0;
+}
+
+.character-info-mini {
+  height: 70px;
+  color: white;
+  padding-left: 10px;
+  padding-top: 1px;
+  background-size: 120%;
+  border-radius: 5px;
+}
+
+.todo-wrap {
+  max-width: 1300px;
+  margin-top: 10px;
+}
+
+.character-wrap {
+  width: 206.6px;
+}
+
+.character-info {
+  color: white;
+  height: 120px;
+  padding-left: 15px;
+  background-size: 150%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.character-info span {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.content-wrap {
+  border-radius: 4px;
+  margin-bottom: 1px;
+  border: var(--content-border);
+}
+
+.content {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content p {
+  margin: 0px;
+}
+
+.gauge-wrap {
+  width: 20%;
+  height: 100%;
+  border-radius: 4px;
+  border: 1px solid rgb(136, 136, 136);
+  display: flex;
+  flex-direction: row;
+}
+
+.gauge {
+  width: 50%;
+  height: 100%;
+}
+
+.gauge-text {
+  position: absolute;
+  left: 35px;
+  top: 5px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 140px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.ing {
+  background: #aae4e6;
+}
+
+.done {
+  background: #0ec0c3;
+  color: var(--text-done-color);
+}
+
+.text-done {
+  color: var(--text-done-color);
+  text-decoration: line-through;
+}
+
+.gold-border {
+  border: 2px solid gold;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px gold;
+  background-color: black;
+  width: fit-content;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.input-field {
+  position: relative;
+}
+
+.input-field input {
+  height: 12px;
+  width: 100px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 3px;
+  background: transparent;
+  outline: none;
+  border: 0px solid gray;
+  color: var(--text-done-color);
+}
+
+input:focus {
+  border: 2px solid #ffcc00;
+}
+
+.character-todo button {
+  width: 60px;
+  height: 100%;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.todo-button-text {
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  color: black;
+}
+
+.week-category-wrap {
+  display: flex;
+  /* flex-direction: column; */
+}
+
+.week-category-wrap button {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: fit-content;
+  height: 40px;
+}
+
+@media (max-width: 900px) {
+  .sort-wrap {
+    display: none;
+    /* 요소 숨기기 */
+  }
+}
+
+@media (max-width: 900px) {
+  .wrap {
+    font-size: 12px;
+  }
+
+  .character-wrap {
+    width: 180px;
+  }
+
+  .character-info {
+    height: 100px;
+  }
+
+  .gauge-text {
+    left: 22px;
+    top: 6px;
+  }
+
+  .character-todo button {
+    width: 40px;
+    font-size: 9px;
+  }
+
+  .todo-button-text {
+    top: 13px;
+    right: 12px;
+  }
+
+  .week-category-wrap {
+    width: 220px;
+    flex-direction: column;
+    overflow: auto;
+    overflow-x: auto;
+  }
+}
+
+/* ---------------------- Settings CSS ---------------------*/
+.setting-table-wrap {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color:var(--text-color);
+}
+
+.setting-table {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  max-width: 1300px;
+  border: 1px solid black;
+  color:var(--text-color);
+}
+
+@media (max-width: 900px) {
+  .setting-table-wrap {
+      display: block;
+      overflow: hidden;
+      width: fit-content;
+  }
+}
+
+/* ---------------------- comments CSS ---------------------*/
+.comments {
+  margin: 40px;
+  color: var(--text-color);
+}
+
+.comments-title {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.comments-container {
+  margin-top: 40px;
+}
+
+.comment-form-title {
+  font-size: 18px;
+}
+
+.comment-form-textarea {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  border: 1px solid rgb(107, 114, 12);
+}
+
+.comment-form-button {
+  font-size: 16px;
+  padding: 8px 16px;
+  background: rgb(59, 130, 246);
+  border-radius: 8px;
+  color: var(--text-color);
+}
+
+.comment-form-button:hover:enabled {
+  cursor: pointer;
+  background: rgb(37, 99, 235);
+}
+
+.comment-form-button:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.comment-form-cancel-button {
+  margin-left: 10px;
+}
+
+.comment {
+  display: flex;
+  margin-bottom: 28px;
+}
+
+.comment-image-container {
+  margin-right: 12px;
+}
+
+.comment-image-container img {
+  border-radius: 50px;
+}
+
+.comment-right-part {
+  width: 100%;
+}
+
+.comment-content {
+  display: flex;
+}
+
+.comment-author {
+  margin-right: 8px;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.comment-text {
+  font-size: 18px;
+}
+
+.comment-actions {
+  display: flex;
+  font-size: 12px;
+  color: var(--text-color);
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.comment-action {
+  margin-right: 8px;
+}
+
+.comment-action:hover {
+  text-decoration: underline;
+}
+
+.replies {
+  margin-top: 20px;
+}

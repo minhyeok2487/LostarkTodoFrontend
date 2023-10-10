@@ -7,7 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 function Info() {
     return (
 
-        <div style={{maxHeight:500, overflow:"auto"}}>
+        <div style={{ maxHeight: 500, overflow: "auto" }}>
             <Accordion >
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -23,6 +23,19 @@ function Info() {
                     <div style={{ fontWeight: 600, lineHeight: 2 }}>
                         <ul>
                             <h1>[패치노트]</h1>
+                            <h3>2023.10.11</h3>
+                            <li>주간숙제 관리 버전이 리뉴얼 되었습니다.</li>
+                            <li>우클릭시 전체 체크/해제 됩니다. (이경우 이전버전과 똑같아서 이전 버전은 내리겠습니다.)</li>
+                            <li><a href='https://www.inven.co.kr/board/lostark/4821/94498'>2주 쿨타임레이드의 경우 출력/미출력 변경됩니다(자세한 내용은 인벤게시글을 참고해주세요)</a></li>
+                            <li>주간숙제 간단한 메시지 기록을 수정했습니다.</li>
+                            <li>다크모드를 추가했습니다.</li>
+                            <h3>2023.10.10</h3>
+                            <li>주간숙제 관리 버전이 리뉴얼 되었습니다.</li>
+                            <li>우클릭시 전체 체크/해제 됩니다.(전체가 체크되야 주간수익에 들어갑니다. 이부분은 추후 수정하겠습니다.)</li>
+                            <li>이전버전이 편하신 분은 상단 탭에서 "이전버전"에 있습니다. </li>
+                            <li>2주 쿨타임레이드의 경우 출력/미출력 변경됩니다(자세한 내용은 인벤에 올리겠습니다.)</li>
+                            <li>일주일 넘기기 테스트 버튼으로 테스트를 해보시고 버그가 있다면 제보해주시면 감사하겠습니다.(11일 수요일 패치전에 삭제할 예정입니다.)</li>
+                            <li>휴식게이지가 10일때 줄어드는 경우를 수정했습니다.</li>
                             <h3>2023.10.05</h3>
                             <li>주간숙제 관리를 리뉴얼중입니다.</li>
                             <li>API KEY 업데이트 기능을 추가하였습니다.<br />
