@@ -1,5 +1,5 @@
 :root {
-  --background: linear-gradient(to bottom, #9fa5e4, #a4abe4, #a9b2e4, #aeb8e4, #b4bee4, #bdc5e6, #c6cce8, #cfd3ea, #dcdeef, #e8e8f4, #f4f4f9, #ffffff);
+  --background: #b2b8e7;
   --nav-color:#7275C8;
   --text-color: rgb(0, 0, 0);
   --text-done-color: rgb(50, 50, 50);
@@ -9,7 +9,7 @@
 }
 
 .ui-dark {
-  --background: linear-gradient(to bottom, #242424, #242424, #242424, #242424, #242424);
+  --background: #242424;
   --nav-color:#313255;
   --text-color: rgb(255, 255, 255);
   --text-done-color: rgb(200, 200, 200);
@@ -17,13 +17,9 @@
   --content-border: 1px ridge white;
 }
 
-body, html {
+html, body {
+  background-color: var(--background);
   height: 100%;
-}
-
-body {
-  background-image: var(--background);
-  background-repeat: no-repeat;
 }
 
 .theme-label {
@@ -105,6 +101,7 @@ body {
   padding-right: 20px;
   font-size: 13px;
   color: var(--text-color);
+  margin-bottom: 30px;
   height: 100%;
 }
 
@@ -167,6 +164,7 @@ body {
 .todo-wrap {
   max-width: 1300px;
   margin-top: 10px;
+  height: 100%;
 }
 
 .character-wrap {
@@ -381,6 +379,7 @@ input:focus {
 .comments {
   margin: 40px;
   color: var(--text-color);
+  height: 100%;
 }
 
 .comments-title {
