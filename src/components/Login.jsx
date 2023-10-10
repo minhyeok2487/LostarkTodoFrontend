@@ -21,7 +21,7 @@ function Login() {
 
   return (
     <>
-      <Container component="main" maxWidth="xs" style={{height:"90vh" }}>
+      <Container component="main" maxWidth="xs">
         <Grid container spacing={2} style={{marginTop:"30%"}}>
           <Grid item xs={12}>
             <Typography component="h1" variant="h5" textAlign={"center"} style={{color:"var(--text-color)"}}>

@@ -31,7 +31,7 @@ function ApiKeyUpdateForm() {
 
     <>
       {showLinearProgress && <LinearIndeterminate />}
-      <Container component="main" maxWidth="xs" style={{height:"90vh" }}>
+      <Container component="main" maxWidth="xs" >
         <form noValidate onSubmit={handleSubmit} style={{marginTop:"30%"}}>
           <Grid container spacing={2}>
             <Grid item xs={12}>

@@ -17,10 +17,13 @@
   --content-border: 1px ridge white;
 }
 
+body, html {
+  height: 100%;
+}
+
 body {
   background-image: var(--background);
   background-repeat: no-repeat;
-  height: 100vh;
 }
 
 .theme-label {
@@ -102,6 +105,7 @@ body {
   padding-right: 20px;
   font-size: 13px;
   color: var(--text-color);
+  height: 100%;
 }
 
 .setting-wrap {

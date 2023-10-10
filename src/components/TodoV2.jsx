@@ -501,16 +501,9 @@ export default function TodoV2() {
                             {characters.length > 0 && (characters[0]?.challengeAbyss === true ? <DoneIcon /> : "")}
                         </div>
                     </button>
-                    {/* <button
-                        className="content-button"
-                        onClick={() => test()}
-                        style={{ width: 160, marginLeft: 5 }}
-                    >
-                        일주일 넘기기 테스트
-                    </button> */}
                 </div>
                 <div className="todo-wrap" >
-                    <Grid container spacing={1.5} overflow={"hidden"} style={{ marginBottom: 20 }}>
+                    <Grid container spacing={1.5} overflow={"hidden"}>
                         {characters.map((character) => (
                             <Grid key={character.sortNumber} item>
                                 <div className="character-wrap">
