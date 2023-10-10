@@ -96,7 +96,7 @@ export default function Navbar() {
   return (
     <>
       <Box sx={{ flexGrow: 1, backgroundColor: "#000", fontWeight: "bold", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
-        <span className='notification'>방명록 공지사항을 확인해주세요!</span>
+        <span className='notification'>주간 숙제 버튼 우클릭시 한번에 체크됩니당!</span>
       </Box>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" color='inherit' style={{ backgroundColor: "var(--nav-color)" }}>

@@ -385,6 +385,7 @@ input:focus {
 
 .comments-container {
   margin-top: 40px;
+  width: 100%;
 }
 
 .comment-form-title {
@@ -440,6 +441,7 @@ input:focus {
 
 .comment-content {
   display: flex;
+  width: 100%;
 }
 
 .comment-author {
@@ -450,7 +452,8 @@ input:focus {
 }
 
 .comment-text {
-  font-size: 18px;
+  font-size: 16px;
+  word-wrap: break-word;
 }
 
 .comment-actions {

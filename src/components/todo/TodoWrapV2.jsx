@@ -3,8 +3,6 @@ import { call } from "../../service/api-service";
 import Button from '@mui/material/Button';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import DoneIcon from '@mui/icons-material/Done';
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
 
 const TodoWrapV2 = ({
     characters,
@@ -15,17 +13,6 @@ const TodoWrapV2 = ({
     setOpenModal,
     setShowLinearProgress,
 }) => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
-
-    const handlePopoverOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handlePopoverClose = () => {
-        setAnchorEl(null);
-    };
-
-    const open = Boolean(anchorEl);
     //1.캐릭터 주간숙제 추가 폼
     const openAddTodoForm = (characterName, goldCharacter) => {
         setModalTitle(characterName + " 주간 숙제 관리");
@@ -328,10 +315,6 @@ const TodoWrapV2 = ({
                                 className={`content-button ${todo.check ? "done" : ""}`}
                                 onClick={() => updateWeekCheck(character.characterName, todo)}
                                 onContextMenu={(e) => updateWeekCheckAll(e, character.characterName, todo)}
-                                aria-owns={open ? 'mouse-over-popover' : undefined}
-                                aria-haspopup="true"
-                                onMouseEnter={handlePopoverOpen}
-                                onMouseLeave={handlePopoverClose}
                             >
                                 {character.goldCharacter ? todo.gold + " G" : ""}
                                 <div className="todo-button-text">{todo.check ? <DoneIcon /> : ""}</div>
@@ -353,26 +336,6 @@ const TodoWrapV2 = ({
                     </div>
                 ))}
             </div>
-            <Popover
-                id="mouse-over-popover"
-                sx={{
-                    pointerEvents: 'none',
-                }}
-                open={open}
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                }}
-                onClose={handlePopoverClose}
-                disableRestoreFocus
-            >
-                <Typography sx={{ p: 1, fontSize:9, background:"rgba(0,0,0,60%)", color:"white", fontWeight:"bold" }}>우클릭시 전체 체크됩니다.</Typography>
-            </Popover>
         </div>
 
     );
