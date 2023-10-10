@@ -101,7 +101,6 @@ html, body {
   padding-right: 20px;
   font-size: 13px;
   color: var(--text-color);
-  margin-bottom: 30px;
   height: 100%;
 }
 
@@ -165,6 +164,7 @@ html, body {
   max-width: 1300px;
   margin-top: 10px;
   height: 100%;
+  margin-bottom: 30px;
 }
 
 .character-wrap {
