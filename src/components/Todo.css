@@ -1,6 +1,9 @@
 :root {
-  --text-color: rgb(220, 220, 220);
-  --button-color: rgb(60, 60, 60);
+  --text-color: rgb(0, 0, 0);
+  --text-done-color: rgb(50, 50, 50);
+  --button-color: #d0e1f9;
+  --content-shadow : rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+  --content-border : 1px ridge black;
 }
 
 .wrap {
@@ -33,6 +36,8 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  border: none;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .content-button-text {
@@ -41,7 +46,6 @@
 }
 
 .content-box {
-  border: 1px solid white;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -52,6 +56,8 @@
   margin-right: 10px;
   padding-left: 10px;
   padding-right: 10px;
+  box-shadow: var(--content-shadow);
+
 }
 
 .content-box p {
@@ -93,10 +99,9 @@
 }
 
 .content-wrap {
-  border: 1px solid white;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 0px;
   border-radius: 4px;
   margin-bottom: 1px;
+  border: var(--content-border);
 }
 
 .content {
@@ -143,11 +148,11 @@
 
 .done {
   background: #0ec0c3;
-  color: gray;
+  color: var(--text-done-color);
 }
 
 .text-done {
-  color: gray;
+  color: var(--text-done-color);
   text-decoration: line-through;
 }
 
@@ -252,6 +257,7 @@ input:focus {
   .week-category-wrap {
     width: 220px;
     flex-direction: column;
-    overflow: hidden;
+    overflow: auto;
+    overflow-x: auto;
   }
 }

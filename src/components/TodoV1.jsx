@@ -28,7 +28,7 @@ import Fade from '@mui/material/Fade';
 import BasicSpeedDial from '../fragments/BasicSpeedDial';
 
 
-export default function Todo() {
+export default function TodoV1() {
     const [characters, setCharacters] = useState([]); //캐릭터 리스트
     const [servers, setServers] = useState([]); //서버 리스트
     const [selectedServer, setSelectedServer] = useState(null);
@@ -276,7 +276,7 @@ export default function Todo() {
     //3.캐릭터 주간숙제 추가 폼
     const openAddTodoForm = (characterName, goldCharacter) => {
         setModalTitle(characterName + " 주간 숙제 관리");
-        call("/character/week/" + characterName, "GET", null).then((response) => {
+        call("/character/week/v2" + characterName, "GET", null).then((response) => {
             const todosByCategory = {};
 
             // Group todos by category
@@ -323,7 +323,7 @@ export default function Todo() {
 
         const updatedCharacters = characters.map((character) => {
             if (character.characterName === characterName) {
-                call("/character/week/" + characterName, "POST", content)
+                call("/character/week/v2" + characterName, "POST", content)
                     .then((response) => {
                         setShowLinearProgress(false);
                         openAddTodoForm(characterName, response.goldCharacter);
@@ -374,7 +374,7 @@ export default function Todo() {
                             todoId: todoId,
                             message: todo.check,
                         };
-                        call("/character/week/check", "PATCH", updateContent)
+                        call("/character/week/v2/check", "PATCH", updateContent)
                             .then((response) => { });
                         return { ...todo, check: !todo.check };
                     }
@@ -399,7 +399,7 @@ export default function Todo() {
                             message: message,
                         };
                         const inputFieldIcon = document.getElementById("input_field_icon_" + todoId);
-                        call("/character/week/message", "PATCH", updateContent)
+                        call("/character/week/v2/message", "PATCH", updateContent)
                             .then((response) => {
                                 setShowLinearProgress(false);
                                 if (response.message === "" || response.message === null) {
@@ -790,7 +790,7 @@ export default function Todo() {
                                                     position: "relative",
                                                     justifyContent: "space-between",
                                                     fontSize: 12,
-                                                    border: "1px solid white",
+                                                    border: "1px ridge black",
                                                     borderRadius:4
                                                 }}
                                             >

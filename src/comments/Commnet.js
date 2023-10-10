@@ -36,7 +36,7 @@ const Comment = ({
         <div className="comment-content">
           <div>
             <span className="comment-author"
-              style={{color: comment.role === "ADMIN" ?  "blue" : "WHITE"}}
+              style={{color: comment.role === "ADMIN" ?  "blue" : ""}}
             >{username}</span>({lastModifiedDate})
           </div>
         </div>

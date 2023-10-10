@@ -26,10 +26,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import BasicSpeedDial from '../fragments/BasicSpeedDial';
-import Box from '@mui/material/Box';
 
 
-export default function TodoTest() {
+export default function TodoV2() {
     const [characters, setCharacters] = useState([]); //캐릭터 리스트
     const [servers, setServers] = useState([]); //서버 리스트
     const [selectedServer, setSelectedServer] = useState(null);
@@ -131,7 +130,7 @@ export default function TodoTest() {
                     chaosCheck: character.chaosCheck,
                     guardianCheck: character.guardianCheck,
                 };
-                call("/character/check", "PATCH", updateContent).then((response) => { });
+                call("/character/day-content/check", "PATCH", updateContent).then((response) => { });
             }
             return character;
         });
@@ -157,7 +156,7 @@ export default function TodoTest() {
                     chaosCheck: character.chaosCheck,
                     guardianCheck: character.guardianCheck,
                 };
-                call("/character/check", "PATCH", updateContent).then((response) => { });
+                call("/character/day-content/check", "PATCH", updateContent).then((response) => { });
             }
             return character;
         });
@@ -180,7 +179,7 @@ export default function TodoTest() {
                     chaosCheck: character.chaosCheck,
                     guardianCheck: character.guardianCheck,
                 };
-                call("/character/check", "PATCH", updateContent).then((response) => { });
+                call("/character/day-content/check", "PATCH", updateContent).then((response) => { });
             }
             return character;
         });
@@ -253,7 +252,7 @@ export default function TodoTest() {
 
                         setShowLinearProgress(true);
 
-                        return call("/character/gauge", "PATCH", updateContent)
+                        return call("/character/day-content/gauge", "PATCH", updateContent)
                             .then((response) => {
                                 setShowLinearProgress(false);
                                 updatedCharacter.chaosGold = response.chaosGold;
@@ -276,7 +275,7 @@ export default function TodoTest() {
     //3.캐릭터 주간숙제 추가 폼
     const openAddTodoForm = (characterName, goldCharacter) => {
         setModalTitle(characterName + " 주간 숙제 관리");
-        call("/character/week-v3/" + characterName, "GET", null).then((response) => {
+        call("/character/week/v3/" + characterName, "GET", null).then((response) => {
             const todosByCategory = {};
 
             response.forEach((todo) => {
@@ -305,7 +304,7 @@ export default function TodoTest() {
                                             key={todo.id}
                                             className="button"
                                             onClick={() => updateWeekTodoAll(characterName, todo)}
-                                            style={{backgroundColor:"#F6CEF5"}}
+                                            style={{ backgroundColor: "#F6CEF5" }}
                                         >
                                             {weekContentCategory} ({todo.reduce((sum, todoItem) => sum + todoItem.gold, 0)}G)
                                         </button>
@@ -350,7 +349,7 @@ export default function TodoTest() {
 
         const updatedCharacters = characters.map((character) => {
             if (character.characterName === characterName) {
-                call("/character/week-v3/" + characterName, "POST", content)
+                call("/character/week/v3/" + characterName, "POST", content)
                     .then((response) => {
                         setShowLinearProgress(false);
                         openAddTodoForm(characterName, response.goldCharacter);
@@ -372,7 +371,7 @@ export default function TodoTest() {
 
         const updatedCharacters = characters.map((character) => {
             if (character.characterName === characterName) {
-                call("/character/week-v3-all/" + characterName, "POST", content)
+                call("/character/week/v3/all/" + characterName, "POST", content)
                     .then((response) => {
                         setShowLinearProgress(false);
                         openAddTodoForm(characterName, response.goldCharacter);
@@ -425,7 +424,38 @@ export default function TodoTest() {
                     currentGate: todo.currentGate,
                     totalGate: todo.totalGate
                 };
-                return call("/character/week-v3/check", "PATCH", updateContent)
+                return call("/character/week/v3/check", "PATCH", updateContent)
+                    .then((response) => {
+                        setShowLinearProgress(false);
+                        updatedCharacter.todoList = response.todoList;
+                        return updatedCharacter;
+                    })
+                    .catch((error) => {
+                        setShowLinearProgress(false);
+                        alert(error.errorMessage);
+                        return null;
+                    });
+            }
+            return character;
+        });
+        const updatedCharactersWithTodo = await Promise.all(updatedCharacters);
+        setCharacters(updatedCharactersWithTodo);
+    };
+
+    // 캐릭터 주간숙제 체크
+    const updateWeekCheckAll = async (e, characterName, todo) => {
+        e.preventDefault();
+        setShowLinearProgress(true);
+        const updatedCharacters = characters.map((character) => {
+            if (character.characterName === characterName) {
+                const updatedCharacter = {
+                    ...character
+                };
+                const updateContent = {
+                    characterName: characterName,
+                    weekCategory: todo.weekCategory,
+                };
+                return call("/character/week/v3/check/all", "PATCH", updateContent)
                     .then((response) => {
                         setShowLinearProgress(false);
                         updatedCharacter.todoList = response.todoList;
@@ -444,7 +474,6 @@ export default function TodoTest() {
     };
 
 
-
     const updateWeekMessage = (characterId, todoId, message) => {
         setShowLinearProgress(true);
         const updatedCharacters = characters.map((character) => {
@@ -456,12 +485,14 @@ export default function TodoTest() {
                             todoId: todoId,
                             message: message,
                         };
-                        call("/character/week/message", "PATCH", updateContent)
+                        call("/character/week/v3/message", "PATCH", updateContent)
                             .then((response) => {
                                 setShowLinearProgress(false);
                                 const inputFieldIcon = document.getElementById("input_field_icon_" + todoId);
+                                const inputField = document.getElementById("input_field_" + todoId);
                                 if (response.message === "" || response.message === null) {
                                     inputFieldIcon.style.display = "block";
+                                    inputField.style.display = "none";
                                 } else {
                                     inputFieldIcon.style.display = "none";
                                 }
@@ -508,8 +539,7 @@ export default function TodoTest() {
     const openContentModal = (character, category) => {
         setModalTitle("[" + character + "] " + category + " 평균 데이터");
 
-        // 비동기 작업을 실행하고 작업이 완료되면 모달 컨텐츠를 업데이트하고 모달을 엽니다.
-        call("/character/day-todo/" + character + "/" + category, "GET", null)
+        call("/character/day-content/" + character + "/" + category, "GET", null)
             .then((response) => {
                 if (category === "카오스던전") {
                     var modalContent = (
@@ -604,18 +634,43 @@ export default function TodoTest() {
     ));
 
     // 도전 어비스/가디언 체크
-    const updateChallenge = (character, content) => {
+    const updateChallenge = async (character, content) => {
         setShowLinearProgress(true);
         const updateContent = {
             serverName: character.serverName,
             content: content
         };
-        call("/character/challenge", "PATCH", updateContent)
+        try {
+            const response = await call("/character/challenge", "PATCH", updateContent);
+
+            const updatedCharacters = characters.map((char) => {
+                if (char.serverName === character.serverName) {
+                    char.challengeAbyss = response.challengeAbyss;
+                    char.challengeGuardian = response.challengeGuardian;
+                }
+                return char;
+            });
+
+            setCharacters(updatedCharacters);
+            setShowLinearProgress(false);
+        } catch (error) {
+            console.error("Error updating challenge:", error);
+            setShowLinearProgress(false);
+        }
+    }
+    const test = () => {
+        setShowLinearProgress(true);
+        call("/character/week/v3/test", "GET", null)
             .then((response) => {
                 setShowLinearProgress(false);
-                setCharacters(response);
+                window.location.href="/";
+            })
+            .catch((error) => {
+                alert(error.errorMessage);
+                setShowLinearProgress(false);
             });
     }
+
 
     return (
         <>
@@ -624,18 +679,15 @@ export default function TodoTest() {
                 setShowLinearProgress={setShowLinearProgress}
                 setCharacters={setCharacters}
                 showMessage={showMessage} />
-            <Box sx={{ flexGrow: 1, backgroundColor: "black", fontWeight: "bold", color: "white", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
-                <span>개발중인 주간숙제 관리 테스트 버전입니다. 기본적인 로직은 만들어졌고 테스트중입니다.</span>
-            </Box>
             <div className="wrap">
                 <div className="setting-wrap">
                     <div className="content-box">
                         <p>일일 수익</p>
-                        <p>{getDayGold.toFixed(2)} / <span style={{ color: "black" }}>&nbsp;{totalDayGold.toFixed(2)}</span>&nbsp;Gold </p>
+                        <p>{getDayGold.toFixed(2)} / <span style={{ color: "rgb(50, 50, 50)" }}>&nbsp;{totalDayGold.toFixed(2)}</span>&nbsp;Gold </p>
                     </div>
                     <div className="content-box">
                         <p>주간 수익</p>
-                        <p>{getWeekGold.toLocaleString()} / <span style={{ color: "black" }}>&nbsp;{totalWeekGold.toLocaleString()}</span>&nbsp;Gold</p>
+                        <p>{getWeekGold.toLocaleString()} / <span style={{ color: "rgb(50, 50, 50)" }}>&nbsp;{totalWeekGold.toLocaleString()}</span>&nbsp;Gold</p>
                     </div>
                     <Accordion style={{ backgroundColor: "rgba(255, 255, 255, 50%)", width: "100%", border: "1px solid white" }} className="sort-wrap">
                         <AccordionSummary
@@ -722,6 +774,13 @@ export default function TodoTest() {
                         <div className="content-button-text">
                             {characters.length > 0 && (characters[0]?.challengeAbyss === true ? <DoneIcon /> : "")}
                         </div>
+                    </button>
+                    <button
+                        className="content-button"
+                        onClick={() => test()}
+                        style={{ width: 160, marginLeft: 5 }}
+                    >
+                        일주일 넘기기 테스트
                     </button>
                 </div>
                 <div className="todo-wrap" >
@@ -851,8 +910,6 @@ export default function TodoTest() {
                                                         position: "relative",
                                                         justifyContent: "space-between",
                                                         fontSize: 12,
-                                                        border: "1px solid white",
-                                                        borderRadius: 4
                                                     }}
                                                 >
                                                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
@@ -883,6 +940,7 @@ export default function TodoTest() {
                                                     <button
                                                         className={`content-button ${todo.check ? "done" : ""}`}
                                                         onClick={() => updateWeekCheck(character.characterName, todo)}
+                                                        onContextMenu={(e) => updateWeekCheckAll(e, character.characterName, todo)}
                                                     >
                                                         {character.goldCharacter ? todo.gold + " G" : ""}
                                                         <div className="todo-button-text">{todo.check ? <DoneIcon /> : ""}</div>
@@ -895,7 +953,7 @@ export default function TodoTest() {
                                                                 backgroundColor: todo.currentGate > index ? "#0ec0c3" : "",
                                                                 width: 100 / todo.totalGate + "%", alignItems: "center", justifyContent: "center", color: "black"
                                                             }}>
-                                                            <span style={{ color: todo.currentGate > index ? "" : "white" }}>{index + 1}관문</span>
+                                                            <span>{index + 1}관문</span>
                                                         </div>
                                                     ))}
                                                     <span className="gauge-text"></span>
@@ -920,11 +978,11 @@ export default function TodoTest() {
                         position: "absolute",
                         top: "50%", left: "50%",
                         transform: "translate(-50%, -50%)",
-                        backgroundColor: "#dddddd",
+                        backgroundColor: "#ffffff",
                         padding: "20px", width: "auto", overflowY: "auto",
                         maxHeight: 400
                     }}>
-                        <Typography variant="h5" id="modal-title">
+                        <Typography variant="h5" id="modal-title" style={{ color: "white", backgroundColor: "black", borderRadius: 7, textAlign: "center" }}>
                             {modalTitle}
                         </Typography>
                         <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word", lineHeight: 2, fontWeight: "bold" }}>

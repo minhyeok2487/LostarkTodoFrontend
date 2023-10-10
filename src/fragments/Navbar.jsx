@@ -95,19 +95,19 @@ export default function Navbar() {
   return (
     <>
       <Box sx={{ flexGrow: 1, backgroundColor: "#000", fontWeight: "bold", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
-        <span className='notification'>10/09 주간 숙제 관리 업데이트 예정입니다. </span>
+        <span className='notification'>방명록 공지사항을 확인해주세요!</span>
       </Box>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" color='inherit' style={{ backgroundColor: "rgb(50, 50, 50)" }}>
+        <AppBar position="static" color='inherit' style={{ backgroundColor: "#7275C8" }}>
           <Toolbar>
             <MenuItem onClick={() => (window.location.href = "/")}>
               <img src='/logo.png' style={{ width: 150 }} />
             </MenuItem>
+            <MenuItem style={{ color: "white" }} onClick={() => (window.location.href = "/todo")}>
+              <p>이전버전</p>
+            </MenuItem>
             <MenuItem style={{ color: "white" }} onClick={() => (window.location.href = "/comments")}>
               <p>방명록</p>
-            </MenuItem>
-            <MenuItem style={{ color: "white" }} onClick={() => (window.location.href = "/test")}>
-              <p>테스트</p>
             </MenuItem>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

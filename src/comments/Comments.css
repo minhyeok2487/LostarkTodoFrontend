@@ -1,6 +1,6 @@
 .comments {
   margin: 40px;
-  color: white;
+  color: black;
 }
 
 .comments-title {
@@ -29,7 +29,7 @@
   padding: 8px 16px;
   background: rgb(59, 130, 246);
   border-radius: 8px;
-  color: white;
+  color: black;
 }
 
 .comment-form-button:hover:enabled {
@@ -81,7 +81,7 @@
 .comment-actions {
   display: flex;
   font-size: 12px;
-  color: rgb(225, 225, 225);
+  color: black;
   cursor: pointer;
   margin-top: 8px;
 }
