@@ -11,6 +11,7 @@ import Comments from './comments/Comments';
 import Setting from './components/Setting';
 import TodoV2 from './components/TodoV2';
 import ApiKeyUpdateForm from './components/member/ApiKeyUpdateForm';
+import GuideTodo from './guide/GuideTodo';
 
 const App = () => {
   React.useEffect(() => {
@@ -51,6 +52,7 @@ const App = () => {
             <Route path='comments' element={<Comments />} />
             <Route path='setting' element={<Setting />} />
             <Route path='member/apikey' element={<ApiKeyUpdateForm />} />
+            <Route path='guide' element={<GuideTodo />} />
           </Routes>
         </BrowserRouter>
       </div>
