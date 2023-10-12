@@ -1,3 +1,22 @@
+@font-face {
+  font-family: 'Pretendard';
+  src: url('../public/font/Pretendard-Light.woff') format('woff');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  src: url('../public/font/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  src: url('../public/font/Pretendard-Bold.woff') format('woff');
+  font-weight: 500;
+  font-display: swap;
+}
+
 :root {
   --background: #b2b8e7;
   --nav-color:#7275C8;
@@ -16,10 +35,13 @@
   --button-color: #4f6580;
   --content-border: 1px ridge white;
 }
-
+* {
+  font-family:'Pretendard' !important;
+}
 html, body {
   background-color: var(--background);
   height: 100%;
+  
 }
 
 .theme-label {
@@ -379,6 +401,7 @@ input:focus {
 .comments {
   margin: 40px;
   color: var(--text-color);
+  height: 100%;
 }
 
 .comments-title {
@@ -389,7 +412,6 @@ input:focus {
 .comments-container {
   margin-top: 40px;
   width: 100%;
-  padding-bottom: 100px;
 }
 
 .comment-form-title {
@@ -479,3 +501,7 @@ input:focus {
 .replies {
   margin-top: 20px;
 }
+
+/* 퍼블리싱 테스트 */
+
+.css-1elwnq4-MuiPaper-root-MuiAccordion-root.Mui-expanded{margin:0 !important;}
