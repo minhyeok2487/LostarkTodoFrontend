@@ -379,7 +379,6 @@ input:focus {
 .comments {
   margin: 40px;
   color: var(--text-color);
-  height: 100%;
 }
 
 .comments-title {
@@ -390,6 +389,7 @@ input:focus {
 .comments-container {
   margin-top: 40px;
   width: 100%;
+  padding-bottom: 100px;
 }
 
 .comment-form-title {
