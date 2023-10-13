@@ -403,6 +403,7 @@ export default function TodoV2() {
             {showLinearProgress && <LinearIndeterminate />}
             <BasicSpeedDial
                 setShowLinearProgress={setShowLinearProgress}
+                characters={characters}
                 setCharacters={setCharacters}
                 showMessage={showMessage} />
             <div className="wrap">
