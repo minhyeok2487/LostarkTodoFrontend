@@ -113,10 +113,18 @@ export default function TodoV2() {
 
     //------------------------- 일일 숙제 관련 -------------------------
     //1. 에포나의뢰 체크 
-    const handleEponaCheck = (characterId) => {
+    const handleeponaCheck = (characterId) => {
         const updatedCharacters = characters.map((character) => {
             if (character.id === characterId) {
-                character.eponaCheck = !character.eponaCheck;
+                if (character.eponaCheck === 0) {
+                    character.eponaCheck = 1;
+                } else if (character.eponaCheck === 1) {
+                    character.eponaCheck = 2;
+                } else if (character.eponaCheck === 2) {
+                    character.eponaCheck = 3;
+                } else if (character.eponaCheck === 3) {
+                    character.eponaCheck = 0;
+                }
                 const updateContent = {
                     characterName: character.characterName,
                     eponaCheck: character.eponaCheck,
@@ -127,7 +135,28 @@ export default function TodoV2() {
             }
             return character;
         });
+        setCharacters(updatedCharacters);
+    };
 
+    const handleeponaCheckAll = (e, characterId) => {
+        e.preventDefault();
+        const updatedCharacters = characters.map((character) => {
+            if (character.id === characterId) {
+                if (character.eponaCheck < 3) {
+                    character.eponaCheck = 3;
+                } else {
+                    character.eponaCheck = 0;
+                }
+                const updateContent = {
+                    characterName: character.characterName,
+                    eponaCheck: character.eponaCheck,
+                    chaosCheck: character.chaosCheck,
+                    guardianCheck: character.guardianCheck,
+                };
+                call("/character/day-content/check", "PATCH", updateContent).then((response) => { });
+            }
+            return character;
+        });
         setCharacters(updatedCharacters);
     };
 
@@ -141,6 +170,28 @@ export default function TodoV2() {
                 } else if (character.chaosCheck === 1) {
                     character.chaosCheck = 2;
                 } else if (character.chaosCheck === 2) {
+                    character.chaosCheck = 0;
+                }
+                const updateContent = {
+                    characterName: character.characterName,
+                    eponaCheck: character.eponaCheck,
+                    chaosCheck: character.chaosCheck,
+                    guardianCheck: character.guardianCheck,
+                };
+                call("/character/day-content/check", "PATCH", updateContent).then((response) => { });
+            }
+            return character;
+        });
+        setCharacters(updatedCharacters);
+    };
+
+    const handleChaosCheckAll = (e, characterId) => {
+        e.preventDefault();
+        const updatedCharacters = characters.map((character) => {
+            if (character.id === characterId) {
+                if (character.chaosCheck < 2) {
+                    character.chaosCheck = 2;
+                } else {
                     character.chaosCheck = 0;
                 }
                 const updateContent = {
@@ -276,45 +327,39 @@ export default function TodoV2() {
 
     // 모달 열기 함수
     const openContentModal = (character, category) => {
-        setModalTitle("[" + character + "] " + category + " 평균 데이터");
+        setModalTitle("[" + character.characterName + "] " + category + " 평균 데이터");
+        if (category === "카오스던전") {
+            var modalContent = (
+                <div>
+                    <ul>
+                        <p>이름 : {character.chaos.name}</p>
+                        ---거래 가능 재화---
+                        <li>파괴석 : {character.chaos.destructionStone}개</li>
+                        <li>수호석 : {character.chaos.guardianStone}개</li>
+                        <li>1레벨보석 : {character.chaos.jewelry}개</li>
+                        ---거래 불가 재화---
+                        <li>돌파석 : {character.chaos.leapStone}개</li>
+                        <li>실링 : {character.chaos.shilling}개</li>
+                        <li>파편 : {character.chaos.honorShard}개</li>
+                    </ul>
+                </div>
+            );
+        } else {
+            modalContent = (
+                <div>
+                    <ul>
+                        <p>이름 : {character.guardian.name}</p>
+                        ---거래 가능 재화---
+                        <li>파괴석 : {character.guardian.destructionStone}개</li>
+                        <li>수호석 : {character.guardian.guardianStone}개</li>
+                        <li>돌파석 : {character.guardian.leapStone}개</li>
+                    </ul>
+                </div>
+            );
+        }
+        setModalContent(modalContent);
+        setOpenModal(true);
 
-        call("/character/day-content/" + character + "/" + category, "GET", null)
-            .then((response) => {
-                if (category === "카오스던전") {
-                    var modalContent = (
-                        <div>
-                            <ul>
-                                <p>이름 : {response.name}</p>
-                                ---거래 가능 재화---
-                                <li>파괴석 : {response.destructionStone}개</li>
-                                <li>수호석 : {response.guardianStone}개</li>
-                                <li>1레벨보석 : {response.jewelry}개</li>
-                                ---거래 불가 재화---
-                                <li>돌파석 : {response.leapStone}개</li>
-                                <li>실링 : {response.shilling}개</li>
-                                <li>파편 : {response.honorShard}개</li>
-                            </ul>
-                        </div>
-                    );
-                } else {
-                    modalContent = (
-                        <div>
-                            <ul>
-                                <p>이름 : {response.name}</p>
-                                ---거래 가능 재화---
-                                <li>파괴석 : {response.destructionStone}개</li>
-                                <li>수호석 : {response.guardianStone}개</li>
-                                <li>돌파석 : {response.leapStone}개</li>
-                            </ul>
-                        </div>
-                    );
-                }
-                setModalContent(modalContent);
-                setOpenModal(true);
-            })
-            .catch((error) => {
-                alert(error.errorMessage);
-            });
     };
 
 
@@ -524,15 +569,38 @@ export default function TodoV2() {
                                     <div className="content-wrap" style={{ display: character.settings.showEpona ? "block" : "none" }}>
                                         <div className="content">
                                             <div
-                                                className={`${character.eponaCheck === true ? "text-done" : ""}`}>
-                                                <span>에포나의뢰 & 출석체크</span>
+                                                className={`${character.eponaCheck === 3 ? "text-done" : ""}`}
+                                            >
+                                                <p>에포나의뢰</p>
                                             </div>
                                             <button
-                                                className={`content-button ${character.eponaCheck === true ? "done" : ""}`}
-                                                onClick={() => handleEponaCheck(character.id)}
+                                                className={`content-button ${character.eponaCheck === 0 ? "" :
+                                                    character.eponaCheck < 3 ? "ing" : "done"
+                                                    }`}
+                                                onClick={() => handleeponaCheck(character.id)}
+                                                onContextMenu={(e) => handleeponaCheckAll(e, character.id, "epona")}
                                             >
-                                                {character.eponaCheck === true ? <DoneIcon /> : <CloseIcon />}
+                                                {character.eponaCheck === 3 ? <DoneIcon /> : character.eponaCheck}
                                             </button>
+                                        </div>
+                                        <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
+                                            onContextMenu={(e) => handleDayContentGuage(e, character.id, "epona")}
+                                            onClick={(e) => handleDayContentGuage(e, character.id, "epona")}>
+                                            {Array.from({ length: 5 }, (_, index) => (
+                                                <div key={index} className="gauge-wrap">
+                                                    <div
+                                                        className="gauge"
+                                                        style={{ backgroundColor: index * 2 < character.eponaGauge / 10 ? "#0ec0c3" : undefined }}
+                                                    ></div>
+                                                    <div
+                                                        className="gauge"
+                                                        style={{ backgroundColor: index * 2 + 1 < character.eponaGauge / 10 ? "#0ec0c3" : undefined }}
+                                                    ></div>
+                                                </div>
+                                            ))}
+                                            <span className="gauge-text">
+                                                휴식게이지 : {character.eponaGauge}
+                                            </span>
                                         </div>
                                     </div>
                                     <div className="content-wrap" style={{ display: character.settings.showChaos ? "block" : "none" }}>
@@ -543,12 +611,13 @@ export default function TodoV2() {
                                                 <p>카오스던전</p>
                                                 <p>({character.chaosGold} gold)</p>
                                             </div>
-                                            <SearchIcon onClick={() => openContentModal(character.characterName, "카오스던전")} style={{ cursor: "pointer" }} />
+                                            <SearchIcon onClick={() => openContentModal(character, "카오스던전")} style={{ cursor: "pointer" }} />
                                             <button
                                                 className={`content-button ${character.chaosCheck === 0 ? "" :
                                                     character.chaosCheck === 1 ? "ing" : "done"
                                                     }`}
                                                 onClick={() => handleChaosCheck(character.id)}
+                                                onContextMenu={(e) => handleChaosCheckAll(e, character.id)}
                                             >
                                                 {character.chaosCheck === 2 ? <DoneIcon /> : <CloseIcon />}
                                             </button>
@@ -581,7 +650,7 @@ export default function TodoV2() {
                                                 <p>가디언토벌</p>
                                                 <p>({character.guardianGold} gold)</p>
                                             </div>
-                                            <SearchIcon onClick={() => openContentModal(character.characterName, "가디언토벌")} style={{ cursor: "pointer" }} />
+                                            <SearchIcon onClick={() => openContentModal(character, "가디언토벌")} style={{ cursor: "pointer" }} />
                                             <button
                                                 className={`content-button ${character.guardianCheck === 1 ? "done" : ""}`}
                                                 onClick={() => handleGuardianCheck(character.id)}

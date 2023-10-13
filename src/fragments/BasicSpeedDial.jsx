@@ -5,7 +5,6 @@ import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DownloadIcon from '@mui/icons-material/Download';
-import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 
 export default function BasicSpeedDial(props) {
     const icons = [
@@ -22,16 +21,7 @@ export default function BasicSpeedDial(props) {
             props.setShowLinearProgress(true);
             try {
                 const response = await call("/member/characterList", "PATCH", null);
-                props.characters.map((character) => {
-                    response.map((responseCharacter) => {
-                        if (character.id === responseCharacter.id) {
-                            character.characterName = responseCharacter.characterName;
-                            character.itemLevel = responseCharacter.itemLevel;
-                            character.chaosGold = responseCharacter.chaosGold;
-                            character.guardianGold = responseCharacter.guardianGold;
-                        }
-                    })
-                });
+                props.setCharacters(response);
                 props.setShowLinearProgress(false);
                 props.showMessage("정보 업데이트가 완료되었습니다.");
             } catch (error) {
