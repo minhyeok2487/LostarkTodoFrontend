@@ -458,6 +458,7 @@ export default function TodoV2() {
                         <span className="bar">
                             {/* 퍼센트 액션 */}
                             <i style={{ width: `${getDayGold / totalDayGold * 100}%` }}></i>
+                            <p style={{textAlign:"center"}}>[{(getDayGold / totalDayGold * 100).toFixed(1)} / 100 %]</p>
                         </span>
                         <p>{getDayGold.toFixed(2)} / <span>{totalDayGold.toFixed(2)}</span>G</p>
                     </div>
@@ -466,6 +467,7 @@ export default function TodoV2() {
                         <span className="bar">
                             {/* 퍼센트 액션 */}
                             <i style={{ width: `${getWeekGold / totalWeekGold * 100}%` }}></i>
+                            <p style={{textAlign:"center"}}>[{(getWeekGold / totalWeekGold * 100).toFixed(1)} / 100 %]</p>
                         </span>
                         <p className={`${getWeekGold / totalWeekGold}` === 1 ? "on" : ""}>{getWeekGold.toLocaleString()} / <span>{totalWeekGold.toLocaleString()}</span>G</p>{/* pub width가 100% 시 on 클래스 추가해주세요!(골드색변함) */}
                     </div>

@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# 로스트아크 숙제 체크 사이트
+## https://app.loatodo.com
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Github
+- [Backend](https://github.com/minhyeok2487/LostarktTodoBackend)
+- [Frontend](https://github.com/minhyeok2487/LostarkTodoFrontend)
+- [Frontend-Publisher](https://github.com/leehanbee35/LostarkTodoFrontend.git)
 
-## Available Scripts
+## 프로젝트
+### 개요
+- 로스트아크 일일, 주간 컨텐츠 관리 사이트
+    - 일일 컨텐츠 : 카오스 던전, 가디언 토벌, 에포나 의뢰
+        - 로스트아크 오픈 API의 거래소, 경매장 등의 데이터를 호출해 예상 수익 계산
+        - 체크한 내용을 바탕으로 휴식게이지 계산 -> 인게임과 동일한 휴식게이지
+    - 주간 컨텐츠 : 군단장 레이드, 어비스 던전, 어비스레이드
+        - 주간 수익 계산
+        - 몇 개의 2주 주기 컨텐츠 계산
+- 컨텐츠 완료 한 기록 저장 -> 달력식으로 보기
+- 주간숙제 고정팟 관리 -> 접속시간 기록 바탕으로 고정팟 추천
 
-In the project directory, you can run:
+### 인원
+* 개발자 1 (백엔드 & 프론트) PM
+* 퍼블리셔 1 (2023.10.12~)
 
-### `npm start`
+### 기간
+* 2023.08.02 ~ 2023.09.10(기본 기능 개발)
+* 2023.09.11 베타 버전 배포
+* 2023.10.10 메인 기능(숙제 관리) 배포 완료
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 배포기록
+* https://www.inven.co.kr/board/lostark/4821?name=nicname&keyword=Dev&eq=1&iskin=
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 퍼블리싱 진행중 
+#### 이전
+![img_1.png](resource/main.png)
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### 수정중
+![Alt text](resource/main01.jpeg)
