@@ -104,10 +104,7 @@ export default function Navbar() {
             <MenuItem onClick={() => (window.location.href = "/")}>
               <img src='/logo.png' style={{ width: 150 }} />
             </MenuItem>
-            {/* <MenuItem style={{ color: "white" }} onClick={() => (window.location.href = "/todo")}>
-              <p>이전버전</p>
-            </MenuItem> */}
-            <MenuItem style={{ color: "white" }} onClick={() => (window.location.href = "/comments")}>
+            <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/comments")}>
               <p>방명록</p>
             </MenuItem>
             <Box sx={{ flexGrow: 1 }} />

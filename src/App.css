@@ -1,13 +1,44 @@
+/* 폰트 */
+@font-face {
+  font-family: 'Pretendard';
+  src: url('../public/font/Pretendard-Light.woff') format('woff');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  src: url('../public/font/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  src: url('../public/font/Pretendard-Bold.woff') format('woff');
+  font-weight: 500;
+  font-display: swap;
+}
+
+/* 기본 */
+* {
+  font-family:'Pretendard' !important;
+  font-weight:300;
+}
+
+html, body {
+  background-color: var(--background);
+  height: 100%;
+}
+
 :root {
-  --background: #b2b8e7;
-  --nav-color:#7275C8;
+  --background: #eff1f7;
+  --nav-color:#fff;
   --text-color: rgb(0, 0, 0);
   --text-done-color: rgb(50, 50, 50);
   --button-color: #d0e1f9;
-  --content-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
   --content-border: 1px ridge black;
 }
 
+/* 다크모드 */
 .ui-dark {
   --background: #242424;
   --nav-color:#313255;
@@ -15,11 +46,6 @@
   --text-done-color: rgb(200, 200, 200);
   --button-color: #4f6580;
   --content-border: 1px ridge white;
-}
-
-html, body {
-  background-color: var(--background);
-  height: 100%;
 }
 
 .theme-label {
@@ -100,12 +126,11 @@ html, body {
   padding-left: 20px;
   padding-right: 20px;
   font-size: 13px;
-  color: var(--text-color);
+  color: #222;
   height: 100%;
 }
 
 .setting-wrap {
-  margin-top: 10px;
   display: flex;
   flex-direction: row;
   max-width: 1300px;
@@ -133,23 +158,80 @@ html, body {
 }
 
 .content-box {
-  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  width: 300px;
-  height: 48px;
-  margin-right: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  box-shadow: var(--content-shadow);
+  flex-direction:column;
+  width: 100%;
+  padding:15px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size:16px;
+  position:relative;
 
 }
 
 .content-box p {
   margin: 0;
 }
+.content-box p span{
+  margin-right:3px;
+}
+
+.content-box p:first-child{
+  font-weight:500;
+}
+.content-box p:last-child{
+  padding-left:26px;
+  background:url(../public/images/ico_coin.png) no-repeat center left / 18px;
+  filter: grayscale(100%);
+}
+
+.content-box p.on:last-child{
+  filter:none;
+}
+
+/* .content-box::before{
+  content: "";
+	display: block;
+	position: absolute;
+	left: 10px;
+	top: 12px;
+	width: 5px;
+	height: 69%;
+	background: #eee
+} */
+
+
+.content-box + .content-box{
+  margin-left: 5px;
+}
+
+.content-box .bar{
+  position: relative;
+	width: 350px;
+	height: 13px;
+	background: #eee;
+	border-radius: 15px;
+	margin: 8px 0;
+}
+
+.content-box .bar i{
+  position: absolute;
+  left:0;
+  top: 0;
+	height: 13px;
+	border-radius: 15px;
+}
+
+.content-box:first-child i{
+  background: #cfecff;
+}
+.content-box:last-child i{
+  background:#fee1dd;
+}
+
 
 .character-info-mini {
   height: 70px;
@@ -157,7 +239,7 @@ html, body {
   padding-left: 10px;
   padding-top: 1px;
   background-size: 120%;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 .todo-wrap {
@@ -379,6 +461,7 @@ input:focus {
 .comments {
   margin: 40px;
   color: var(--text-color);
+  height: 100%;
 }
 
 .comments-title {
@@ -389,7 +472,6 @@ input:focus {
 .comments-container {
   margin-top: 40px;
   width: 100%;
-  padding-bottom: 100px;
 }
 
 .comment-form-title {
@@ -479,3 +561,19 @@ input:focus {
 .replies {
   margin-top: 20px;
 }
+
+/* 퍼블리싱 */
+header{width:100% !important;box-shadow:0px 0px 20px 7px rgba(0,0,0,0.13) !important;}
+.MuiAccordionSummary-content.Mui-expanded{margin:0 !important;}
+.MuiButtonBase-root{padding:0 20px !important}
+.css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded{min-height:48px !important;}
+.css-15v22id-MuiAccordionDetails-root{padding:0 20px 12px !important}
+
+/* 아코디언 */
+.sort-wrap{max-width:1300px;margin:10px 0 !important;background-color:#fff !important;border:1px solid #ddd !important;box-shadow:none !important;color: #222 !important;}
+.sort-wrap::before{display:none !important;}
+.acc-txt{margin-top:20px;padding-left:22px;font-size:14px;font-weight:400;background:url(../public/images/ico_alert.png) no-repeat center left / 14px;}
+
+/* 저장버튼 */
+.css-1j42s11-MuiSvgIcon-root{background:url(../public/images/ico_save.png) no-repeat top 3px center / 16px;}
+.css-1j42s11-MuiSvgIcon-root path{display:none;}

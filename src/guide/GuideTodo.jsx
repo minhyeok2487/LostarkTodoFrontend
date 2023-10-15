@@ -409,53 +409,63 @@ export default function GuideTodo() {
                 <div className="setting-wrap">
                     <div className="content-box">
                         <p>일일 수익</p>
-                        <p>{getDayGold.toFixed(2)} / <span style={{ color: "var(--text-done-color)" }}>&nbsp;{totalDayGold.toFixed(2)}</span>&nbsp;Gold </p>
+                        <span class="bar">
+                            <i style={{ width: "50%" }}></i>
+                        </span>
+                        <p>{getDayGold.toFixed(2)} / <span>{totalDayGold.toFixed(2)}</span>G</p>
                     </div>
                     <div className="content-box">
                         <p>주간 수익</p>
-                        <p>{getWeekGold.toLocaleString()} / <span style={{ color: "var(--text-done-color)" }}>&nbsp;{totalWeekGold.toLocaleString()}</span>&nbsp;Gold</p>
+                        <span class="bar"> 
+                            <i style={{ width: "100%" }}></i> 
+                        </span>
+                        <p class="on">{getWeekGold.toLocaleString()} / <span>{totalWeekGold.toLocaleString()}</span>G</p>{/* pub width가 100% 시 on 클래스 추가해주세요!(골드색변함) */}
                     </div>
-                    <Accordion style={{ backgroundColor: "rgba(255, 255, 255, 50%)", width: "100%", border: "1px solid white" }} className="sort-wrap">
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            style={{ borderRadius: "5px" }}
-                        >
-                            <Typography fontWeight={"bold"} display={"flex"}>캐릭터 순서 변경
-                                <SaveIcon
-                                    onClick={() => saveSort()}
-                                    sx={{ display: itemsSwapState ? "flex" : "none", marginLeft: "5px", color: "blueviolet", cursor: "pointer" }}
-                                >
-                                </SaveIcon>
-                            </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <GridContextProvider onChange={onChange}>
-                                <GridDropZone
-                                    id="characters"
-                                    boxesPerRow={itemsPerRow}
-                                    rowHeight={80}
-                                    style={{ height: 80 * Math.ceil(characters.length / itemsPerRow) }}
-                                >
-                                    {characters.map((character) => (
-                                        <GridItem key={character.sortNumber} style={{ width: `${100 / itemsPerRow}%` }}>
-                                            <div style={{ marginRight: 10 }}>
-                                                <div className="character-info-mini"
-                                                    style={{
-                                                        backgroundImage: character.characterImage !== null ? `url(${character.characterImage})` : "",
-                                                        backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 25px top -40px" : "left 25px top -20px",
-                                                        backgroundColor: "gray", // imgurl이 없을시 배경색을 회색으로 설정
-                                                    }}>
-                                                    <p>{character.characterName}</p>
-                                                    <p>Lv. {character.itemLevel}</p>
-                                                </div>
-                                            </div>
-                                        </GridItem>
-                                    ))}
-                                </GridDropZone>
-                            </GridContextProvider>
-                        </AccordionDetails>
-                    </Accordion>
                 </div>
+                {/* pub 아코디언 위치 수정 */}
+                <Accordion style={{ backgroundColor: "rgba(255, 255, 255, 50%)", width: "100%", border: "1px solid white" }} className="sort-wrap">
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        style={{ borderRadius: "5px" }}
+                    >
+                        <Typography fontWeight={"bold"} display={"flex"}>캐릭터 순서 변경
+                            <SaveIcon
+                                onClick={() => saveSort()}
+                                sx={{ display: itemsSwapState ? "flex" : "none", marginLeft: "5px", color: "blueviolet", cursor: "pointer" }}
+                            >
+                            </SaveIcon>
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <GridContextProvider onChange={onChange}>
+                            <GridDropZone
+                                id="characters"
+                                boxesPerRow={itemsPerRow}
+                                rowHeight={80}
+                                style={{ height: 80 * Math.ceil(characters.length / itemsPerRow) }}
+                            >
+                                {characters.map((character) => (
+                                    <GridItem key={character.sortNumber} style={{ width: `${100 / itemsPerRow}%` }}>
+                                        <div style={{ marginRight: 10 }}>
+                                            <div className="character-info-mini"
+                                                style={{
+                                                    backgroundImage: character.characterImage !== null ? `url(${character.characterImage})` : "",
+                                                    backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 25px top -40px" : "left 25px top -20px",
+                                                    backgroundColor: "gray", // imgurl이 없을시 배경색을 회색으로 설정
+                                                }}>
+                                                <p>{character.characterName}</p>
+                                                <p>Lv. {character.itemLevel}</p>
+                                                {/* pub 없어도 될꺼같아서 삭제! <p>테스트테스트</p> */}
+                                            </div>
+                                        </div>
+                                    </GridItem>
+                                ))}
+                            </GridDropZone>
+                            <span class="acc-txt">드래그 시 캐릭터 순서가 변경돼요.</span>{/* pub 문구추가 */}
+                        </GridContextProvider>
+                    </AccordionDetails>
+                </Accordion>
+                {/* pub 아코디언 위치 수정 */}
                 <div className="setting-wrap">
                     <div style={{ backgroundColor: "#DA81F5", borderRadius: 4, marginLeft: 5 }}>
                         <Button
