@@ -368,7 +368,7 @@ export default function GuideTodo() {
     const serverItems = Object.entries(servers).map(([serverName, count]) => (
         <MenuItem key={serverName} value={serverName}
             onClick={() => handleServerSelect(serverName)}>
-            {serverName}: {count}개
+            {serverName} {count}개
         </MenuItem>
     ));
 
@@ -409,17 +409,21 @@ export default function GuideTodo() {
                 <div className="setting-wrap">
                     <div className="content-box">
                         <p>일일 수익</p>
-                        <span class="bar">
-                            <i style={{ width: "50%" }}></i>
+                        <span className="bar">
+                            {/* 퍼센트 액션 */}
+                            <i style={{ width: `${getDayGold / totalDayGold * 100}%` }}></i>
+                            <em style={{textAlign:"center"}}>{(getDayGold / totalDayGold * 100).toFixed(1)} %</em>
                         </span>
                         <p>{getDayGold.toFixed(2)} / <span>{totalDayGold.toFixed(2)}</span>G</p>
                     </div>
                     <div className="content-box">
                         <p>주간 수익</p>
-                        <span class="bar"> 
-                            <i style={{ width: "100%" }}></i> 
+                        <span className="bar">
+                            {/* 퍼센트 액션 */}
+                            <i style={{ width: `${getWeekGold / totalWeekGold * 100}%` }}></i>
+                            <em style={{textAlign:"center"}}>{(getWeekGold / totalWeekGold * 100).toFixed(1)} %</em>
                         </span>
-                        <p class="on">{getWeekGold.toLocaleString()} / <span>{totalWeekGold.toLocaleString()}</span>G</p>{/* pub width가 100% 시 on 클래스 추가해주세요!(골드색변함) */}
+                        <p className={`${getWeekGold / totalWeekGold}` === 1 ? "on" : ""}>{getWeekGold.toLocaleString()} / <span>{totalWeekGold.toLocaleString()}</span>G</p>{/* pub width가 100% 시 on 클래스 추가해주세요!(골드색변함) */}
                     </div>
                 </div>
                 {/* pub 아코디언 위치 수정 */}
@@ -461,22 +465,22 @@ export default function GuideTodo() {
                                     </GridItem>
                                 ))}
                             </GridDropZone>
-                            <span class="acc-txt">드래그 시 캐릭터 순서가 변경돼요.</span>{/* pub 문구추가 */}
+                            <span class="acc-txt">드래그 시 캐릭터 순서가 변경돼요</span>{/* pub 문구추가 */}
                         </GridContextProvider>
                     </AccordionDetails>
                 </Accordion>
                 {/* pub 아코디언 위치 수정 */}
                 <div className="setting-wrap">
-                    <div style={{ backgroundColor: "#DA81F5", borderRadius: 4, marginLeft: 5 }}>
+                    <div> {/* pub style 삭제 */}
                         <Button
                             id="fade-button"
                             aria-controls={open ? 'fade-menu' : undefined}
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                             onClick={handleClick}
-                            style={{ color: "white" }}
+                            // style={{ color: "white" }} pub 삭제
                         >
-                            {selectedServer}: {servers[selectedServer]}개
+                            {selectedServer} {servers[selectedServer]}개
                         </Button>
                         <Menu
                             id="fade-menu"
@@ -494,7 +498,7 @@ export default function GuideTodo() {
                     <button
                         className={`content-button ${characters.length > 0 && characters[0].challengeGuardian === true ? "done" : ""}`}
                         onClick={() => updateChallenge(characters[0], "Guardian")}
-                        style={{ width: 120, marginLeft: 5 }}
+                        // style={{ width: 120, marginLeft: 5 }} pub style 중복으로 삭제
                     >
                         도전 가디언 토벌
                         <div className="content-button-text">
@@ -504,7 +508,7 @@ export default function GuideTodo() {
                     <button
                         className={`content-button ${characters.length > 0 && characters[0].challengeAbyss === true ? "done" : ""}`}
                         onClick={() => updateChallenge(characters[0], "Abyss")}
-                        style={{ width: 120, marginLeft: 5 }}
+                        // style={{ width: 120, marginLeft: 5 }} pub style 중복으로 삭제
                     >
                         도전 어비스 던전
                         <div className="content-button-text">
@@ -524,35 +528,32 @@ export default function GuideTodo() {
                                             backgroundColor: "gray", // 배경색을 회색으로 설정
                                         }}>
                                         <div className={character.goldCharacter ? "gold-border" : ""}>
-                                            {character.goldCharacter ? "골드 획득 지정 캐릭터" : ""}
+                                            {character.goldCharacter ? "골드 획득 지정" : ""} {/* pub 문구변경 */}
                                         </div>
                                         <span>@{character.serverName}  {character.characterClassName}</span>
                                         <h3 style={{ margin: 0 }}>{character.characterName}</h3>
                                         <h2 style={{ margin: 0 }}>Lv. {character.itemLevel}</h2>
                                     </div>
+                                    <p className="title">일일 숙제</p>{/* pub 추가 */}
                                     <div className="content-wrap" style={{ display: character.settings.showEpona ? "block" : "none" }}>
                                         <div className="content">
-                                            <div
-                                                className={`${character.eponaCheck === true ? "text-done" : ""}`}>
-                                                <span>에포나의뢰 & 출석체크</span>
-                                            </div>
+                                            {/* pub 순서변경 */}
                                             <button
                                                 className={`content-button ${character.eponaCheck === true ? "done" : ""}`}
                                                 onClick={() => handleEponaCheck(character.id)}
                                             >
                                                 {character.eponaCheck === true ? <DoneIcon /> : <CloseIcon />}
                                             </button>
+                                            <div
+                                                className={`${character.eponaCheck === true ? "text-done" : ""}`}>
+                                                <span>에포나의뢰 & 출석체크</span>
+                                            </div>
+                                            {/* pub 순서변경 */}
                                         </div>
                                     </div>
                                     <div className="content-wrap" style={{ display: character.settings.showChaos ? "block" : "none" }}>
                                         <div className="content">
-                                            <div
-                                                className={`${character.chaosCheck === 2 ? "text-done" : ""}`}
-                                            >
-                                                <p>카오스던전</p>
-                                                <p>({character.chaosGold} gold)</p>
-                                            </div>
-                                            <SearchIcon onClick={() => openContentModal(character.characterName, "카오스던전")} style={{ cursor: "pointer" }} />
+                                            {/* pub 순서변경 */}
                                             <button
                                                 className={`content-button ${character.chaosCheck === 0 ? "" :
                                                     character.chaosCheck === 1 ? "ing" : "done"
@@ -561,62 +562,75 @@ export default function GuideTodo() {
                                             >
                                                 {character.chaosCheck === 2 ? <DoneIcon /> : <CloseIcon />}
                                             </button>
+                                            <div
+                                                className={`${character.chaosCheck === 2 ? "text-done" : ""}`}
+                                            >
+                                                <p>카오스던전</p>
+                                                <p>{character.chaosGold} G</p>
+                                            </div>
+                                            <SearchIcon onClick={() => openContentModal(character.characterName, "카오스던전")} style={{ cursor: "pointer" }} />
+                                            
                                         </div>
-                                        <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
+                                        <div className="content gauge-box" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }} 
+                                        // pub클래스추가
                                             onContextMenu={(e) => handleDayContentGuage(e, character.id, "chaos")}
                                             onClick={(e) => handleDayContentGuage(e, character.id, "chaos")}>
                                             {Array.from({ length: 5 }, (_, index) => (
                                                 <div key={index} className="gauge-wrap">
                                                     <div
                                                         className="gauge"
-                                                        style={{ backgroundColor: index * 2 < character.chaosGauge / 10 ? "#0ec0c3" : undefined }}
+                                                        style={{ backgroundColor: index * 2 < character.chaosGauge / 10 ? "#cfecff" : undefined }}// pub 색상변경
                                                     ></div>
                                                     <div
                                                         className="gauge"
-                                                        style={{ backgroundColor: index * 2 + 1 < character.chaosGauge / 10 ? "#0ec0c3" : undefined }}
+                                                        style={{ backgroundColor: index * 2 + 1 < character.chaosGauge / 10 ? "#cfecff" : undefined }}// pub 색상변경
                                                     ></div>
                                                 </div>
                                             ))}
-                                            <span className="gauge-text">
-                                                휴식게이지 : {character.chaosGauge}
-                                            </span>
                                         </div>
+                                        {/* pub 휴식게이지 위치변경 따옴표 삭제 */}
+                                        <span className="gauge-text">
+                                            휴식게이지 {character.chaosGauge}
+                                        </span>
                                     </div>
                                     <div className="content-wrap" style={{ display: character.settings.showGuardian ? "block" : "none" }}>
                                         <div className="content">
-                                            <div
-                                                className={`${character.guardianCheck === 1 ? "text-done" : ""}`}
-                                            >
-                                                <p>가디언토벌</p>
-                                                <p>({character.guardianGold} gold)</p>
-                                            </div>
-                                            <SearchIcon onClick={() => openContentModal(character.characterName, "가디언토벌")} style={{ cursor: "pointer" }} />
                                             <button
                                                 className={`content-button ${character.guardianCheck === 1 ? "done" : ""}`}
                                                 onClick={() => handleGuardianCheck(character.id)}
                                             >
                                                 {character.guardianCheck === 1 ? <DoneIcon /> : <CloseIcon />}
                                             </button>
+                                            <div
+                                                className={`${character.guardianCheck === 1 ? "text-done" : ""}`}
+                                            >
+                                                <p>가디언토벌</p>
+                                                <p>{character.guardianGold} G</p>
+                                            </div>
+                                            {/* pub 순서변경 */}
+                                            <SearchIcon onClick={() => openContentModal(character.characterName, "가디언토벌")} style={{ cursor: "pointer" }} />
                                         </div>
-                                        <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
+                                        <div className="content gauge-box" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
+                                        //pub 클래스추가
                                             onContextMenu={(e) => handleDayContentGuage(e, character.id, "guardian")}
                                             onClick={(e) => handleDayContentGuage(e, character.id, "guardian")}>
                                             {Array.from({ length: 5 }, (_, index) => (
                                                 <div key={index} className="gauge-wrap">
                                                     <div
                                                         className="gauge"
-                                                        style={{ backgroundColor: index * 2 < character.guardianGauge / 10 ? "#0ec0c3" : undefined }}
+                                                        style={{ backgroundColor: index * 2 < character.guardianGauge / 10 ? "#cfecff" : undefined }}// pub 색상변경
                                                     ></div>
                                                     <div
                                                         className="gauge"
-                                                        style={{ backgroundColor: index * 2 + 1 < character.guardianGauge / 10 ? "#0ec0c3" : undefined }}
+                                                        style={{ backgroundColor: index * 2 + 1 < character.guardianGauge / 10 ? "#cfecff" : undefined }}// pub 색상변경
                                                     ></div>
                                                 </div>
                                             ))}
-                                            <span className="gauge-text">
-                                                휴식게이지 : {character.guardianGauge}
-                                            </span>
                                         </div>
+                                        {/* pub 휴식게이지 위치변경 따옴표 삭제 */}
+                                        <span className="gauge-text">
+                                            휴식게이지 {character.guardianGauge}
+                                        </span>
                                     </div>
                                 </div>
                                 <TodoWrapV2

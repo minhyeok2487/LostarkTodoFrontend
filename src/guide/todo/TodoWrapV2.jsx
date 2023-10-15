@@ -287,6 +287,14 @@ const TodoWrapV2 = ({
                             }}
                         >
                             <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                                <button
+                                    className={`content-button ${todo.check ? "done" : ""}`}
+                                    onClick={() => updateWeekCheck(character.characterName, todo)}
+                                    onContextMenu={(e) => updateWeekCheckAll(e, character.characterName, todo)}
+                                >
+                                    {character.goldCharacter ? todo.gold + " G" : ""}
+                                    <div className="todo-button-text">{todo.check ? <DoneIcon /> : ""}</div>
+                                </button>
                                 <div>
                                     {todo.message === null || todo.message === "" ? <AddBoxIcon id={"input_field_icon_" + todo.id} onClick={() => changeShow(todo.id)} /> : ""}
                                 </div>
@@ -311,14 +319,6 @@ const TodoWrapV2 = ({
                                     </div>
                                 </div>
                             </div>
-                            <button
-                                className={`content-button ${todo.check ? "done" : ""}`}
-                                onClick={() => updateWeekCheck(character.characterName, todo)}
-                                onContextMenu={(e) => updateWeekCheckAll(e, character.characterName, todo)}
-                            >
-                                {character.goldCharacter ? todo.gold + " G" : ""}
-                                <div className="todo-button-text">{todo.check ? <DoneIcon /> : ""}</div>
-                            </button>
                         </div>
                         <div className="content" style={{ height: 16, padding: 0, position: "relative" }}>
                             {Array.from({ length: todo.totalGate }, (_, index) => (
