@@ -19,8 +19,8 @@
 }
 
 /* 기본 */
-* {font-family:'Pretendard' !important;font-weight:300}
-html, body {background-color: var(--background);height: 100%}
+* {font-family:'Pretendard' !important;font-weight:400}
+html, body {background-color: var(--background);height:100%}
 :root {--background: #eff1f7;--nav-color:#fff;--text-color: rgb(0, 0, 0);--text-done-color: rgb(50, 50, 50);--button-color: #d0e1f9;--content-border: 1px ridge black}
 .wrap {display:flex;align-items:center;flex-direction:column;font-size:14px;color:#222;height:100%;}
 
@@ -60,9 +60,9 @@ html, body {background-color: var(--background);height: 100%}
 /* 일일수익 주간수익 */
 .content-box {display:flex;align-items:center;justify-content:center;flex-direction:column;width:100%;padding:15px;background:#fff;border:1px solid #e9e9e9;border-radius:10px;font-size:16px;position:relative;}
 .content-box p {margin:0;}
-.content-box p span{margin-right:3px;}
+.content-box p span{margin-right:3px;font-weight:300 !important;}
 .content-box p:first-child{font-weight:500;}
-.content-box p:last-child{padding-left:26px;background:url(../public/images/ico_coin.png) no-repeat center left / 18px;filter: grayscale(100%);}
+.content-box p:last-child{padding-left:26px;background:url(../public/images/ico_coin.png) no-repeat center left / 18px;filter: grayscale(100%);font-weight:300 !important;}
 .content-box p.on:last-child{filter:none;}
 .content-box + .content-box{margin-left:5px;}
 .content-box .bar{position:relative;width:350px;height:15px;background:#eee;border-radius:15px;margin:8px 0;}
@@ -88,6 +88,14 @@ html, body {background-color: var(--background);height: 100%}
 .character-wrap:first-child .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root{margin-left:auto;background:url(../public/images/ico_more.png) no-repeat center / 16px} 
 .character-wrap:first-child .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root path{display:none;}
 .character-wrap:nth-child(2){border-top:0;}
+.character-wrap:nth-child(2) .title{margin-top:-5px;margin-bottom:7px;}
+.character-wrap:nth-child(2) .txt{text-align:center;font-weight:300;font-size:12px;color:#999;}
+.character-wrap:nth-child(2) .content-wrap{margin-top:5px;}
+.character-wrap:nth-child(2) > .content{position:relative;margin-top:5px;padding-top:15px !important;border-top:1px solid #e9e9e9}
+.character-wrap:nth-child(2) .content > .content-button{position:absolute;right:0;top:7px;font-size:13px !important;width:63px !important;height:23px;border:1px solid #dfdfdf !important;margin-right:0 !important;color:#222;font-weight:400 !important;border-radius:5px;cursor:pointer;}
+
+.gold{margin-top:1px !important;padding-left:16px;font-size:12px;background:url(../public/images/ico_coin.png) no-repeat center left / 12px;}
+
 
 .character-info { color: white; height: 100px; padding-left: 15px; background-size: 150%;display: flex; flex-direction: column; justify-content:center;padding-bottom:12px;}
 .character-info span {margin-top:8px;margin-bottom:6px;font-size:12px;}
@@ -173,8 +181,11 @@ header{width:100% !important;box-shadow:0px 0px 20px 7px rgba(0,0,0,0.13) !impor
 /* 아코디언 */
 .sort-wrap{max-width:1280px;margin:10px 0 !important;background-color:#fff !important;border:1px solid #e9e9e9 !important;box-shadow:none !important;color: #222 !important;}
 .sort-wrap::before{display:none !important;}
-.acc-txt{margin-top:20px;padding-left:22px;font-size:14px;font-weight:400;background:url(../public/images/ico_alert.png) no-repeat center left / 14px;}
-.character-info-mini {height: 70px;color: white;padding-left: 10px;padding-top: 1px;background-size: 120%;}
+.acc-txt{margin-top:20px;padding-left:20px;font-size:14px;font-weight:400;background:url(../public/images/ico_alert.png) no-repeat center left / 14px;}
+
+.character-info-mini {height: 70px;color: white;padding-left:10px;padding-top: 1px;background-size: 120%;}
+.character-info-mini p:first-child{margin:16px 0 5px;}
+.character-info-mini p:last-child{margin:0;}
 
 /* 저장버튼 */
 .css-1j42s11-MuiSvgIcon-root{background:url(../public/images/ico_save.png) no-repeat top 3px center / 16px;}

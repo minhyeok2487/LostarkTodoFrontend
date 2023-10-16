@@ -197,15 +197,15 @@ const TodoWrapV2 = ({
         const updatedCharacters = characters.map((character) => {
             if (character.characterName === characterName) {
                 var updatedCharacter = {
-                    characterId : character.id,
-                    characterName : character.characterName
+                    characterId: character.id,
+                    characterName: character.characterName
                 };
                 call("/v2/character/gold-character/", "PATCH", updatedCharacter)
                     .then((response) => {
                         setShowLinearProgress(false);
                         character.goldCharacter = response.goldCharacter;
                         setOpenModal(false);
-                        if(character.goldCharacter) {
+                        if (character.goldCharacter) {
                             showMessage(characterName + "골드 획득 캐릭터 지정");
                         } else {
                             showMessage(characterName + "골드 획득 캐릭터 지정 해제");
@@ -276,12 +276,14 @@ const TodoWrapV2 = ({
     return (
         <div className="character-wrap">
             <div className="content" style={{ padding: 0, display: character.settings.showWeekTodo ? "block" : "none" }}>
+                <p className="title">주간 숙제</p>{/* pub 추가 */}
+                <p className="txt">마우스 우클릭 시 한번에 체크돼요</p>{/* pub 추가 */}
                 <button
                     className={"content-button"}
                     onClick={() => openAddTodoForm(character.characterName, character.goldCharacter)}
                     style={{ width: '101%', fontWeight: "bold", fontSize: 16 }}
                 >
-                    주간숙제 관리
+                    숙제편집{/* pub 추가 */}
                 </button>
             </div>
             <div className="character-todo">
@@ -335,7 +337,7 @@ const TodoWrapV2 = ({
                                 <div key={`${todo.id}-${index}`} className="gauge-wrap"
                                     style={{
                                         backgroundColor: todo.currentGate > index ? "#0ec0c3" : "",
-                                        width: 100 / todo.totalGate + "%", alignItems: "center", justifyContent: "center", 
+                                        width: 100 / todo.totalGate + "%", alignItems: "center", justifyContent: "center",
                                         color: "var(--text-color)"
                                     }}>
                                     <span>{index + 1}관문</span>

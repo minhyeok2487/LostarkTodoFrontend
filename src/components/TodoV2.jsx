@@ -648,7 +648,7 @@ export default function TodoV2() {
                                                 onContextMenu={(e) => handleChaosCheckAll(e, character.id)}
                                             >
                                                 <p>카오스던전</p>
-                                                <p>({character.chaosGold} gold)</p>
+                                                <p className="gold">({character.chaosGold} gold)</p>
                                             </div>
                                             <SearchIcon onClick={() => openContentModal(character, "카오스던전")} style={{ cursor: "pointer" }} />
                                             {/* pub 순서변경 */}
@@ -690,7 +690,7 @@ export default function TodoV2() {
                                                 onContextMenu={(e) => handleGuardianCheckAll(e, character.id)}
                                             >
                                                 <p>가디언토벌</p>
-                                                <p>({character.guardianGold} gold)</p>
+                                                <p className="gold">({character.guardianGold} gold)</p>
                                             </div>
                                             {/* pub 순서변경 */}
                                             <SearchIcon onClick={() => openContentModal(character, "가디언토벌")} style={{ cursor: "pointer" }} />
