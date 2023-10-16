@@ -573,19 +573,19 @@ export default function TodoV2() {
                     </div>
                     <button
                         className={`content-button ${characters.length > 0 && characters[0].challengeGuardian === true ? "done" : ""}`}
-                        onClick={() => updateChallenge(characters[0], "Guardian")}
+                        onClick={() => updateChallenge(characters[0], "Guardian")} style= {{cursor:"pointer"}}
                     >
                         도전 가디언 토벌
-                        <div className="content-button-text">
+                        <div className="content-button-text" onClick={() => updateChallenge(characters[0], "Guardian")}>
                             {characters.length > 0 && (characters[0]?.challengeGuardian === true ? <DoneIcon /> : "")}
                         </div>
                     </button>
                     <button
                         className={`content-button ${characters.length > 0 && characters[0].challengeAbyss === true ? "done" : ""}`}
-                        onClick={() => updateChallenge(characters[0], "Abyss")}
+                        onClick={() => updateChallenge(characters[0], "Abyss")} style= {{cursor:"pointer"}}
                     >
                         도전 어비스 던전
-                        <div className="content-button-text">
+                        <div className="content-button-text" onClick={() => updateChallenge(characters[0], "Abyss")}>
                             {characters.length > 0 && (characters[0]?.challengeAbyss === true ? <DoneIcon /> : "")}
                         </div>
                     </button>
