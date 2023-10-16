@@ -247,7 +247,7 @@ export default function TodoV2() {
         setCharacters(updatedCharacters);
     };
 
-    //3. 가디언토벌 체크
+    //3-1. 가디언토벌 체크 All
     const handleGuardianCheckAll = (e, characterId) => {
         e.preventDefault();
         const updatedCharacters = characters.map((character) => {
@@ -273,6 +273,53 @@ export default function TodoV2() {
         setCharacters(updatedCharacters);
     };
 
+
+    //-------------------------캐릭터 데이터 업데이트 -------------------------
+    //1.캐릭터 휴식게이지 업데이트
+    const handleDayContentGuage = async (e, characterId, gaugeType) => {
+        e.preventDefault();
+        const newGaugeValue = window.prompt(`휴식게이지 수정`);
+
+        if (newGaugeValue !== null) {
+            const parsedValue = parseInt(newGaugeValue);
+            if (!isNaN(parsedValue)) {
+                const updatedCharacters = characters.map((character) => {
+                    if (character.id === characterId) {
+                        const updatedCharacter = {
+                            ...character,
+                            [`${gaugeType}Gauge`]: parsedValue,
+                        };
+
+                        const updateContent = {
+                            characterId: updatedCharacter.id,
+                            characterName: updatedCharacter.characterName,
+                            chaosGauge: updatedCharacter.chaosGauge,
+                            guardianGauge: updatedCharacter.guardianGauge,
+                            eponaGauge: updatedCharacter.eponaGauge,
+                        };
+
+                        setShowLinearProgress(true);
+
+                        return call("/v2/character/day-content/gauge", "PATCH", updateContent)
+                            .then((response) => {
+                                setShowLinearProgress(false);
+                                updatedCharacter.chaosGold = response.chaosGold;
+                                updatedCharacter.guardianGold = response.guardianGold;
+                                return updatedCharacter;
+                            })
+                            .catch((error) => {
+                                setShowLinearProgress(false);
+                                showMessage(error.errorMessage);
+                                return character;
+                            });
+                    }
+                    return character;
+                });
+                const updatedCharactersWithGold = await Promise.all(updatedCharacters);
+                setCharacters(updatedCharactersWithGold);
+            }
+        }
+    };
 
     //-------------------------디자인 관련 -------------------------
     //1.반응형 사이트를 위한 메소드 -> 창 크기에 맞게 조절
@@ -311,52 +358,6 @@ export default function TodoV2() {
                 showMessage("순서 업데이트가 완료되었습니다.");
             });
         setItemsSwapState(false);
-    };
-
-
-    //-------------------------캐릭터 데이터 업데이트 -------------------------
-    //2.캐릭터 휴식게이지 업데이트
-    const handleDayContentGuage = async (e, characterId, gaugeType) => {
-        e.preventDefault();
-        const newGaugeValue = window.prompt(`휴식게이지 수정`);
-
-        if (newGaugeValue !== null) {
-            const parsedValue = parseInt(newGaugeValue);
-            if (!isNaN(parsedValue)) {
-                const updatedCharacters = characters.map((character) => {
-                    if (character.id === characterId) {
-                        const updatedCharacter = {
-                            ...character,
-                            [`${gaugeType}Gauge`]: parsedValue,
-                        };
-
-                        const updateContent = {
-                            characterName: updatedCharacter.characterName,
-                            chaosGauge: updatedCharacter.chaosGauge,
-                            guardianGauge: updatedCharacter.guardianGauge,
-                            eponaGauge: updatedCharacter.eponaGauge,
-                        };
-
-                        setShowLinearProgress(true);
-
-                        return call("/character/day-content/gauge", "PATCH", updateContent)
-                            .then((response) => {
-                                setShowLinearProgress(false);
-                                updatedCharacter.chaosGold = response.chaosGold;
-                                updatedCharacter.guardianGold = response.guardianGold;
-                                return updatedCharacter;
-                            })
-                            .catch((error) => {
-                                alert(error.errorMessage);
-                                return null;
-                            });
-                    }
-                    return character;
-                });
-                const updatedCharactersWithGold = await Promise.all(updatedCharacters);
-                setCharacters(updatedCharactersWithGold);
-            }
-        }
     };
 
 
@@ -531,7 +532,7 @@ export default function TodoV2() {
                                             <div className="character-info-mini"
                                                 style={{
                                                     backgroundImage: character.characterImage !== null ? `url(${character.characterImage})` : "",
-                                                    backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 25px top -40px" : "left 25px top -20px",
+                                                    backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 25px top -70px" : "left 25px top -35px",
                                                     backgroundColor: "gray", // imgurl이 없을시 배경색을 회색으로 설정
                                                 }}>
                                                 <p>{character.characterName}</p>
@@ -573,7 +574,7 @@ export default function TodoV2() {
                     </div>
                     <button
                         className={`content-button ${characters.length > 0 && characters[0].challengeGuardian === true ? "done" : ""}`}
-                        onClick={() => updateChallenge(characters[0], "Guardian")} style= {{cursor:"pointer"}}
+                        onClick={() => updateChallenge(characters[0], "Guardian")} style={{ cursor: "pointer" }}
                     >
                         도전 가디언 토벌
                         <div className="content-button-text" onClick={() => updateChallenge(characters[0], "Guardian")}>
@@ -582,7 +583,7 @@ export default function TodoV2() {
                     </button>
                     <button
                         className={`content-button ${characters.length > 0 && characters[0].challengeAbyss === true ? "done" : ""}`}
-                        onClick={() => updateChallenge(characters[0], "Abyss")} style= {{cursor:"pointer"}}
+                        onClick={() => updateChallenge(characters[0], "Abyss")} style={{ cursor: "pointer" }}
                     >
                         도전 어비스 던전
                         <div className="content-button-text" onClick={() => updateChallenge(characters[0], "Abyss")}>
@@ -629,24 +630,27 @@ export default function TodoV2() {
                                         </div>
                                     </div>
                                     <div className="content-wrap" style={{ display: character.settings.showChaos ? "block" : "none" }}>
-                                        <div className="content" style={{ cursor: "pointer" }}
-                                            onClick={() => handleChaosCheck(character.id)}
-                                            onContextMenu={(e) => handleChaosCheckAll(e, character.id)}>
+                                        <div className="content">
                                             {/* pub 순서변경 */}
                                             <button
                                                 className={`content-button ${character.chaosCheck === 0 ? "" :
-                                                    character.chaosCheck === 1 ? "ing" : "done"
-                                                    }`}
+                                                    character.chaosCheck === 1 ? "ing" : "done"}`}
+                                                style={{ cursor: "pointer" }}
+                                                onClick={() => handleChaosCheck(character.id)}
+                                                onContextMenu={(e) => handleChaosCheckAll(e, character.id)}
                                             >
                                                 {character.chaosCheck === 2 ? <DoneIcon /> : <CloseIcon />}
                                             </button>
                                             <div
                                                 className={`${character.chaosCheck === 2 ? "text-done" : ""}`}
+                                                style={{ cursor: "pointer" }}
+                                                onClick={() => handleChaosCheck(character.id)}
+                                                onContextMenu={(e) => handleChaosCheckAll(e, character.id)}
                                             >
                                                 <p>카오스던전</p>
                                                 <p>({character.chaosGold} gold)</p>
                                             </div>
-                                            <SearchIcon onClick={() => openContentModal(character.characterName, "카오스던전")} style={{ cursor: "pointer" }} />
+                                            <SearchIcon onClick={() => openContentModal(character, "카오스던전")} style={{ cursor: "pointer" }} />
                                             {/* pub 순서변경 */}
                                         </div>
                                         <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
@@ -670,23 +674,26 @@ export default function TodoV2() {
                                         </div>
                                     </div>
                                     <div className="content-wrap" style={{ display: character.settings.showGuardian ? "block" : "none" }}>
-                                        <div className="content" style={{ cursor: "pointer" }}
-                                            onClick={() => handleGuardianCheck(character.id)}
-                                            onContextMenu={(e) => handleGuardianCheckAll(e, character.id)}
-                                        >
+                                        <div className="content" >
                                             <button
                                                 className={`content-button ${character.guardianCheck === 1 ? "done" : ""}`}
+                                                style={{ cursor: "pointer" }}
+                                                onClick={() => handleGuardianCheck(character.id)}
+                                                onContextMenu={(e) => handleGuardianCheckAll(e, character.id)}
                                             >
                                                 {character.guardianCheck === 1 ? <DoneIcon /> : <CloseIcon />}
                                             </button>
                                             <div
                                                 className={`${character.guardianCheck === 1 ? "text-done" : ""}`}
+                                                style={{ cursor: "pointer" }}
+                                                onClick={() => handleGuardianCheck(character.id)}
+                                                onContextMenu={(e) => handleGuardianCheckAll(e, character.id)}
                                             >
                                                 <p>가디언토벌</p>
                                                 <p>({character.guardianGold} gold)</p>
                                             </div>
                                             {/* pub 순서변경 */}
-                                            <SearchIcon onClick={() => openContentModal(character.characterName, "가디언토벌")} style={{ cursor: "pointer" }} />
+                                            <SearchIcon onClick={() => openContentModal(character, "가디언토벌")} style={{ cursor: "pointer" }} />
                                         </div>
                                         <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
                                             onContextMenu={(e) => handleDayContentGuage(e, character.id, "guardian")}
