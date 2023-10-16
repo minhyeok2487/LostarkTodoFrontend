@@ -25,14 +25,15 @@ export default function Setting() {
             });
     }, []);
 
-    const handleChange = (event, characterName, settingName) => {
+    const handleChange = (event, characterId, characterName, settingName) => {
         setShowLinearProgress(true);
         const updateContent = {
+            characterId: characterId,
             characterName: characterName,
             value: event.target.value,
             name: settingName
         };
-        call("/character/settings", "PATCH", updateContent)
+        call("/v2/character/settings", "PATCH", updateContent)
             .then((response) => {
                 setShowLinearProgress(false);
                 var point = document.getElementById(`${characterName}_${settingName}`);
@@ -43,11 +44,11 @@ export default function Setting() {
             });
     };
 
-    const selectSetting = (characterName, setting, settingName) => (
+    const selectSetting = (characterId, characterName, setting, settingName) => (
         <FormControl size="small">
             <Select
                 id={`${characterName}_${settingName}`}
-                onChange={(event) => handleChange(event, characterName, settingName)}
+                onChange={(event) => handleChange(event, characterId, characterName, settingName)}
                 defaultValue={setting ? "true" : "false"}
                 sx={{bgcolor: setting ? '#FA5858' : "#81BEF7", color:"var(--text-color)", fontWeight:"bold", transition:"color 0.5s"}}
             >
@@ -90,11 +91,11 @@ export default function Setting() {
                                 <TableCell style={{color:"var(--text-color)", transition:"color 0.5s"}} align="right">{setting.characterName}</TableCell>
                                 <TableCell style={{color:"var(--text-color)", transition:"color 0.5s"}} align="right">{setting.characterClassName}</TableCell>
                                 <TableCell style={{color:"var(--text-color)", transition:"color 0.5s"}} align="right">{setting.itemLevel}</TableCell>
-                                <TableCell align="center">{selectSetting(setting.characterName, setting.showCharacter, "showCharacter")}</TableCell>
-                                <TableCell align="center">{selectSetting(setting.characterName, setting.showEpona, "showEpona")}</TableCell>
-                                <TableCell align="center">{selectSetting(setting.characterName, setting.showChaos, "showChaos")}</TableCell>
-                                <TableCell align="center">{selectSetting(setting.characterName, setting.showGuardian, "showGuardian")}</TableCell>
-                                <TableCell align="center">{selectSetting(setting.characterName, setting.showWeekTodo, "showWeekTodo")}</TableCell>
+                                <TableCell align="center">{selectSetting(setting.characterId, setting.characterName, setting.showCharacter, "showCharacter")}</TableCell>
+                                <TableCell align="center">{selectSetting(setting.characterId, setting.characterName, setting.showEpona, "showEpona")}</TableCell>
+                                <TableCell align="center">{selectSetting(setting.characterId, setting.characterName, setting.showChaos, "showChaos")}</TableCell>
+                                <TableCell align="center">{selectSetting(setting.characterId, setting.characterName, setting.showGuardian, "showGuardian")}</TableCell>
+                                <TableCell align="center">{selectSetting(setting.characterId, setting.characterName, setting.showWeekTodo, "showWeekTodo")}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

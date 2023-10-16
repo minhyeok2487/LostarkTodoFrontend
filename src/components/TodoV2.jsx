@@ -126,19 +126,23 @@ export default function TodoV2() {
                     character.eponaCheck = 0;
                 }
                 const updateContent = {
+                    characterId: character.id,
                     characterName: character.characterName,
                     eponaCheck: character.eponaCheck,
                     chaosCheck: character.chaosCheck,
                     guardianCheck: character.guardianCheck,
                 };
-                call("/character/day-content/check", "PATCH", updateContent).then((response) => { });
+                call("/v2/character/day-content/check", "PATCH", updateContent)
+                    .then((response) => { })
+                    .catch((error) => { showMessage(error.errorMessage); });
             }
             return character;
         });
         setCharacters(updatedCharacters);
     };
 
-    const handleeponaCheckAll = (e, characterId) => {
+    //1-2. 에포나의뢰 체크 All 
+    const handleEponaCheckAll = (e, characterId) => {
         e.preventDefault();
         const updatedCharacters = characters.map((character) => {
             if (character.id === characterId) {
@@ -148,12 +152,15 @@ export default function TodoV2() {
                     character.eponaCheck = 0;
                 }
                 const updateContent = {
+                    characterId: character.id,
                     characterName: character.characterName,
                     eponaCheck: character.eponaCheck,
                     chaosCheck: character.chaosCheck,
                     guardianCheck: character.guardianCheck,
                 };
-                call("/character/day-content/check", "PATCH", updateContent).then((response) => { });
+                call("/v2/character/day-content/check", "PATCH", updateContent)
+                    .then((response) => { })
+                    .catch((error) => { showMessage(error.errorMessage); });
             }
             return character;
         });
@@ -173,18 +180,22 @@ export default function TodoV2() {
                     character.chaosCheck = 0;
                 }
                 const updateContent = {
+                    characterId: character.id,
                     characterName: character.characterName,
                     eponaCheck: character.eponaCheck,
                     chaosCheck: character.chaosCheck,
                     guardianCheck: character.guardianCheck,
                 };
-                call("/character/day-content/check", "PATCH", updateContent).then((response) => { });
+                call("/v2/character/day-content/check", "PATCH", updateContent)
+                    .then((response) => { })
+                    .catch((error) => { showMessage(error.errorMessage); });
             }
             return character;
         });
         setCharacters(updatedCharacters);
     };
 
+    //2.카오스던전 체크 All 
     const handleChaosCheckAll = (e, characterId) => {
         e.preventDefault();
         const updatedCharacters = characters.map((character) => {
@@ -195,12 +206,15 @@ export default function TodoV2() {
                     character.chaosCheck = 0;
                 }
                 const updateContent = {
+                    characterId: character.id,
                     characterName: character.characterName,
                     eponaCheck: character.eponaCheck,
                     chaosCheck: character.chaosCheck,
                     guardianCheck: character.guardianCheck,
                 };
-                call("/character/day-content/check", "PATCH", updateContent).then((response) => { });
+                call("/v2/character/day-content/check", "PATCH", updateContent)
+                    .then((response) => { })
+                    .catch((error) => { showMessage(error.errorMessage); });
             }
             return character;
         });
@@ -218,12 +232,41 @@ export default function TodoV2() {
                     character.guardianCheck = 0;
                 }
                 const updateContent = {
+                    characterId: character.id,
                     characterName: character.characterName,
                     eponaCheck: character.eponaCheck,
                     chaosCheck: character.chaosCheck,
                     guardianCheck: character.guardianCheck,
                 };
-                call("/character/day-content/check", "PATCH", updateContent).then((response) => { });
+                call("/v2/character/day-content/check", "PATCH", updateContent)
+                    .then((response) => { })
+                    .catch((error) => { showMessage(error.errorMessage); });
+            }
+            return character;
+        });
+        setCharacters(updatedCharacters);
+    };
+
+    //3. 가디언토벌 체크
+    const handleGuardianCheckAll = (e, characterId) => {
+        e.preventDefault();
+        const updatedCharacters = characters.map((character) => {
+            if (character.id === characterId) {
+                if (character.guardianCheck === 0) {
+                    character.guardianCheck = 1;
+                } else {
+                    character.guardianCheck = 0;
+                }
+                const updateContent = {
+                    characterId: character.id,
+                    characterName: character.characterName,
+                    eponaCheck: character.eponaCheck,
+                    chaosCheck: character.chaosCheck,
+                    guardianCheck: character.guardianCheck,
+                };
+                call("/v2/character/day-content/check", "PATCH", updateContent)
+                    .then((response) => { })
+                    .catch((error) => { showMessage(error.errorMessage); });
             }
             return character;
         });
@@ -417,7 +460,7 @@ export default function TodoV2() {
         </MenuItem>
     ));
 
-    // 도전 어비스/가디언 체크
+    // 도전 어비스/가디언 체크(v2 업데이트 완료)
     const updateChallenge = async (character, content) => {
         setShowLinearProgress(true);
         const updateContent = {
@@ -425,17 +468,8 @@ export default function TodoV2() {
             content: content
         };
         try {
-            const response = await call("/character/challenge", "PATCH", updateContent);
-
-            const updatedCharacters = characters.map((char) => {
-                if (char.serverName === character.serverName) {
-                    char.challengeAbyss = response.challengeAbyss;
-                    char.challengeGuardian = response.challengeGuardian;
-                }
-                return char;
-            });
-
-            setCharacters(updatedCharacters);
+            const response = await call("/v2/character/challenge", "PATCH", updateContent);
+            setCharacters(response);
             setShowLinearProgress(false);
         } catch (error) {
             console.error("Error updating challenge:", error);
@@ -456,7 +490,7 @@ export default function TodoV2() {
                         <p>일일 수익</p>
                         <span className="bar">
                             <i style={{ width: `${getDayGold / totalDayGold * 100}%` }}></i>
-                            <em style={{textAlign:"center"}}>{(getDayGold / totalDayGold * 100).toFixed(1)} %</em>
+                            <em style={{ textAlign: "center" }}>{(getDayGold / totalDayGold * 100).toFixed(1)} %</em>
                         </span>
                         <p>{getDayGold.toFixed(2)} / <span>{totalDayGold.toFixed(2)}</span>G</p>
                     </div>
@@ -464,7 +498,7 @@ export default function TodoV2() {
                         <p>주간 수익</p>
                         <span className="bar">
                             <i style={{ width: `${getWeekGold / totalWeekGold * 100}%` }}></i>
-                            <em style={{textAlign:"center"}}>{(getWeekGold / totalWeekGold * 100).toFixed(1)} %</em>
+                            <em style={{ textAlign: "center" }}>{(getWeekGold / totalWeekGold * 100).toFixed(1)} %</em>
                         </span>
                         <p className={`${getWeekGold / totalWeekGold}` === 1 ? "on" : ""}>{getWeekGold.toLocaleString()} / <span>{totalWeekGold.toLocaleString()}</span>G</p>{/* pub width가 100% 시 on 클래스 추가해주세요!(골드색변함) */}
                     </div>
@@ -576,29 +610,33 @@ export default function TodoV2() {
                                     </div>
                                     <p className="title">일일 숙제</p>{/* pub 추가 */}
                                     <div className="content-wrap" style={{ display: character.settings.showEpona ? "block" : "none" }}>
-                                        <div className="content">
+                                        <div className="content" style={{ cursor: "pointer" }}
+                                            onClick={() => handleEponaCheck(character.id)}
+                                            onContextMenu={(e) => handleEponaCheckAll(e, character.id)}>
                                             {/* pub 순서변경 */}
                                             <button
-                                                className={`content-button ${character.eponaCheck === true ? "done" : ""}`}
-                                                onClick={() => handleEponaCheck(character.id)}
+                                                className={`content-button ${character.eponaCheck === 3 ? "done" :
+                                                    character.eponaCheck === 1 ? "ing" :
+                                                        character.eponaCheck === 2 ? "ing2" : ""}`}
                                             >
-                                                {character.eponaCheck === true ? <DoneIcon /> : <CloseIcon />}
+                                                {character.eponaCheck === 3 ? <DoneIcon /> : <CloseIcon />}
                                             </button>
                                             <div
-                                                className={`${character.eponaCheck === true ? "text-done" : ""}`}>
-                                                <span>에포나의뢰 & 출석체크</span>
+                                                className={`${character.eponaCheck === 3 ? "text-done" : ""}`}>
+                                                <span>에포나의뢰</span>
                                             </div>
                                             {/* pub 순서변경 */}
                                         </div>
                                     </div>
                                     <div className="content-wrap" style={{ display: character.settings.showChaos ? "block" : "none" }}>
-                                        <div className="content">
+                                        <div className="content" style={{ cursor: "pointer" }}
+                                            onClick={() => handleChaosCheck(character.id)}
+                                            onContextMenu={(e) => handleChaosCheckAll(e, character.id)}>
                                             {/* pub 순서변경 */}
                                             <button
                                                 className={`content-button ${character.chaosCheck === 0 ? "" :
                                                     character.chaosCheck === 1 ? "ing" : "done"
                                                     }`}
-                                                onClick={() => handleChaosCheck(character.id)}
                                             >
                                                 {character.chaosCheck === 2 ? <DoneIcon /> : <CloseIcon />}
                                             </button>
@@ -632,10 +670,12 @@ export default function TodoV2() {
                                         </div>
                                     </div>
                                     <div className="content-wrap" style={{ display: character.settings.showGuardian ? "block" : "none" }}>
-                                        <div className="content">
+                                        <div className="content" style={{ cursor: "pointer" }}
+                                            onClick={() => handleGuardianCheck(character.id)}
+                                            onContextMenu={(e) => handleGuardianCheckAll(e, character.id)}
+                                        >
                                             <button
                                                 className={`content-button ${character.guardianCheck === 1 ? "done" : ""}`}
-                                                onClick={() => handleGuardianCheck(character.id)}
                                             >
                                                 {character.guardianCheck === 1 ? <DoneIcon /> : <CloseIcon />}
                                             </button>
@@ -677,6 +717,7 @@ export default function TodoV2() {
                                     setModalContent={setModalContent}
                                     setOpenModal={setOpenModal}
                                     setShowLinearProgress={setShowLinearProgress}
+                                    showMessage={showMessage}
                                 />
                             </Grid>
                         ))}

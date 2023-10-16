@@ -106,6 +106,7 @@ html, body {background-color: var(--background);height: 100%}
 .gauge-text {display:block;margin-top:-3px;text-align:center;position: absolute;bottom: 5px;left: 60px;color: #222;font-size: 13px;}
 
 .ing::before{content:"1수";font-size: 10px;text-wrap: nowrap;}
+.ing2::before{content:"2수";font-size: 10px;text-wrap: nowrap;}
 .text-done {color:#c9c9c9;text-decoration:line-through;}
 
 .input-field {position: relative;}

@@ -12,6 +12,7 @@ const TodoWrapV2 = ({
     setModalContent,
     setOpenModal,
     setShowLinearProgress,
+    showMessage
 }) => {
     //1.캐릭터 주간숙제 추가 폼
     const openAddTodoForm = (characterName, goldCharacter) => {
@@ -190,19 +191,28 @@ const TodoWrapV2 = ({
         setCharacters(updatedCharactersWithTodo);
     };
 
-    //4.골드획득 캐릭터 업데이트
+    //4.골드획득 캐릭터 업데이트(v2 업데이트 완료)
     const updateGoldCharacter = (characterName) => {
         setShowLinearProgress(true);
         const updatedCharacters = characters.map((character) => {
             if (character.characterName === characterName) {
-                call("/character/gold-character/" + characterName, "POST", null)
+                var updatedCharacter = {
+                    characterId : character.id,
+                    characterName : character.characterName
+                };
+                call("/v2/character/gold-character/", "PATCH", updatedCharacter)
                     .then((response) => {
                         setShowLinearProgress(false);
                         character.goldCharacter = response.goldCharacter;
                         setOpenModal(false);
+                        if(character.goldCharacter) {
+                            showMessage(characterName + "골드 획득 캐릭터 지정");
+                        } else {
+                            showMessage(characterName + "골드 획득 캐릭터 지정 해제");
+                        }
                     })
                     .catch((error) => {
-                        alert(error.errorMessage);
+                        showMessage(error.errorMessage);
                         setShowLinearProgress(false);
                     });
             }
