@@ -3,6 +3,7 @@ import { call } from "../../service/api-service";
 import Button from '@mui/material/Button';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import DoneIcon from '@mui/icons-material/Done';
+import CloseIcon from '@mui/icons-material/Close';
 
 const TodoWrapV2 = ({
     characters,
@@ -12,6 +13,7 @@ const TodoWrapV2 = ({
     setModalContent,
     setOpenModal,
     setShowLinearProgress,
+    showMessage
 }) => {
     //1.캐릭터 주간숙제 추가 폼
     const openAddTodoForm = (characterName, goldCharacter) => {
@@ -190,19 +192,28 @@ const TodoWrapV2 = ({
         setCharacters(updatedCharactersWithTodo);
     };
 
-    //4.골드획득 캐릭터 업데이트
+    //4.골드획득 캐릭터 업데이트(v2 업데이트 완료)
     const updateGoldCharacter = (characterName) => {
         setShowLinearProgress(true);
         const updatedCharacters = characters.map((character) => {
             if (character.characterName === characterName) {
-                call("/character/gold-character/" + characterName, "POST", null)
+                var updatedCharacter = {
+                    characterId: character.id,
+                    characterName: character.characterName
+                };
+                call("/v2/character/gold-character/", "PATCH", updatedCharacter)
                     .then((response) => {
                         setShowLinearProgress(false);
                         character.goldCharacter = response.goldCharacter;
                         setOpenModal(false);
+                        if (character.goldCharacter) {
+                            showMessage(characterName + "골드 획득 캐릭터 지정");
+                        } else {
+                            showMessage(characterName + "골드 획득 캐릭터 지정 해제");
+                        }
                     })
                     .catch((error) => {
-                        alert(error.errorMessage);
+                        showMessage(error.errorMessage);
                         setShowLinearProgress(false);
                     });
             }
@@ -266,12 +277,14 @@ const TodoWrapV2 = ({
     return (
         <div className="character-wrap">
             <div className="content" style={{ padding: 0, display: character.settings.showWeekTodo ? "block" : "none" }}>
+                <p className="title">주간 숙제</p>{/* pub 추가 */}
+                <p className="txt">마우스 우클릭 시 한번에 체크돼요</p>{/* pub 추가 */}
                 <button
                     className={"content-button"}
                     onClick={() => openAddTodoForm(character.characterName, character.goldCharacter)}
                     style={{ width: '101%', fontWeight: "bold", fontSize: 16 }}
                 >
-                    주간숙제 관리
+                    숙제편집{/* pub 추가 */}
                 </button>
             </div>
             <div className="character-todo">
@@ -280,33 +293,39 @@ const TodoWrapV2 = ({
                         <div
                             className="content"
                             style={{
-                                height: 35,
+                                height: 55,
                                 position: "relative",
                                 justifyContent: "space-between",
                                 fontSize: 12,
                             }}
                         >
                             <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                                {/* 여기서 부터 */}
                                 <button
                                     className={`content-button ${todo.check ? "done" : ""}`}
+                                    style={{ cursor: "pointer" }}
                                     onClick={() => updateWeekCheck(character.characterName, todo)}
                                     onContextMenu={(e) => updateWeekCheckAll(e, character.characterName, todo)}
                                 >
-                                    {character.goldCharacter ? todo.gold + " G" : ""}
-                                    <div className="todo-button-text">{todo.check ? <DoneIcon /> : ""}</div>
+                                    {todo.check ? <DoneIcon /> : <CloseIcon />}
                                 </button>
-                                <div>
-                                    {todo.message === null || todo.message === "" ? <AddBoxIcon id={"input_field_icon_" + todo.id} onClick={() => changeShow(todo.id)} /> : ""}
-                                </div>
+                                {/* 여기까지 클릭 버튼 */}
+                                {/* 여기서 부터 */}
                                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
                                     <div
                                         className={`${todo.check ? "text-done" : ""}`}
                                         style={{ marginLeft: 2, width: "90px" }}
-                                        dangerouslySetInnerHTML={{ __html: todo.name.replace(/\n/g, "<br />") }}
                                     >
+                                        {todo.name.replace(/<br \/>/g, '')}
+                                    </div>
+                                    <div
+                                        className={`${todo.check ? "text-done" : ""}`}
+                                        style={{ marginLeft: 2, width: "90px" }}
+                                    >
+                                        {character.goldCharacter ? todo.gold + " G" : ""}
                                     </div>
                                     <div className={"input-field"} id={"input_field_" + todo.id} style={{ display: todo.message === null || todo.message === "" ? "none" : "block" }}>
-                                        <input type="text" spellCheck="false" defaultValue={todo.message}
+                                        <input type="text" spellCheck="false" defaultValue={todo.message} style={{ width: "90%" }}
                                             onBlur={(e) => updateWeekMessage(character.id, todo.id, e.target.value)}
                                             onKeyDown={(e) => {
                                                 if (e.key === "Enter") {
@@ -314,10 +333,16 @@ const TodoWrapV2 = ({
                                                     e.target.blur();
                                                 }
                                             }}
-                                            placeholder="간단한 메모 추가"
+                                            placeholder="메모 추가"
                                         />
                                     </div>
                                 </div>
+                                {/* 여기까지 출력 글씨 */}
+                                {/* 여기서 부터 */}
+                                <div>
+                                    {todo.message === null || todo.message === "" ? <AddBoxIcon id={"input_field_icon_" + todo.id} onClick={() => changeShow(todo.id)} /> : ""}
+                                </div>
+                                {/* 여기까지 "+" 버튼 */}
                             </div>
                         </div>
                         <div className="content" style={{ height: 16, padding: 0, position: "relative" }}>
@@ -325,7 +350,7 @@ const TodoWrapV2 = ({
                                 <div key={`${todo.id}-${index}`} className="gauge-wrap"
                                     style={{
                                         backgroundColor: todo.currentGate > index ? "#0ec0c3" : "",
-                                        width: 100 / todo.totalGate + "%", alignItems: "center", justifyContent: "center", 
+                                        width: 100 / todo.totalGate + "%", alignItems: "center", justifyContent: "center",
                                         color: "var(--text-color)"
                                     }}>
                                     <span>{index + 1}관문</span>
@@ -337,7 +362,6 @@ const TodoWrapV2 = ({
                 ))}
             </div>
         </div>
-
     );
 };
 

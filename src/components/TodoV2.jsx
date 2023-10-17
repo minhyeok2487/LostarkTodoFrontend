@@ -543,7 +543,7 @@ export default function TodoV2() {
                                     </GridItem>
                                 ))}
                             </GridDropZone>
-                            <span class="acc-txt">드래그 시 캐릭터 순서가 변경돼요</span>{/* pub 문구추가 */}
+                            <span class="acc-txt">드래그 시 캐릭터 순서가 변경됩니다</span>{/* pub 문구추가 */}
                         </GridContextProvider>
                     </AccordionDetails>
                 </Accordion>
