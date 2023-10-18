@@ -22,7 +22,7 @@
 * {font-family:'Pretendard' !important;font-weight:400}
 html, body {background-color: var(--background);height:100%}
 :root {--background: #eff1f7;--nav-color:#fff;--text-color: rgb(0, 0, 0);--text-done-color: rgb(50, 50, 50);--button-color: #d0e1f9;--content-border: 1px ridge black}
-.wrap {display:flex;align-items:center;flex-direction:column;font-size:14px;color:#222;height:100%;}
+.wrap {display:flex;align-items:center;flex-direction:column;margin-top:20px;font-size:14px;color:#222;height:100%;}
 
 /* 다크모드 */
 .ui-dark {--background: #242424;--nav-color:#414141;--text-color: rgb(255, 255, 255);--text-done-color: rgb(200, 200, 200);--button-color: #4f6580;--content-border: 1px ridge white}
@@ -47,9 +47,10 @@ html, body {background-color: var(--background);height:100%}
 .ui-dark .character-wrap:first-child .content:not(.gauge-box){border-color: #7b7979 !important}
 .ui-dark .character-wrap:nth-child(2) .content-wrap{border-color: #7b7979 !important;overflow:hidden}
 .ui-dark .title{color:#fff !important;}
-.ui-dark .gauge-wrap{background-color:#fff !important;color:#222 !important;}
+.ui-dark .gauge-wrap{background-color:#fff;color:#222 !important;}
 .ui-dark .css-14gdvif-MuiSpeedDial-root button svg{color:#222 !important;}
 .ui-dark .css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab{background:#bbb !important;}
+.ui-dark .content-box .bar em{color:#bbb !important;}
 
 /* .theme-label {width:64px;height:64px;position: fixed;bottom: 35px; right: 100px;display: block;background:url(../public/images/ico_dark.png) no-repeat center;border-radius:10px;cursor: pointer;z-index: 9999} */
 .theme-label {width:64px;height:64px;display: flex; background:url(../public/images/ico_dark.png) no-repeat center;border-radius:10px;cursor: pointer;z-index: 9999; zoom: 60%;}
@@ -84,7 +85,7 @@ html, body {background-color: var(--background);height:100%}
 .content-box p {margin:0;}
 .content-box p span{margin-right:3px;font-weight:300 !important;}
 .content-box p:first-child{font-weight:500;font-size:16px;}
-.content-box p:last-child{padding-left:26px;background:url(../public/images/ico_coin.png) no-repeat center left / 18px;filter: grayscale(100%);font-weight:300 !important;line-height:18px;}
+.content-box p:last-child{padding-left:26px;background:url(../public/images/ico_coin.png) no-repeat center left / 18px;font-weight:300 !important;line-height:18px;}
 .content-box p.on:last-child{filter:none;}
 .content-box + .content-box{margin-left:7px;}
 .content-box .bar{position:relative;width:350px;height:15px;background:#eee;border-radius:15px;margin:8px 0;}
