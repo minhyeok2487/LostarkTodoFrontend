@@ -20,12 +20,19 @@ const Comment = ({
     activeComment.id === comment.id &&
     activeComment.type === "replying";
   const canDelete =
-    (currentUser.username === comment.username && replies.length === 0);
-  const canReply = (currentUser.role === "ADMIN") || (currentUser.username === comment.username);
-  const canEdit = currentUser.username === comment.username;
+    (currentUser.id === comment.memberId && replies.length === 0);
+  const canReply = (currentUser.role === "ADMIN") || (currentUser.id === comment.memberId);
+  const canEdit = currentUser.id === comment.memberId;
   const replyId = parentId ? parentId : comment.id;
   const lastModifiedDate = new Date(comment.lastModifiedDate).toLocaleString();
-  const username = comment.role === "ADMIN"? "관리자" : comment.username.substring(0, 5) + '*'.repeat(comment.username.length - 5);
+  var username = "";
+  if (comment.role === "ADMIN") {
+    username = "관리자";
+  } else if (comment.role === "PUBLISHER") {
+    username = "UI담당자";
+  } else {
+    username = comment.username.substring(0, 5) + '*'.repeat(comment.username.length - 5);
+  }
 
   return (
     <div key={comment.id} className="comment">
@@ -36,7 +43,7 @@ const Comment = ({
         <div className="comment-content">
           <div>
             <span className="comment-author"
-              style={{color: comment.role === "ADMIN" ?  "blue" : ""}}
+              style={{ color: comment.role === "ADMIN" ? "blue" : "" }}
             >{username}</span>({lastModifiedDate})
           </div>
         </div>
