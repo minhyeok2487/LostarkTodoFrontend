@@ -47,14 +47,16 @@ export default function BasicSpeedDial(props) {
     return (
         <SpeedDial
             ariaLabel="SpeedDial basic example"
-            sx={{ position: 'fixed', bottom: 30, right: 30 }}
+            sx={{ position: 'fixed', top: 100, right: 20 }}
             icon={<SpeedDialIcon />}
+            direction={"down"}
         >
             {icons.map((icon) => (
                 <SpeedDialAction
                     key={icon.name}
                     icon={icon.icon}
                     tooltipTitle={icon.name}
+                    direction="Down"
                     onClick={() => actions(icon.name)}
                 />
             ))}

@@ -311,16 +311,18 @@ const TodoWrapV2 = ({
                                 </button>
                                 {/* 여기까지 클릭 버튼 */}
                                 {/* 여기서 부터 */}
-                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", width: "100%" }}
-                                    onClick={() => updateWeekCheck(character.characterName, todo)}
-                                    onContextMenu={(e) => updateWeekCheckAll(e, character.characterName, todo)}>
+                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", width: "100%" }}>
                                     <div
                                         className={`${todo.check ? "text-done" : ""}`}
+                                        onClick={() => updateWeekCheck(character.characterName, todo)}
+                                        onContextMenu={(e) => updateWeekCheckAll(e, character.characterName, todo)}
                                         dangerouslySetInnerHTML={{ __html: todo.name.replace(/\n/g, "<br />") }} // pub 이부분 원래로 원복
                                     >
                                     </div>
                                     <div
                                         className={`${todo.check ? "text-done" : ""}`}
+                                        onClick={() => updateWeekCheck(character.characterName, todo)}
+                                        onContextMenu={(e) => updateWeekCheckAll(e, character.characterName, todo)}
                                     >
                                         <span class="gold">{character.goldCharacter ? todo.gold + " G" : ""}</span>  {/* pub span gold 추가 */}
                                     </div>

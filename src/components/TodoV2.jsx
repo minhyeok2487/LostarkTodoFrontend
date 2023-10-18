@@ -628,6 +628,25 @@ export default function TodoV2() {
                                             </div>
                                             {/* pub 순서변경 */}
                                         </div>
+                                        <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
+                                            onContextMenu={(e) => handleDayContentGuage(e, character.id, "epona")}
+                                            onClick={(e) => handleDayContentGuage(e, character.id, "epona")}>
+                                            {Array.from({ length: 5 }, (_, index) => (
+                                                <div key={index} className="gauge-wrap">
+                                                    <div
+                                                        className="gauge"
+                                                        style={{ backgroundColor: index * 2 < character.eponaGauge / 10 ? "#0ec0c3" : undefined }}
+                                                    ></div>
+                                                    <div
+                                                        className="gauge"
+                                                        style={{ backgroundColor: index * 2 + 1 < character.eponaGauge / 10 ? "#0ec0c3" : undefined }}
+                                                    ></div>
+                                                </div>
+                                            ))}
+                                            <span className="gauge-text">
+                                                휴식게이지 : {character.eponaGauge}
+                                            </span>
+                                        </div>
                                     </div>
                                     <div className="content-wrap" style={{ display: character.settings.showChaos ? "block" : "none" }}>
                                         <div className="content">

@@ -79,15 +79,13 @@ const Comments = () => {
     return (
         <div className="comments">
             <div>
-                <h3>업데이트 느려서 죄송합니다ㅠㅠ</h3>
+                <h1>버그 많아서 죄송합니다 ㅠㅠ</h1>
                 <p>의견주신 많은 분들 다들 너무 감사합니다. 최대한 빠르게 업데이트 하도록 해보겠습니다.</p>
             </div>
             <div>
-                <h3 style={{ margin: 0 }}>2023.10.14</h3>
+                <h2 style={{ margin: 0 }}>2023.10.18</h2>
                 <strong>
-                    <li>캐릭터 업데이트 기능이 수정되었습니다. 캐릭터 닉네임이 변경되도 정상 작동됩니다.</li>
-                    <li>에포나의뢰가 휴식게이지 계산방식으로 변경되었습니다</li>
-                    <li>휴식게이지 증가 오류가 수정되었습니다.</li>
+                    <li>디자인 리뉴얼 되었습니다. 도움을 주신 퍼블리셔님 감사합니다</li>
                 </strong>
             </div>
             <Info />
@@ -119,7 +117,6 @@ const Comments = () => {
                         currentUser={currentUser}
                     />
                 ))}
-
             </div>
         </div>
     );

@@ -93,6 +93,28 @@ export default function Navbar() {
     )
   );
 
+  React.useEffect(() => {
+    const bgMode = window.localStorage.getItem("bgMode");
+    if (bgMode === "dark") {
+      document.getElementsByTagName("html")[0].classList.add("ui-dark");
+      document.getElementsByClassName("theme-input")[0].checked = true;
+    }
+  }, []);
+
+  const darkOnOff = () => {
+    if (
+      document.getElementsByTagName("html")[0].classList.contains("ui-dark")
+    ) {
+      document.getElementsByTagName("html")[0].classList.remove("ui-dark");
+      window.localStorage.setItem("bgMode", "light");
+      document.getElementsByClassName("theme-input")[0].checked = false;
+    } else {
+      document.getElementsByTagName("html")[0].classList.add("ui-dark");
+      window.localStorage.setItem("bgMode", "dark");
+      document.getElementsByClassName("theme-input")[0].checked = true;
+    }
+  };
+
   return (
     <>
       <Box sx={{ flexGrow: 1, backgroundColor: "#000", fontWeight: "bold", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
@@ -102,12 +124,16 @@ export default function Navbar() {
         <AppBar position="static" color='inherit' style={{ backgroundColor: "var(--nav-color)" }}>
           <Toolbar>
             <MenuItem onClick={() => (window.location.href = "/")}>
-              <img src='/logo.png' style={{ width: 150 }} />
+              <img alt="logo" src='/logo.png' style={{ width: 150 }} />
             </MenuItem>
             <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/comments")}>
               <p>방명록</p>
             </MenuItem>
             <Box sx={{ flexGrow: 1 }} />
+            <Box>
+              <input className="theme-input" type="checkbox" id="darkmode-toggle" onChange={darkOnOff} />
+              <label className="theme-label" htmlFor="darkmode-toggle"></label>
+            </Box>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               {isLogin &&
                 <IconButton
