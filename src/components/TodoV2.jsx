@@ -3,34 +3,25 @@ import { call } from "../service/api-service";
 import Typography from "@mui/material/Typography";
 import SearchIcon from '@mui/icons-material/Search';
 import Modal from "@mui/material/Modal";
-import SaveIcon from '@mui/icons-material/Save';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
-import {
-    GridContextProvider,
-    GridDropZone,
-    GridItem,
-    swap,
-} from "react-grid-dnd";
 import { Grid } from "@mui/material";
 import Notification from '../fragments/Notification';
 import LinearIndeterminate from '../fragments/LinearIndeterminate';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import BasicSpeedDial from '../fragments/BasicSpeedDial';
 import TodoWrapV2 from "./todo/TodoWrapV2";
+import CharacterSortForm from "./todo/CharacterSortForm";
 
 
 export default function TodoV2() {
     const [characters, setCharacters] = useState([]); //캐릭터 리스트
     const [servers, setServers] = useState([]); //서버 리스트
     const [selectedServer, setSelectedServer] = useState(null);
+    const [showCharacterSortForm, setShowCharacterSortForm] = useState(false);
 
     //------------------------- 페이지 로드시 호출 -------------------------
     useEffect(() => {
@@ -338,28 +329,6 @@ export default function TodoV2() {
         }
     }
 
-    //2.순서 변경 캐릭터 리스트 저장
-    const [itemsSwapState, setItemsSwapState] = useState(false);
-    function onChange(sourceId, sourceIndex, targetIndex, targetId) {
-        setItemsSwapState(true);
-        const nextState = swap(characters, sourceIndex, targetIndex);
-        for (let i = 0; i < nextState.length; i++) {
-            nextState[i].sortNumber = i;
-        }
-        setCharacters(nextState);
-    }
-
-    //3.순서 변경 DB저장
-    const saveSort = () => {
-        setShowLinearProgress(true);
-        call("/member/characterList/sorting", "PATCH", characters)
-            .then((response) => {
-                setShowLinearProgress(false);
-                showMessage("순서 업데이트가 완료되었습니다.");
-            });
-        setItemsSwapState(false);
-    };
-
 
     /**
      * 각종 정보창 모달 관련
@@ -484,7 +453,9 @@ export default function TodoV2() {
             <BasicSpeedDial
                 setShowLinearProgress={setShowLinearProgress}
                 setCharacters={setCharacters}
-                showMessage={showMessage} />
+                showMessage={showMessage}
+                setShowCharacterSortForm={setShowCharacterSortForm}
+            />
             <div className="wrap">
                 <div className="setting-wrap">
                     <div className="content-box">
@@ -505,48 +476,15 @@ export default function TodoV2() {
                     </div>
                 </div>
                 {/* pub 아코디언 위치 수정 */}
-                <Accordion style={{ backgroundColor: "rgba(255, 255, 255, 50%)", width: "100%", border: "1px solid white" }} className="sort-wrap">
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        style={{ borderRadius: "5px" }}
-                    >
-                        <Typography fontWeight={"bold"} display={"flex"}>캐릭터 순서 변경
-                            <SaveIcon
-                                onClick={() => saveSort()}
-                                sx={{ display: itemsSwapState ? "flex" : "none", marginLeft: "5px", color: "blueviolet", cursor: "pointer" }}
-                            >
-                            </SaveIcon>
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <GridContextProvider onChange={onChange}>
-                            <GridDropZone
-                                id="characters"
-                                boxesPerRow={itemsPerRow}
-                                rowHeight={80}
-                                style={{ height: 80 * Math.ceil(characters.length / itemsPerRow) }}
-                            >
-                                {characters.map((character) => (
-                                    <GridItem key={character.sortNumber} style={{ width: `${100 / itemsPerRow}%` }}>
-                                        <div style={{ marginRight: 10 }}>
-                                            <div className="character-info-mini"
-                                                style={{
-                                                    backgroundImage: character.characterImage !== null ? `url(${character.characterImage})` : "",
-                                                    backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 25px top -70px" : "left 25px top -35px",
-                                                    backgroundColor: "gray", // imgurl이 없을시 배경색을 회색으로 설정
-                                                }}>
-                                                <p>{character.characterName}</p>
-                                                <p>Lv. {character.itemLevel}</p>
-                                                {/* pub 없어도 될꺼같아서 삭제! <p>테스트테스트</p> */}
-                                            </div>
-                                        </div>
-                                    </GridItem>
-                                ))}
-                            </GridDropZone>
-                            <span class="acc-txt">드래그 시 캐릭터 순서가 변경됩니다</span>{/* pub 문구추가 */}
-                        </GridContextProvider>
-                    </AccordionDetails>
-                </Accordion>
+                {/* 캐릭터 순서 변경 폼 */}
+                {showCharacterSortForm && <CharacterSortForm
+                    characters={characters}
+                    setCharacters={setCharacters}
+                    setShowLinearProgress={setShowLinearProgress}
+                    showMessage={showMessage}
+                    itemsPerRow={itemsPerRow}
+                    setShowCharacterSortForm={setShowCharacterSortForm}
+                />}
                 {/* pub 아코디언 위치 수정 */}
                 <div className="setting-wrap">
                     <div> {/* pub style 삭제 */}
@@ -628,23 +566,23 @@ export default function TodoV2() {
                                             </div>
                                             {/* pub 순서변경 */}
                                         </div>
-                                        <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
+                                        <div className="content gauge-box" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
                                             onContextMenu={(e) => handleDayContentGuage(e, character.id, "epona")}
                                             onClick={(e) => handleDayContentGuage(e, character.id, "epona")}>
                                             {Array.from({ length: 5 }, (_, index) => (
                                                 <div key={index} className="gauge-wrap">
                                                     <div
                                                         className="gauge"
-                                                        style={{ backgroundColor: index * 2 < character.eponaGauge / 10 ? "#0ec0c3" : undefined }}
+                                                        style={{ backgroundColor: index * 2 < character.eponaGauge / 10 ? "#cfecff" : undefined }}
                                                     ></div>
                                                     <div
                                                         className="gauge"
-                                                        style={{ backgroundColor: index * 2 + 1 < character.eponaGauge / 10 ? "#0ec0c3" : undefined }}
+                                                        style={{ backgroundColor: index * 2 + 1 < character.eponaGauge / 10 ? "#cfecff" : undefined }}
                                                     ></div>
                                                 </div>
                                             ))}
                                             <span className="gauge-text">
-                                                휴식게이지 : {character.eponaGauge}
+                                                휴식게이지 {character.eponaGauge}
                                             </span>
                                         </div>
                                     </div>
@@ -672,23 +610,23 @@ export default function TodoV2() {
                                             <SearchIcon onClick={() => openContentModal(character, "카오스던전")} style={{ cursor: "pointer" }} />
                                             {/* pub 순서변경 */}
                                         </div>
-                                        <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
+                                        <div className="content gauge-box" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
                                             onContextMenu={(e) => handleDayContentGuage(e, character.id, "chaos")}
                                             onClick={(e) => handleDayContentGuage(e, character.id, "chaos")}>
                                             {Array.from({ length: 5 }, (_, index) => (
                                                 <div key={index} className="gauge-wrap">
                                                     <div
                                                         className="gauge"
-                                                        style={{ backgroundColor: index * 2 < character.chaosGauge / 10 ? "#0ec0c3" : undefined }}
+                                                        style={{ backgroundColor: index * 2 < character.chaosGauge / 10 ? "#cfecff" : undefined }}
                                                     ></div>
                                                     <div
                                                         className="gauge"
-                                                        style={{ backgroundColor: index * 2 + 1 < character.chaosGauge / 10 ? "#0ec0c3" : undefined }}
+                                                        style={{ backgroundColor: index * 2 + 1 < character.chaosGauge / 10 ? "#cfecff" : undefined }}
                                                     ></div>
                                                 </div>
                                             ))}
                                             <span className="gauge-text">
-                                                휴식게이지 : {character.chaosGauge}
+                                                휴식게이지 {character.chaosGauge}
                                             </span>
                                         </div>
                                     </div>
@@ -714,23 +652,23 @@ export default function TodoV2() {
                                             {/* pub 순서변경 */}
                                             <SearchIcon onClick={() => openContentModal(character, "가디언토벌")} style={{ cursor: "pointer" }} />
                                         </div>
-                                        <div className="content" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
+                                        <div className="content gauge-box" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
                                             onContextMenu={(e) => handleDayContentGuage(e, character.id, "guardian")}
                                             onClick={(e) => handleDayContentGuage(e, character.id, "guardian")}>
                                             {Array.from({ length: 5 }, (_, index) => (
                                                 <div key={index} className="gauge-wrap">
                                                     <div
                                                         className="gauge"
-                                                        style={{ backgroundColor: index * 2 < character.guardianGauge / 10 ? "#0ec0c3" : undefined }}
+                                                        style={{ backgroundColor: index * 2 < character.guardianGauge / 10 ? "#cfecff" : undefined }}
                                                     ></div>
                                                     <div
                                                         className="gauge"
-                                                        style={{ backgroundColor: index * 2 + 1 < character.guardianGauge / 10 ? "#0ec0c3" : undefined }}
+                                                        style={{ backgroundColor: index * 2 + 1 < character.guardianGauge / 10 ? "#cfecff" : undefined }}
                                                     ></div>
                                                 </div>
                                             ))}
                                             <span className="gauge-text">
-                                                휴식게이지 : {character.guardianGauge}
+                                                휴식게이지 {character.guardianGauge}
                                             </span>
                                         </div>
                                     </div>

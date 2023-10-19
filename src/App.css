@@ -50,7 +50,7 @@ html, body {background-color: var(--background);height:100%}
 .ui-dark .character-wrap:nth-child(2) .content-wrap{border-color: #7b7979 !important;overflow:hidden}
 .ui-dark .title{color:#fff !important;}
 .ui-dark .gauge-wrap{background-color:#fff;color:#222 !important;}
-.ui-dark .css-14gdvif-MuiSpeedDial-root button svg{color:#222 !important;}
+.ui-dark .css-t81o8v-MuiSpeedDial-root button svg{color:#222 !important;}
 .ui-dark .css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab{background:#bbb !important;}
 .ui-dark .content-box .bar em{color:#bbb !important;}
 
@@ -152,7 +152,7 @@ html, body {background-color: var(--background);height:100%}
 .gauge-wrap + .gauge-wrap{margin-left:-1px;}
 .gauge-wrap span{font-size:13px;}
 .gauge {width: 50%;height: 100%;}
-.gauge-text {display:block;width:100%;margin-top:-3px;text-align:center;position: absolute;bottom:5px;left:0;color: #222;font-size: 13px;z-index:2;}
+.gauge-text {display:block;width:100%;margin-top:-3px;text-align:center;position: absolute;bottom:11px;left:0;color: #222;font-size: 13px;z-index:2;}
 
 .ing::before{content:"1수";font-size: 10px;text-wrap: nowrap;}
 .ing2::before{content:"2수";font-size: 10px;text-wrap: nowrap;}

@@ -325,7 +325,7 @@ const TodoWrapV2 = ({
                                         onClick={() => updateWeekCheck(character.characterName, todo)}
                                         onContextMenu={(e) => updateWeekCheckAll(e, character.characterName, todo)}
                                     >
-                                        <span class="gold">{character.goldCharacter ? todo.gold + " G" : ""}</span>  {/* pub span gold 추가 */}
+                                        <span className="gold">{character.goldCharacter ? todo.gold + " G" : ""}</span>  {/* pub span gold 추가 */}
                                     </div>
                                     <div className={"input-field"} id={"input_field_" + todo.id} style={{ display: todo.message === null || todo.message === "" ? "none" : "block" }}>
                                         <input type="text" spellCheck="false" defaultValue={todo.message} style={{ width: "90%" }}
@@ -352,7 +352,7 @@ const TodoWrapV2 = ({
                             {Array.from({ length: todo.totalGate }, (_, index) => (
                                 <div key={`${todo.id}-${index}`} className="gauge-wrap"
                                     style={{
-                                        backgroundColor: todo.currentGate > index ? "#fee1dd" : "", // pub
+                                        backgroundColor: todo.currentGate > index ? "#ffbfb6" : "", // pub
                                         width: 100 / todo.totalGate + "%", alignItems: "center", justifyContent: "center",
                                         color: "var(--text-color)"
                                     }}>
