@@ -38,7 +38,9 @@ html, body {background-color: var(--background);height:100%}
 .ui-dark .acc-txt{color:#bbb !important;}
 .ui-dark #fade-button{background:#414141 !important;border:1px solid #4b4b4b !important;color:#bbb !important}
 .ui-dark .bar{background:#222 !important;}
-.ui-dark .content-button{background-color:#414141 !important;border:1px solid #4b4b4b !important;color:#bbb !important}
+.ui-dark .content-button{background-color:#414141;border:1px solid #4b4b4b !important;color:#bbb !important}
+.ui-dark .setting-wrap .content-button::after{border:1px solid #4b4b4b !important;}
+.ui-dark .setting-wrap .content-button{background-color:#414141 !important;}
 .ui-dark .character-wrap{background-color:#414141 !important;border-color:#7b7979 !important;color:#bbb !important}
 .ui-dark .content-wrap{background-color:#414141 !important;;}
 .ui-dark .css-14dnp92-MuiTypography-root{color:#bbb !important}
@@ -74,11 +76,13 @@ html, body {background-color: var(--background);height:100%}
 .content-button svg{display:none;}
 .content-button-text{position: absolute;color: black;}
 
-.setting-wrap {display:flex;flex-direction: row;max-width: 1280px;width: 100%;}
+.setting-wrap {position:relative;display:flex;flex-direction: row;max-width: 1280px;width: 100%;}
 .setting-wrap .content-button{position:relative;width:150px;height:42px;margin-right:5px;padding-left:30px;z-index:1;}
 .setting-wrap .content-button::after{content:'';width:18px;height:18px;border:1px solid #e9e9e9;position:absolute;left:13px;top:10px;z-index:0;}
-.setting-wrap .content-button.done{background:#fff url(../public/images/ico_chk01.png) no-repeat left 17px top 14px / 12px;z-index:1;color:#c9c9c9;text-decoration:line-through;}
+.setting-wrap .content-button.done{background:#fff;z-index:1;color:#c9c9c9;text-decoration:line-through;}
 .setting-wrap .content-button::before{content:"";position:absolute;left:0;width: 3px;height:100%;background:#d8e6dc;}
+.setting-wrap .content-button.done .content-button-text:before{content:'';width:18px;height:18px;background:#73a982;position:absolute;left:-72px;top:-9px;z-index:0;}
+.setting-wrap .content-button.done .content-button-text:after{content:'';width:18px;height:18px;background:url(../public/images/ico_chk04.png) no-repeat left 3px top 3px / 12px;;position:absolute;left:-72px;top:-9px;z-index:0;}
 
 /* 일일수익 주간수익 */
 .content-box {display:flex;align-items:center;justify-content:center;flex-direction:column;width:100%;padding:10px 15px;background:#fff;border:1px solid #e9e9e9;border-radius:10px;font-size:14px;position:relative;}
@@ -107,7 +111,7 @@ html, body {background-color: var(--background);height:100%}
 .character-wrap:first-child{border-bottom:0;border-top-left-radius:7px;border-top-right-radius:7px;overflow:hidden;}
 .character-wrap:first-child .content:not(.gauge-box){height:32px;margin-left: -5px;padding:5px 3px 5px 15px;border-top: 1px solid #e9e9e9;border-bottom: 1px solid #e9e9e9}
 .character-wrap:first-child .content:not(.gauge-box):before{content:"";position:absolute;top:0;left:5px;width: 3px;height:calc(100% + 22px);background:#cfecff;z-index:4;}
-.character-wrap:first-child .content:not(.gauge-box) .content-button.done{background:#fff url(../public/images/ico_chk02.png) no-repeat left 3px top 3px / 12px;z-index:1;} 
+.character-wrap:first-child .content:not(.gauge-box) .content-button.done{background:#32a0e7 url(../public/images/ico_chk04.png) no-repeat left 3px top 3px / 12px;z-index:1;}
 .character-wrap:first-child .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root{margin-left:auto;background:url(../public/images/ico_more.png) no-repeat center / 16px} 
 .character-wrap:first-child .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root path{display:none;}
 .gauge-box{margin: -7px 0 -4px 3px;padding: 0 5px 7px !important;background: #fff}
@@ -124,7 +128,7 @@ html, body {background-color: var(--background);height:100%}
 .character-wrap:nth-child(2) .content:not(.gauge-box){padding-left:15px;padding-right:5px;}
 .character-wrap:nth-child(2) .content:not(.gauge-box):before{content:"";position:absolute;top:0;left:0;width: 3px;height:calc(100% + 18px);background:#fee1dd;z-index:4;}
 .character-wrap:nth-child(2) .content:not(.gauge-box) .input-field input{font-weight:300 !important;color:#eb6351}
-.character-wrap:nth-child(2) .content:not(.gauge-box) .content-button.done{background:#fff url(../public/images/ico_chk03.png) no-repeat left 3px top 3px / 12px;z-index:1;} 
+.character-wrap:nth-child(2) .content:not(.gauge-box) .content-button.done{background:#F59488 url(../public/images/ico_chk04.png) no-repeat left 3px top 3px / 12px;z-index:1;}
 .character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root{background:url(../public/images/ico_memo.png) no-repeat center / 16px} 
 .character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root path{display:none;}
 .character-wrap:nth-child(2) .gauge-box{padding-bottom:13px !important;}
@@ -152,7 +156,7 @@ html, body {background-color: var(--background);height:100%}
 
 .ing::before{content:"1수";font-size: 10px;text-wrap: nowrap;}
 .ing2::before{content:"2수";font-size: 10px;text-wrap: nowrap;}
-.text-done {color:#c9c9c9;text-decoration:line-through;}
+.text-done {color:#d7d7d7;text-decoration:line-through;}
 
 .input-field {position: relative;}
 .input-field input {height: 12px;width: 100px;font-size: 12px;font-weight: bold;border-radius: 3px;background: transparent;outline: none;border: 0px solid gray;color: var(--text-done-color);}
@@ -187,6 +191,8 @@ input:focus {border: 2px solid #ffcc00;}
   .content-box p span{font-size:14px;}
   .content-button:last-child{margin-right:0;}
   #fade-button{width:25vw;height:12vw;padding:0 !important}
+  .setting-wrap .content-button.done .content-button-text:before{left:-75px;}
+  .setting-wrap .content-button.done .content-button-text:after{left:-75px;}
 }
 
 /* ---------------------- Settings CSS ---------------------*/
@@ -197,7 +203,7 @@ input:focus {border: 2px solid #ffcc00;}
 }
 
 /* ---------------------- comments CSS ---------------------*/
-.comments {margin: 40px;color: var(--text-color);height: 100%;}
+.comments {max-width:1280px;margin:40px auto;color: var(--text-color);height: 100%;}
 .comments-title {font-size: 20px;margin-bottom: 20px;}
 .comments-container {margin-top: 40px;width: 100%; padding-bottom: 40px;}
 .comment-form-title {font-size: 18px;}

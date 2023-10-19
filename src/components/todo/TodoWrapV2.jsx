@@ -53,7 +53,8 @@ const TodoWrapV2 = ({
                                         {todo.map((todoItem) => (
                                             <button
                                                 key={todoItem.id}
-                                                className={`button ${todoItem.checked === true ? "done" : ""}`}
+                                                className="button"
+                                                style={{ color: todoItem.checked ? "red" : "undefined" }}
                                                 onClick={() => updateWeekTodo(characterName, todoItem)}
                                             >
                                                 {todoItem.gate}관문 ({todoItem.gold}G)
