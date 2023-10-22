@@ -128,11 +128,15 @@ html, body {background-color: var(--background);height:100%}
 .character-wrap:nth-child(2) .content > .content-button{position:absolute;right:5px;top:7px;font-size:13px !important;width:45px !important;height:23px;border:1px solid #dfdfdf !important;margin-right:0 !important;color:#222;font-weight:400 !important;border-radius:5px;cursor:pointer;}
 .character-wrap:nth-child(2) .content:not(.gauge-box){padding-left:15px;padding-right:5px;}
 .character-wrap:nth-child(2) .content:not(.gauge-box):before{content:"";position:absolute;top:0;left:0;width: 3px;height:calc(100% + 18px);background:#fee1dd;z-index:4;}
+.character-wrap:nth-child(2) .content:not(.gauge-box):last-child:before{background:#ffe7b3}
+.character-wrap:nth-child(2) .content:not(.gauge-box):last-child > div > div{margin-bottom:0;}
 .character-wrap:nth-child(2) .content:not(.gauge-box) .input-field input{font-weight:300 !important;color:#eb6351}
 .character-wrap:nth-child(2) .content:not(.gauge-box) .content-button.done{background:#F59488 url(../public/images/ico_chk04.png) no-repeat left 3px top 3px / 12px;z-index:1;}
 .character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root{background:url(../public/images/ico_memo.png) no-repeat center / 16px} 
 .character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root path{display:none;}
 .character-wrap:nth-child(2) .gauge-box{padding-bottom:13px !important;}
+.character-wrap:nth-child(2) > .character-todo .content-wrap:nth-of-type(3) .content:before{height:calc(100% + 10px);}
+.character-wrap:nth-child(2) .title02{border-top:7px solid #eff1f7;margin:0 -1px}
 
 
 .gold{margin-top:1px !important;padding-left:16px;font-size:12px;background:url(../public/images/ico_coin.png) no-repeat center left / 12px;}
