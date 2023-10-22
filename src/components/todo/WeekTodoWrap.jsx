@@ -49,7 +49,7 @@ const WeekTodoWrap = ({
                                             key={todo.id}
                                             className="button"
                                             onClick={() => updateWeekTodoAll(characterName, todo)}
-                                            style={{ backgroundColor: "#F6CEF5" }}
+                                            style={{ backgroundColor: "#fee1dd" }}
                                         >
                                             {weekContentCategory} ({todo.reduce((sum, todoItem) => sum + todoItem.gold, 0)}G)
                                         </button>
