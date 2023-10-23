@@ -78,7 +78,7 @@ const Comments = () => {
 
     return (
         <div className="comments">
-            <div>
+            <div class="noticeBox01">
                 <h2>의견주신 많은 분들 다들 너무 감사합니다. 최대한 빠르게 업데이트 하도록 해보겠습니다.</h2>
             </div>
             <div>

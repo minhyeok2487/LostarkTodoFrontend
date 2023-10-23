@@ -847,7 +847,7 @@ export default function TodoV1() {
                         transform: "translate(-50%, -50%)",
                         backgroundColor: "#dddddd",
                         padding: "20px", width: "auto", overflowY: "auto",
-                        maxHeight: 400
+                        maxHeight: 400,
                     }}>
                         <Typography variant="h5" id="modal-title">
                             {modalTitle}

@@ -699,8 +699,9 @@ export default function TodoWrap() {
                         top: "50%", left: "50%",
                         transform: "translate(-50%, -50%)",
                         backgroundColor: "#ffffff",
-                        padding: "20px", width: "auto", overflowY: "auto",
-                        maxHeight: 400
+                        padding: "20px 30px 20px 20px", width: "auto", overflowY: "auto",
+                        maxHeight: 450,
+                        minWidth: 300
                     }}>
                         <Typography variant="h5" id="modal-title" style={{ color: "white", backgroundColor: "black", borderRadius: 7, textAlign: "center" }}>
                             {modalTitle}
