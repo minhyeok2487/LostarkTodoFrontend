@@ -49,7 +49,7 @@ const WeekTodoWrap = ({
                                             key={todo.id}
                                             className="button"
                                             onClick={() => updateWeekTodoAll(characterName, todo)}
-                                            style={{ backgroundColor: "#F6CEF5" }}
+                                            style={{ backgroundColor: "#fee1dd" }}
                                         >
                                             {weekContentCategory} ({todo.reduce((sum, todoItem) => sum + todoItem.gold, 0)}G)
                                         </button>
@@ -375,7 +375,17 @@ const WeekTodoWrap = ({
                     </div>
                 ))}
             </div>
+            {/* pub 2023-10-23 스타일 적용 완료 */}
+            {/* <div className="content title02" style={{ padding: 0, display: character.settings.showWeekTodo ? "block" : "none" }}>
+                <p className="title">주간 숙제</p>
+            </div>
+            <div className='character-todo'>
+                <WeekEponaWrap />
+                <SilmaelChangeWrap />
+                <CubeWrap />
+            </div> */}
         </div>
+        
     );
 };
 
