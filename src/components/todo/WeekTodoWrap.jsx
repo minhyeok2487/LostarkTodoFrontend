@@ -280,14 +280,6 @@ const WeekTodoWrap = ({
 
     return (
         <div className="character-wrap">
-            {/* <div className="content" style={{ padding: 0, display: character.settings.showWeekTodo ? "block" : "none" }}>
-                <p className="title">주간 숙제</p>
-            </div>
-            <div className='character-todo'>
-                <WeekEponaWrap />
-                <SilmaelChangeWrap />
-                <CubeWrap />
-            </div> */}
             <div className="content" style={{ padding: 0, display: character.settings.showWeekTodo ? "block" : "none" }}>
                 <p className="title">주간 레이드</p>{/* pub 추가 */}
                 <p className="txt">마우스 우클릭 시 한번에 체크됩니다</p>{/* pub 추가 */}
@@ -376,16 +368,26 @@ const WeekTodoWrap = ({
                 ))}
             </div>
             {/* pub 2023-10-23 스타일 적용 완료 */}
-            {/* <div className="content title02" style={{ padding: 0, display: character.settings.showWeekTodo ? "block" : "none" }}>
+            <div className="content title02" style={{ padding: 0 }}>
                 <p className="title">주간 숙제</p>
             </div>
             <div className='character-todo'>
-                <WeekEponaWrap />
-                <SilmaelChangeWrap />
-                <CubeWrap />
-            </div> */}
+                <WeekEponaWrap
+                    character={character}
+                    characters={characters}
+                    setCharacters={setCharacters}
+                    setShowLinearProgress={setShowLinearProgress}
+                />
+                <SilmaelChangeWrap
+                    character={character}
+                    characters={characters}
+                    setCharacters={setCharacters}
+                    setShowLinearProgress={setShowLinearProgress}
+                />
+                {/* <CubeWrap /> */}
+            </div>
         </div>
-        
+
     );
 };
 
