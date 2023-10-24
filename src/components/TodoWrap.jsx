@@ -695,14 +695,13 @@ export default function TodoWrap() {
                     aria-labelledby="modal-title"
                     aria-describedby="modal-description"
                 >
-                    <div style={{
+                    <div className="weekMiniModal" style={{
                         position: "absolute",
                         top: "50%", left: "50%",
                         transform: "translate(-50%, -50%)",
                         backgroundColor: "#ffffff",
                         padding: "20px 30px 20px 20px", width: "auto", overflowY: "auto",
                         maxHeight: 450,
-                        minWidth: 300
                     }}>
                         <Typography variant="h5" id="modal-title" style={{ color: "white", backgroundColor: "black", borderRadius: 7, textAlign: "center" }}>
                             {modalTitle}

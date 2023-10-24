@@ -249,6 +249,9 @@ pre p:first-child{border-top:0;font-weight:700;font-size:18px;}
 .week-category-wrap button:first-child{min-width:70px;border-left:1px solid #d7d7d7;}
 .week-category-wrap button em{display:block;font-style:normal;margin-top:2px;font-size:12px;}
 
+.valMiniModal{min-width:400px;}
+.weekMiniModal{min-width:400px;}
+
 .chaosVisual{margin-top:-10px;}
 .chaosVisual .tip{font-size:14px;color:#888;font-weight:300;}
 .chaosVisual ul{padding:0;}
@@ -280,4 +283,6 @@ pre p:first-child{border-top:0;font-weight:700;font-size:18px;}
   .setting-wrap .content-button.done .content-button-text:after{left:-16.8vw;}
   .comments{max-width:340px;overflow:hidden;}
   .css-hyum1k-MuiToolbar-root{padding:0 !important;}
+  .weekMiniModal,
+  .valMiniModal{min-width:300px !important;}
 }
