@@ -135,8 +135,8 @@ html, body {background-color: var(--background);height:100%}
 .character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root{background:url(../public/images/ico_memo.png) no-repeat center / 16px} 
 .character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root path{display:none;}
 .character-wrap:nth-child(2) .gauge-box{padding-bottom:13px !important;}
-.character-wrap:nth-child(2) > .character-todo .content-wrap:nth-of-type(3) .content:before{height:calc(100% + 10px);}
 .character-wrap:nth-child(2) .title02{border-top:7px solid #eff1f7;margin:0 -1px}
+.content.title02 + .character-todo .content:before{height:100%}
 
 
 .gold{margin-top:1px !important;padding-left:16px;font-size:12px;background:url(../public/images/ico_coin.png) no-repeat center left / 12px;}
@@ -173,28 +173,6 @@ input:focus {border: 2px solid #ffcc00;}
 @media (max-width: 900px) {
   .setting-table-wrap {display: block;overflow: hidden;width: fit-content;}
 }
-
-/* ---------------------- comments CSS ---------------------*/
-.comments {max-width:1280px;margin:0 auto;color: var(--text-color);height: 100%;}
-.comments-title {font-size: 16px;margin-bottom: 20px;}
-.comments-container {margin-top: 40px;width: 100%; padding-bottom: 40px;}
-.comment-form-title {font-size: 18px;}
-.comment-form-textarea {width: 100%;height: 80px;margin-bottom: 8px;margin-top: 8px;border: 1px solid rgb(107, 114, 12);}
-.comment-form-button {font-size: 16px;padding: 8px 16px;background: rgb(59, 130, 246);border-radius: 8px;color: var(--text-color);}
-.comment-form-button:hover:enabled {cursor: pointer;background: rgb(37, 99, 235);}
-.comment-form-button:disabled {opacity: 0.7;cursor: default;}
-.comment-form-cancel-button {margin-left: 10px;}
-.comment {display: flex;margin-bottom: 28px;}
-.comment-image-container {margin-right: 12px;}
-.comment-image-container img {border-radius: 50px;}
-.comment-right-part {width: 100%;}
-.comment-content {display: flex;width: 100%;}
-.comment-author {margin-right: 8px;font-size: 20px;font-weight: bold;color: var(--text-color);}
-.comment-text {font-size: 16px;word-wrap: break-word;}
-.comment-actions{display: flex;font-size: 12px;color: var(--text-color);cursor: pointer;margin-top: 8px;}
-.comment-action {margin-right: 8px;}
-.comment-action:hover {text-decoration: underline;}
-.replies {margin-top: 20px;}
 
 header{width:100% !important;box-shadow:0px 0px 20px 7px rgba(0,0,0,0.03) !important;}
 .MuiAccordionSummary-content.Mui-expanded{margin:0 !important;}
@@ -249,13 +227,50 @@ pre p:first-child{border-top:0;font-weight:700;font-size:18px;}
 .week-category-wrap button:first-child{min-width:70px;border-left:1px solid #d7d7d7;}
 .week-category-wrap button em{display:block;font-style:normal;margin-top:2px;font-size:12px;}
 
-.valMiniModal{min-width:400px;}
-.weekMiniModal{min-width:400px;}
+.miniModal{min-width:400px;}
 
-.chaosVisual{margin-top:-10px;}
+.chaosVisual{margin-top:-10px;margin-bottom:20px;}
 .chaosVisual .tip{font-size:14px;color:#888;font-weight:300;}
-.chaosVisual ul{padding:0;}
-.chaosVisual ul li{}
+.chaosVisual p{margin:5px 0 0 0;font-size:16px !important;font-weight:400 !important;color:#2c79bd;text-align:center;border-top:0;}
+.chaosVisual p strong{font-weight:500;}
+.chaosVisual .flex{display:flex;align-items:flex-end;margin-top:10px;}
+.chaosVisual ul{padding:0;padding-left:50px;margin:0;width:100%;}
+.chaosVisual ul + ul{border-left:1px solid #eee;}
+.chaosVisual ul strong{font-weight:400;font-size:14px;}
+.chaosVisual ul li{position:relative;padding-left:10px;margin:0;font-size:14px;color:#666;}
+.chaosVisual ul li::before{content:"";position:absolute;left:0;top:11px;width:3px;height:3px;background:#999;border-radius:50%;}
+.chaosVisual ul li em{display:inline-block;margin-left:5px;font-style:normal;font-weight:700;color:#111;}
+.chaosVisual ul li::marker{display:none;font-size:0;}
+
+/* 방명록 */
+.noticeBox{background:#fff;padding:20px;box-sizing:border-box;border-radius:4px;}
+.noticeBox + .noticeBox{margin-top:16px;}
+.noticeBox p{margin:0;}
+.noticeBox:not(.box03){display:flex}
+.noticeBox .update{min-width:65px;}
+.pathNote{margin:16px 0}
+.pathNote .MuiAccordion-region{background:#efefef;}
+
+.comments {max-width:1280px;margin:20px auto 0;color: var(--text-color);height: 100%;}
+.comments-title {font-size: 16px;margin-bottom: 20px;}
+.comments-container {margin-top: 40px;width: 100%; padding-bottom: 40px;}
+.comment-form-title {font-size: 18px;}
+.comment-form-textarea {width: 100%;height: 80px;margin-bottom: 8px;margin-top: 8px;border: 1px solid rgb(107, 114, 12);}
+.comment-form-button {font-size: 16px;padding: 8px 16px;background: rgb(59, 130, 246);border-radius: 8px;color: var(--text-color);}
+.comment-form-button:hover:enabled {cursor: pointer;background: rgb(37, 99, 235);}
+.comment-form-button:disabled {opacity: 0.7;cursor: default;}
+.comment-form-cancel-button {margin-left: 10px;}
+.comment {display: flex;margin-bottom: 28px;}
+.comment-image-container {margin-right: 12px;}
+.comment-image-container img {border-radius: 50px;width:30px;}
+.comment-right-part {width: 100%;}
+.comment-content {display: flex;width: 100%;}
+.comment-author {margin-right: 8px;font-size: 18px;font-weight: bold;color: var(--text-color);}
+.comment-text {font-size: 16px;word-wrap: break-word;}
+.comment-actions{display: flex;font-size: 12px;color: var(--text-color);cursor: pointer;margin-top: 8px;}
+.comment-action {margin-right: 8px;}
+.comment-action:hover {text-decoration: underline;}
+.replies {margin-top: 20px;}
 
 
 /* 모바일 */
@@ -272,7 +287,7 @@ pre p:first-child{border-top:0;font-weight:700;font-size:18px;}
   .setting-wrap .content-button:after{left:9px;}
   .setting-wrap .content-button.done{background-position:left 14px top 14px;}
   .wrap > .setting-wrap:first-child{flex-direction:column;margin-top:0;}
-  .character-wrap:nth-child(2) .txt{word-break:keep-all;}
+  .character-wrap:nth-child(2) .txt{word-break:keep-all;padding:0 5px;}
   .content-box .bar{width:300px;}
   .content-box + .content-box{margin-left:0;margin-top:5px;}
   .content-box p{font-size:14px;}
@@ -283,6 +298,6 @@ pre p:first-child{border-top:0;font-weight:700;font-size:18px;}
   .setting-wrap .content-button.done .content-button-text:after{left:-16.8vw;}
   .comments{max-width:340px;overflow:hidden;}
   .css-hyum1k-MuiToolbar-root{padding:0 !important;}
-  .weekMiniModal,
-  .valMiniModal{min-width:300px !important;}
+  .miniModal{min-width:300px;}
+  .chaosVisual ul{padding-left:25px;}
 }
