@@ -345,17 +345,21 @@ export default function TodoWrap() {
             var modalContent = (
                 <div class="chaosVisual">
                     <span class="tip">API 실시간 경매장 가격으로 평균 값을 가져옵니다.</span>
-                    <ul>
-                        <p>컨텐츠 : {character.chaos.name}</p>
-                        <strong>거래 가능 재화</strong>
-                        <li>파괴석 <em>{character.chaos.destructionStone}개</em></li>
-                        <li>수호석 <em>{character.chaos.guardianStone}개</em></li>
-                        <li>1레벨보석 <em>{character.chaos.jewelry}개</em></li>
-                        <strong>거래 불가 재화</strong>
-                        <li>돌파석 <em>{character.chaos.leapStone}개</em></li>
-                        <li>실링 <em>{character.chaos.shilling}개</em></li>
-                        <li>파편 <em>{character.chaos.honorShard}개</em></li>
-                    </ul>
+                    <p>컨텐츠 <strong>{character.chaos.name}</strong></p>
+                    <div class="flex">
+                        <ul>
+                            <strong>거래 가능 재화</strong>
+                            <li>파괴석 <em>{character.chaos.destructionStone}개</em></li>
+                            <li>수호석 <em>{character.chaos.guardianStone}개</em></li>
+                            <li>1레벨보석 <em>{character.chaos.jewelry}개</em></li>
+                        </ul>
+                        <ul>
+                            <strong>거래 불가 재화</strong>
+                            <li>돌파석 <em>{character.chaos.leapStone}개</em></li>
+                            <li>실링 <em>{character.chaos.shilling}개</em></li>
+                            <li>파편 <em>{character.chaos.honorShard}개</em></li>
+                        </ul>
+                    </div>
                 </div>
             );
         } else {
@@ -695,7 +699,7 @@ export default function TodoWrap() {
                     aria-labelledby="modal-title"
                     aria-describedby="modal-description"
                 >
-                    <div className="weekMiniModal" style={{
+                    <div className="miniModal" style={{
                         position: "absolute",
                         top: "50%", left: "50%",
                         transform: "translate(-50%, -50%)",
