@@ -51,16 +51,16 @@ const WeekTodoWrap = ({
                                             onClick={() => updateWeekTodoAll(characterName, todo)}
                                             style={{ backgroundColor: "#fee1dd" }}
                                         >
-                                            {weekContentCategory} ({todo.reduce((sum, todoItem) => sum + todoItem.gold, 0)}G)
+                                            {weekContentCategory} <em>{todo.reduce((sum, todoItem) => sum + todoItem.gold, 0)}G</em>
                                         </button>
                                         {todo.map((todoItem) => (
                                             <button
                                                 key={todoItem.id}
                                                 className="button"
-                                                style={{ color: todoItem.checked ? "red" : "undefined" }}
+                                                style={{ color: todoItem.checked ? "#ff0000" : "undefined" }}
                                                 onClick={() => updateWeekTodo(characterName, todoItem)}
                                             >
-                                                {todoItem.gate}관문 ({todoItem.gold}G)
+                                                {todoItem.gate}관문 <em>{todoItem.gold}G</em>
                                             </button>
                                         ))}
                                     </div>
