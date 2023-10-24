@@ -19,7 +19,7 @@
 }
 
 /* 기본 */
-* {font-family:'Pretendard' !important;font-weight:400}
+* {font-family:'Pretendard' !important;font-weight:400;outline:none;}
 html, body {background-color: var(--background);height:100%}
 :root {--background: #eff1f7;--nav-color:#fff;--text-color: rgb(0, 0, 0);--text-done-color: rgb(50, 50, 50);--button-color: #d0e1f9;--content-border: 1px ridge black}
 .wrap {display:flex;align-items:center;flex-direction:column;margin-top:20px;font-size:14px;color:#222;height:100%;}
@@ -248,6 +248,12 @@ pre p:first-child{border-top:0;font-weight:700;font-size:18px;}
 .week-category-wrap button {border:1px solid #d7d7d7;border-left:0;cursor: pointer;transition:background-color 0.5s;font-weight:400;margin-bottom:7px;width:100%;height:44px;}
 .week-category-wrap button:first-child{min-width:70px;border-left:1px solid #d7d7d7;}
 .week-category-wrap button em{display:block;font-style:normal;margin-top:2px;font-size:12px;}
+
+.chaosVisual{margin-top:-10px;}
+.chaosVisual .tip{font-size:14px;color:#888;font-weight:300;}
+.chaosVisual ul{padding:0;}
+.chaosVisual ul li{}
+
 
 /* 모바일 */
 @media (max-width: 900px) {
