@@ -293,7 +293,7 @@ pre p:first-child{border-top:0;font-weight:700;font-size:18px;}
   .content-box p{font-size:14px;}
   .content-box p span{font-size:14px;}
   .content-button:last-child{margin-right:0;}
-  #fade-button{width:25vw;height:12vw;padding:0 !important}
+  #fade-button{width:25vw;height:100%;padding:0 !important}
   .setting-wrap .content-button.done .content-button-text:before{left:-16.9vw;}
   .setting-wrap .content-button.done .content-button-text:after{left:-16.8vw;}
   .comments{max-width:340px;overflow:hidden;}
