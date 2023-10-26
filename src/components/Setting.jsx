@@ -2,23 +2,18 @@ import React, { useState, useEffect } from "react";
 import '../App.css';
 import { call } from "../service/api-service";
 import LinearIndeterminate from '../fragments/LinearIndeterminate';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { Grid } from "@mui/material";
+
 
 export default function Setting() {
-
-    const [settings, setSettings] = useState([]); //캐릭터 설정값
+    const [characters, setCharacters] = useState([]);
     useEffect(() => {
         call("/member/settings", "GET", null)
             .then((response) => {
-                setSettings(response);
+                setCharacters(response);
             })
             .catch((error) => {
                 alert(error.errorMessage);
@@ -50,10 +45,10 @@ export default function Setting() {
                 id={`${characterName}_${settingName}`}
                 onChange={(event) => handleChange(event, characterId, characterName, settingName)}
                 defaultValue={setting ? "true" : "false"}
-                sx={{bgcolor: setting ? '#FA5858' : "#81BEF7", color:"var(--text-color)", fontWeight:"bold", transition:"color 0.5s"}}
+                sx={{ bgcolor: setting ? '#FA5858' : "#81BEF7", color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }}
             >
-                <MenuItem value={true} >true</MenuItem>
-                <MenuItem value={false}>false</MenuItem>
+                <MenuItem value={true} >출력</MenuItem>
+                <MenuItem value={false}>미출력</MenuItem>
             </Select>
         </FormControl>
     );
@@ -61,46 +56,79 @@ export default function Setting() {
     return (
         <>
             {showLinearProgress && <LinearIndeterminate />}
-            <TableContainer className="setting-table-wrap">
-                <span>(임시디자인 입니다)</span>
-                <Table aria-label="simple table" className="setting-table">
-                    <TableHead>
-                        <TableRow >
-                            <TableCell style={{color:"var(--text-color)", fontWeight:"bold", transition:"color 0.5s"}} >id</TableCell>
-                            <TableCell style={{color:"var(--text-color)", fontWeight:"bold", transition:"color 0.5s"}} align="right">서버</TableCell>
-                            <TableCell style={{color:"var(--text-color)", fontWeight:"bold", transition:"color 0.5s"}} align="right">캐릭터 이름</TableCell>
-                            <TableCell style={{color:"var(--text-color)", fontWeight:"bold", transition:"color 0.5s"}} align="right">클래스</TableCell>
-                            <TableCell style={{color:"var(--text-color)", fontWeight:"bold", transition:"color 0.5s"}} align="right">아이템레벨</TableCell>
-                            <TableCell style={{color:"var(--text-color)", fontWeight:"bold", transition:"color 0.5s"}} align="center">캐릭터 출력</TableCell>
-                            <TableCell style={{color:"var(--text-color)", fontWeight:"bold", transition:"color 0.5s"}} align="center">출석&에포나</TableCell>
-                            <TableCell style={{color:"var(--text-color)", fontWeight:"bold", transition:"color 0.5s"}} align="center">카오스던전</TableCell>
-                            <TableCell style={{color:"var(--text-color)", fontWeight:"bold", transition:"color 0.5s"}} align="center">가디언토벌</TableCell>
-                            <TableCell style={{color:"var(--text-color)", fontWeight:"bold", transition:"color 0.5s"}} align="center">주간숙제 관리</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {settings.map((setting) => (
-                            <TableRow
-                                key={setting.id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell style={{color:"var(--text-color)"}} component="th" scope="row">
-                                    {setting.id}
-                                </TableCell>
-                                <TableCell style={{color:"var(--text-color)", transition:"color 0.5s"}} align="right">{setting.serverName}</TableCell>
-                                <TableCell style={{color:"var(--text-color)", transition:"color 0.5s"}} align="right">{setting.characterName}</TableCell>
-                                <TableCell style={{color:"var(--text-color)", transition:"color 0.5s"}} align="right">{setting.characterClassName}</TableCell>
-                                <TableCell style={{color:"var(--text-color)", transition:"color 0.5s"}} align="right">{setting.itemLevel}</TableCell>
-                                <TableCell align="center">{selectSetting(setting.characterId, setting.characterName, setting.showCharacter, "showCharacter")}</TableCell>
-                                <TableCell align="center">{selectSetting(setting.characterId, setting.characterName, setting.showEpona, "showEpona")}</TableCell>
-                                <TableCell align="center">{selectSetting(setting.characterId, setting.characterName, setting.showChaos, "showChaos")}</TableCell>
-                                <TableCell align="center">{selectSetting(setting.characterId, setting.characterName, setting.showGuardian, "showGuardian")}</TableCell>
-                                <TableCell align="center">{selectSetting(setting.characterId, setting.characterName, setting.showWeekTodo, "showWeekTodo")}</TableCell>
-                            </TableRow>
+            <div className="wrap">
+                <div className="todo-wrap" >
+                    <Grid container spacing={1.5} overflow={"hidden"}>
+                        {characters.map((character) => (
+                            <Grid key={character.sortNumber} item>
+                                <div className="character-wrap">
+                                    <div className="character-info"
+                                        style={{
+                                            backgroundImage: character.characterImage !== null ? `url(${character.characterImage})` : "",
+                                            backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 10px top -80px" : "left 10px top -30px",
+                                            backgroundColor: "gray", // 배경색을 회색으로 설정
+                                        }}>
+                                        {/* character.goldCharacter 변수 없음 */}
+                                        <div className={character.goldCharacter ? "gold-border" : ""}>
+                                            {character.goldCharacter ? "골드 획득 지정" : ""}
+                                        </div>
+                                        <span>@{character.serverName}  {character.characterClassName}</span>
+                                        <h3 style={{ margin: 0 }}>{character.characterName}</h3>
+                                        <h2 style={{ margin: 0 }}>Lv. {character.itemLevel}</h2>
+                                        {selectSetting(character.characterId, character.characterName, character.showCharacter, "showCharacter")}
+                                    </div>
+                                    <p className="title">일일 숙제</p>
+                                    <div className="content-wrap">
+                                        <div className="content" style={{ justifyContent: "space-around" }}>
+                                            <div>
+                                                <span>에포나의뢰</span>
+                                            </div>
+                                            {selectSetting(character.characterId, character.characterName, character.showEpona, "showEpona")}
+                                        </div>
+                                    </div>
+                                    <div className="content-wrap">
+                                        <div className="content" style={{ justifyContent: "space-around" }}>
+                                            <div>
+                                                <p>카오스던전</p>
+                                            </div>
+                                            {selectSetting(character.characterId, character.characterName, character.showChaos, "showChaos")}
+                                        </div>
+                                    </div>
+                                    <div className="content-wrap">
+                                        <div className="content" style={{ justifyContent: "space-around" }}>
+                                            <div>
+                                                <p>가디언토벌</p>
+                                            </div>
+                                            {selectSetting(character.characterId, character.characterName, character.showGuardian, "showGuardian")}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="character-wrap">
+                                    <p className="title">주간 숙제</p>
+                                    <div className="content" style={{ justifyContent: "space-around" }}>
+                                        <div>
+                                            주간 레이드
+                                            {selectSetting(character.characterId, character.characterName, character.showWeekTodo, "showWeekTodo")}
+                                        </div>
+                                    </div>
+                                    <div className="content" style={{ justifyContent: "space-around" }}>
+                                        <div>
+                                            주간 에포나
+                                            {selectSetting(character.characterId, character.characterName, character.showWeekEpona, "showWeekEpona")}
+                                        </div>
+                                    </div>
+                                    <div className="content" style={{ justifyContent: "space-around" }}>
+                                        <div>
+                                            실마엘 교환
+                                            {selectSetting(character.characterId, character.characterName, character.showSilmaelChange, "showSilmaelChange")}
+                                        </div>
+                                    </div>
+                                </div>
+                            </Grid>
                         ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </Grid>
+                </div>
+            </div>
         </>
     );
 }
