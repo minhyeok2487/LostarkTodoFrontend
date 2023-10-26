@@ -4,6 +4,7 @@ import '../App.css';
 import Comment from "./Commnet";
 import CommentForm from "./CommentForm";
 import Info from "../components/Info";
+import DiscordIcon from "../icons/DiscordIcon";
 
 const Comments = () => {
     const [backendComments, setBackendComments] = useState([]);
@@ -88,8 +89,12 @@ const Comments = () => {
             <div className="noticeBox box01">
                 <p className="notice">공지사항</p>
                 <div className="cont">
-                    의견주신 많은 분들 다들 너무 감사합니다. 최대한 빠르게 업데이트 하도록 해보겠습니다.
+                    <ul>
+                        <li style={{fontSize:18}}>개발자 : <DiscordIcon /> 마볼링#2884</li>
+                        <li style={{fontSize:18}}>UI담당자 : <DiscordIcon /> 얀비#7431</li>
+                    </ul>
                 </div>
+                <div className="cont">의견주신 많은 분들 다들 너무 감사합니다. 최대한 빠르게 업데이트 하도록 해보겠습니다.</div>
             </div>
 
             <div className="noticeBox box02">
@@ -107,7 +112,6 @@ const Comments = () => {
                 <p className="modify">수정 중(현상 확인 중)</p>
                 <div className="cont">
                     <ul>
-                        <li>도가토 주간 리셋 확인 중</li>
                         <li>주간 숙제 완료 시 수치가 초과되거나 적은 문제 확인 중</li>
                     </ul>
                 </div>
@@ -118,7 +122,12 @@ const Comments = () => {
                 <div className="cont">
                     <div className="flex">
                         <p className="date">2023.10.26</p>
-                        <p className="txt">방명록 디자인 리뉴얼 및 각종 버그수정</p>
+                        <p className="txt">
+                            <ul>
+                                <li>방명록 디자인 리뉴얼 및 각종 버그 수정</li>
+                                <li>도가토 주간 리셋 수정되었습니다</li>
+                            </ul>
+                        </p>
                     </div>
                     <Info />
                 </div>
