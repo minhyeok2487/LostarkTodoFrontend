@@ -23,6 +23,8 @@ function Info() {
                     <div style={{ fontWeight: 600, lineHeight: 2 }}>
                         <ul>
                             <h1>[패치노트]</h1>
+                            <h3>2023.10.26</h3>
+                            <li>방명록 디자인 리뉴얼 및 각종 버그수정</li>
                             <h3>2023.10.18</h3>
                             <li>디자인 리뉴얼</li>
                             <h3>2023.10.14</h3>

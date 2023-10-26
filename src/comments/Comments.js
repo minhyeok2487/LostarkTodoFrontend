@@ -78,44 +78,69 @@ const Comments = () => {
 
     return (
         <div className="comments">
-            <div class="noticeBox01">
-                <h2>의견주신 많은 분들 다들 너무 감사합니다. 최대한 빠르게 업데이트 하도록 해보겠습니다.</h2>
+            {/* 
+                p.big - 제일 큰 공지
+                p.date - 날짜
+                div.cont - 내용
+                p.update - 개발 예정
+                p.modify - 수정 예정
+            */}
+            <div className="noticeBox box01">
+                <p className="notice">공지사항</p>
+                <div className="cont">
+                    의견주신 많은 분들 다들 너무 감사합니다. 최대한 빠르게 업데이트 하도록 해보겠습니다.
+                </div>
             </div>
-            <div>
-                <h2 style={{ margin: 0 }}>2023.10.18</h2>
-                <strong>
-                    <li>디자인 리뉴얼 되었습니다. 도움을 주신 퍼블리셔님 감사합니다</li>
-                </strong>
-            </div>
-            <Info />
 
-            <div>
-                <h3>개발 예정</h3>
-                <ul>
-                    <li><strong>주간 에포나, 토벌전 등 원정대 단위 숙제 추가</strong></li>
-                    <li><strong>기록남기기</strong> - 숙제로 얻은 수익을 기록하여 그래프 혹은 표로 볼 수있게 하려고 합니다. </li>
-                    <li><strong>데이터보기</strong> - 일일숙제로 얻는 재화량 통계와 현재 경매장 시세를 확인할 수 있게 하려고 합니다. </li>
-                </ul>
+            <div className="noticeBox box02">
+                <p className="update">개발 중</p>
+                <div className="cont">
+                    <ul>
+                        <li>에브니 큐브 티켓 - 카던/가토 처럼 수익 계산과 함께 추가</li>
+                        <li>기록남기기 - 숙제로 얻은 수익을 기록하여 그래프 혹은 표로 표시</li>
+                        <li>데이터보기 - 일일숙제로 얻는 재화량 통계와 현재 경매장 시세를 확인</li>
+                    </ul>
+                </div>
             </div>
-            <h3 className="comments-title">방명록</h3>
-            <div className="comment-form-title">
-                <p>하고싶으신 말씀 남겨주시면 됩니다</p>
+
+            <div className="noticeBox box03">
+                <p className="modify">수정 중(현상 확인 중)</p>
+                <div className="cont">
+                    <ul>
+                        <li>도가토 주간 리셋 확인 중</li>
+                        <li>주간 숙제 완료 시 수치가 초과되거나 적은 문제 확인 중</li>
+                    </ul>
+                </div>
             </div>
-            <CommentForm submitLabel="Write" handleSubmit={addComment} />
-            <div className="comments-container">
-                {rootComments.map((rootComment) => (
-                    <Comment
-                        key={rootComment.id}
-                        comment={rootComment}
-                        replies={getReplies(rootComment.id)}
-                        activeComment={activeComment}
-                        setActiveComment={setActiveComment}
-                        addComment={addComment}
-                        deleteComment={deleteComment}
-                        updateComment={updateComment}
-                        currentUser={currentUser}
-                    />
-                ))}
+
+            <div className="noticeBox box04">
+                <p className="update">수정 완료</p>
+                <div className="cont">
+                    <div className="flex">
+                        <p className="date">2023.10.26</p>
+                        <p className="txt">방명록 디자인 리뉴얼 및 각종 버그수정</p>
+                    </div>
+                    <Info />
+                </div>
+            </div>
+
+            <div className="noticeBox box05">
+                <CommentForm submitLabel="작성하기" handleSubmit={addComment} />
+                <div className="comments-container">
+                    {rootComments.map((rootComment) => (
+                        <Comment
+                            key={rootComment.id}
+                            comment={rootComment}
+                            replies={getReplies(rootComment.id)}
+                            activeComment={activeComment}
+                            setActiveComment={setActiveComment}
+                            addComment={addComment}
+                            deleteComment={deleteComment}
+                            updateComment={updateComment}
+                            currentUser={currentUser}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );

@@ -340,21 +340,26 @@ export default function TodoWrap() {
 
     // 모달 열기 함수
     const openContentModal = (character, category) => {
-        setModalTitle("[" + character.characterName + "] " + category + " 평균 데이터");
+        setModalTitle("" + character.characterName + " " + category + " 평균 데이터");
         if (category === "카오스던전") {
             var modalContent = (
-                <div>
-                    <ul>
-                        <p>이름 : {character.chaos.name}</p>
-                        ---거래 가능 재화---
-                        <li>파괴석 : {character.chaos.destructionStone}개</li>
-                        <li>수호석 : {character.chaos.guardianStone}개</li>
-                        <li>1레벨보석 : {character.chaos.jewelry}개</li>
-                        ---거래 불가 재화---
-                        <li>돌파석 : {character.chaos.leapStone}개</li>
-                        <li>실링 : {character.chaos.shilling}개</li>
-                        <li>파편 : {character.chaos.honorShard}개</li>
-                    </ul>
+                <div className="chaosVisual">
+                    <span className="tip">API 실시간 경매장 가격으로 평균 값을 가져옵니다.</span>
+                    <p>컨텐츠 <strong>{character.chaos.name}</strong></p>
+                    <div className="flex">
+                        <ul>
+                            <strong>거래 가능 재화</strong>
+                            <li>파괴석 <em>{character.chaos.destructionStone}개</em></li>
+                            <li>수호석 <em>{character.chaos.guardianStone}개</em></li>
+                            <li>1레벨보석 <em>{character.chaos.jewelry}개</em></li>
+                        </ul>
+                        <ul>
+                            <strong>거래 불가 재화</strong>
+                            <li>돌파석 <em>{character.chaos.leapStone}개</em></li>
+                            <li>실링 <em>{character.chaos.shilling}개</em></li>
+                            <li>파편 <em>{character.chaos.honorShard}개</em></li>
+                        </ul>
+                    </div>
                 </div>
             );
         } else {
@@ -694,14 +699,14 @@ export default function TodoWrap() {
                     aria-labelledby="modal-title"
                     aria-describedby="modal-description"
                 >
-                    <div style={{
+                    <div className="miniModal" 
+                        style={{
                         position: "absolute",
                         top: "50%", left: "50%",
                         transform: "translate(-50%, -50%)",
                         backgroundColor: "#ffffff",
                         padding: "20px 30px 20px 20px", width: "auto", overflowY: "auto",
                         maxHeight: 450,
-                        minWidth: 300
                     }}>
                         <Typography variant="h5" id="modal-title" style={{ color: "white", backgroundColor: "black", borderRadius: 7, textAlign: "center" }}>
                             {modalTitle}
