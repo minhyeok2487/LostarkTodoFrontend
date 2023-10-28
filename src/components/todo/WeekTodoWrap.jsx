@@ -368,22 +368,24 @@ const WeekTodoWrap = ({
                 ))}
             </div>
             {/* pub 2023-10-23 스타일 적용 완료 */}
-            <div className="content title02" style={{ padding: 0 }}>
-                <p className="title">주간 숙제</p>
-            </div>
+            {(character.settings.showWeekEpona || character.settings.showSilmaelChange) &&
+                <div className="content title02" style={{ padding: 0 }}>
+                    <p className="title">주간 숙제</p>
+                </div>
+            }
             <div className='character-todo'>
-                <WeekEponaWrap
+                {character.settings.showWeekEpona && <WeekEponaWrap
                     character={character}
                     characters={characters}
                     setCharacters={setCharacters}
                     setShowLinearProgress={setShowLinearProgress}
-                />
-                <SilmaelChangeWrap
+                />}
+                {character.settings.showSilmaelChange && <SilmaelChangeWrap
                     character={character}
                     characters={characters}
                     setCharacters={setCharacters}
                     setShowLinearProgress={setShowLinearProgress}
-                />
+                />}
                 {/* <CubeWrap /> */}
             </div>
         </div>

@@ -90,8 +90,8 @@ const Comments = () => {
                 <p className="notice">공지사항</p>
                 <div className="cont">
                     <ul>
-                        <li style={{fontSize:18}}>개발자 : <DiscordIcon /> 마볼링#2884</li>
-                        <li style={{fontSize:18}}>UI담당자 : <DiscordIcon /> 얀비#7431</li>
+                        <li>개발자 : <DiscordIcon /> 마볼링#2884</li>
+                        <li>UI담당자 : <DiscordIcon /> 얀비#7431</li>
                     </ul>
                 </div>
                 <div className="cont">의견주신 많은 분들 다들 너무 감사합니다. 최대한 빠르게 업데이트 하도록 해보겠습니다.</div>
@@ -113,6 +113,7 @@ const Comments = () => {
                 <div className="cont">
                     <ul>
                         <li>주간 숙제 완료 시 수치가 초과되거나 적은 문제 확인 중</li>
+                        <li>카멘 하드12 노말3관 설정시 오류 확인중</li>
                     </ul>
                 </div>
             </div>
@@ -121,11 +122,10 @@ const Comments = () => {
                 <p className="update">수정 완료</p>
                 <div className="cont">
                     <div className="flex">
-                        <p className="date">2023.10.26</p>
+                        <p className="date">2023.10.28</p>
                         <p className="txt">
                             <ul>
-                                <li>방명록 디자인 리뉴얼 및 각종 버그 수정</li>
-                                <li>도가토 주간 리셋 수정되었습니다</li>
+                                <li>주간 숙제 출력 내용 변경이 반영이 안됬던 문제를 해결하였습니다</li>
                             </ul>
                         </p>
                     </div>
