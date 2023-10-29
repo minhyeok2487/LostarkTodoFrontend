@@ -491,7 +491,7 @@ export default function TodoWrap() {
                 />}
                 {/* pub 아코디언 위치 수정 */}
                 <div className="setting-wrap">
-                    <div> {/* pub style 삭제 */}
+                    <div>
                         <Button
                             id="fade-button"
                             aria-controls={open ? 'fade-menu' : undefined}
@@ -536,7 +536,7 @@ export default function TodoWrap() {
                 <div className="todo-wrap" >
                     <Grid container spacing={1.5} overflow={"hidden"}>
                         {characters.map((character) => (
-                            <Grid key={character.sortNumber} item>
+                            <Grid key={character.id} item>
                                 <div className="character-wrap">
                                     <div className="character-info"
                                         style={{

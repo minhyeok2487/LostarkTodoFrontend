@@ -101,7 +101,6 @@ const Comments = () => {
                 <p className="update">개발 중</p>
                 <div className="cont">
                     <ul>
-                        <li>에브니 큐브 티켓 - 카던/가토 처럼 수익 계산과 함께 추가</li>
                         <li>기록남기기 - 숙제로 얻은 수익을 기록하여 그래프 혹은 표로 표시</li>
                         <li>데이터보기 - 일일숙제로 얻는 재화량 통계와 현재 경매장 시세를 확인</li>
                     </ul>
@@ -112,6 +111,7 @@ const Comments = () => {
                 <p className="modify">수정 중(현상 확인 중)</p>
                 <div className="cont">
                     <ul>
+                        <li>캐릭터 출력기능 변경 페이지, 큐브 티켓 디자인 작업</li>
                         <li>주간 숙제 완료 시 수치가 초과되거나 적은 문제 확인 중</li>
                         <li>카멘 하드12 노말3관 설정시 오류 확인중</li>
                     </ul>
@@ -122,10 +122,10 @@ const Comments = () => {
                 <p className="update">수정 완료</p>
                 <div className="cont">
                     <div className="flex">
-                        <p className="date">2023.10.28</p>
+                        <p className="date">2023.10.29</p>
                         <p className="txt">
                             <ul>
-                                <li>주간 숙제 출력 내용 변경이 반영이 안됬던 문제를 해결하였습니다</li>
+                                <li>큐브 티켓 메모(카던/가토처럼 수익 계산과 함께 추가) 기능이 추가되었습니다</li>
                             </ul>
                         </p>
                     </div>

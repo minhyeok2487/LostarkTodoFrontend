@@ -20,6 +20,13 @@ function Info() {
                     <div>
                         <ul className="pathDetail">
                             <li>
+                                <p className="date">2023.10.29</p>
+                                <ul>
+                                    <li>캐릭터 출력 내용 수정 디자인 1차 수정</li>
+                                    <li>큐브 티켓 메모(카던/가토처럼 수익 계산과 함께 추가) 기능이 추가</li>
+                                </ul>
+                            </li>
+                            <li>
                                 <p className="date">2023.10.26</p>
                                 <ul>
                                     <li>방명록 디자인 리뉴얼 및 각종 버그 수정</li>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { call } from "../../service/api-service";
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -59,104 +59,178 @@ const CubeWrap = (props) => {
         props.setCharacters(await Promise.all(updatedCharacters));
     };
 
-    const openCubeAverage = () => {
+    const getCubeContent = async (itemLevel) => {
+        props.setShowLinearProgress(true);
+        var name;
+        if (itemLevel < 1490.0) {
+            name = "1금제";
+        } else if (itemLevel >= 1490.0 && itemLevel < 1540.0) {
+            name = "2금제";
+        } else if (itemLevel >= 1540.0 && itemLevel < 1580.0) {
+            name = "3금제";
+        } else if (itemLevel >= 1580.0 && itemLevel < 1610.0) {
+            name = "4금제";
+        } else {
+            name = "5금제";
+        }
+        try {
+            props.setShowLinearProgress(false);
+            return await call("/v2/character/cube/" + name, "GET", null);
+        } catch (error) {
+            props.setShowLinearProgress(false);
+            alert(error.errorMessage);
+        }
+    };
+
+    const openCubeAverage = async (itemLevel) => {
         props.setModalTitle("에브니 큐브 평균 데이터");
+        const cubeContent = await getCubeContent(itemLevel);
         var modalContent = (
             <div className="chaosVisual">
-                <p>컨텐츠 <strong>1금제</strong></p>
-                <div className="flex" style={{alignItems:"flex-start"}}>
+                <p>
+                    <button
+                        style={{ cursor: "pointer", marginRight: 5 }}
+                        onClick={() => previousCubeContent(cubeContent.name)}
+                    >
+                        &lt;
+                    </button>
+                    에브니 큐브 <strong>{cubeContent.name}</strong>
+                    <button
+                        style={{ cursor: "pointer", marginLeft: 5 }}
+                        onClick={() => nextCubeContent(cubeContent.name)}
+                    >
+                        &gt;
+                    </button>
+                </p>
+                <div className="flex" style={{ alignItems: "flex-start" }}>
                     <ul>
                         <strong>거래 가능 재화</strong>
-                        <li>1레벨보석 <em>21개</em></li>
-                        <li>가격 <em>개당 18 Gold</em></li>
-                        <li>총 가격 <em>{21*18} Gold</em></li>
+                        <li>1레벨보석 <em>{cubeContent.jewelry}개</em></li>
+                        <li>가격 <em>개당 {cubeContent.jewelryPrice} Gold</em></li>
+                        <li>총 가격 <em>{cubeContent.jewelry * cubeContent.jewelryPrice} Gold</em></li>
                     </ul>
                     <ul>
                         <strong>거래 불가 재화</strong>
-                        <li>돌파석 <em>20개</em></li>
-                        <li>실링 <em>79,859</em></li>
-                        <li>은총 <em>6개</em></li>
-                        <li>축복 <em>3개</em></li>
-                        <li>가호 <em>1개</em></li>
-                        <li>카경 <em>3000</em></li>
-                    </ul>
-                </div>
-                <p>컨텐츠 <strong>2금제</strong></p>
-                <div className="flex" style={{alignItems:"flex-start"}}>
-                    <ul>
-                        <strong>거래 가능 재화</strong>
-                        <li>1레벨보석 <em>36개</em></li>
-                        <li>가격 <em>개당 18 Gold</em></li>
-                        <li>총 가격 <em>{36*18} Gold</em></li>
-                    </ul>
-                    <ul>
-                        <strong>거래 불가 재화</strong>
-                        <li>돌파석 <em>14개</em></li>
-                        <li>실링 <em>100,142</em></li>
-                        <li>은총 <em>8개</em></li>
-                        <li>축복 <em>4개</em></li>
-                        <li>가호 <em>2개</em></li>
-                        <li>카경 <em>9000</em></li>
-                    </ul>
-                </div>
-                <p>컨텐츠 <strong>3금제</strong></p>
-                <div className="flex" style={{alignItems:"flex-start"}}>
-                    <ul>
-                        <strong>거래 가능 재화</strong>
-                        <li>1레벨보석 <em>54개</em></li>
-                        <li>가격 <em>개당 18 Gold</em></li>
-                        <li>총 가격 <em>{54*18} Gold</em></li>
-                    </ul>
-                    <ul>
-                        <strong>거래 불가 재화</strong>
-                        <li>돌파석 <em>25개</em></li>
-                        <li>실링 <em>110,370</em></li>
-                        <li>은총 <em>11개</em></li>
-                        <li>축복 <em>6개</em></li>
-                        <li>가호 <em>2개</em></li>
-                        <li>카경 <em>12000</em></li>
-                    </ul>
-                </div>
-                <p>컨텐츠 <strong>4금제</strong></p>
-                <div className="flex" style={{alignItems:"flex-start"}}>
-                    <ul>
-                        <strong>거래 가능 재화</strong>
-                        <li>1레벨보석 <em>72개</em></li>
-                        <li>가격 <em>개당 18 Gold</em></li>
-                        <li>총 가격 <em>{72*18} Gold</em></li>
-                    </ul>
-                    <ul>
-                        <strong>거래 불가 재화</strong>
-                        <li>돌파석 <em>14개</em></li>
-                        <li>실링 <em>120,518</em></li>
-                        <li>은총 <em>12개</em></li>
-                        <li>축복 <em>7개</em></li>
-                        <li>가호 <em>3개</em></li>
-                        <li>카경 <em>13000</em></li>
-                    </ul>
-                </div>
-                <p>컨텐츠 <strong>5금제</strong></p>
-                <div className="flex" style={{alignItems:"flex-start"}}>
-                    <ul>
-                        <strong>거래 가능 재화</strong>
-                        <li>1레벨보석 <em>81개</em></li>
-                        <li>가격 <em>개당 18 Gold</em></li>
-                        <li>총 가격 <em>{81*18} Gold</em></li>
-                    </ul>
-                    <ul>
-                        <strong>거래 불가 재화</strong>
-                        <li>돌파석 <em>25개</em></li>
-                        <li>실링 <em>129,802</em></li>
-                        <li>은총 <em>13개</em></li>
-                        <li>축복 <em>8개</em></li>
-                        <li>가호 <em>4개</em></li>
-                        <li>카경 <em>13500</em></li>
+                        <li>돌파석 <em>{cubeContent.leapStone}개</em></li>
+                        <li>실링 <em>{cubeContent.shilling}</em></li>
+                        <li>은총 <em>{cubeContent.solarGrace}개</em></li>
+                        <li>축복 <em>{cubeContent.solarBlessing}개</em></li>
+                        <li>가호 <em>{cubeContent.solarProtection}개</em></li>
+                        <li>카경 <em>{cubeContent.cardExp}</em></li>
                     </ul>
                 </div>
             </div>
         );
         props.setModalContent(modalContent);
         props.setOpenModal(true);
+
+    };
+
+    const previousCubeContent = async (name) => {
+        props.setShowLinearProgress(true);
+        const cubeContentList = ["1금제", "2금제", "3금제", "4금제", "5금제"];
+        const currentIndex = cubeContentList.indexOf(name);
+        const previousIndex = currentIndex === 0 ? cubeContentList.length - 1 : currentIndex - 1;
+        const preName = cubeContentList[previousIndex];
+
+        try {
+            props.setShowLinearProgress(false);
+            const cubeContent = await call("/v2/character/cube/" + preName, "GET", null);
+            var modalContent = (
+                <div className="chaosVisual">
+                    <p>
+                        <button
+                            style={{ cursor: "pointer", marginRight: 5 }}
+                            onClick={() => previousCubeContent(cubeContent.name)}
+                        >
+                            &lt;
+                        </button>
+                        에브니 큐브 <strong>{cubeContent.name}</strong>
+                        <button
+                            style={{ cursor: "pointer", marginLeft: 5 }}
+                            onClick={() => nextCubeContent(cubeContent.name)}
+                        >
+                            &gt;
+                        </button>
+                    </p>
+                    <div className="flex" style={{ alignItems: "flex-start" }}>
+                        <ul>
+                            <strong>거래 가능 재화</strong>
+                            <li>1레벨보석 <em>{cubeContent.jewelry}개</em></li>
+                            <li>가격 <em>개당 {cubeContent.jewelryPrice} Gold</em></li>
+                            <li>총 가격 <em>{cubeContent.jewelry * cubeContent.jewelryPrice} Gold</em></li>
+                        </ul>
+                        <ul>
+                            <strong>거래 불가 재화</strong>
+                            <li>돌파석 <em>{cubeContent.leapStone}개</em></li>
+                            <li>실링 <em>{cubeContent.shilling}</em></li>
+                            <li>은총 <em>{cubeContent.solarGrace}개</em></li>
+                            <li>축복 <em>{cubeContent.solarBlessing}개</em></li>
+                            <li>가호 <em>{cubeContent.solarProtection}개</em></li>
+                            <li>카경 <em>{cubeContent.cardExp}</em></li>
+                        </ul>
+                    </div>
+                </div>
+            );
+            props.setModalContent(modalContent);
+        } catch (error) {
+            props.setShowLinearProgress(false);
+            alert(error.errorMessage);
+        }
+    };
+
+    const nextCubeContent = async (name) => {
+        props.setShowLinearProgress(true);
+        const cubeContentList = ["1금제", "2금제", "3금제", "4금제", "5금제"];
+
+        const currentIndex = cubeContentList.indexOf(name);
+        const nextIndex = currentIndex === cubeContentList.length - 1 ? 0 : currentIndex + 1;
+        const nextName = cubeContentList[nextIndex];
+
+        try {
+            props.setShowLinearProgress(false);
+            const cubeContent = await call("/v2/character/cube/" + nextName, "GET", null);
+            var modalContent = (
+                <div className="chaosVisual">
+                    <p>
+                        <button
+                            style={{ cursor: "pointer", marginRight: 5 }}
+                            onClick={() => previousCubeContent(cubeContent.name)}
+                        >
+                            &lt;
+                        </button>
+                        에브니 큐브 <strong>{cubeContent.name}</strong>
+                        <button
+                            style={{ cursor: "pointer", marginLeft: 5 }}
+                            onClick={() => nextCubeContent(cubeContent.name)}
+                        >
+                            &gt;
+                        </button>
+                    </p>
+                    <div className="flex" style={{ alignItems: "flex-start" }}>
+                        <ul>
+                            <strong>거래 가능 재화</strong>
+                            <li>1레벨보석 <em>{cubeContent.jewelry}개</em></li>
+                            <li>가격 <em>개당 {cubeContent.jewelryPrice} Gold</em></li>
+                            <li>총 가격 <em>{cubeContent.jewelry * cubeContent.jewelryPrice} Gold</em></li>
+                        </ul>
+                        <ul>
+                            <strong>거래 불가 재화</strong>
+                            <li>돌파석 <em>{cubeContent.leapStone}개</em></li>
+                            <li>실링 <em>{cubeContent.shilling}</em></li>
+                            <li>은총 <em>{cubeContent.solarGrace}개</em></li>
+                            <li>축복 <em>{cubeContent.solarBlessing}개</em></li>
+                            <li>가호 <em>{cubeContent.solarProtection}개</em></li>
+                            <li>카경 <em>{cubeContent.cardExp}</em></li>
+                        </ul>
+                    </div>
+                </div>
+            );
+            props.setModalContent(modalContent);
+        } catch (error) {
+            props.setShowLinearProgress(false);
+            alert(error.errorMessage);
+        }
     };
 
     return (
@@ -167,7 +241,7 @@ const CubeWrap = (props) => {
                     height: 35,
                     position: "relative",
                     justifyContent: "space-between",
-                    fontSize: 14, 
+                    fontSize: 14,
                 }}
             >
                 <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
@@ -178,7 +252,7 @@ const CubeWrap = (props) => {
                         -
                     </button>
                     <div
-                        style={{ width: "90px",justifyContent:"center", alignItems:"center", display: "flex" }}
+                        style={{ width: "90px", justifyContent: "center", alignItems: "center", display: "flex" }}
                     >
                         {props.character.cubeTicket} 장
                     </div>
@@ -189,11 +263,11 @@ const CubeWrap = (props) => {
                         +
                     </button>
                     <div
-                        style={{ width: "100%", marginLeft:10 }}
+                        style={{ width: "100%", marginLeft: 10 }}
                     >
-                        큐브티켓
+                        큐브 티켓
                     </div>
-                    <SearchIcon onClick={()=>openCubeAverage()} style={{ cursor: "pointer" }} />
+                    <SearchIcon onClick={() => openCubeAverage(props.character.itemLevel)} style={{ cursor: "pointer" }} />
                 </div>
             </div>
         </div>

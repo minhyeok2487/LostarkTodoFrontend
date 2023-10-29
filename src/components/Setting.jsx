@@ -123,6 +123,12 @@ export default function Setting() {
                                             {selectSetting(character.characterId, character.characterName, character.showSilmaelChange, "showSilmaelChange")}
                                         </div>
                                     </div>
+                                    <div className="content" style={{ justifyContent: "space-around" }}>
+                                        <div>
+                                            큐브 티켓
+                                            {selectSetting(character.characterId, character.characterName, character.showCubeTicket, "showCubeTicket")}
+                                        </div>
+                                    </div>
                                 </div>
                             </Grid>
                         ))}

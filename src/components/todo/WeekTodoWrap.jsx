@@ -369,7 +369,7 @@ const WeekTodoWrap = ({
                 ))}
             </div>
             {/* pub 2023-10-23 스타일 적용 완료 */}
-            {(character.settings.showWeekEpona || character.settings.showSilmaelChange) &&
+            {(character.settings.showWeekEpona || character.settings.showSilmaelChange || character.settings.showCubeTicket) &&
                 <div className="content title02" style={{ padding: 0 }}>
                     <p className="title">주간 숙제</p>
                 </div>
@@ -387,7 +387,7 @@ const WeekTodoWrap = ({
                     setCharacters={setCharacters}
                     setShowLinearProgress={setShowLinearProgress}
                 />}
-                <CubeWrap
+                {character.settings.showCubeTicket && <CubeWrap
                     character={character}
                     characters={characters}
                     setCharacters={setCharacters}
@@ -395,7 +395,7 @@ const WeekTodoWrap = ({
                     setModalTitle={setModalTitle}
                     setModalContent={setModalContent}
                     setOpenModal={setOpenModal}
-                />
+                />}
             </div>
         </div>
 

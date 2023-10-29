@@ -1,2 +1,2 @@
-let backendHost = "http://localhost:8080";
+let backendHost = "https://api.loatodo.com";
 export const API_BASE_URL = `${backendHost}`;
