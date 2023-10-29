@@ -377,7 +377,6 @@ export default function TodoWrap() {
         }
         setModalContent(modalContent);
         setOpenModal(true);
-
     };
 
 
