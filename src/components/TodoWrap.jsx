@@ -97,7 +97,9 @@ export default function TodoWrap() {
 
     //4. 주간 수익
     const getWeekGold = characters.reduce((accumulator, character) => {
-        accumulator += character.weekGold;
+        if (character.goldCharacter) { 
+            accumulator += character.weekGold;
+        }
         return accumulator;
     }, 0);
 
