@@ -50,7 +50,10 @@ const WeekTodoWrap = ({
                                                 key={todo.id}
                                                 className="button"
                                                 onClick={() => updateWeekTodoAll(characterId, characterName, todo)}
-                                                style={{ backgroundColor: "#fee1dd" }}
+                                                style={{ backgroundColor: todo.reduce((count, todoItem) => count + (todoItem.checked ? 1 : 0), 0) === todo.length ? "#1ddfee" :"#fee1dd",
+                                                    border: todo.reduce((count, todoItem) => count + (todoItem.checked ? 1 : 0), 0) === todo.length ? "1px solid black" :"",
+                                                    fontWeight: todo.reduce((count, todoItem) => count + (todoItem.checked ? 1 : 0), 0) === todo.length ? "bold" :"",
+                                                }}
                                             >
                                                 {weekContentCategory} <em>{todo.reduce((sum, todoItem) => sum + todoItem.gold, 0)}G</em>
                                             </button>
@@ -58,7 +61,10 @@ const WeekTodoWrap = ({
                                                 <button
                                                     key={todoItem.id}
                                                     className="button"
-                                                    style={{ color: todoItem.checked ? "#ff0000" : "undefined" }}
+                                                    style={{ 
+                                                        border: todoItem.checked ? "1px solid black" : "",
+                                                        fontWeight: todoItem.checked ? "bold" : ""
+                                                     }}
                                                     onClick={() => updateWeekTodo(characterId, characterName, todoItem)}
                                                 >
                                                     {todoItem.gate}관문 <em>{todoItem.gold}G</em>
