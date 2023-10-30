@@ -20,6 +20,12 @@ function Info() {
                     <div>
                         <ul className="pathDetail">
                             <li>
+                                <p className="date">2023.10.30</p>
+                                <ul>
+                                    <li>주간 숙제 완료 시 수치가 초과되는 문제를 해결하였습니다</li>
+                                </ul>
+                            </li>
+                            <li>
                                 <p className="date">2023.10.29</p>
                                 <ul>
                                     <li>캐릭터 출력 내용 수정 디자인 1차 수정</li>
