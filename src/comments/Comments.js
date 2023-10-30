@@ -115,6 +115,7 @@ const Comments = () => {
                     </ul>
                 </div>
             </div>
+
             <div className="noticeBox box03">
                 <p className="modify">수정 중(현상 확인 중)</p>
                 <div className="cont">
@@ -135,12 +136,6 @@ const Comments = () => {
                                 <li>주간 숙제 완료 시 수치가 초과되는 문제를 해결하였습니다</li>
                             </ul>
                         </p>
-            <div class="noticeBox box04">
-                <p class="update">수정 완료</p>
-                <div class="cont">
-                    <div class="flex">
-                        <p class="date">2023.10.18</p>
-                        <p class="txt">디자인 리뉴얼 되었습니다. 도움을 주신 퍼블리셔님 감사합니다</p>
                     </div>
                     <Info />
                 </div>
