@@ -19,78 +19,85 @@ const WeekTodoWrap = ({
     showMessage
 }) => {
     //1.캐릭터 주간숙제 추가 폼
-    const openAddTodoForm = (characterName, goldCharacter) => {
+    const openAddTodoForm = (characterId, characterName, goldCharacter) => {
         setModalTitle(characterName + " 주간 숙제 관리");
-        call("/character/week/v3/" + characterName, "GET", null).then((response) => {
-            const todosByCategory = {};
+        call("/v2/character/week/form/" + characterId + "/" + characterName, "GET", null)
+            .then((response) => {
+                const todosByCategory = {};
 
-            response.forEach((todo) => {
-                if (!todosByCategory[todo.weekCategory]) {
-                    todosByCategory[todo.weekCategory] = {
-                        노말: [],
-                        하드: [],
-                    };
-                }
-                if (todo.weekContentCategory === '노말') {
-                    todosByCategory[todo.weekCategory]['노말'].push(todo);
-                } else {
-                    todosByCategory[todo.weekCategory]['하드'].push(todo);
-                }
-            });
-            const content = Object.entries(todosByCategory).map(
-                ([weekCategory, todos], index) => (
-                    <div key={index}>
-                        <p>{weekCategory}</p>
-                        <div className="week-category-wrap" style={{ flexDirection: "column" }}>
-                            {Object.entries(todos).map(([weekContentCategory, todo], todoIndex) => (
-                                (todo.length > 0 &&
-                                    <div key={todoIndex} style={{ display: 'flex' }}>
-                                        <button
-                                            key={todo.id}
-                                            className="button"
-                                            onClick={() => updateWeekTodoAll(characterName, todo)}
-                                            style={{ backgroundColor: "#fee1dd" }}
-                                        >
-                                            {weekContentCategory} <em>{todo.reduce((sum, todoItem) => sum + todoItem.gold, 0)}G</em>
-                                        </button>
-                                        {todo.map((todoItem) => (
+                response.forEach((todo) => {
+                    if (!todosByCategory[todo.weekCategory]) {
+                        todosByCategory[todo.weekCategory] = {
+                            노말: [],
+                            하드: [],
+                        };
+                    }
+                    if (todo.weekContentCategory === '노말') {
+                        todosByCategory[todo.weekCategory]['노말'].push(todo);
+                    } else {
+                        todosByCategory[todo.weekCategory]['하드'].push(todo);
+                    }
+                });
+                const content = Object.entries(todosByCategory).map(
+                    ([weekCategory, todos], index) => (
+                        <div key={index}>
+                            <p>{weekCategory}</p>
+                            <div className="week-category-wrap" style={{ flexDirection: "column" }}>
+                                {Object.entries(todos).map(([weekContentCategory, todo], todoIndex) => (
+                                    (todo.length > 0 &&
+                                        <div key={todoIndex} style={{ display: 'flex' }}>
                                             <button
-                                                key={todoItem.id}
+                                                key={todo.id}
                                                 className="button"
-                                                style={{ color: todoItem.checked ? "#ff0000" : "undefined" }}
-                                                onClick={() => updateWeekTodo(characterName, todoItem)}
+                                                onClick={() => updateWeekTodoAll(characterId, characterName, todo)}
+                                                style={{ backgroundColor: todo.reduce((count, todoItem) => count + (todoItem.checked ? 1 : 0), 0) === todo.length ? "#1ddfee" :"#fee1dd",
+                                                    border: todo.reduce((count, todoItem) => count + (todoItem.checked ? 1 : 0), 0) === todo.length ? "1px solid black" :"",
+                                                    fontWeight: todo.reduce((count, todoItem) => count + (todoItem.checked ? 1 : 0), 0) === todo.length ? "bold" :"",
+                                                }}
                                             >
-                                                {todoItem.gate}관문 <em>{todoItem.gold}G</em>
+                                                {weekContentCategory} <em>{todo.reduce((sum, todoItem) => sum + todoItem.gold, 0)}G</em>
                                             </button>
-                                        ))}
-                                    </div>
-                                )
-                            ))}
+                                            {todo.map((todoItem) => (
+                                                <button
+                                                    key={todoItem.id}
+                                                    className="button"
+                                                    style={{ 
+                                                        border: todoItem.checked ? "1px solid black" : "",
+                                                        fontWeight: todoItem.checked ? "bold" : ""
+                                                     }}
+                                                    onClick={() => updateWeekTodo(characterId, characterName, todoItem)}
+                                                >
+                                                    {todoItem.gate}관문 <em>{todoItem.gold}G</em>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )
+                                ))}
+                            </div>
                         </div>
+                    )
+                );
+
+                const modalContent = (
+                    <div>
+                        <Button
+                            variant="contained"
+                            onClick={() => updateGoldCharacter(characterName)}
+                            style={{ cursor: "pointer" }}
+                        >
+                            골드 획득 캐릭터 지정 {goldCharacter ? "해제" : ""}
+                        </Button>
+                        {content}
                     </div>
-                )
-            );
+                );
 
-            const modalContent = (
-                <div>
-                    <Button
-                        variant="contained"
-                        onClick={() => updateGoldCharacter(characterName)}
-                        style={{ cursor: "pointer" }}
-                    >
-                        골드 획득 캐릭터 지정 {goldCharacter ? "해제" : ""}
-                    </Button>
-                    {content}
-                </div>
-            );
-
-            setModalContent(modalContent);
-            setOpenModal(true);
-        });
+                setModalContent(modalContent);
+                setOpenModal(true);
+            });
     };
 
     //2-1. 캐릭터 주간 숙제 업데이트(추가/삭제)
-    const updateWeekTodo = (characterName, content) => {
+    const updateWeekTodo = (characterId, characterName, content) => {
         setShowLinearProgress(true);
 
         const updatedCharacters = characters.map((character) => {
@@ -98,7 +105,7 @@ const WeekTodoWrap = ({
                 call("/character/week/v3/" + characterName, "POST", content)
                     .then((response) => {
                         setShowLinearProgress(false);
-                        openAddTodoForm(characterName, response.goldCharacter);
+                        openAddTodoForm(characterId, characterName, response.goldCharacter);
                         character.todoList = response.todoList;
                     })
                     .catch((error) => {
@@ -112,7 +119,7 @@ const WeekTodoWrap = ({
     };
 
     //2-2.캐릭터 주간 숙제 업데이트 All(추가/삭제)
-    const updateWeekTodoAll = (characterName, content) => {
+    const updateWeekTodoAll = (characterId, characterName, content) => {
         setShowLinearProgress(true);
 
         const updatedCharacters = characters.map((character) => {
@@ -120,7 +127,7 @@ const WeekTodoWrap = ({
                 call("/character/week/v3/all/" + characterName, "POST", content)
                     .then((response) => {
                         setShowLinearProgress(false);
-                        openAddTodoForm(characterName, response.goldCharacter);
+                        openAddTodoForm(characterId, characterName, response.goldCharacter);
                         character.todoList = response.todoList;
                     })
                     .catch((error) => {
@@ -280,20 +287,12 @@ const WeekTodoWrap = ({
 
     return (
         <div className="character-wrap">
-            {/* <div className="content" style={{ padding: 0, display: character.settings.showWeekTodo ? "block" : "none" }}>
-                <p className="title">주간 숙제</p>
-            </div>
-            <div className='character-todo'>
-                <WeekEponaWrap />
-                <SilmaelChangeWrap />
-                <CubeWrap />
-            </div> */}
             <div className="content" style={{ padding: 0, display: character.settings.showWeekTodo ? "block" : "none" }}>
                 <p className="title">주간 레이드</p>{/* pub 추가 */}
                 <p className="txt">마우스 우클릭 시 한번에 체크됩니다</p>{/* pub 추가 */}
                 <button
                     className={"content-button"}
-                    onClick={() => openAddTodoForm(character.characterName, character.goldCharacter)}
+                    onClick={() => openAddTodoForm(character.id, character.characterName, character.goldCharacter)}
                     style={{ width: '101%', fontWeight: "bold", fontSize: 16 }}
                 >
                     편집{/* pub 추가 */}
@@ -376,16 +375,36 @@ const WeekTodoWrap = ({
                 ))}
             </div>
             {/* pub 2023-10-23 스타일 적용 완료 */}
-            <div className="content title02" style={{ padding: 0, display: character.settings.showWeekTodo ? "block" : "none" }}>
-                <p className="title">주간 숙제</p>
-            </div>
+            {(character.settings.showWeekEpona || character.settings.showSilmaelChange || character.settings.showCubeTicket) &&
+                <div className="content title02" style={{ padding: 0 }}>
+                    <p className="title">주간 숙제</p>
+                </div>
+            }
             <div className='character-todo'>
-                <WeekEponaWrap />
-                <SilmaelChangeWrap />
-                <CubeWrap />
+                {character.settings.showWeekEpona && <WeekEponaWrap
+                    character={character}
+                    characters={characters}
+                    setCharacters={setCharacters}
+                    setShowLinearProgress={setShowLinearProgress}
+                />}
+                {character.settings.showSilmaelChange && <SilmaelChangeWrap
+                    character={character}
+                    characters={characters}
+                    setCharacters={setCharacters}
+                    setShowLinearProgress={setShowLinearProgress}
+                />}
+                {character.settings.showCubeTicket && <CubeWrap
+                    character={character}
+                    characters={characters}
+                    setCharacters={setCharacters}
+                    setShowLinearProgress={setShowLinearProgress}
+                    setModalTitle={setModalTitle}
+                    setModalContent={setModalContent}
+                    setOpenModal={setOpenModal}
+                />}
             </div>
         </div>
-        
+
     );
 };
 

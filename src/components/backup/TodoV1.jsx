@@ -841,7 +841,9 @@ export default function TodoV1() {
                     aria-labelledby="modal-title"
                     aria-describedby="modal-description"
                 >
-                    <div className="valMiniModal" style={{
+                    <div
+                        className="valMiniModal" 
+                        style={{
                         position: "absolute",
                         top: "50%", left: "50%",
                         transform: "translate(-50%, -50%)",

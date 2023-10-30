@@ -7,7 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 function Info() {
     return (
 
-        <div class="pathNote" style={{ maxHeight: 500, overflow: "auto" }}>
+        <div className="pathNote" style={{ maxHeight: 500, overflow: "auto" }}>
             <Accordion >
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -17,26 +17,43 @@ function Info() {
                     <Typography style={{ fontWeight: "bold" }}>전체 패치노트 보기</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        문의사항은 디스코드 <span style={{ color: "red" }}>마볼링#2884</span>로 DM주시면 최대한 빠르게 답변해드리겠습니다.
-                    </Typography>
                     <div>
-                        <ul class="pathDetail">
+                        <ul className="pathDetail">
                             <li>
-                                <p class="date">2023.10.18</p>
+                                <p className="date">2023.10.30</p>
+                                <ul>
+                                    <li>주간 숙제 완료 시 수치가 초과되는 문제를 해결하였습니다</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p className="date">2023.10.29</p>
+                                <ul>
+                                    <li>캐릭터 출력 내용 수정 디자인 1차 수정</li>
+                                    <li>큐브 티켓 메모(카던/가토처럼 수익 계산과 함께 추가) 기능이 추가</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p className="date">2023.10.26</p>
+                                <ul>
+                                    <li>방명록 디자인 리뉴얼 및 각종 버그 수정</li>
+                                    <li>도가토 주간 리셋 수정되었습니다</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p className="date">2023.10.18</p>
                                 <ul>
                                     <li>디자인 리뉴얼</li>
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.10.14</p>
+                                <p className="date">2023.10.14</p>
                                 <ul>
                                     <li>캐릭터 업데이트 기능이 수정되었습니다. 캐릭터 닉네임이 변경되도 정상 작동됩니다.</li>
                                     <li>에포나의뢰가 휴식게이지 계산방식으로 변경되었습니다</li>
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.10.11</p>
+                                <p className="date">2023.10.11</p>
                                 <ul>
                                     <li>주간숙제 관리 버전이 리뉴얼 되었습니다.</li>
                                     <li>우클릭시 전체 체크/해제 됩니다. (이경우 이전버전과 똑같아서 이전 버전은 내리겠습니다.)</li>
@@ -46,7 +63,7 @@ function Info() {
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.10.10</p>
+                                <p className="date">2023.10.10</p>
                                 <ul>
                                     <li>주간숙제 관리 버전이 리뉴얼 되었습니다.</li>
                                     <li>우클릭시 전체 체크/해제 됩니다.(전체가 체크되야 주간수익에 들어갑니다. 이부분은 추후 수정하겠습니다.)</li>
@@ -57,7 +74,7 @@ function Info() {
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.10.05</p>
+                                <p className="date">2023.10.05</p>
                                 <ul>
                                     <li>주간숙제 관리를 리뉴얼중입니다.</li>
                                     <li>API KEY 업데이트 기능을 추가하였습니다.<br />(캐릭터 업데이트 기능 사용시 API KEY가 필요합니다.)</li>
@@ -67,21 +84,21 @@ function Info() {
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.10.01</p>
+                                <p className="date">2023.10.01</p>
                                 <ul>
                                     <li>캐릭터 업데이트 기능이 수정되었습니다. 화면 오른쪽 하단 "+"버튼에서 사용하실 수 있습니다</li>
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.09.30</p>
+                                <p className="date">2023.09.30</p>
                                 <ul>
                                     <li>임시 캐릭터 출력 선택 기능이 추가되었습니다<br />
-                                    오른쪽하단 "+"버튼을 통해 캐릭터마다 출력하고 싶은 내용을 선택할 수 있습니다.<br />
-                                    주간 에포나, 토벌전 등 여러가지 숙제 추가 후 추가 업데이트 하겠습니다.</li>
+                                        오른쪽하단 "+"버튼을 통해 캐릭터마다 출력하고 싶은 내용을 선택할 수 있습니다.<br />
+                                        주간 에포나, 토벌전 등 여러가지 숙제 추가 후 추가 업데이트 하겠습니다.</li>
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.09.28</p>
+                                <p className="date">2023.09.28</p>
                                 <ul>
                                     <li>전체적인 디자인 수정이 되었습니다. 모바일도 어느정도 깔끔합니다(아마도..?)</li>
                                     <li>서버별 분리 기능이 추가되었습니다. 일일 수익, 주간 수익, 캐릭터 순서 변경이 서버별로 분리됩니다.</li>
@@ -89,23 +106,23 @@ function Info() {
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.09.22</p>
+                                <p className="date">2023.09.22</p>
                                 <ul>
                                     <li>주간숙제 간단한 메모기능을 추가하였습니다.</li>
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.09.19</p>
+                                <p className="date">2023.09.19</p>
                                 <ul>
                                     <li>골드 획득 지정 캐릭터 기능을 추가하였습니다.<br />
-                                    지정된 캐릭터만 주간숙제에 골드가 추가됩니다.(최대3개, 내림차순)</li>
+                                        지정된 캐릭터만 주간숙제에 골드가 추가됩니다.(최대3개, 내림차순)</li>
                                     <li>캐릭터 정보 업데이트 기능이 수정되었습니다.<br />
                                         클릭 시 전투레벨, 아이템레벨, 캐릭터 이미지등의 데이터를 새로받아옵니다.
                                     </li>
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.09.18</p>
+                                <p className="date">2023.09.18</p>
                                 <ul>
                                     <li>일일숙제 휴식게이지 출력 디자인을 수정하였습니다. 클릭시 휴식게이지를 수정할 수 있습니다.</li>
                                     <li>캐릭터 순서 변경 기능은 화면이 일정크기 이상일때만 사용하실 수 있습니다.</li>
@@ -113,13 +130,13 @@ function Info() {
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.09.15</p>
+                                <p className="date">2023.09.15</p>
                                 <ul>
                                     <li>카오스던전 계몽1과 베스칼 통계데이터를 추가하였습니다.</li>
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.09.14</p>
+                                <p className="date">2023.09.14</p>
                                 <ul>
                                     <li>모바일 사용 불편함으로 인해 캐릭터 정렬 기능을 분리하였습니다. 저장 아이콘 클릭시 변경된 순서가 저장됩니다.</li>
                                     <li>주간 숙제는 앞에서부터 6개의 캐릭터만 관리할 수 있습니다. 순서를 바꾸어도 기존에 저장된 내용을 유지합니다</li>
@@ -128,13 +145,13 @@ function Info() {
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.09.13</p>
+                                <p className="date">2023.09.13</p>
                                 <ul>
                                     <li>주간숙제 추가/삭제와 수익을 임시 수정하였습니다.</li>
                                 </ul>
                             </li>
                             <li>
-                                <p class="date">2023.09.12</p>
+                                <p className="date">2023.09.12</p>
                                 <ul>
                                     <li>캐릭터 이미지 url이 없는경우 정상적으로 가입처리가 되지 않는 문제를 임시수정하였습니다.</li>
                                 </ul>

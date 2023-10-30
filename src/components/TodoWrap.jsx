@@ -97,7 +97,9 @@ export default function TodoWrap() {
 
     //4. 주간 수익
     const getWeekGold = characters.reduce((accumulator, character) => {
-        accumulator += character.weekGold;
+        if (character.goldCharacter) { 
+            accumulator += character.weekGold;
+        }
         return accumulator;
     }, 0);
 
@@ -343,10 +345,10 @@ export default function TodoWrap() {
         setModalTitle("" + character.characterName + " " + category + " 평균 데이터");
         if (category === "카오스던전") {
             var modalContent = (
-                <div class="chaosVisual">
-                    <span class="tip">API 실시간 경매장 가격으로 평균 값을 가져옵니다.</span>
+                <div className="chaosVisual">
+                    <span className="tip">API 실시간 경매장 가격으로 평균 값을 가져옵니다.</span>
                     <p>컨텐츠 <strong>{character.chaos.name}</strong></p>
-                    <div class="flex">
+                    <div className="flex">
                         <ul>
                             <strong>거래 가능 재화</strong>
                             <li>파괴석 <em>{character.chaos.destructionStone}개</em></li>
@@ -377,7 +379,6 @@ export default function TodoWrap() {
         }
         setModalContent(modalContent);
         setOpenModal(true);
-
     };
 
 
@@ -492,7 +493,7 @@ export default function TodoWrap() {
                 />}
                 {/* pub 아코디언 위치 수정 */}
                 <div className="setting-wrap">
-                    <div> {/* pub style 삭제 */}
+                    <div>
                         <Button
                             id="fade-button"
                             aria-controls={open ? 'fade-menu' : undefined}
@@ -537,7 +538,7 @@ export default function TodoWrap() {
                 <div className="todo-wrap" >
                     <Grid container spacing={1.5} overflow={"hidden"}>
                         {characters.map((character) => (
-                            <Grid key={character.sortNumber} item>
+                            <Grid key={character.id} item>
                                 <div className="character-wrap">
                                     <div className="character-info"
                                         style={{
@@ -699,7 +700,8 @@ export default function TodoWrap() {
                     aria-labelledby="modal-title"
                     aria-describedby="modal-description"
                 >
-                    <div className="miniModal" style={{
+                    <div className="miniModal" 
+                        style={{
                         position: "absolute",
                         top: "50%", left: "50%",
                         transform: "translate(-50%, -50%)",
