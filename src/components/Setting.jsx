@@ -57,7 +57,7 @@ export default function Setting() {
         <>
             {showLinearProgress && <LinearIndeterminate />}
             <div className="wrap">
-                <div className="todo-wrap" >
+                <div className="todo-wrap setting" >
                     <Grid container spacing={1.5} overflow={"hidden"}>
                         {characters.map((character) => (
                             <Grid key={character.sortNumber} item>
