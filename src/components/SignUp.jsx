@@ -52,6 +52,7 @@ function SignUp() {
               <Link to="https://canfactory.tistory.com/1081" target="_blank" variant="body2">
                 apikey발급을 모르십니까?
               </Link>
+              <p>api 에러시, 복사 하기전 사이트에 번역이 켜있으면 끄고 복사해주세요! </p>
             </Grid>
             <Grid item xs={12}>
               <TextField
