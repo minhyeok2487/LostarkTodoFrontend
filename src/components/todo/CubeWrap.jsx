@@ -89,25 +89,27 @@ const CubeWrap = (props) => {
             <div className="chaosVisual">
                 <p>
                     <button
+                        className="prev"
                         style={{ cursor: "pointer", marginRight: 5 }}
                         onClick={() => previousCubeContent(cubeContent.name)}
                     >
-                        &lt;
+                        ←
                     </button>
                     에브니 큐브 <strong>{cubeContent.name}</strong>
                     <button
+                        className="next"
                         style={{ cursor: "pointer", marginLeft: 5 }}
                         onClick={() => nextCubeContent(cubeContent.name)}
                     >
-                        &gt;
+                        →
                     </button>
                 </p>
                 <div className="flex" style={{ alignItems: "flex-start" }}>
                     <ul>
                         <strong>거래 가능 재화</strong>
                         <li>1레벨보석 <em>{cubeContent.jewelry}개</em></li>
-                        <li>가격 <em>개당 {cubeContent.jewelryPrice} Gold</em></li>
-                        <li>총 가격 <em>{cubeContent.jewelry * cubeContent.jewelryPrice} Gold</em></li>
+                        <li>가격 <em>개당 {cubeContent.jewelryPrice} G</em></li>
+                        <li>총 가격 <em>{cubeContent.jewelry * cubeContent.jewelryPrice} G</em></li>
                     </ul>
                     <ul>
                         <strong>거래 불가 재화</strong>
@@ -140,25 +142,27 @@ const CubeWrap = (props) => {
                 <div className="chaosVisual">
                     <p>
                         <button
+                            className="prev"
                             style={{ cursor: "pointer", marginRight: 5 }}
                             onClick={() => previousCubeContent(cubeContent.name)}
                         >
-                            &lt;
+                            ←
                         </button>
                         에브니 큐브 <strong>{cubeContent.name}</strong>
                         <button
+                            className="next"
                             style={{ cursor: "pointer", marginLeft: 5 }}
                             onClick={() => nextCubeContent(cubeContent.name)}
                         >
-                            &gt;
+                            →
                         </button>
                     </p>
                     <div className="flex" style={{ alignItems: "flex-start" }}>
                         <ul>
                             <strong>거래 가능 재화</strong>
                             <li>1레벨보석 <em>{cubeContent.jewelry}개</em></li>
-                            <li>가격 <em>개당 {cubeContent.jewelryPrice} Gold</em></li>
-                            <li>총 가격 <em>{cubeContent.jewelry * cubeContent.jewelryPrice} Gold</em></li>
+                            <li>가격 <em>개당 {cubeContent.jewelryPrice} G</em></li>
+                            <li>총 가격 <em>{cubeContent.jewelry * cubeContent.jewelryPrice} G</em></li>
                         </ul>
                         <ul>
                             <strong>거래 불가 재화</strong>
@@ -194,25 +198,27 @@ const CubeWrap = (props) => {
                 <div className="chaosVisual">
                     <p>
                         <button
+                            className="prev"
                             style={{ cursor: "pointer", marginRight: 5 }}
                             onClick={() => previousCubeContent(cubeContent.name)}
                         >
-                            &lt;
+                            ←
                         </button>
                         에브니 큐브 <strong>{cubeContent.name}</strong>
                         <button
+                            className="next"
                             style={{ cursor: "pointer", marginLeft: 5 }}
                             onClick={() => nextCubeContent(cubeContent.name)}
                         >
-                            &gt;
+                            →
                         </button>
                     </p>
                     <div className="flex" style={{ alignItems: "flex-start" }}>
                         <ul>
                             <strong>거래 가능 재화</strong>
                             <li>1레벨보석 <em>{cubeContent.jewelry}개</em></li>
-                            <li>가격 <em>개당 {cubeContent.jewelryPrice} Gold</em></li>
-                            <li>총 가격 <em>{cubeContent.jewelry * cubeContent.jewelryPrice} Gold</em></li>
+                            <li>가격 <em>개당 {cubeContent.jewelryPrice} G</em></li>
+                            <li>총 가격 <em>{cubeContent.jewelry * cubeContent.jewelryPrice} G</em></li>
                         </ul>
                         <ul>
                             <strong>거래 불가 재화</strong>
@@ -246,6 +252,7 @@ const CubeWrap = (props) => {
             >
                 <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
                     <button
+                        className ="minus"
                         style={{ cursor: "pointer" }}
                         onClick={() => substractCubeTicket(props.character.id)}
                     >
@@ -257,6 +264,7 @@ const CubeWrap = (props) => {
                         {props.character.cubeTicket} 장
                     </div>
                     <button
+                        className ="plus"
                         style={{ cursor: "pointer" }}
                         onClick={() => addCubeTicket(props.character.id)}
                     >

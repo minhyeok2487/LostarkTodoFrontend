@@ -366,17 +366,21 @@ export default function TodoWrap() {
             );
         } else {
             modalContent = (
-                <div>
-                    <ul>
-                        <p>이름 : {character.guardian.name}</p>
-                        ---거래 가능 재화---
-                        <li>파괴석 : {character.guardian.destructionStone}개</li>
-                        <li>수호석 : {character.guardian.guardianStone}개</li>
-                        <li>돌파석 : {character.guardian.leapStone}개</li>
-                    </ul>
+                <div class="chaosVisual">
+                    <span className="tip">API 실시간 경매장 가격으로 평균 값을 가져옵니다.</span>
+                    <p>컨텐츠 <strong>{character.guardian.name}</strong></p>
+                    <div className="flex one">
+                        <ul>
+                            <strong>거래 가능 재화</strong>
+                            <li>파괴석 <em>{character.guardian.destructionStone}개</em></li>
+                            <li>수호석 <em>{character.guardian.guardianStone}개</em></li>
+                            <li>돌파석 <em>{character.guardian.leapStone}개</em></li>
+                        </ul>
+                    </div>
                 </div>
             );
         }
+
         setModalContent(modalContent);
         setOpenModal(true);
     };
