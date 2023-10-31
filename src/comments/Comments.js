@@ -111,6 +111,7 @@ const Comments = () => {
                         <li>기록남기기 - 숙제로 얻은 수익을 기록하여 그래프 혹은 표로 표시</li>
                         <li>데이터보기 - 일일숙제, 큐브로 얻는 재화량 통계와 현재 경매장 시세를 확인, 귀속 재료도 수익확인</li>
                         <li>친구 요청 및 등록 - 친구 등록시 친구의 주간숙제를 플레이 여부를 확인할 수 있습니다.</li>
+                        <li>부계정 추가 - 여러가지로 엮인게 많아 시간이 좀 걸릴거같습니다.</li>
                         <li>캐릭터 info - 로아와, 클로아, 일로아와 유사한 기능</li>
                     </ul>
                 </div>
@@ -120,7 +121,6 @@ const Comments = () => {
                 <p className="modify">수정 중(현상 확인 중)</p>
                 <div className="cont">
                     <ul>
-                        <li>캐릭터 출력기능 변경 페이지, 큐브 티켓 디자인 작업</li>
                         <li>카멘 하드12 노말3관 설정 후 왼쪽 클릭시 오류</li>
                     </ul>
                 </div>
@@ -130,10 +130,11 @@ const Comments = () => {
                 <p className="update">수정 완료</p>
                 <div className="cont">
                     <div className="flex">
-                        <p className="date">2023.10.30</p>
+                        <p className="date">2023.10.31</p>
                         <p className="txt">
                             <ul>
                                 <li>주간 숙제 완료 시 수치가 초과되는 문제를 해결하였습니다</li>
+                                <li>캐릭터 출력기능 변경 페이지, 큐브 티켓 디자인이 리뉴얼 되었습니다.</li>
                             </ul>
                         </p>
                     </div>
