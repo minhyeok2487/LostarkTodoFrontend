@@ -3,17 +3,13 @@ import { call } from "../service/api-service";
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import SettingsIcon from '@mui/icons-material/Settings';
-import DownloadIcon from '@mui/icons-material/Download';
-import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
-import CachedIcon from '@mui/icons-material/Cached';
 
 export default function BasicSpeedDial(props) {
     const icons = [
-        { icon: <CachedIcon />, name: '캐릭터 순서 변경' },
-        { icon: <SettingsIcon />, name: '출력 내용 변경' },
-        { icon: <DownloadIcon />, name: '캐릭터 정보 업데이트' },
-        { icon: <DeleteSweepIcon />, name: '중복 캐릭터 삭제' },
+        { name: '캐릭터 순서 변경' },
+        { name: '출력 내용 변경' },
+        { name: '캐릭터 정보 업데이트' },
+        { name: '중복 캐릭터 삭제' },
     ];
 
 
@@ -51,21 +47,26 @@ export default function BasicSpeedDial(props) {
 
     }
     return (
-        <SpeedDial
-            ariaLabel="SpeedDial basic example"
-            sx={{ position: 'fixed', top: 100, right: 20 }}
-            icon={<SpeedDialIcon />}
-            direction={"down"}
-        >
-            {icons.map((icon) => (
-                <SpeedDialAction
-                    key={icon.name}
-                    icon={icon.icon}
-                    tooltipTitle={icon.name}
-                    direction="Down"
-                    onClick={() => actions(icon.name)}
-                />
-            ))}
-        </SpeedDial>
+        <>
+            <SpeedDial
+                ariaLabel="SpeedDial basic example"
+                sx={{ position: 'fixed', top: 100, right: 20, alignItems:"end" }}
+                icon={<SpeedDialIcon />}
+                direction={"down"}
+            >
+                {icons.map((icon) => (
+                    <SpeedDialAction
+                        key={icon.name}
+                        icon={icon.name}
+                        sx={{
+                            borderRadius:0,
+                            display:"inline-block",
+                            width:"100%",
+                        }}
+                        onClick={() => actions(icon.name)}
+                    />
+                ))}
+            </SpeedDial>
+        </>
     );
 }
