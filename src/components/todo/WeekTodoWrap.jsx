@@ -102,7 +102,7 @@ const WeekTodoWrap = ({
 
         const updatedCharacters = characters.map((character) => {
             if (character.characterName === characterName) {
-                call("/character/week/v3/" + characterName, "POST", content)
+                call("/v2/character/week/raid/" + characterId + "/" + characterName, "POST", content)
                     .then((response) => {
                         setShowLinearProgress(false);
                         openAddTodoForm(characterId, characterName, response.goldCharacter);
@@ -124,7 +124,7 @@ const WeekTodoWrap = ({
 
         const updatedCharacters = characters.map((character) => {
             if (character.characterName === characterName) {
-                call("/character/week/v3/all/" + characterName, "POST", content)
+                call("/v2/character/week/raid/" + characterId + "/" + characterName + "/all", "POST", content)
                     .then((response) => {
                         setShowLinearProgress(false);
                         openAddTodoForm(characterId, characterName, response.goldCharacter);
@@ -149,12 +149,13 @@ const WeekTodoWrap = ({
                     ...character
                 };
                 const updateContent = {
+                    characterId: character.id,
                     characterName: characterName,
                     weekCategory: todo.weekCategory,
                     currentGate: todo.currentGate,
                     totalGate: todo.totalGate
                 };
-                return call("/character/week/v3/check", "PATCH", updateContent)
+                return call("/v2/character/week/raid/check", "PATCH", updateContent)
                     .then((response) => {
                         setShowLinearProgress(false);
                         updatedCharacter = response;
@@ -163,7 +164,7 @@ const WeekTodoWrap = ({
                     .catch((error) => {
                         setShowLinearProgress(false);
                         alert(error.errorMessage);
-                        return null;
+                        return updatedCharacter;
                     });
             }
             return character;
@@ -182,10 +183,11 @@ const WeekTodoWrap = ({
                     ...character
                 };
                 const updateContent = {
+                    characterId: character.id,
                     characterName: characterName,
                     weekCategory: todo.weekCategory,
                 };
-                return call("/character/week/v3/check/all", "PATCH", updateContent)
+                return call("/v2/character/week/raid/check/all", "PATCH", updateContent)
                     .then((response) => {
                         setShowLinearProgress(false);
                         updatedCharacter = response;
@@ -194,7 +196,7 @@ const WeekTodoWrap = ({
                     .catch((error) => {
                         setShowLinearProgress(false);
                         alert(error.errorMessage);
-                        return null;
+                        return updatedCharacter;
                     });
             }
             return character;
