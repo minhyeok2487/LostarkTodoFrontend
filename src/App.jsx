@@ -10,6 +10,7 @@ import Comments from './comments/Comments';
 import Setting from './components/Setting';
 import TodoWrap from './components/TodoWrap';
 import ApiKeyUpdateForm from './components/member/ApiKeyUpdateForm';
+import FriendWrap from './components/friends/FriendWrap';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
             <Route path='comments' element={<Comments />} />
             <Route path='setting' element={<Setting />} />
             <Route path='member/apikey' element={<ApiKeyUpdateForm />} />
+            <Route path='friends' element={<FriendWrap />} />
           </Routes>
         </BrowserRouter>
       </div>
