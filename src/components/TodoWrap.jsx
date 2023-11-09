@@ -105,166 +105,227 @@ export default function TodoWrap() {
 
 
     //------------------------- 일일 숙제 관련 -------------------------
+    const updateDayContent = async (characterId, category) => {
+        setShowLinearProgress(true);
+        const updatedCharacters = characters.map((character) => {
+            if (character.id === characterId) {
+                var updatedCharacter = {
+                    ...character,
+                };
+                const updateContent = {
+                    characterId: character.id,
+                    characterName: character.characterName,
+                };
+                return call("/v2/character/day-content/check/" + category, "PATCH", updateContent)
+                    .then((response) => { 
+                        setShowLinearProgress(false);
+                        updatedCharacter = response;
+                        return updatedCharacter;
+                    })
+                    .catch((error) => {                         
+                        setShowLinearProgress(false);
+                        showMessage(error.errorMessage);
+                        updatedCharacter[`${category}Check`] = 0;
+                        return updatedCharacter;
+                    });
+            }
+            return character;
+        });
+        const updatedCharactersResult = await Promise.all(updatedCharacters);
+        setCharacters(updatedCharactersResult);
+    };
+
+    const updateDayContentAll = async (e, characterId, category) => {
+        e.preventDefault();
+        setShowLinearProgress(true);
+        const updatedCharacters = characters.map((character) => {
+            if (character.id === characterId) {
+                var updatedCharacter = {
+                    ...character,
+                };
+                const updateContent = {
+                    characterId: character.id,
+                    characterName: character.characterName,
+                };
+                return call("/v2/character/day-content/check/" + category + "/all", "PATCH", updateContent)
+                    .then((response) => { 
+                        setShowLinearProgress(false);
+                        updatedCharacter = response;
+                        return updatedCharacter;
+                    })
+                    .catch((error) => {                         
+                        setShowLinearProgress(false);
+                        showMessage(error.errorMessage);
+                        updatedCharacter[`${category}Check`] = 0;
+                        return updatedCharacter;
+                    });
+            }
+            return character;
+        });
+        const updatedCharactersResult = await Promise.all(updatedCharacters);
+        setCharacters(updatedCharactersResult);
+    };
+
     //1. 에포나의뢰 체크 
-    const handleEponaCheck = (characterId) => {
-        const updatedCharacters = characters.map((character) => {
-            if (character.id === characterId) {
-                if (character.eponaCheck === 0) {
-                    character.eponaCheck = 1;
-                } else if (character.eponaCheck === 1) {
-                    character.eponaCheck = 2;
-                } else if (character.eponaCheck === 2) {
-                    character.eponaCheck = 3;
-                } else if (character.eponaCheck === 3) {
-                    character.eponaCheck = 0;
-                }
-                const updateContent = {
-                    characterId: character.id,
-                    characterName: character.characterName,
-                    eponaCheck: character.eponaCheck,
-                    chaosCheck: character.chaosCheck,
-                    guardianCheck: character.guardianCheck,
-                };
-                call("/v2/character/day-content/check", "PATCH", updateContent)
-                    .then((response) => { })
-                    .catch((error) => { showMessage(error.errorMessage); });
-            }
-            return character;
-        });
-        setCharacters(updatedCharacters);
-    };
+    // const handleEponaCheck = (characterId) => {
+    //     const updatedCharacters = characters.map((character) => {
+    //         if (character.id === characterId) {
+    //             if (character.eponaCheck === 0) {
+    //                 character.eponaCheck = 1;
+    //             } else if (character.eponaCheck === 1) {
+    //                 character.eponaCheck = 2;
+    //             } else if (character.eponaCheck === 2) {
+    //                 character.eponaCheck = 3;
+    //             } else if (character.eponaCheck === 3) {
+    //                 character.eponaCheck = 0;
+    //             }
+    //             const updateContent = {
+    //                 characterId: character.id,
+    //                 characterName: character.characterName,
+    //                 eponaCheck: character.eponaCheck,
+    //                 chaosCheck: character.chaosCheck,
+    //                 guardianCheck: character.guardianCheck,
+    //             };
+    //             call("/v2/character/day-content/check", "PATCH", updateContent)
+    //                 .then((response) => { })
+    //                 .catch((error) => { showMessage(error.errorMessage); });
+    //         }
+    //         return character;
+    //     });
+    //     setCharacters(updatedCharacters);
+    // };
 
-    //1-2. 에포나의뢰 체크 All 
-    const handleEponaCheckAll = (e, characterId) => {
-        e.preventDefault();
-        const updatedCharacters = characters.map((character) => {
-            if (character.id === characterId) {
-                if (character.eponaCheck < 3) {
-                    character.eponaCheck = 3;
-                } else {
-                    character.eponaCheck = 0;
-                }
-                const updateContent = {
-                    characterId: character.id,
-                    characterName: character.characterName,
-                    eponaCheck: character.eponaCheck,
-                    chaosCheck: character.chaosCheck,
-                    guardianCheck: character.guardianCheck,
-                };
-                call("/v2/character/day-content/check", "PATCH", updateContent)
-                    .then((response) => { })
-                    .catch((error) => { showMessage(error.errorMessage); });
-            }
-            return character;
-        });
-        setCharacters(updatedCharacters);
-    };
-
-
-    //2.카오스던전 체크 
-    const handleChaosCheck = (characterId) => {
-        const updatedCharacters = characters.map((character) => {
-            if (character.id === characterId) {
-                if (character.chaosCheck === 0) {
-                    character.chaosCheck = 1;
-                } else if (character.chaosCheck === 1) {
-                    character.chaosCheck = 2;
-                } else if (character.chaosCheck === 2) {
-                    character.chaosCheck = 0;
-                }
-                const updateContent = {
-                    characterId: character.id,
-                    characterName: character.characterName,
-                    eponaCheck: character.eponaCheck,
-                    chaosCheck: character.chaosCheck,
-                    guardianCheck: character.guardianCheck,
-                };
-                call("/v2/character/day-content/check", "PATCH", updateContent)
-                    .then((response) => { })
-                    .catch((error) => { showMessage(error.errorMessage); });
-            }
-            return character;
-        });
-        setCharacters(updatedCharacters);
-    };
-
-    //2.카오스던전 체크 All 
-    const handleChaosCheckAll = (e, characterId) => {
-        e.preventDefault();
-        const updatedCharacters = characters.map((character) => {
-            if (character.id === characterId) {
-                if (character.chaosCheck < 2) {
-                    character.chaosCheck = 2;
-                } else {
-                    character.chaosCheck = 0;
-                }
-                const updateContent = {
-                    characterId: character.id,
-                    characterName: character.characterName,
-                    eponaCheck: character.eponaCheck,
-                    chaosCheck: character.chaosCheck,
-                    guardianCheck: character.guardianCheck,
-                };
-                call("/v2/character/day-content/check", "PATCH", updateContent)
-                    .then((response) => { })
-                    .catch((error) => { showMessage(error.errorMessage); });
-            }
-            return character;
-        });
-        setCharacters(updatedCharacters);
-    };
+    // //1-2. 에포나의뢰 체크 All 
+    // const handleEponaCheckAll = (e, characterId) => {
+    //     e.preventDefault();
+    //     const updatedCharacters = characters.map((character) => {
+    //         if (character.id === characterId) {
+    //             if (character.eponaCheck < 3) {
+    //                 character.eponaCheck = 3;
+    //             } else {
+    //                 character.eponaCheck = 0;
+    //             }
+    //             const updateContent = {
+    //                 characterId: character.id,
+    //                 characterName: character.characterName,
+    //                 eponaCheck: character.eponaCheck,
+    //                 chaosCheck: character.chaosCheck,
+    //                 guardianCheck: character.guardianCheck,
+    //             };
+    //             call("/v2/character/day-content/check", "PATCH", updateContent)
+    //                 .then((response) => { })
+    //                 .catch((error) => { showMessage(error.errorMessage); });
+    //         }
+    //         return character;
+    //     });
+    //     setCharacters(updatedCharacters);
+    // };
 
 
-    //3. 가디언토벌 체크
-    const handleGuardianCheck = (characterId) => {
-        const updatedCharacters = characters.map((character) => {
-            if (character.id === characterId) {
-                if (character.guardianCheck === 0) {
-                    character.guardianCheck = 1;
-                } else {
-                    character.guardianCheck = 0;
-                }
-                const updateContent = {
-                    characterId: character.id,
-                    characterName: character.characterName,
-                    eponaCheck: character.eponaCheck,
-                    chaosCheck: character.chaosCheck,
-                    guardianCheck: character.guardianCheck,
-                };
-                call("/v2/character/day-content/check", "PATCH", updateContent)
-                    .then((response) => { })
-                    .catch((error) => { showMessage(error.errorMessage); });
-            }
-            return character;
-        });
-        setCharacters(updatedCharacters);
-    };
+    // //2.카오스던전 체크 
+    // const handleChaosCheck = (characterId) => {
+    //     const updatedCharacters = characters.map((character) => {
+    //         if (character.id === characterId) {
+    //             if (character.chaosCheck === 0) {
+    //                 character.chaosCheck = 1;
+    //             } else if (character.chaosCheck === 1) {
+    //                 character.chaosCheck = 2;
+    //             } else if (character.chaosCheck === 2) {
+    //                 character.chaosCheck = 0;
+    //             }
+    //             const updateContent = {
+    //                 characterId: character.id,
+    //                 characterName: character.characterName,
+    //                 eponaCheck: character.eponaCheck,
+    //                 chaosCheck: character.chaosCheck,
+    //                 guardianCheck: character.guardianCheck,
+    //             };
+    //             call("/v2/character/day-content/check", "PATCH", updateContent)
+    //                 .then((response) => { })
+    //                 .catch((error) => { showMessage(error.errorMessage); });
+    //         }
+    //         return character;
+    //     });
+    //     setCharacters(updatedCharacters);
+    // };
 
-    //3-1. 가디언토벌 체크 All
-    const handleGuardianCheckAll = (e, characterId) => {
-        e.preventDefault();
-        const updatedCharacters = characters.map((character) => {
-            if (character.id === characterId) {
-                if (character.guardianCheck === 0) {
-                    character.guardianCheck = 1;
-                } else {
-                    character.guardianCheck = 0;
-                }
-                const updateContent = {
-                    characterId: character.id,
-                    characterName: character.characterName,
-                    eponaCheck: character.eponaCheck,
-                    chaosCheck: character.chaosCheck,
-                    guardianCheck: character.guardianCheck,
-                };
-                call("/v2/character/day-content/check", "PATCH", updateContent)
-                    .then((response) => { })
-                    .catch((error) => { showMessage(error.errorMessage); });
-            }
-            return character;
-        });
-        setCharacters(updatedCharacters);
-    };
+    // //2.카오스던전 체크 All 
+    // const handleChaosCheckAll = (e, characterId) => {
+    //     e.preventDefault();
+    //     const updatedCharacters = characters.map((character) => {
+    //         if (character.id === characterId) {
+    //             if (character.chaosCheck < 2) {
+    //                 character.chaosCheck = 2;
+    //             } else {
+    //                 character.chaosCheck = 0;
+    //             }
+    //             const updateContent = {
+    //                 characterId: character.id,
+    //                 characterName: character.characterName,
+    //                 eponaCheck: character.eponaCheck,
+    //                 chaosCheck: character.chaosCheck,
+    //                 guardianCheck: character.guardianCheck,
+    //             };
+    //             call("/v2/character/day-content/check", "PATCH", updateContent)
+    //                 .then((response) => { })
+    //                 .catch((error) => { showMessage(error.errorMessage); });
+    //         }
+    //         return character;
+    //     });
+    //     setCharacters(updatedCharacters);
+    // };
+
+
+    // //3. 가디언토벌 체크
+    // const handleGuardianCheck = (characterId) => {
+    //     const updatedCharacters = characters.map((character) => {
+    //         if (character.id === characterId) {
+    //             if (character.guardianCheck === 0) {
+    //                 character.guardianCheck = 1;
+    //             } else {
+    //                 character.guardianCheck = 0;
+    //             }
+    //             const updateContent = {
+    //                 characterId: character.id,
+    //                 characterName: character.characterName,
+    //                 eponaCheck: character.eponaCheck,
+    //                 chaosCheck: character.chaosCheck,
+    //                 guardianCheck: character.guardianCheck,
+    //             };
+    //             call("/v2/character/day-content/check", "PATCH", updateContent)
+    //                 .then((response) => { })
+    //                 .catch((error) => { showMessage(error.errorMessage); });
+    //         }
+    //         return character;
+    //     });
+    //     setCharacters(updatedCharacters);
+    // };
+
+    // //3-1. 가디언토벌 체크 All
+    // const handleGuardianCheckAll = (e, characterId) => {
+    //     e.preventDefault();
+    //     const updatedCharacters = characters.map((character) => {
+    //         if (character.id === characterId) {
+    //             if (character.guardianCheck === 0) {
+    //                 character.guardianCheck = 1;
+    //             } else {
+    //                 character.guardianCheck = 0;
+    //             }
+    //             const updateContent = {
+    //                 characterId: character.id,
+    //                 characterName: character.characterName,
+    //                 eponaCheck: character.eponaCheck,
+    //                 chaosCheck: character.chaosCheck,
+    //                 guardianCheck: character.guardianCheck,
+    //             };
+    //             call("/v2/character/day-content/check", "PATCH", updateContent)
+    //                 .then((response) => { })
+    //                 .catch((error) => { showMessage(error.errorMessage); });
+    //         }
+    //         return character;
+    //     });
+    //     setCharacters(updatedCharacters);
+    // };
 
 
     //-------------------------캐릭터 데이터 업데이트 -------------------------
@@ -561,8 +622,8 @@ export default function TodoWrap() {
                                     <p className="txt">휴식 게이지는 다음날 자동계산됩니다.</p>
                                     <div className="content-wrap" style={{ display: character.settings.showEpona ? "block" : "none" }}>
                                         <div className="content" style={{ cursor: "pointer" }}
-                                            onClick={() => handleEponaCheck(character.id)}
-                                            onContextMenu={(e) => handleEponaCheckAll(e, character.id)}>
+                                            onClick={() => updateDayContent(character.id, "epona")}
+                                            onContextMenu={(e) => updateDayContentAll(e, character.id, "epona")}>
                                             {/* pub 순서변경 */}
                                             <button
                                                 className={`content-button ${character.eponaCheck === 3 ? "done" :
@@ -604,16 +665,16 @@ export default function TodoWrap() {
                                                 className={`content-button ${character.chaosCheck === 0 ? "" :
                                                     character.chaosCheck === 1 ? "ing" : "done"}`}
                                                 style={{ cursor: "pointer" }}
-                                                onClick={() => handleChaosCheck(character.id)}
-                                                onContextMenu={(e) => handleChaosCheckAll(e, character.id)}
+                                                onClick={() => updateDayContent(character.id, "chaos")}
+                                                onContextMenu={(e) => updateDayContentAll(e, character.id, "chaos")}
                                             >
                                                 {character.chaosCheck === 2 ? <DoneIcon /> : <CloseIcon />}
                                             </button>
                                             <div
                                                 className={`${character.chaosCheck === 2 ? "text-done" : ""}`}
                                                 style={{ cursor: "pointer" }}
-                                                onClick={() => handleChaosCheck(character.id)}
-                                                onContextMenu={(e) => handleChaosCheckAll(e, character.id)}
+                                                onClick={() => updateDayContent(character.id, "chaos")}
+                                                onContextMenu={(e) => updateDayContentAll(e, character.id, "chaos")}
                                             >
                                                 <p>카오스던전</p>
                                                 <p className="gold">({character.chaosGold} gold)</p>
@@ -646,16 +707,16 @@ export default function TodoWrap() {
                                             <button
                                                 className={`content-button ${character.guardianCheck === 1 ? "done" : ""}`}
                                                 style={{ cursor: "pointer" }}
-                                                onClick={() => handleGuardianCheck(character.id)}
-                                                onContextMenu={(e) => handleGuardianCheckAll(e, character.id)}
+                                                onClick={() => updateDayContent(character.id, "guardian")}
+                                                onContextMenu={(e) => updateDayContentAll(e, character.id, "guardian")}
                                             >
                                                 {character.guardianCheck === 1 ? <DoneIcon /> : <CloseIcon />}
                                             </button>
                                             <div
                                                 className={`${character.guardianCheck === 1 ? "text-done" : ""}`}
                                                 style={{ cursor: "pointer" }}
-                                                onClick={() => handleGuardianCheck(character.id)}
-                                                onContextMenu={(e) => handleGuardianCheckAll(e, character.id)}
+                                                onClick={() => updateDayContent(character.id, "guardian")}
+                                                onContextMenu={(e) => updateDayContentAll(e, character.id, "guardian")}
                                             >
                                                 <p>가디언토벌</p>
                                                 <p className="gold">({character.guardianGold} gold)</p>
