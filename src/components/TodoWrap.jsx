@@ -76,8 +76,10 @@ export default function TodoWrap() {
 
     //2. 일일 수익
     const getDayGold = characters.reduce((accumulator, character) => {
-        if (character.chaosCheck === 2) {
-            accumulator += character.chaosGold;
+        if (character.chaosCheck >= 1) {
+            for(var i=0; i<character.chaosCheck; i++) {
+                accumulator += character.chaosGold/2;
+            }
         }
         if (character.guardianCheck === 1) {
             accumulator += character.guardianGold;
