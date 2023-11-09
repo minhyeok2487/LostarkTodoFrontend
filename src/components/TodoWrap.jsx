@@ -619,7 +619,6 @@ export default function TodoWrap() {
                                         <h2 style={{ margin: 0 }}>Lv. {character.itemLevel}</h2>
                                     </div>
                                     <p className="title">일일 숙제</p>{/* pub 추가 */}
-                                    <p className="txt">휴식 게이지는 다음날 자동계산됩니다.</p>
                                     <div className="content-wrap" style={{ display: character.settings.showEpona ? "block" : "none" }}>
                                         <div className="content" style={{ cursor: "pointer" }}
                                             onClick={() => updateDayContent(character.id, "epona")}
