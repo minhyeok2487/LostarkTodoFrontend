@@ -10,7 +10,7 @@ import Comments from './comments/Comments';
 import Setting from './components/Setting';
 import TodoWrap from './components/TodoWrap';
 import ApiKeyUpdateForm from './components/member/ApiKeyUpdateForm';
-import FriendWrap from './components/friends/FriendWrap';
+import FriendWrap from './components/friends/FriendsWrap';
 
 const App = () => {
   return (
