@@ -126,12 +126,12 @@ export default function Navbar() {
             <MenuItem onClick={() => (window.location.href = "/")}>
               <img alt="logo" src='/logo.png' style={{ width: 150 }} />
             </MenuItem>
+            <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/friends")}>
+              <p>깐부(개발중)</p>
+            </MenuItem>
             <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/comments")}>
               <p>방명록</p>
             </MenuItem>
-            {/* <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/friends")}>
-              <p>깐부(개발중)</p>
-            </MenuItem> */}
             <Box sx={{ flexGrow: 1 }} />
             <Box>
               <input className="theme-input" type="checkbox" id="darkmode-toggle" onChange={darkOnOff} />

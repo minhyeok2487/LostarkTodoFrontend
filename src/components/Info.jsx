@@ -20,6 +20,14 @@ function Info() {
                     <div>
                         <ul className="pathDetail">
                             <li>
+                                <p className="date">2023.11.12</p>
+                                <ul>
+                                    <li>깐부(친구)추가 기능 개발중입니다.</li>
+                                    <li>현재 상대방이 요청을 수락하면 보는건 가능합니다.</li>
+                                    <li>추가적인 수정 권한, 공유 내용 선정 기능 개발중입니다.</li>
+                                </ul>
+                            </li>
+                            <li>
                                 <p className="date">2023.11.10</p>
                                 <ul>
                                     <li>일일 숙제 체크시 휴식게이지가 즉각 차감됩니다.</li>

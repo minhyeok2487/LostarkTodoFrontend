@@ -135,13 +135,12 @@ const Comments = () => {
                 <p className="update">수정 완료</p>
                 <div className="cont">
                     <div className="flex">
-                        <p className="date">2023.11.10</p>
+                        <p className="date">2023.11.12</p>
                         <p className="txt">
                             <ul>
-                                <li>일일 숙제 체크시 휴식게이지가 즉각 차감됩니다.</li>
-                                <li>단 체크를 해제할 시 휴식게이지 재입력전까지 수익이 다를 수 있습니다.</li>
-                                <li>카오스던전 1수만 해도 일일 수익이 증가되도록 변경하였습니다.</li>
-                                <li>서버 최적화 작업을 진행하였습니다</li>
+                                <li>깐부(친구) 기능 개발중입니다.</li>
+                                <li>현재 상대방이 요청을 수락하면 보는건 가능합니다.</li>
+                                <li>추가적인 수정 권한, 공유 내용 선정 기능 개발중입니다.</li>
                             </ul>
                         </p>
                     </div>

@@ -6,12 +6,17 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Grid } from "@mui/material";
 import Notification from '../../fragments/Notification';
 import LinearIndeterminate from '../../fragments/LinearIndeterminate';
-import WeekTodoWrap from "../todo/WeekTodoWrap";
-
+import FriendWeekTodoWrap from "./FriendWeekTodoWrap";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
+import { Category } from "@mui/icons-material";
+
 
 //------------------------- 탭관련 -------------------------
 function CustomTabPanel(props) {
@@ -46,13 +51,19 @@ function a11yProps(index) {
 
 export default function FriendWrap() {
     const [tabValue, setTabValue] = useState(0);
-    const handleChange = (event, newValue) => {
-        setTabValue(newValue);
+    const [friends, setFriends] = useState([]);
+    const [characters, setCharacters] = useState([]);
+    const handleChange = (event, friend) => {
+        const index = friends.indexOf(friend);
+
+        if (index !== -1) {
+            setTabValue(index + 1);
+            setCharacters(friend.characterList);
+        } else {
+            setTabValue(0);
+            setCharacters([]);
+        }
     };
-    const [characters, setCharacters] = useState([]); //캐릭터 리스트
-    const [servers, setServers] = useState([]); //서버 리스트
-    const [selectedServer, setSelectedServer] = useState(null);
-    const [showLinearProgress, setShowLinearProgress] = useState(false);
 
     //Notification 관련
     const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -73,46 +84,133 @@ export default function FriendWrap() {
 
     //------------------------- 페이지 로드시 호출 -------------------------
     useEffect(() => {
-        // 서버 정보 불러오기
-        call("/member/characterList/server", "GET", null)
+        call("/v2/friends", "GET", null)
             .then((response) => {
-                setServers(response);
-                // 서버 정보가 로드된 후 첫 번째 서버 정보를 사용하여 캐릭터 정보 불러오기
-                const firstServerName = Object.keys(response)[0];
-                setSelectedServer(firstServerName);
-                call("/member/characterList-v3/" + firstServerName, "GET", null)
-                    .then((characterResponse) => {
-                        setCharacters(characterResponse);
-                        console.log(characterResponse);
-                    })
-
+                setFriends(response);
+                console.log(response);
             })
-            .catch((error) => {
-                if (error.errorMessage[0] === "등록된 캐릭터가 없습니다.") {
-                    window.location.href = "/signup";
-                } else {
-                    alert(error.errorMessage);
-                    localStorage.setItem("ACCESS_TOKEN", null);
-                    window.location.href = "/login";
-                }
-            });
+            .catch((error) => { showMessage(error.errorMessage) });
     }, []);
 
+    const findCharacter = () => {
+        const characterName = document.getElementById('find-character').value;
+        if (characterName === '') {
+            showMessage("캐릭터명을 입력하여주십시오.");
+        } else {
+            call("/v2/friends/character/" + characterName, "GET", null)
+                .then((response) => {
+                    openFindCharacterFriend(response);
+                })
+                .catch((error) => {
+                    showMessage(error.errorMessage);
+                });
+        }
+    }
 
+    /**
+     * 각종 정보창 모달 관련
+     */
+    // 모달 열기/닫기 상태 관리
+    const [openModal, setOpenModal] = useState(false);
+    const [modalContent, setModalContent] = useState("");
+    const [modalTitle, setModalTitle] = useState("");
 
+    // 모달 열기 함수
+    const openFindCharacterFriend = (findCharacterFriend) => {
+        setModalTitle("검색 결과");
+        var content = findCharacterFriend.map((character) => {
+            return (
+                <div key={character.id}>
+                    <p>{character.username}
+                        <Button variant="outlined" onClick={() => requestFriend(character.areWeFriend, character.username)}>
+                            {character.areWeFriend}
+                        </Button>
+                    </p>
+                </div>
+            );
+        });
+        var modalContent = (
+            <div>
+                {content}
+            </div>
+        );
+        setModalContent(modalContent);
+        setOpenModal(true);
+    };
+
+    // 모달 닫기 함수
+    const closeContentModal = () => {
+        setOpenModal(false);
+        setModalTitle("");
+        setModalContent("");
+    };
+
+    const requestFriend = (category, fromMember) => {
+        console.log(fromMember);
+        if (category === "깐부 요청") {
+            call("/v2/friends/" + fromMember, "POST", null)
+                .then((response) => {
+                    setFriends(response);
+                    closeContentModal();
+                })
+                .catch((error) => {
+                    showMessage(error.errorMessage);
+                });
+        }
+    }
+
+    const handleRequest = (category, fromMember) => {
+        call("/v2/friends/" + fromMember + "/" + category, "PATCH", null)
+            .then((response) => {
+                setFriends(response);
+            })
+            .catch((error) => {
+                showMessage(error.errorMessage);
+            });
+    }
+
+    const [showLinearProgress, setShowLinearProgress] = useState(false);
     return (
         <>
             {showLinearProgress && <LinearIndeterminate />}
             <div className="wrap">
+                <div>
+                    <TextField id="find-character" label="캐릭터 닉네임 입력" variant="outlined" size="small" />
+                    <Button variant="outlined" onClick={() => findCharacter()}>검색</Button>
+                </div>
                 <div className="todo-wrap" >
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs value={tabValue} onChange={handleChange} aria-label="basic tabs example">
-                            <Tab label="Item One" {...a11yProps(0)} />
-                            <Tab label="Item Two" {...a11yProps(1)} />
-                            <Tab label="Item Three" {...a11yProps(2)} />
+                        <Tabs value={tabValue} onChange={(event, friend) => handleChange(event, friend)} aria-label="basic tabs example">
+                            <Tab label="깐부 리스트" {...a11yProps(0)} />
+                            {friends.map((friend, index) =>
+                                friend.areWeFriend === "깐부" && (
+                                    <Tab
+                                        label={friend.nickName}
+                                        {...a11yProps(index + 1)}
+                                        key={friend.id}
+                                        onClick={(event) => handleChange(event, friend)}
+                                    />
+                                )
+                            )}
                         </Tabs>
                     </Box>
                     <CustomTabPanel value={tabValue} index={0}>
+                        {friends.map((friend) => (
+                            <div style={{ display: "flex", flexDirection: "row" }} key={friend.id}>
+                                <div style={{ marginRight: 10 }}>{friend.friendUsername}</div>
+                                <div style={{ marginRight: 10 }}>{friend.nickName}</div>
+                                {friend.areWeFriend === "깐부 요청 진행중" && <div style={{ color: 'blue' }}>{friend.areWeFriend}</div>}
+                                {friend.areWeFriend === "깐부 요청 받음" &&
+                                    <div>
+                                        <Button variant="outlined" onClick={() => handleRequest("ok", friend.friendUsername)}>수락</Button>
+                                        <Button variant="outlined" color="error" onClick={() => handleRequest("reject", friend.friendUsername)}>거절</Button>
+                                    </div>}
+                                {friend.areWeFriend === "깐부" && <div style={{ fontWeight: "bold" }}>{friend.areWeFriend}</div>}
+                                {friend.areWeFriend === "요청 거부" && <div style={{ color: 'red' }}>{friend.areWeFriend}</div>}
+                            </div>
+                        ))}
+                    </CustomTabPanel>
+                    <CustomTabPanel value={tabValue} index={tabValue}>
                         <Grid container spacing={1.5} overflow={"hidden"}>
                             {characters.map((character) => (
                                 <Grid key={character.id} item>
@@ -148,7 +246,6 @@ export default function FriendWrap() {
                                         </div>
                                         <div className="content-wrap">
                                             <div className="content">
-                                                {/* pub 순서변경 */}
                                                 <button
                                                     className={`content-button ${character.chaosCheck === 0 ? "" :
                                                         character.chaosCheck === 1 ? "ing" : "done"}`}
@@ -179,28 +276,44 @@ export default function FriendWrap() {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <WeekTodoWrap
-                                    characters={characters}
-                                    setCharacters={setCharacters}
-                                    character={character}
-                                    setModalTitle={setModalTitle}
-                                    setModalContent={setModalContent}
-                                    setOpenModal={setOpenModal}
-                                    setShowLinearProgress={setShowLinearProgress}
-                                    showMessage={showMessage}
-                                /> */}
+                                    <FriendWeekTodoWrap
+                                        characters={characters}
+                                        setCharacters={setCharacters}
+                                        character={character}
+                                        setModalTitle={setModalTitle}
+                                        setModalContent={setModalContent}
+                                        setOpenModal={setOpenModal}
+                                        setShowLinearProgress={setShowLinearProgress}
+                                        showMessage={showMessage}
+                                    />
                                 </Grid>
                             ))}
                         </Grid>
                     </CustomTabPanel>
-                    <CustomTabPanel value={tabValue} index={1}>
-                        Item Two
-                    </CustomTabPanel>
-                    <CustomTabPanel value={tabValue} index={2}>
-                        Item Three
-                    </CustomTabPanel>
-
                 </div>
+                <Modal
+                    open={openModal}
+                    onClose={closeContentModal}
+                    aria-labelledby="modal-title"
+                    aria-describedby="modal-description"
+                >
+                    <div className="miniModal"
+                        style={{
+                            position: "absolute",
+                            top: "50%", left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            backgroundColor: "#ffffff",
+                            padding: "20px 30px 20px 20px", width: "auto", overflowY: "auto",
+                            maxHeight: 450,
+                        }}>
+                        <Typography variant="h5" id="modal-title" style={{ color: "white", backgroundColor: "black", borderRadius: 7, textAlign: "center" }}>
+                            {modalTitle}
+                        </Typography>
+                        <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word", lineHeight: 2, fontWeight: "bold" }}>
+                            {modalContent}
+                        </pre>
+                    </div>
+                </Modal>
             </div >
 
             < Notification
