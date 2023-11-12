@@ -87,7 +87,6 @@ export default function FriendsWrap() {
         call("/v2/friends", "GET", null)
             .then((response) => {
                 setFriends(response);
-                console.log(response);
             })
             .catch((error) => { showMessage(error.errorMessage) });
     }, []);
@@ -179,7 +178,7 @@ export default function FriendsWrap() {
                     <Button variant="outlined" onClick={() => findCharacter()}>검색</Button>
                 </div>
                 <div className="todo-wrap" >
-                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider', width:"100vw", maxWidth:"1280px"}}>
                         <Tabs value={tabValue} onChange={(event, friend) => handleChange(event, friend)} aria-label="basic tabs example">
                             <Tab label="깐부 리스트" {...a11yProps(0)} />
                             {friends.map((friend, index) =>
@@ -196,7 +195,7 @@ export default function FriendsWrap() {
                     </Box>
                     <CustomTabPanel value={tabValue} index={0}>
                         {friends.map((friend) => (
-                            <div style={{ display: "flex", flexDirection: "row" }} key={friend.id}>
+                            <div style={{ display: "flex", flexDirection: "row", margin:10 }} key={friend.id}>
                                 <div style={{ marginRight: 10 }}>{friend.friendUsername}</div>
                                 <div style={{ marginRight: 10 }}>{friend.nickName}</div>
                                 {friend.areWeFriend === "깐부 요청 진행중" && <div style={{ color: 'blue' }}>{friend.areWeFriend}</div>}
