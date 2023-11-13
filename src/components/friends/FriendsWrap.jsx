@@ -16,6 +16,15 @@ import Box from '@mui/material/Box';
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import { Category } from "@mui/icons-material";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 //------------------------- 탭관련 -------------------------
@@ -52,6 +61,7 @@ function a11yProps(index) {
 export default function FriendsWrap() {
     const [tabValue, setTabValue] = useState(0);
     const [friends, setFriends] = useState([]);
+    const [friendSetting, setFriendSetting] = useState([]);
     const [characters, setCharacters] = useState([]);
     const handleChange = (event, friend) => {
         const index = friends.indexOf(friend);
@@ -59,9 +69,11 @@ export default function FriendsWrap() {
         if (index !== -1) {
             setTabValue(index + 1);
             setCharacters(friend.characterList);
+            setFriendSetting(friend.fromFriendSettings);
         } else {
             setTabValue(0);
             setCharacters([]);
+            setFriendSetting([]);
         }
     };
 
@@ -87,6 +99,7 @@ export default function FriendsWrap() {
         call("/v2/friends", "GET", null)
             .then((response) => {
                 setFriends(response);
+                console.log(response);
             })
             .catch((error) => { showMessage(error.errorMessage) });
     }, []);
@@ -168,6 +181,38 @@ export default function FriendsWrap() {
             });
     }
 
+    const selectSetting = (friendId, setting, settingName) => (
+        <FormControl size="small">
+            <Select
+                id={`${friendId}_${settingName}`}
+                onChange={(event) => updateSetting(event, friendId, settingName)}
+                defaultValue={setting ? "true" : "false"}
+                sx={{ bgcolor: setting ? '#FA5858' : "#81BEF7", color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }}
+            >
+                <MenuItem value={true} >true</MenuItem>
+                <MenuItem value={false}>false</MenuItem>
+            </Select>
+        </FormControl>
+    );
+
+    const updateSetting = (event, friendId, settingName) => {
+        setShowLinearProgress(true);
+        const updateContent = {
+            id: friendId,
+            name: settingName,
+            value: event.target.value
+        };
+        call("/v2/friends/settings", "PATCH", updateContent)
+            .then((response) => {
+                setShowLinearProgress(false);
+                var point = document.getElementById(`${friendId}_${settingName}`);
+                point.style.backgroundColor = event.target.value ? '#FA5858' : "#81BEF7";
+            })
+            .catch((error) => {
+                alert(error.errorMessage);
+            });
+    };
+
     const [showLinearProgress, setShowLinearProgress] = useState(false);
     return (
         <>
@@ -178,7 +223,7 @@ export default function FriendsWrap() {
                     <Button variant="outlined" onClick={() => findCharacter()}>검색</Button>
                 </div>
                 <div className="todo-wrap" >
-                    <Box sx={{ borderBottom: 1, borderColor: 'divider', width:"100vw", maxWidth:"1280px"}}>
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider', width: "100vw", maxWidth: "1280px" }}>
                         <Tabs value={tabValue} onChange={(event, friend) => handleChange(event, friend)} aria-label="basic tabs example">
                             <Tab label="깐부 리스트" {...a11yProps(0)} />
                             {friends.map((friend, index) =>
@@ -194,8 +239,8 @@ export default function FriendsWrap() {
                         </Tabs>
                     </Box>
                     <CustomTabPanel value={tabValue} index={0}>
-                        {friends.map((friend) => (
-                            <div style={{ display: "flex", flexDirection: "row", margin:10 }} key={friend.id}>
+                        {/* {friends.map((friend) => (
+                            <div style={{ display: "flex", flexDirection: "row", margin: 10 }} key={friend.id}>
                                 <div style={{ marginRight: 10 }}>{friend.friendUsername}</div>
                                 <div style={{ marginRight: 10 }}>{friend.nickName}</div>
                                 {friend.areWeFriend === "깐부 요청 진행중" && <div style={{ color: 'blue' }}>{friend.areWeFriend}</div>}
@@ -207,7 +252,49 @@ export default function FriendsWrap() {
                                 {friend.areWeFriend === "깐부" && <div style={{ fontWeight: "bold" }}>{friend.areWeFriend}</div>}
                                 {friend.areWeFriend === "요청 거부" && <div style={{ color: 'red' }}>{friend.areWeFriend}</div>}
                             </div>
-                        ))}
+                        ))} */}
+                        <TableContainer className="setting-table-wrap">
+                            <Table aria-label="simple table" className="setting-table">
+                                <TableHead>
+                                    <TableRow >
+                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} >id</TableCell>
+                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="right">이메일</TableCell>
+                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="right">별명</TableCell>
+                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="right">상태</TableCell>
+                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">일일 숙제 출력 권한</TableCell>
+                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">레이드 출력 권한</TableCell>
+                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">주간 숙제 출력 권한</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {friends.map((friend, index) => (
+                                        <TableRow
+                                            key={friend.id}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                        >
+                                            <TableCell style={{ color: "var(--text-color)" }} component="th" scope="row">
+                                                {index}
+                                            </TableCell>
+                                            <TableCell style={{ color: "var(--text-color)", transition: "color 0.5s" }} align="right">{friend.friendUsername}</TableCell>
+                                            <TableCell style={{ color: "var(--text-color)", transition: "color 0.5s" }} align="right">{friend.nickName}</TableCell>
+                                            <TableCell style={{ color: "var(--text-color)", transition: "color 0.5s" }} align="right">
+                                                {friend.areWeFriend === "깐부 요청 진행중" && <div style={{ color: 'blue' }}>{friend.areWeFriend}</div>}
+                                                {friend.areWeFriend === "깐부 요청 받음" &&
+                                                    <div>
+                                                        <Button variant="outlined" onClick={() => handleRequest("ok", friend.friendUsername)}>수락</Button>
+                                                        <Button variant="outlined" color="error" onClick={() => handleRequest("reject", friend.friendUsername)}>거절</Button>
+                                                    </div>}
+                                                {friend.areWeFriend === "깐부" && <div style={{ fontWeight: "bold" }}>{friend.areWeFriend}</div>}
+                                                {friend.areWeFriend === "요청 거부" && <div style={{ color: 'red' }}>{friend.areWeFriend}</div>}
+                                            </TableCell>
+                                            <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.showDayTodo, "showDayTodo")}</TableCell>
+                                            <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.showRaid, "showRaid")}</TableCell>
+                                            <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.showWeekTodo, "showWeekTodo")}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </CustomTabPanel>
                     <CustomTabPanel value={tabValue} index={tabValue}>
                         <Grid container spacing={1.5} overflow={"hidden"}>
@@ -228,54 +315,56 @@ export default function FriendsWrap() {
                                             <h2 style={{ margin: 0 }}>Lv. {character.itemLevel}</h2>
                                         </div>
                                         <p className="title">일일 숙제</p>{/* pub 추가 */}
-                                        <div className="content-wrap">
-                                            <div className="content" >
-                                                <button
-                                                    className={`content-button ${character.eponaCheck === 3 ? "done" :
-                                                        character.eponaCheck === 1 ? "ing" :
-                                                            character.eponaCheck === 2 ? "ing2" : ""}`}
-                                                >
-                                                    {character.eponaCheck === 3 ? <DoneIcon /> : <CloseIcon />}
-                                                </button>
-                                                <div
-                                                    className={`${character.eponaCheck === 3 ? "text-done" : ""}`}>
-                                                    <span>에포나의뢰</span>
+                                        {friendSetting.showDayTodo && <div>
+                                            <div className="content-wrap">
+                                                <div className="content" >
+                                                    <button
+                                                        className={`content-button ${character.eponaCheck === 3 ? "done" :
+                                                            character.eponaCheck === 1 ? "ing" :
+                                                                character.eponaCheck === 2 ? "ing2" : ""}`}
+                                                    >
+                                                        {character.eponaCheck === 3 ? <DoneIcon /> : <CloseIcon />}
+                                                    </button>
+                                                    <div
+                                                        className={`${character.eponaCheck === 3 ? "text-done" : ""}`}>
+                                                        <span>에포나의뢰</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="content-wrap">
-                                            <div className="content">
-                                                <button
-                                                    className={`content-button ${character.chaosCheck === 0 ? "" :
-                                                        character.chaosCheck === 1 ? "ing" : "done"}`}
-                                                >
-                                                    {character.chaosCheck === 2 ? <DoneIcon /> : <CloseIcon />}
-                                                </button>
-                                                <div
-                                                    className={`${character.chaosCheck === 2 ? "text-done" : ""}`}
-                                                >
-                                                    <p>카오스던전</p>
-                                                    <p className="gold">({character.chaosGold} gold)</p>
+                                            <div className="content-wrap">
+                                                <div className="content">
+                                                    <button
+                                                        className={`content-button ${character.chaosCheck === 0 ? "" :
+                                                            character.chaosCheck === 1 ? "ing" : "done"}`}
+                                                    >
+                                                        {character.chaosCheck === 2 ? <DoneIcon /> : <CloseIcon />}
+                                                    </button>
+                                                    <div
+                                                        className={`${character.chaosCheck === 2 ? "text-done" : ""}`}
+                                                    >
+                                                        <p>카오스던전</p>
+                                                        <p className="gold">({character.chaosGold} gold)</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="content-wrap">
-                                            <div className="content" >
-                                                <button
-                                                    className={`content-button ${character.guardianCheck === 1 ? "done" : ""}`}
-                                                >
-                                                    {character.guardianCheck === 1 ? <DoneIcon /> : <CloseIcon />}
-                                                </button>
-                                                <div
-                                                    className={`${character.guardianCheck === 1 ? "text-done" : ""}`}
-                                                >
-                                                    <p>가디언토벌</p>
-                                                    <p className="gold">({character.guardianGold} gold)</p>
+                                            <div className="content-wrap">
+                                                <div className="content" >
+                                                    <button
+                                                        className={`content-button ${character.guardianCheck === 1 ? "done" : ""}`}
+                                                    >
+                                                        {character.guardianCheck === 1 ? <DoneIcon /> : <CloseIcon />}
+                                                    </button>
+                                                    <div
+                                                        className={`${character.guardianCheck === 1 ? "text-done" : ""}`}
+                                                    >
+                                                        <p>가디언토벌</p>
+                                                        <p className="gold">({character.guardianGold} gold)</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>}
                                     </div>
-                                    <FriendWeekTodoWrap
+                                    {friendSetting.showRaid && <FriendWeekTodoWrap
                                         characters={characters}
                                         setCharacters={setCharacters}
                                         character={character}
@@ -284,7 +373,7 @@ export default function FriendsWrap() {
                                         setOpenModal={setOpenModal}
                                         setShowLinearProgress={setShowLinearProgress}
                                         showMessage={showMessage}
-                                    />
+                                    />}
                                 </Grid>
                             ))}
                         </Grid>
