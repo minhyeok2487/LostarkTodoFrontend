@@ -213,6 +213,76 @@ export default function FriendsWrap() {
             });
     };
 
+    //일일 숙제 체크 관련
+    const updateDayContent = async (characterId, category, authority) => {
+        if (!authority) {
+            showMessage("권한이 없습니다.");
+            return;
+        }
+        setShowLinearProgress(true);
+        const updatedCharacters = characters.map((character) => {
+            if (character.id === characterId) {
+                var updatedCharacter = {
+                    ...character,
+                };
+                const updateContent = {
+                    characterId: character.id,
+                    characterName: character.characterName,
+                };
+                return call("/v2/friends/day-content/check/" + category, "PATCH", updateContent)
+                    .then((response) => {
+                        setShowLinearProgress(false);
+                        updatedCharacter = response;
+                        return updatedCharacter;
+                    })
+                    .catch((error) => {
+                        setShowLinearProgress(false);
+                        showMessage(error.errorMessage);
+                        updatedCharacter[`${category}Check`] = 0;
+                        return updatedCharacter;
+                    });
+            }
+            return character;
+        });
+        const updatedCharactersResult = await Promise.all(updatedCharacters);
+        setCharacters(updatedCharactersResult);
+    };
+
+    const updateDayContentAll = async (e, characterId, category, authority) => {
+        e.preventDefault();
+        if (!authority) {
+            showMessage("권한이 없습니다.");
+            return;
+        }
+        setShowLinearProgress(true);
+        const updatedCharacters = characters.map((character) => {
+            if (character.id === characterId) {
+                var updatedCharacter = {
+                    ...character,
+                };
+                const updateContent = {
+                    characterId: character.id,
+                    characterName: character.characterName,
+                };
+                return call("/v2/friends/day-content/check/" + category + "/all", "PATCH", updateContent)
+                    .then((response) => {
+                        setShowLinearProgress(false);
+                        updatedCharacter = response;
+                        return updatedCharacter;
+                    })
+                    .catch((error) => {
+                        setShowLinearProgress(false);
+                        showMessage(error.errorMessage);
+                        updatedCharacter[`${category}Check`] = 0;
+                        return updatedCharacter;
+                    });
+            }
+            return character;
+        });
+        const updatedCharactersResult = await Promise.all(updatedCharacters);
+        setCharacters(updatedCharactersResult);
+    };
+
     const [showLinearProgress, setShowLinearProgress] = useState(false);
     return (
         <>
@@ -238,21 +308,7 @@ export default function FriendsWrap() {
                             )}
                         </Tabs>
                     </Box>
-                    <CustomTabPanel value={tabValue} index={0}>
-                        {/* {friends.map((friend) => (
-                            <div style={{ display: "flex", flexDirection: "row", margin: 10 }} key={friend.id}>
-                                <div style={{ marginRight: 10 }}>{friend.friendUsername}</div>
-                                <div style={{ marginRight: 10 }}>{friend.nickName}</div>
-                                {friend.areWeFriend === "깐부 요청 진행중" && <div style={{ color: 'blue' }}>{friend.areWeFriend}</div>}
-                                {friend.areWeFriend === "깐부 요청 받음" &&
-                                    <div>
-                                        <Button variant="outlined" onClick={() => handleRequest("ok", friend.friendUsername)}>수락</Button>
-                                        <Button variant="outlined" color="error" onClick={() => handleRequest("reject", friend.friendUsername)}>거절</Button>
-                                    </div>}
-                                {friend.areWeFriend === "깐부" && <div style={{ fontWeight: "bold" }}>{friend.areWeFriend}</div>}
-                                {friend.areWeFriend === "요청 거부" && <div style={{ color: 'red' }}>{friend.areWeFriend}</div>}
-                            </div>
-                        ))} */}
+                    <CustomTabPanel value={tabValue} index={0} sx={{ width: "100%" }}>
                         <TableContainer className="setting-table-wrap">
                             <Table aria-label="simple table" className="setting-table">
                                 <TableHead>
@@ -262,8 +318,10 @@ export default function FriendsWrap() {
                                         <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="right">별명</TableCell>
                                         <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="right">상태</TableCell>
                                         <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">일일 숙제 출력 권한</TableCell>
+                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">일일 숙제 체크 권한</TableCell>
                                         <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">레이드 출력 권한</TableCell>
-                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">주간 숙제 출력 권한</TableCell>
+                                        {/* <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">레이드 체크 권한</TableCell> */}
+                                        {/* <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">주간 숙제 출력 권한</TableCell> */}
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -288,8 +346,10 @@ export default function FriendsWrap() {
                                                 {friend.areWeFriend === "요청 거부" && <div style={{ color: 'red' }}>{friend.areWeFriend}</div>}
                                             </TableCell>
                                             <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.showDayTodo, "showDayTodo")}</TableCell>
+                                            <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.checkDayTodo, "checkDayTodo")}</TableCell>
                                             <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.showRaid, "showRaid")}</TableCell>
-                                            <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.showWeekTodo, "showWeekTodo")}</TableCell>
+                                            {/* <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.checkRaid, "checkRaid")}</TableCell> */}
+                                            {/* <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.showWeekTodo, "showWeekTodo")}</TableCell> */}
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -317,7 +377,11 @@ export default function FriendsWrap() {
                                         <p className="title">일일 숙제</p>{/* pub 추가 */}
                                         {friendSetting.showDayTodo && <div>
                                             <div className="content-wrap">
-                                                <div className="content" >
+                                                <div className="content"
+                                                    onClick={() => updateDayContent(character.id, "epona", friendSetting.checkDayTodo)}
+                                                    onContextMenu={(e) => updateDayContentAll(e, character.id, "epona", friendSetting.checkDayTodo)}
+                                                    style={{ cursor: "pointer" }}
+                                                >
                                                     <button
                                                         className={`content-button ${character.eponaCheck === 3 ? "done" :
                                                             character.eponaCheck === 1 ? "ing" :
@@ -332,7 +396,9 @@ export default function FriendsWrap() {
                                                 </div>
                                             </div>
                                             <div className="content-wrap">
-                                                <div className="content">
+                                                <div className="content" onClick={() => updateDayContent(character.id, "chaos", friendSetting.checkDayTodo)}
+                                                    onContextMenu={(e) => updateDayContentAll(e, character.id, "chaos", friendSetting.checkDayTodo)}
+                                                    style={{ cursor: "pointer" }}>
                                                     <button
                                                         className={`content-button ${character.chaosCheck === 0 ? "" :
                                                             character.chaosCheck === 1 ? "ing" : "done"}`}
@@ -348,7 +414,9 @@ export default function FriendsWrap() {
                                                 </div>
                                             </div>
                                             <div className="content-wrap">
-                                                <div className="content" >
+                                                <div className="content" onClick={() => updateDayContent(character.id, "guardian", friendSetting.checkDayTodo)}
+                                                    onContextMenu={(e) => updateDayContentAll(e, character.id, "guardian", friendSetting.checkDayTodo)}
+                                                    style={{ cursor: "pointer" }}>
                                                     <button
                                                         className={`content-button ${character.guardianCheck === 1 ? "done" : ""}`}
                                                     >
