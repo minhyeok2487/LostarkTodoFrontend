@@ -133,8 +133,9 @@ export default function FriendsWrap() {
         var content = findCharacterFriend.map((character) => {
             return (
                 <div key={character.id}>
-                    <p>{character.username}
-                        <Button variant="outlined" onClick={() => requestFriend(character.areWeFriend, character.username)}>
+                    <p>{character.username.substring(0,5) + '*'.repeat(character.username.length -5)}
+                        <Button variant="outlined" onClick={() => requestFriend(character.areWeFriend, character.username)}
+                            style={{marginLeft : 10}}>
                             {character.areWeFriend}
                         </Button>
                     </p>
