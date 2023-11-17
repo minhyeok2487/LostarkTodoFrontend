@@ -135,12 +135,11 @@ const Comments = () => {
                 <p className="update">수정 완료</p>
                 <div className="cont">
                     <div className="flex">
-                        <p className="date">2023.11.12</p>
+                        <p className="date">2023.11.18</p>
                         <p className="txt">
                             <ul>
-                                <li>깐부(친구) 기능 개발중입니다.</li>
-                                <li>현재 상대방이 요청을 수락하면 보는건 가능합니다.</li>
-                                <li>추가적인 수정 권한, 공유 내용 선정 기능 개발중입니다.</li>
+                                <li>깐부(친구) 개발중입니다.</li>
+                                <li>일일 숙제, 레이드, 주간 숙제 체크 권한으로 상대방에게 권한을 줄 수 있습니다.</li>
                             </ul>
                         </p>
                     </div>

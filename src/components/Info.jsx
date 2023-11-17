@@ -20,6 +20,13 @@ function Info() {
                     <div>
                         <ul className="pathDetail">
                             <li>
+                                <p className="date">2023.11.18</p>
+                                <ul>
+                                    <li>깐부(친구) 개발중입니다.</li>
+                                    <li>일일 숙제, 레이드, 주간 숙제 체크 권한으로 상대방에게 권한을 줄 수 있습니다.</li>
+                                </ul>
+                            </li>
+                            <li>
                                 <p className="date">2023.11.12</p>
                                 <ul>
                                     <li>깐부(친구)추가 기능 개발중입니다.</li>

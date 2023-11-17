@@ -290,6 +290,9 @@ export default function FriendsWrap() {
             {showLinearProgress && <LinearIndeterminate />}
             <div className="wrap">
                 <div>
+                    <p>임시 디자인으로 모바일은 화면이 이상할 수 있습니다.</p>
+                </div>
+                <div>
                     <TextField id="find-character" label="캐릭터 닉네임 입력" variant="outlined" size="small" />
                     <Button variant="outlined" onClick={() => findCharacter()}>검색</Button>
                 </div>
@@ -321,8 +324,9 @@ export default function FriendsWrap() {
                                         <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">일일 숙제 출력 권한</TableCell>
                                         <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">일일 숙제 체크 권한</TableCell>
                                         <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">레이드 출력 권한</TableCell>
-                                        {/* <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">레이드 체크 권한</TableCell> */}
-                                        {/* <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">주간 숙제 출력 권한</TableCell> */}
+                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">레이드 체크 권한</TableCell>
+                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">주간 숙제 출력 권한</TableCell>
+                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">주간 숙제 수정 권한</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -346,11 +350,30 @@ export default function FriendsWrap() {
                                                 {friend.areWeFriend === "깐부" && <div style={{ fontWeight: "bold" }}>{friend.areWeFriend}</div>}
                                                 {friend.areWeFriend === "요청 거부" && <div style={{ color: 'red' }}>{friend.areWeFriend}</div>}
                                             </TableCell>
-                                            <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.showDayTodo, "showDayTodo")}</TableCell>
-                                            <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.checkDayTodo, "checkDayTodo")}</TableCell>
-                                            <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.showRaid, "showRaid")}</TableCell>
-                                            {/* <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.checkRaid, "checkRaid")}</TableCell> */}
-                                            {/* <TableCell align="center">{selectSetting(friend.id, friend.toFriendSettings.showWeekTodo, "showWeekTodo")}</TableCell> */}
+                                            <TableCell align="center">
+                                                <div>{selectSetting(friend.id, friend.toFriendSettings.showDayTodo, "showDayTodo")}</div>
+                                                <div>상대방 권한 : {friend.fromFriendSettings.showDayTodo.toString()}</div>
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                <div>{selectSetting(friend.id, friend.toFriendSettings.checkDayTodo, "checkDayTodo")}</div>
+                                                <div>상대방 권한 : {friend.fromFriendSettings.checkDayTodo.toString()}</div>
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                <div>{selectSetting(friend.id, friend.toFriendSettings.showRaid, "showRaid")}</div>
+                                                <div>상대방 권한 : {friend.fromFriendSettings.showRaid.toString()}</div>
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                <div>{selectSetting(friend.id, friend.toFriendSettings.checkRaid, "checkRaid")}</div>
+                                                <div>상대방 권한 : {friend.fromFriendSettings.checkRaid.toString()}</div>
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                <div>{selectSetting(friend.id, friend.toFriendSettings.showWeekTodo, "showWeekTodo")}</div>
+                                                <div>상대방 권한 : {friend.fromFriendSettings.showWeekTodo.toString()}</div>
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                <div>{selectSetting(friend.id, friend.toFriendSettings.checkWeekTodo, "checkWeekTodo")}</div>
+                                                <div>상대방 권한 : {friend.fromFriendSettings.checkWeekTodo.toString()}</div>
+                                            </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -433,7 +456,7 @@ export default function FriendsWrap() {
                                             </div>
                                         </div>}
                                     </div>
-                                    {friendSetting.showRaid && <FriendWeekTodoWrap
+                                    <FriendWeekTodoWrap
                                         characters={characters}
                                         setCharacters={setCharacters}
                                         character={character}
@@ -442,7 +465,8 @@ export default function FriendsWrap() {
                                         setOpenModal={setOpenModal}
                                         setShowLinearProgress={setShowLinearProgress}
                                         showMessage={showMessage}
-                                    />}
+                                        friendSetting={friendSetting}
+                                    />
                                 </Grid>
                             ))}
                         </Grid>
