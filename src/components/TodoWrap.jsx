@@ -678,7 +678,7 @@ export default function TodoWrap() {
                                                 onContextMenu={(e) => updateDayContentAll(e, character.id, "chaos")}
                                             >
                                                 <p>카오스던전</p>
-                                                <p className="gold">({character.chaosGold} G)</p>
+                                                <p className="gold">{character.chaosGold} G</p>
                                             </div>
                                             <SearchIcon onClick={() => openContentModal(character, "카오스던전")} style={{ cursor: "pointer" }} />
                                             {/* pub 순서변경 */}
@@ -720,7 +720,7 @@ export default function TodoWrap() {
                                                 onContextMenu={(e) => updateDayContentAll(e, character.id, "guardian")}
                                             >
                                                 <p>가디언토벌</p>
-                                                <p className="gold">({character.guardianGold} G)</p>
+                                                <p className="gold">{character.guardianGold} G</p>
                                             </div>
                                             {/* pub 순서변경 */}
                                             <SearchIcon onClick={() => openContentModal(character, "가디언토벌")} style={{ cursor: "pointer" }} />

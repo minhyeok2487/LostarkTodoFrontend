@@ -66,15 +66,9 @@ export default function FriendsWrap() {
     const handleChange = (event, friend) => {
         const index = friends.indexOf(friend);
 
-        if (index !== -1) {
-            setTabValue(index + 1);
-            setCharacters(friend.characterList);
-            setFriendSetting(friend.fromFriendSettings);
-        } else {
-            setTabValue(0);
-            setCharacters([]);
-            setFriendSetting([]);
-        }
+        setTabValue(index);
+        setCharacters(friend.characterList);
+        setFriendSetting(friend.fromFriendSettings);
     };
 
     //Notification 관련
@@ -98,8 +92,13 @@ export default function FriendsWrap() {
     useEffect(() => {
         call("/v2/friends", "GET", null)
             .then((response) => {
-                setFriends(response);
-                console.log(response);
+                if (response !== null) {
+                    setFriends(response);
+                    console.log(response);
+                    setTabValue(0);
+                    setCharacters(response[0].characterList);
+                    setFriendSetting(response[0].fromFriendSettings);
+                }
             })
             .catch((error) => { showMessage(error.errorMessage) });
     }, []);
@@ -133,9 +132,9 @@ export default function FriendsWrap() {
         var content = findCharacterFriend.map((character) => {
             return (
                 <div key={character.id}>
-                    <p>{character.username.substring(0,5) + '*'.repeat(character.username.length -5)}
+                    <p>{character.username.substring(0, 5) + '*'.repeat(character.username.length - 5)}
                         <Button variant="outlined" onClick={() => requestFriend(character.areWeFriend, character.username)}
-                            style={{marginLeft : 10}}>
+                            style={{ marginLeft: 10 }}>
                             {character.areWeFriend}
                         </Button>
                     </p>
@@ -181,6 +180,58 @@ export default function FriendsWrap() {
                 showMessage(error.errorMessage);
             });
     }
+
+    // 모달 열기 함수
+    const openSettingForm = (friendsId) => {
+        const friend = friends[friendsId];
+        setModalTitle(friend.nickName + " 권한 설정");
+        var modalContent = (
+            <div>
+                <div>
+                    <p> 
+                        {friend.areWeFriend === "깐부 요청 받음" &&
+                            <div>
+                                <Button variant="outlined" onClick={() => handleRequest("ok", friend.friendUsername)}>수락</Button>
+                                <Button variant="outlined" color="error" onClick={() => handleRequest("reject", friend.friendUsername)}>거절</Button>
+                            </div>}
+                        {friend.areWeFriend !== "깐부 요청 받음" && <div>권한 : {friend.areWeFriend}</div>}
+                    </p>
+                </div>
+                <div>
+                    <p>일일 숙제 출력 권한</p>
+                    <div>{selectSetting(friend.id, friend.toFriendSettings.showDayTodo, "showDayTodo")}
+                        상대방 권한 : {friend.fromFriendSettings.showDayTodo.toString()}</div>
+                </div>
+                <div>
+                    <p>일일 숙제 체크 권한</p>
+                    <div>{selectSetting(friend.id, friend.toFriendSettings.checkDayTodo, "checkDayTodo")}
+                        상대방 권한 : {friend.fromFriendSettings.checkDayTodo.toString()}</div>
+                </div>
+                <div>
+                    <p>레이드 출력 권한</p>
+                    <div>{selectSetting(friend.id, friend.toFriendSettings.showRaid, "showRaid")}
+                        상대방 권한 : {friend.fromFriendSettings.showRaid.toString()}</div>
+                </div>
+                <div>
+                    <p>레이드 체크 권한</p>
+                    <div>{selectSetting(friend.id, friend.toFriendSettings.checkRaid, "checkRaid")}
+                        상대방 권한 : {friend.fromFriendSettings.checkRaid.toString()}</div>
+                </div>
+                <div>
+                    <p>주간 숙제 출력 권한</p>
+                    <div>{selectSetting(friend.id, friend.toFriendSettings.showWeekTodo, "showWeekTodo")}
+                        상대방 권한 : {friend.fromFriendSettings.showWeekTodo.toString()}</div>
+                </div>
+                <div>
+                    <p>주간 숙제 체크 권한</p>
+                    <div>{selectSetting(friend.id, friend.toFriendSettings.checkWeekTodo, "checkWeekTodo")}
+                    상대방 권한 : {friend.fromFriendSettings.checkWeekTodo.toString()}</div>
+                </div>
+            </div>
+        );
+        setModalContent(modalContent);
+        setOpenModal(true);
+    };
 
     const selectSetting = (friendId, setting, settingName) => (
         <FormControl size="small">
@@ -299,12 +350,12 @@ export default function FriendsWrap() {
                 <div className="todo-wrap" >
                     <Box sx={{ borderBottom: 1, borderColor: 'divider', width: "100vw", maxWidth: "1280px" }}>
                         <Tabs value={tabValue} onChange={(event, friend) => handleChange(event, friend)} aria-label="basic tabs example">
-                            <Tab label="깐부 리스트" {...a11yProps(0)} />
+                            {/* <Tab label="깐부 리스트" {...a11yProps(0)} /> */}
                             {friends.map((friend, index) =>
                                 friend.areWeFriend === "깐부" && (
                                     <Tab
                                         label={friend.nickName}
-                                        {...a11yProps(index + 1)}
+                                        {...a11yProps(index)}
                                         key={friend.id}
                                         onClick={(event) => handleChange(event, friend)}
                                     />
@@ -312,7 +363,7 @@ export default function FriendsWrap() {
                             )}
                         </Tabs>
                     </Box>
-                    <CustomTabPanel value={tabValue} index={0} sx={{ width: "100%" }}>
+                    {/* <CustomTabPanel value={tabValue} index={0} sx={{ width: "100%" }}>
                         <TableContainer className="setting-table-wrap">
                             <Table aria-label="simple table" className="setting-table">
                                 <TableHead>
@@ -379,8 +430,16 @@ export default function FriendsWrap() {
                                 </TableBody>
                             </Table>
                         </TableContainer>
-                    </CustomTabPanel>
+                    </CustomTabPanel> */}
                     <CustomTabPanel value={tabValue} index={tabValue}>
+                        {characters !== null && <div className="setting-wrap">
+                            <button
+                                style={{ cursor: "pointer" }}
+                                onClick={() => openSettingForm(tabValue)}
+                            >
+                                설정
+                            </button>
+                        </div>}
                         <Grid container spacing={1.5} overflow={"hidden"}>
                             {characters.map((character) => (
                                 <Grid key={character.id} item>
