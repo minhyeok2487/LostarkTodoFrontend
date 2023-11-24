@@ -253,11 +253,12 @@ const WeekTodoWrap = ({
                 const updatedTodoList = character.todoList.map((todo) => {
                     if (todo.id === todoId) {
                         const updateContent = {
+                            characterId: character.id,
                             characterName: character.characterName,
                             todoId: todoId,
                             message: message,
                         };
-                        call("/character/week/v3/message", "PATCH", updateContent)
+                        call("/v2/character/week/message", "PATCH", updateContent)
                             .then((response) => {
                                 setShowLinearProgress(false);
                                 const inputFieldIcon = document.getElementById("input_field_icon_" + todoId);
