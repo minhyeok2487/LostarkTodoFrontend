@@ -117,17 +117,14 @@ export default function Navbar() {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1, backgroundColor: "#000", fontWeight: "bold", textAlign: "center", paddingBottom: 0.5, paddingTop: 0.5 }}>
-        <span className='notification'>주간 숙제 버튼 우클릭시 한번에 체크됩니당!</span>
-      </Box>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" color='inherit' style={{ backgroundColor: "var(--nav-color)" }}>
           <Toolbar>
             <MenuItem onClick={() => (window.location.href = "/")}>
-              <img alt="logo" src='/logo.png' style={{ width: 150 }} />
+              <img alt="logo" src='/logo.png' style={{ width: 120 }} />
             </MenuItem>
             <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/friends")}>
-              <p>깐부</p>
+              <p>깐부(Beta)</p>
             </MenuItem>
             <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/comments")}>
               <p>방명록</p>

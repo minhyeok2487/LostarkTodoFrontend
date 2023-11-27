@@ -15,16 +15,10 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
-import { Category } from "@mui/icons-material";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import FriendTodoWrap from "./FriendTodoWrap";
 
 
 //------------------------- 탭관련 -------------------------
@@ -63,10 +57,14 @@ export default function FriendsWrap() {
     const [friends, setFriends] = useState([]);
     const [friendSetting, setFriendSetting] = useState([]);
     const [characters, setCharacters] = useState([]);
+    const [state, setState] = useState(null);
+    const [friendUsername, setFriendUsername] = useState(null);
     const handleChange = (event, friend) => {
         const index = friends.indexOf(friend);
 
         setTabValue(index);
+        setState(friend.areWeFriend);
+        setFriendUsername(friend.username);
         setCharacters(friend.characterList);
         setFriendSetting(friend.fromFriendSettings);
     };
@@ -96,6 +94,8 @@ export default function FriendsWrap() {
                     setFriends(response);
                     console.log(response);
                     setTabValue(0);
+                    setState(response[0].areWeFriend);
+                    setFriendUsername(response[0].username);
                     setCharacters(response[0].characterList);
                     setFriendSetting(response[0].fromFriendSettings);
                 }
@@ -170,31 +170,27 @@ export default function FriendsWrap() {
                 });
         }
     }
-
-    const handleRequest = (category, fromMember) => {
-        call("/v2/friends/" + fromMember + "/" + category, "PATCH", null)
-            .then((response) => {
-                setFriends(response);
-            })
-            .catch((error) => {
-                showMessage(error.errorMessage);
-            });
-    }
-
-    // 모달 열기 함수
+    //------------------------- 설정 버튼 관련 -------------------------
     const openSettingForm = (friendsId) => {
         const friend = friends[friendsId];
+
         setModalTitle(friend.nickName + " 권한 설정");
         var modalContent = (
             <div>
                 <div>
-                    <p> 
+                    <p>
                         {friend.areWeFriend === "깐부 요청 받음" &&
                             <div>
                                 <Button variant="outlined" onClick={() => handleRequest("ok", friend.friendUsername)}>수락</Button>
                                 <Button variant="outlined" color="error" onClick={() => handleRequest("reject", friend.friendUsername)}>거절</Button>
-                            </div>}
-                        {friend.areWeFriend !== "깐부 요청 받음" && <div>권한 : {friend.areWeFriend}</div>}
+                            </div>
+                        }
+                        {friend.areWeFriend !== "깐부 요청 받음" &&
+                            <div>
+                                권한 : {friend.areWeFriend}
+                                <Button variant="outlined" color="error" onClick={() => handleRequest("delete", friend.friendUsername)}>깐부 삭제</Button>
+                            </div>
+                        }
                     </p>
                 </div>
                 <div>
@@ -225,7 +221,7 @@ export default function FriendsWrap() {
                 <div>
                     <p>주간 숙제 체크 권한</p>
                     <div>{selectSetting(friend.id, friend.toFriendSettings.checkWeekTodo, "checkWeekTodo")}
-                    상대방 권한 : {friend.fromFriendSettings.checkWeekTodo.toString()}</div>
+                        상대방 권한 : {friend.fromFriendSettings.checkWeekTodo.toString()}</div>
                 </div>
             </div>
         );
@@ -265,75 +261,25 @@ export default function FriendsWrap() {
             });
     };
 
-    //일일 숙제 체크 관련
-    const updateDayContent = async (characterId, category, authority) => {
-        if (!authority) {
-            showMessage("권한이 없습니다.");
-            return;
+    const handleRequest = (category, fromMember) => {
+        const confirmMessage = category === "delete" ? "정말 삭제 하시겠습니까?" : null;
+    
+        const userConfirmed = confirmMessage ? window.confirm(confirmMessage) : true;
+    
+        if (userConfirmed) {
+            setShowLinearProgress(true);
+            call(`/v2/friends/${fromMember}/${category}`, "PATCH", null)
+                .then((response) => {
+                    setShowLinearProgress(false);
+                    window.location.replace("/friends");
+                })
+                .catch((error) => {
+                    showMessage(error.errorMessage);
+                });
         }
-        setShowLinearProgress(true);
-        const updatedCharacters = characters.map((character) => {
-            if (character.id === characterId) {
-                var updatedCharacter = {
-                    ...character,
-                };
-                const updateContent = {
-                    characterId: character.id,
-                    characterName: character.characterName,
-                };
-                return call("/v2/friends/day-content/check/" + category, "PATCH", updateContent)
-                    .then((response) => {
-                        setShowLinearProgress(false);
-                        updatedCharacter = response;
-                        return updatedCharacter;
-                    })
-                    .catch((error) => {
-                        setShowLinearProgress(false);
-                        showMessage(error.errorMessage);
-                        updatedCharacter[`${category}Check`] = 0;
-                        return updatedCharacter;
-                    });
-            }
-            return character;
-        });
-        const updatedCharactersResult = await Promise.all(updatedCharacters);
-        setCharacters(updatedCharactersResult);
-    };
+    }
+    
 
-    const updateDayContentAll = async (e, characterId, category, authority) => {
-        e.preventDefault();
-        if (!authority) {
-            showMessage("권한이 없습니다.");
-            return;
-        }
-        setShowLinearProgress(true);
-        const updatedCharacters = characters.map((character) => {
-            if (character.id === characterId) {
-                var updatedCharacter = {
-                    ...character,
-                };
-                const updateContent = {
-                    characterId: character.id,
-                    characterName: character.characterName,
-                };
-                return call("/v2/friends/day-content/check/" + category + "/all", "PATCH", updateContent)
-                    .then((response) => {
-                        setShowLinearProgress(false);
-                        updatedCharacter = response;
-                        return updatedCharacter;
-                    })
-                    .catch((error) => {
-                        setShowLinearProgress(false);
-                        showMessage(error.errorMessage);
-                        updatedCharacter[`${category}Check`] = 0;
-                        return updatedCharacter;
-                    });
-            }
-            return character;
-        });
-        const updatedCharactersResult = await Promise.all(updatedCharacters);
-        setCharacters(updatedCharactersResult);
-    };
 
     const [showLinearProgress, setShowLinearProgress] = useState(false);
     return (
@@ -341,194 +287,46 @@ export default function FriendsWrap() {
             {showLinearProgress && <LinearIndeterminate />}
             <div className="wrap">
                 <div>
-                    <p>임시 디자인으로 모바일은 화면이 이상할 수 있습니다.</p>
-                </div>
-                <div>
                     <TextField id="find-character" label="캐릭터 닉네임 입력" variant="outlined" size="small" />
                     <Button variant="outlined" onClick={() => findCharacter()}>검색</Button>
                 </div>
                 <div className="todo-wrap" >
                     <Box sx={{ borderBottom: 1, borderColor: 'divider', width: "100vw", maxWidth: "1280px" }}>
                         <Tabs value={tabValue} onChange={(event, friend) => handleChange(event, friend)} aria-label="basic tabs example">
-                            {/* <Tab label="깐부 리스트" {...a11yProps(0)} /> */}
                             {friends.map((friend, index) =>
-                                friend.areWeFriend === "깐부" && (
-                                    <Tab
-                                        label={friend.nickName}
-                                        {...a11yProps(index)}
-                                        key={friend.id}
-                                        onClick={(event) => handleChange(event, friend)}
-                                    />
-                                )
+                                <Tab
+                                    label={friend.nickName}
+                                    {...a11yProps(index)}
+                                    key={friend.id}
+                                    onClick={(event) => handleChange(event, friend)}
+                                />
                             )}
                         </Tabs>
                     </Box>
-                    {/* <CustomTabPanel value={tabValue} index={0} sx={{ width: "100%" }}>
-                        <TableContainer className="setting-table-wrap">
-                            <Table aria-label="simple table" className="setting-table">
-                                <TableHead>
-                                    <TableRow >
-                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} >id</TableCell>
-                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="right">이메일</TableCell>
-                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="right">별명</TableCell>
-                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="right">상태</TableCell>
-                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">일일 숙제 출력 권한</TableCell>
-                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">일일 숙제 체크 권한</TableCell>
-                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">레이드 출력 권한</TableCell>
-                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">레이드 체크 권한</TableCell>
-                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">주간 숙제 출력 권한</TableCell>
-                                        <TableCell style={{ color: "var(--text-color)", fontWeight: "bold", transition: "color 0.5s" }} align="center">주간 숙제 수정 권한</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {friends.map((friend, index) => (
-                                        <TableRow
-                                            key={friend.id}
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        >
-                                            <TableCell style={{ color: "var(--text-color)" }} component="th" scope="row">
-                                                {index}
-                                            </TableCell>
-                                            <TableCell style={{ color: "var(--text-color)", transition: "color 0.5s" }} align="right">{friend.friendUsername}</TableCell>
-                                            <TableCell style={{ color: "var(--text-color)", transition: "color 0.5s" }} align="right">{friend.nickName}</TableCell>
-                                            <TableCell style={{ color: "var(--text-color)", transition: "color 0.5s" }} align="right">
-                                                {friend.areWeFriend === "깐부 요청 진행중" && <div style={{ color: 'blue' }}>{friend.areWeFriend}</div>}
-                                                {friend.areWeFriend === "깐부 요청 받음" &&
-                                                    <div>
-                                                        <Button variant="outlined" onClick={() => handleRequest("ok", friend.friendUsername)}>수락</Button>
-                                                        <Button variant="outlined" color="error" onClick={() => handleRequest("reject", friend.friendUsername)}>거절</Button>
-                                                    </div>}
-                                                {friend.areWeFriend === "깐부" && <div style={{ fontWeight: "bold" }}>{friend.areWeFriend}</div>}
-                                                {friend.areWeFriend === "요청 거부" && <div style={{ color: 'red' }}>{friend.areWeFriend}</div>}
-                                            </TableCell>
-                                            <TableCell align="center">
-                                                <div>{selectSetting(friend.id, friend.toFriendSettings.showDayTodo, "showDayTodo")}</div>
-                                                <div>상대방 권한 : {friend.fromFriendSettings.showDayTodo.toString()}</div>
-                                            </TableCell>
-                                            <TableCell align="center">
-                                                <div>{selectSetting(friend.id, friend.toFriendSettings.checkDayTodo, "checkDayTodo")}</div>
-                                                <div>상대방 권한 : {friend.fromFriendSettings.checkDayTodo.toString()}</div>
-                                            </TableCell>
-                                            <TableCell align="center">
-                                                <div>{selectSetting(friend.id, friend.toFriendSettings.showRaid, "showRaid")}</div>
-                                                <div>상대방 권한 : {friend.fromFriendSettings.showRaid.toString()}</div>
-                                            </TableCell>
-                                            <TableCell align="center">
-                                                <div>{selectSetting(friend.id, friend.toFriendSettings.checkRaid, "checkRaid")}</div>
-                                                <div>상대방 권한 : {friend.fromFriendSettings.checkRaid.toString()}</div>
-                                            </TableCell>
-                                            <TableCell align="center">
-                                                <div>{selectSetting(friend.id, friend.toFriendSettings.showWeekTodo, "showWeekTodo")}</div>
-                                                <div>상대방 권한 : {friend.fromFriendSettings.showWeekTodo.toString()}</div>
-                                            </TableCell>
-                                            <TableCell align="center">
-                                                <div>{selectSetting(friend.id, friend.toFriendSettings.checkWeekTodo, "checkWeekTodo")}</div>
-                                                <div>상대방 권한 : {friend.fromFriendSettings.checkWeekTodo.toString()}</div>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </CustomTabPanel> */}
                     <CustomTabPanel value={tabValue} index={tabValue}>
                         {characters !== null && <div className="setting-wrap">
                             <button
+                                className="content-button"
                                 style={{ cursor: "pointer" }}
                                 onClick={() => openSettingForm(tabValue)}
                             >
                                 설정
                             </button>
                         </div>}
-                        <Grid container spacing={1.5} overflow={"hidden"}>
-                            {characters.map((character) => (
-                                <Grid key={character.id} item>
-                                    <div className="character-wrap">
-                                        <div className="character-info"
-                                            style={{
-                                                backgroundImage: character.characterImage !== null ? `url(${character.characterImage})` : "",
-                                                backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 10px top -80px" : "left 10px top -30px",
-                                                backgroundColor: "gray", // 배경색을 회색으로 설정
-                                            }}>
-                                            <div className={character.goldCharacter ? "gold-border" : ""}>
-                                                {character.goldCharacter ? "골드 획득 지정" : ""} {/* pub 문구변경 */}
-                                            </div>
-                                            <span>@{character.serverName}  {character.characterClassName}</span>
-                                            <h3 style={{ margin: 0 }}>{character.characterName}</h3>
-                                            <h2 style={{ margin: 0 }}>Lv. {character.itemLevel}</h2>
-                                        </div>
-                                        <p className="title">일일 숙제</p>{/* pub 추가 */}
-                                        {friendSetting.showDayTodo && <div>
-                                            <div className="content-wrap">
-                                                <div className="content"
-                                                    onClick={() => updateDayContent(character.id, "epona", friendSetting.checkDayTodo)}
-                                                    onContextMenu={(e) => updateDayContentAll(e, character.id, "epona", friendSetting.checkDayTodo)}
-                                                    style={{ cursor: "pointer" }}
-                                                >
-                                                    <button
-                                                        className={`content-button ${character.eponaCheck === 3 ? "done" :
-                                                            character.eponaCheck === 1 ? "ing" :
-                                                                character.eponaCheck === 2 ? "ing2" : ""}`}
-                                                    >
-                                                        {character.eponaCheck === 3 ? <DoneIcon /> : <CloseIcon />}
-                                                    </button>
-                                                    <div
-                                                        className={`${character.eponaCheck === 3 ? "text-done" : ""}`}>
-                                                        <span>에포나의뢰</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="content-wrap">
-                                                <div className="content" onClick={() => updateDayContent(character.id, "chaos", friendSetting.checkDayTodo)}
-                                                    onContextMenu={(e) => updateDayContentAll(e, character.id, "chaos", friendSetting.checkDayTodo)}
-                                                    style={{ cursor: "pointer" }}>
-                                                    <button
-                                                        className={`content-button ${character.chaosCheck === 0 ? "" :
-                                                            character.chaosCheck === 1 ? "ing" : "done"}`}
-                                                    >
-                                                        {character.chaosCheck === 2 ? <DoneIcon /> : <CloseIcon />}
-                                                    </button>
-                                                    <div
-                                                        className={`${character.chaosCheck === 2 ? "text-done" : ""}`}
-                                                    >
-                                                        <p>카오스던전</p>
-                                                        <p className="gold">({character.chaosGold} gold)</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="content-wrap">
-                                                <div className="content" onClick={() => updateDayContent(character.id, "guardian", friendSetting.checkDayTodo)}
-                                                    onContextMenu={(e) => updateDayContentAll(e, character.id, "guardian", friendSetting.checkDayTodo)}
-                                                    style={{ cursor: "pointer" }}>
-                                                    <button
-                                                        className={`content-button ${character.guardianCheck === 1 ? "done" : ""}`}
-                                                    >
-                                                        {character.guardianCheck === 1 ? <DoneIcon /> : <CloseIcon />}
-                                                    </button>
-                                                    <div
-                                                        className={`${character.guardianCheck === 1 ? "text-done" : ""}`}
-                                                    >
-                                                        <p>가디언토벌</p>
-                                                        <p className="gold">({character.guardianGold} gold)</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>}
-                                    </div>
-                                    <FriendWeekTodoWrap
-                                        characters={characters}
-                                        setCharacters={setCharacters}
-                                        character={character}
-                                        setModalTitle={setModalTitle}
-                                        setModalContent={setModalContent}
-                                        setOpenModal={setOpenModal}
-                                        setShowLinearProgress={setShowLinearProgress}
-                                        showMessage={showMessage}
-                                        friendSetting={friendSetting}
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
+                        {state === "깐부" && <FriendTodoWrap
+                            characters={characters}
+                            setCharacters={setCharacters}
+                            friends={friends}
+                            setFriends={setFriends}
+                            tabValue={tabValue}
+                            friendSetting={friendSetting}
+                            showMessage={showMessage}
+                            setShowLinearProgress={setShowLinearProgress}
+                            setModalTitle={setModalTitle}
+                            setModalContent={setModalContent}
+                            setOpenModal={setOpenModal}
+                        />}
+                        {/* {state === "요청 거부" && <div style={{ color: 'red' }}>{areWeFriend}</div>} */}
                     </CustomTabPanel>
                 </div>
                 <Modal

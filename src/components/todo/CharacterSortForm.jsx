@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import { call } from "../../service/api-service";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -36,6 +36,21 @@ const CharacterSortForm = (props) => {
             });
         setItemsSwapState(false);
     };
+
+    const [itemsPerRow, setItemsPerRow] = useState(calculateItemsPerRow());
+    function calculateItemsPerRow() {
+        var screenWidth = window.innerWidth;
+        if (screenWidth >= 1300) {
+            screenWidth = 1300;
+        }
+        const width = 250;
+        const row = 2;
+        if (screenWidth > width * row) {
+            return Math.ceil(screenWidth / width);
+        } else {
+            return row;
+        }
+    }
     
     return (
         <Accordion style={{ backgroundColor: "rgba(255, 255, 255, 50%)", width: "100%", border: "1px solid white" }} className="sort-wrap">
@@ -55,12 +70,12 @@ const CharacterSortForm = (props) => {
                 <GridContextProvider onChange={onChange}>
                     <GridDropZone
                         id="characters"
-                        boxesPerRow={props.itemsPerRow}
+                        boxesPerRow={itemsPerRow}
                         rowHeight={80}
-                        style={{ height: 80 * Math.ceil(props.characters.length / props.itemsPerRow) }}
+                        style={{ height: 80 * Math.ceil(props.characters.length / itemsPerRow) }}
                     >
                         {props.characters.map((character) => (
-                            <GridItem key={character.sortNumber} style={{ width: `${100 / props.itemsPerRow}%` }}>
+                            <GridItem key={character.sortNumber} style={{ width: `${100 / itemsPerRow}%` }}>
                                 <div style={{ marginRight: 10 }}>
                                     <div className="character-info-mini"
                                         style={{

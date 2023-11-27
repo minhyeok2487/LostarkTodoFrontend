@@ -20,6 +20,13 @@ function Info() {
                     <div>
                         <ul className="pathDetail">
                             <li>
+                                <p className="date">2023.11.28</p>
+                                <ul>
+                                    <li>깐부(친구) 개발중입니다.</li>
+                                    <li>전체적인 디자인을 수정하였습니다.</li>
+                                </ul>
+                            </li>
+                            <li>
                                 <p className="date">2023.11.18</p>
                                 <ul>
                                     <li>깐부(친구) 개발중입니다.</li>

@@ -491,7 +491,7 @@ export default function TodoWrap() {
     const handleServerSelect = (serverName) => {
         setSelectedServer(serverName);
         handleClose();
-        call("/member/characterList/" + serverName, "GET", null)
+        call("/member/characterList-v3/" + serverName, "GET", null)
             .then((characterResponse) => {
                 setCharacters(characterResponse);
             })
