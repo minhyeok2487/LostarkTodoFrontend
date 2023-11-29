@@ -101,6 +101,14 @@ const Comments = () => {
                         <li>슬라임/메데이아의 경우 서버별로 다르고, 길드가 직접 운영하기 때문에 추가가 어려울 것 같습니다.</li>
                     </ul>
                 </div>
+                <div className="cont">
+                    <p style={{fontWeight:"bold"}}>개발자에게 커피 한잔</p>
+                    <ul>
+                        <li>보내주신 소중한 후원금은 서버 유지 및 발전 비용으로 사용됩니다.</li>
+                        <li>카카오뱅크 3333-08-6962739</li>
+                        <li>예금주 : 이민혁</li>
+                    </ul>
+                </div>
             </div>
 
             <div className="noticeBox box02">
