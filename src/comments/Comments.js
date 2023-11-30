@@ -136,11 +136,11 @@ const Comments = () => {
                 <p className="update">수정 완료</p>
                 <div className="cont">
                     <div className="flex">
-                        <p className="date">2023.11.28</p>
+                        <p className="date">2023.11.30</p>
                         <p className="txt">
                             <ul>
                                 <li>깐부(친구) 개발중입니다.</li>
-                                <li>전체적인 디자인을 수정하였습니다.</li>
+                                <li>깐부 도비스/도가토 체크 가능합니다</li>
                             </ul>
                         </p>
                     </div>

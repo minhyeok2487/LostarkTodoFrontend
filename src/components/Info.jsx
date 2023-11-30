@@ -19,6 +19,13 @@ function Info() {
                 <AccordionDetails>
                     <div>
                         <ul className="pathDetail">
+                        <li>
+                                <p className="date">2023.11.30</p>
+                                <ul>
+                                    <li>깐부(친구) 개발중입니다.</li>
+                                    <li>깐부 도비스/도가토 체크 가능합니다!</li>
+                                </ul>
+                            </li>
                             <li>
                                 <p className="date">2023.11.28</p>
                                 <ul>

@@ -155,21 +155,25 @@ const FriendTodoWrap = (props) => {
     // ));
 
     // 도전 어비스/가디언 체크(v2 업데이트 완료)
-    const updateChallenge = async (character, content) => {
-        props.showMessage("개발중입니다.");
-        // props.setShowLinearProgress(true);
-        // const updateContent = {
-        //     serverName: character.serverName,
-        //     content: content
-        // };
-        // try {
-        //     const response = await call("/v2/character/challenge", "PATCH", updateContent);
-        //     props.setCharacters(response);
-        //     props.setShowLinearProgress(false);
-        // } catch (error) {
-        //     console.error("Error updating challenge:", error);
-        //     props.setShowLinearProgress(false);
-        // }
+    const updateChallenge = async (character, content, authority) => {
+        if (!authority) {
+            props.showMessage("권한이 없습니다.");
+            return;
+        }
+        props.setShowLinearProgress(true);
+        const updateContent = {
+            characterId : character.id,
+            serverName: character.serverName,
+            content: content
+        };
+        try {
+            const response = await call("/v2/friends/challenge", "PATCH", updateContent);
+            props.setCharacters(response);
+            props.setShowLinearProgress(false);
+        } catch (error) {
+            console.error("Error updating challenge:", error);
+            props.setShowLinearProgress(false);
+        }
     }
 
     //-----------------------------------------------------------------------------
@@ -227,19 +231,19 @@ const FriendTodoWrap = (props) => {
                     </div> */}
                     <button
                         className={`content-button ${props.characters.length > 0 && props.characters[0].challengeGuardian === true ? "done" : ""}`}
-                        onClick={() => updateChallenge(props.characters[0], "Guardian")} style={{ cursor: "pointer" }}
+                        onClick={() => updateChallenge(props.characters[0], "Guardian", props.friendSetting.checkWeekTodo)} style={{ cursor: "pointer" }}
                     >
                         도전 가디언 토벌
-                        <div className="content-button-text" onClick={() => updateChallenge(props.characters[0], "Guardian")}>
+                        <div className="content-button-text" onClick={() => updateChallenge(props.characters[0], "Guardian", props.friendSetting.checkWeekTodo)}>
                             {props.characters.length > 0 && (props.characters[0]?.challengeGuardian === true ? <DoneIcon /> : "")}
                         </div>
                     </button>
                     <button
                         className={`content-button ${props.characters.length > 0 && props.characters[0].challengeAbyss === true ? "done" : ""}`}
-                        onClick={() => updateChallenge(props.characters[0], "Abyss")} style={{ cursor: "pointer" }}
+                        onClick={() => updateChallenge(props.characters[0], "Abyss", props.friendSetting.checkWeekTodo)} style={{ cursor: "pointer" }}
                     >
                         도전 어비스 던전
-                        <div className="content-button-text" onClick={() => updateChallenge(props.characters[0], "Abyss")}>
+                        <div className="content-button-text" onClick={() => updateChallenge(props.characters[0], "Abyss", props.friendSetting.checkWeekTodo)}>
                             {props.characters.length > 0 && (props.characters[0]?.challengeAbyss === true ? <DoneIcon /> : "")}
                         </div>
                     </button>
