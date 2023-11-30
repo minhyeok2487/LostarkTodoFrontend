@@ -15,6 +15,7 @@ import Fade from '@mui/material/Fade';
 import BasicSpeedDial from '../fragments/BasicSpeedDial';
 import WeekTodoWrap from "./todo/WeekTodoWrap";
 import CharacterSortForm from "./todo/CharacterSortForm";
+import AdsCard from "../fragments/AdsCard";
 
 
 export default function TodoWrap() {
@@ -791,6 +792,10 @@ export default function TodoWrap() {
                 open={openSnackbar}
                 handleClose={handleSnackbarClose}
             />
+            <div>
+                {/* 구글 디스플레이 광고 삽입 */}
+                <AdsCard />
+            </div>
         </>
     );
 }

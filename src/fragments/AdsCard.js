@@ -1,18 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 
-export default function AdsCard() {
-    useEffect(() => {
-        if (window.adsbygoogle && process.env.NODE_ENV !== "development") {
-            window.adsbygoogle.push({});
-        }
-    }, [])
+const AdsCard = () => {
+  useEffect(() => {
+    const pushAd = () => {
+      try {
+        const adsbygoogle = window.adsbygoogle
+        // console.log({ adsbygoogle })
+        adsbygoogle.push({})
+      } catch (e) {
+        console.error(e)
+      }
+    }
 
-    return (
-        <ins className="adsbygoogle"
-            style={{ "display": "block" }}
-            data-ad-client="ca-pub-9665234618246720"
-            data-ad-slot="1480898783"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-    );
+    let interval = setInterval(() => {
+      // Check if Adsense script is loaded every 300ms
+      if (window.adsbygoogle) {
+        pushAd()
+        // clear the interval once the ad is pushed so that function isn't called indefinitely
+        clearInterval(interval)
+      }
+    }, 300)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+  return (
+    <ins
+      className='adsbygoogle'
+      style={{ display: 'block' }}
+      data-ad-client='ca-pub-9665234618246720'
+      data-ad-slot='1480898783'
+      data-ad-format='auto'
+      data-full-width-responsive='true'
+    ></ins>
+  )
 }
+
+export default AdsCard
