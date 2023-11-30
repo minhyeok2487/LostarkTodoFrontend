@@ -11,6 +11,7 @@ import Setting from './components/Setting';
 import TodoWrap from './components/TodoWrap';
 import ApiKeyUpdateForm from './components/member/ApiKeyUpdateForm';
 import FriendWrap from './components/friends/FriendsWrap';
+import AdsCard from './fragments/AdsCard';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
             <Route path='friends' element={<FriendWrap />} />
           </Routes>
         </BrowserRouter>
+        <AdsCard />
       </div>
     </>
   );
