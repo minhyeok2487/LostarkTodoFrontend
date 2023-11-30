@@ -299,6 +299,7 @@ export default function FriendsWrap() {
                                     {...a11yProps(index)}
                                     key={friend.id}
                                     onClick={(event) => handleChange(event, friend)}
+                                    style={{color:"var(--text-color)"}}
                                 />
                             )}
                         </Tabs>
@@ -307,10 +308,10 @@ export default function FriendsWrap() {
                         {characters !== null && <div className="setting-wrap">
                             <button
                                 className="content-button"
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: "pointer", marginBottom: 0 }}
                                 onClick={() => openSettingForm(tabValue)}
                             >
-                                설정
+                                깐부 설정
                             </button>
                         </div>}
                         {state === "깐부" && <FriendTodoWrap

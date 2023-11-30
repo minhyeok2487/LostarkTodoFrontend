@@ -126,6 +126,55 @@ const FriendTodoWrap = (props) => {
         props.setCharacters(updatedCharactersResult);
     };
 
+    //캐릭터 휴식게이지 업데이트
+    const handleDayContentGuage = async (e, characterId, gaugeType, authority) => {
+        if (!authority) {
+            props.showMessage("권한이 없습니다.");
+            return;
+        }
+        e.preventDefault();
+        const newGaugeValue = window.prompt(`휴식게이지 수정`);
+
+        if (newGaugeValue !== null) {
+            const parsedValue = parseInt(newGaugeValue);
+            if (!isNaN(parsedValue)) {
+                const updatedCharacters = props.characters.map((character) => {
+                    if (character.id === characterId) {
+                        const updatedCharacter = {
+                            ...character,
+                            [`${gaugeType}Gauge`]: parsedValue,
+                        };
+
+                        const updateContent = {
+                            characterId: updatedCharacter.id,
+                            characterName: updatedCharacter.characterName,
+                            chaosGauge: updatedCharacter.chaosGauge,
+                            guardianGauge: updatedCharacter.guardianGauge,
+                            eponaGauge: updatedCharacter.eponaGauge,
+                        };
+
+                        props.setShowLinearProgress(true);
+
+                        return call("/v2/friends/day-content/gauge", "PATCH", updateContent)
+                            .then((response) => {
+                                props.setShowLinearProgress(false);
+                                updatedCharacter.chaosGold = response.chaosGold;
+                                updatedCharacter.guardianGold = response.guardianGold;
+                                return updatedCharacter;
+                            })
+                            .catch((error) => {
+                                props.setShowLinearProgress(false);
+                                props.showMessage(error.errorMessage);
+                                return character;
+                            });
+                    }
+                    return character;
+                });
+                const updatedCharactersWithGold = await Promise.all(updatedCharacters);
+                props.setCharacters(updatedCharactersWithGold);
+            }
+        }
+    };
 
     //------------------------- 서버별 분리 관련 -------------------------
     // const [anchorEl, setAnchorEl] = useState(null);
@@ -162,7 +211,7 @@ const FriendTodoWrap = (props) => {
         }
         props.setShowLinearProgress(true);
         const updateContent = {
-            characterId : character.id,
+            characterId: character.id,
             serverName: character.serverName,
             content: content
         };
@@ -179,7 +228,7 @@ const FriendTodoWrap = (props) => {
     //-----------------------------------------------------------------------------
     return (
         <div>
-            <div className="wrap">
+            <div className="wrap" style={{ marginTop: 0 }}>
                 <div className="setting-wrap">
                     <div className="content-box">
                         <p>일일 수익</p>
@@ -286,6 +335,25 @@ const FriendTodoWrap = (props) => {
                                                     <span>에포나의뢰</span>
                                                 </div>
                                             </div>
+                                            <div className="content gauge-box" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
+                                                onContextMenu={(e) => handleDayContentGuage(e, character.id, "epona", props.friendSetting.checkDayTodo)}
+                                                onClick={(e) => handleDayContentGuage(e, character.id, "epona", props.friendSetting.checkDayTodo)}>
+                                                {Array.from({ length: 5 }, (_, index) => (
+                                                    <div key={index} className="gauge-wrap">
+                                                        <div
+                                                            className="gauge"
+                                                            style={{ backgroundColor: index * 2 < character.eponaGauge / 10 ? "#cfecff" : undefined }}
+                                                        ></div>
+                                                        <div
+                                                            className="gauge"
+                                                            style={{ backgroundColor: index * 2 + 1 < character.eponaGauge / 10 ? "#cfecff" : undefined }}
+                                                        ></div>
+                                                    </div>
+                                                ))}
+                                                <span className="gauge-text">
+                                                    휴식게이지 {character.eponaGauge}
+                                                </span>
+                                            </div>
                                         </div>
                                         <div className="content-wrap">
                                             <div className="content" onClick={() => updateDayContent(character.id, "chaos", props.friendSetting.checkDayTodo)}
@@ -304,6 +372,25 @@ const FriendTodoWrap = (props) => {
                                                     <p className="gold">({character.chaosGold} gold)</p>
                                                 </div>
                                             </div>
+                                            <div className="content gauge-box" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
+                                                onContextMenu={(e) => handleDayContentGuage(e, character.id, "chaos", props.friendSetting.checkDayTodo)}
+                                                onClick={(e) => handleDayContentGuage(e, character.id, "chaos", props.friendSetting.checkDayTodo)}>
+                                                {Array.from({ length: 5 }, (_, index) => (
+                                                    <div key={index} className="gauge-wrap">
+                                                        <div
+                                                            className="gauge"
+                                                            style={{ backgroundColor: index * 2 < character.chaosGauge / 10 ? "#cfecff" : undefined }}
+                                                        ></div>
+                                                        <div
+                                                            className="gauge"
+                                                            style={{ backgroundColor: index * 2 + 1 < character.chaosGauge / 10 ? "#cfecff" : undefined }}
+                                                        ></div>
+                                                    </div>
+                                                ))}
+                                                <span className="gauge-text">
+                                                    휴식게이지 {character.chaosGauge}
+                                                </span>
+                                            </div>
                                         </div>
                                         <div className="content-wrap">
                                             <div className="content" onClick={() => updateDayContent(character.id, "guardian", props.friendSetting.checkDayTodo)}
@@ -320,6 +407,25 @@ const FriendTodoWrap = (props) => {
                                                     <p>가디언토벌</p>
                                                     <p className="gold">({character.guardianGold} gold)</p>
                                                 </div>
+                                            </div>
+                                            <div className="content gauge-box" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
+                                                onContextMenu={(e) => handleDayContentGuage(e, character.id, "guardian", props.friendSetting.checkDayTodo)}
+                                                onClick={(e) => handleDayContentGuage(e, character.id, "guardian", props.friendSetting.checkDayTodo)}>
+                                                {Array.from({ length: 5 }, (_, index) => (
+                                                    <div key={index} className="gauge-wrap">
+                                                        <div
+                                                            className="gauge"
+                                                            style={{ backgroundColor: index * 2 < character.guardianGauge / 10 ? "#cfecff" : undefined }}
+                                                        ></div>
+                                                        <div
+                                                            className="gauge"
+                                                            style={{ backgroundColor: index * 2 + 1 < character.guardianGauge / 10 ? "#cfecff" : undefined }}
+                                                        ></div>
+                                                    </div>
+                                                ))}
+                                                <span className="gauge-text">
+                                                    휴식게이지 {character.guardianGauge}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>}
