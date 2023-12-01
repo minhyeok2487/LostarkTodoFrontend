@@ -19,7 +19,15 @@ function Info() {
                 <AccordionDetails>
                     <div>
                         <ul className="pathDetail">
-                        <li>
+                            <li>
+                                <p className="date">2023.12.01</p>
+                                <ul>
+                                    <li>새로운 주소로 접속이 가능합니다.<a href="https://loatodo.com">https://loatodo.com</a></li>
+                                    <li>깐부 수락/거절/삭제시 오류가 수정되었습니다.</li>
+                                    <li>깐부 캐릭터 업데이트, 순서 변경 기능이 추가되었습니다.</li>
+                                </ul>
+                            </li>
+                            <li>
                                 <p className="date">2023.11.30</p>
                                 <ul>
                                     <li>깐부(친구) 개발중입니다.</li>

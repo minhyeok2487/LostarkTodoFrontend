@@ -11,7 +11,6 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 const FriendTodoWrap = (props) => {
-    const [showCharacterSortForm, setShowCharacterSortForm] = useState(false);
     //------------------------- 일일 수익 & 주간 수익 관련 -------------------------
     //1. 예상 일일 수익
     const totalDayGold = props.characters.reduce((accumulator, character) => {
@@ -247,12 +246,14 @@ const FriendTodoWrap = (props) => {
                         <p className={`${getWeekGold / totalWeekGold}` === 1 ? "on" : ""}>{getWeekGold.toLocaleString()} / <span>{totalWeekGold.toLocaleString()}</span>G</p>{/* pub width가 100% 시 on 클래스 추가해주세요!(골드색변함) */}
                     </div>
                 </div>
-                {showCharacterSortForm && <CharacterSortForm
+                {props.showCharacterSortForm && <CharacterSortForm
                     characters={props.characters}
                     setCharacters={props.setCharacters}
                     setShowLinearProgress={props.setShowLinearProgress}
                     showMessage={props.showMessage}
-                    setShowCharacterSortForm={setShowCharacterSortForm}
+                    setShowCharacterSortForm={props.setShowCharacterSortForm}
+                    friendSetting={props.friendSetting}
+                    friendUsername={props.friendUsername}
                 />}
                 <div className="setting-wrap">
                     {/* <div>

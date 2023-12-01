@@ -558,6 +558,7 @@ export default function TodoWrap() {
                     showMessage={showMessage}
                     itemsPerRow={itemsPerRow}
                     setShowCharacterSortForm={setShowCharacterSortForm}
+                    friendSetting={null}
                 />}
                 {/* pub 아코디언 위치 수정 */}
                 <div className="setting-wrap">

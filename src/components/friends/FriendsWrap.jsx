@@ -19,6 +19,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FriendTodoWrap from "./FriendTodoWrap";
+import FriendBasicSpeedDial from "./FriendBasicSpeedDial";
 
 
 //------------------------- 탭관련 -------------------------
@@ -59,6 +60,8 @@ export default function FriendsWrap() {
     const [characters, setCharacters] = useState([]);
     const [state, setState] = useState(null);
     const [friendUsername, setFriendUsername] = useState(null);
+    const [showCharacterSortForm, setShowCharacterSortForm] = useState(false);
+
     const handleChange = (event, friend) => {
         const index = friends.indexOf(friend);
 
@@ -92,7 +95,6 @@ export default function FriendsWrap() {
             .then((response) => {
                 if (response !== null) {
                     setFriends(response);
-                    console.log(response);
                     setTabValue(0);
                     setState(response[0].areWeFriend);
                     setFriendUsername(response[0].username);
@@ -103,6 +105,7 @@ export default function FriendsWrap() {
             .catch((error) => { showMessage(error.errorMessage) });
     }, []);
 
+    // 캐릭터 닉네임 검색
     const findCharacter = () => {
         const characterName = document.getElementById('find-character').value;
         if (characterName === '') {
@@ -125,18 +128,40 @@ export default function FriendsWrap() {
     const [openModal, setOpenModal] = useState(false);
     const [modalContent, setModalContent] = useState("");
     const [modalTitle, setModalTitle] = useState("");
+    // 모달 닫기 함수
+    const closeContentModal = () => {
+        setOpenModal(false);
+        setModalTitle("");
+        setModalContent("");
+    };
 
-    // 모달 열기 함수
+    // 캐릭터 검색 결과 모달
     const openFindCharacterFriend = (findCharacterFriend) => {
         setModalTitle("검색 결과");
         var content = findCharacterFriend.map((character) => {
             return (
                 <div key={character.id}>
                     <p>{character.username.substring(0, 5) + '*'.repeat(character.username.length - 5)}
-                        <Button variant="outlined" onClick={() => requestFriend(character.areWeFriend, character.username)}
-                            style={{ marginLeft: 10 }}>
-                            {character.areWeFriend}
-                        </Button>
+                        {character.areWeFriend === "깐부 요청" &&
+                            <Button variant="outlined" onClick={() => requestFriend(character.areWeFriend, character.username)}
+                                style={{ marginLeft: 10 }}>
+                                {character.areWeFriend}
+                            </Button>}
+                        {character.areWeFriend === "깐부 요청 진행중" &&
+                            <Button variant="outlined" color="secondary" onClick={() => requestFriend(character.areWeFriend, character.username)}
+                                style={{ marginLeft: 10 }}>
+                                {character.areWeFriend}
+                            </Button>}
+                        {character.areWeFriend === "깐부 요청 받음" &&
+                            <Button variant="outlined" color="success" onClick={() => requestFriend(character.areWeFriend, character.username)}
+                                style={{ marginLeft: 10 }}>
+                                {character.areWeFriend}
+                            </Button>}
+                        {character.areWeFriend === "깐부" &&
+                            <Button variant="outlined" color="inherit" style={{ marginLeft: 10, cursor: "default" }}>
+                                {character.areWeFriend}
+                            </Button>
+                        }
                     </p>
                 </div>
             );
@@ -150,25 +175,23 @@ export default function FriendsWrap() {
         setOpenModal(true);
     };
 
-    // 모달 닫기 함수
-    const closeContentModal = () => {
-        setOpenModal(false);
-        setModalTitle("");
-        setModalContent("");
-    };
-
+    // 검색 후 요청 메서드
     const requestFriend = (category, fromMember) => {
-        console.log(fromMember);
         if (category === "깐부 요청") {
             call("/v2/friends/" + fromMember, "POST", null)
                 .then((response) => {
                     setFriends(response);
                     closeContentModal();
+                    showMessage("요청이 정상적으로 처리되었습니다.")
                 })
                 .catch((error) => {
                     showMessage(error.errorMessage);
                 });
         }
+        if (category === "깐부 요청 진행중" || category === "깐부 요청 받음" || category === "요청 거부") {
+            handleRequest("delete", fromMember);
+        }
+
     }
     //------------------------- 설정 버튼 관련 -------------------------
     const openSettingForm = (friendsId) => {
@@ -188,40 +211,31 @@ export default function FriendsWrap() {
                         {friend.areWeFriend !== "깐부 요청 받음" &&
                             <div>
                                 권한 : {friend.areWeFriend}
-                                <Button variant="outlined" color="error" onClick={() => handleRequest("delete", friend.friendUsername)}>깐부 삭제</Button>
+                                <Button variant="outlined" color="error" style={{marginLeft:10}} onClick={() => handleRequest("delete", friend.friendUsername)}>깐부 삭제</Button>
                             </div>
                         }
                     </p>
                 </div>
                 <div>
-                    <p>일일 숙제 출력 권한</p>
-                    <div>{selectSetting(friend.id, friend.toFriendSettings.showDayTodo, "showDayTodo")}
-                        상대방 권한 : {friend.fromFriendSettings.showDayTodo.toString()}</div>
+                    <p>일일 숙제 출력 권한 : {selectSetting(friend.id, friend.toFriendSettings.showDayTodo, "showDayTodo")}</p>
                 </div>
                 <div>
-                    <p>일일 숙제 체크 권한</p>
-                    <div>{selectSetting(friend.id, friend.toFriendSettings.checkDayTodo, "checkDayTodo")}
-                        상대방 권한 : {friend.fromFriendSettings.checkDayTodo.toString()}</div>
+                    <p>일일 숙제 체크 권한 : {selectSetting(friend.id, friend.toFriendSettings.checkDayTodo, "checkDayTodo")}</p>
                 </div>
                 <div>
-                    <p>레이드 출력 권한</p>
-                    <div>{selectSetting(friend.id, friend.toFriendSettings.showRaid, "showRaid")}
-                        상대방 권한 : {friend.fromFriendSettings.showRaid.toString()}</div>
+                    <p>레이드 출력 권한 : {selectSetting(friend.id, friend.toFriendSettings.showRaid, "showRaid")}</p>
                 </div>
                 <div>
-                    <p>레이드 체크 권한</p>
-                    <div>{selectSetting(friend.id, friend.toFriendSettings.checkRaid, "checkRaid")}
-                        상대방 권한 : {friend.fromFriendSettings.checkRaid.toString()}</div>
+                    <p>레이드 체크 권한 : {selectSetting(friend.id, friend.toFriendSettings.checkRaid, "checkRaid")}</p>
                 </div>
                 <div>
-                    <p>주간 숙제 출력 권한</p>
-                    <div>{selectSetting(friend.id, friend.toFriendSettings.showWeekTodo, "showWeekTodo")}
-                        상대방 권한 : {friend.fromFriendSettings.showWeekTodo.toString()}</div>
+                    <p>주간 숙제 출력 권한 : {selectSetting(friend.id, friend.toFriendSettings.showWeekTodo, "showWeekTodo")}</p>
                 </div>
                 <div>
-                    <p>주간 숙제 체크 권한</p>
-                    <div>{selectSetting(friend.id, friend.toFriendSettings.checkWeekTodo, "checkWeekTodo")}
-                        상대방 권한 : {friend.fromFriendSettings.checkWeekTodo.toString()}</div>
+                    <p>주간 숙제 체크 권한 : {selectSetting(friend.id, friend.toFriendSettings.checkWeekTodo, "checkWeekTodo")}</p>
+                </div>
+                <div>
+                    <p>설정 변경 권한 : {selectSetting(friend.id, friend.toFriendSettings.setting, "setting")}</p>
                 </div>
             </div>
         );
@@ -262,10 +276,10 @@ export default function FriendsWrap() {
     };
 
     const handleRequest = (category, fromMember) => {
-        const confirmMessage = category === "delete" ? "정말 삭제 하시겠습니까?" : null;
-    
+        const confirmMessage = category === "delete" ? "해당 요청을 삭제 하시겠습니까?" : null;
+
         const userConfirmed = confirmMessage ? window.confirm(confirmMessage) : true;
-    
+
         if (userConfirmed) {
             setShowLinearProgress(true);
             call(`/v2/friends/${fromMember}/${category}`, "PATCH", null)
@@ -278,13 +292,21 @@ export default function FriendsWrap() {
                 });
         }
     }
-    
+
 
 
     const [showLinearProgress, setShowLinearProgress] = useState(false);
     return (
         <>
             {showLinearProgress && <LinearIndeterminate />}
+            <FriendBasicSpeedDial
+                setShowLinearProgress={setShowLinearProgress}
+                setCharacters={setCharacters}
+                showMessage={showMessage}
+                setShowCharacterSortForm={setShowCharacterSortForm}
+                friendSetting={friendSetting}
+                friendUsername={friendUsername}
+            />
             <div className="wrap">
                 <div>
                     <TextField id="find-character" label="캐릭터 닉네임 입력" variant="outlined" size="small" />
@@ -299,7 +321,7 @@ export default function FriendsWrap() {
                                     {...a11yProps(index)}
                                     key={friend.id}
                                     onClick={(event) => handleChange(event, friend)}
-                                    style={{color:"var(--text-color)"}}
+                                    style={{ color: "var(--text-color)" }}
                                 />
                             )}
                         </Tabs>
@@ -313,6 +335,7 @@ export default function FriendsWrap() {
                             >
                                 깐부 설정
                             </button>
+                            {state !== "깐부" && <p>{state}</p>}
                         </div>}
                         {state === "깐부" && <FriendTodoWrap
                             characters={characters}
@@ -326,6 +349,8 @@ export default function FriendsWrap() {
                             setModalTitle={setModalTitle}
                             setModalContent={setModalContent}
                             setOpenModal={setOpenModal}
+                            showCharacterSortForm={showCharacterSortForm}
+                            friendUsername={friendUsername}
                         />}
                         {/* {state === "요청 거부" && <div style={{ color: 'red' }}>{areWeFriend}</div>} */}
                     </CustomTabPanel>

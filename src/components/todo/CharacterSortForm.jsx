@@ -27,14 +27,30 @@ const CharacterSortForm = (props) => {
 
     //2.순서 변경 DB저장
     const saveSort = () => {
-        props.setShowLinearProgress(true);
-        call("/member/characterList/sorting", "PATCH", props.characters)
-            .then((response) => {
-                props.setShowLinearProgress(false);
-                props.showMessage("순서 업데이트가 완료되었습니다.");
-                props.setShowCharacterSortForm(false);
-            });
-        setItemsSwapState(false);
+        if(props.friendSetting === null) {
+            props.setShowLinearProgress(true);
+            call("/member/characterList/sorting", "PATCH", props.characters)
+                .then((response) => {
+                    props.setShowLinearProgress(false);
+                    props.showMessage("순서 업데이트가 완료되었습니다.");
+                    props.setShowCharacterSortForm(false);
+                });
+            setItemsSwapState(false);
+        } else {
+            if(props.friendSetting.setting) {
+                props.setShowLinearProgress(true);
+                call("/v2/friends/characterList/sorting/" +props.friendUsername, "PATCH", props.characters)
+                    .then((response) => {
+                        props.setShowLinearProgress(false);
+                        props.showMessage("순서 업데이트가 완료되었습니다.");
+                        props.setShowCharacterSortForm(false);
+                    });
+                setItemsSwapState(false);
+            } else {
+                props.showMessage("권한이 없습니다.");
+            }
+
+        }
     };
 
     const [itemsPerRow, setItemsPerRow] = useState(calculateItemsPerRow());
@@ -81,17 +97,16 @@ const CharacterSortForm = (props) => {
                                         style={{
                                             backgroundImage: character.characterImage !== null ? `url(${character.characterImage})` : "",
                                             backgroundPosition: character.characterClassName === "도화가" || character.characterClassName === "기상술사" ? "left 25px top -70px" : "left 25px top -35px",
-                                            backgroundColor: "gray", // imgurl이 없을시 배경색을 회색으로 설정
+                                            backgroundColor: "gray", 
                                         }}>
                                         <p>{character.characterName}</p>
                                         <p>Lv. {character.itemLevel}</p>
-                                        {/* pub 없어도 될꺼같아서 삭제! <p>테스트테스트</p> */}
                                     </div>
                                 </div>
                             </GridItem>
                         ))}
                     </GridDropZone>
-                    <span className="acc-txt">드래그 시 캐릭터 순서가 변경됩니다</span>{/* pub 문구추가 */}
+                    <span className="acc-txt">드래그 시 캐릭터 순서가 변경됩니다</span>
                 </GridContextProvider>
             </AccordionDetails>
         </Accordion>

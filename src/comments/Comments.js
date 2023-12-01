@@ -90,7 +90,7 @@ const Comments = () => {
                 <p className="notice">공지사항</p>
                 <div className="cont">
                     <ul>
-                        <li>개발자 : <DiscordIcon /> 마볼링#2884</li>
+                        <li>개발자 : <DiscordIcon /> 마볼링#2884 <a href="https://open.kakao.com/o/snL05upf" target='_blank'>오픈카톡</a></li>
                         <li>UI담당자 : <DiscordIcon /> 얀비#7431</li>
                     </ul>
                 </div>
@@ -136,11 +136,12 @@ const Comments = () => {
                 <p className="update">수정 완료</p>
                 <div className="cont">
                     <div className="flex">
-                        <p className="date">2023.11.30</p>
+                        <p className="date">2023.12.01</p>
                         <p className="txt">
                             <ul>
-                                <li>깐부(친구) 개발중입니다.</li>
-                                <li>깐부 도비스/도가토 체크 가능합니다</li>
+                                <li>새로운 주소로 접속이 가능합니다.<a href="https://loatodo.com">https://loatodo.com</a></li>
+                                <li>깐부 수락/거절/삭제시 오류가 수정되었습니다.</li>
+                                <li>깐부 캐릭터 업데이트, 순서 변경 기능이 추가되었습니다.</li>
                             </ul>
                         </p>
                     </div>
