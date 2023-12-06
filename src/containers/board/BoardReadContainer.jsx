@@ -13,8 +13,8 @@ const BoardReadContainer = () => {
     // 게시글 목록 데이터
     const getBoard = async () => {
         try {
-            const data = (await boards.select(no)).data;
-            setBoard(data);
+            // const data = (await boards.select(no)).data;
+            // setBoard(data);
         } catch(e) {
             console.log(e);
         }

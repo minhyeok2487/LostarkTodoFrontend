@@ -17,9 +17,8 @@ const BoardInsertContainer = () => {
 
     const onInsert = async (title, content) => {
         try {
-            const response = await boards.insert(title, content);
+            // const response = await boards.insert(title, content);
             alert("등록 완료");
-            console.log(response.data);
 
             // -> 게시글 목록 이동
             navigate('/boards');
