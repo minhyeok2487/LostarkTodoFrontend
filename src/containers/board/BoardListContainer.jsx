@@ -16,15 +16,14 @@ const BoardListContainer = () => {
 
     // 게시글 목록 데이터
     const getBoardList = async (page) => {
-        await call(`/v2/boards?page=${page}`, "GET", null)
-            .then((response) => {
-                setBoardList(response.boardDtoList);
-                setTotalPages(response.totalPages);
-                setNoticeList(response.noticeList);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        try {
+            const data = await boards.list(page);
+            setBoardList(data.boardDtoList);
+            setTotalPages(data.totalPages);
+            setNoticeList(data.noticeList);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
@@ -33,9 +32,13 @@ const BoardListContainer = () => {
 
     const handlePageClick = async (page) => {
         if (page <= totalPages) {
-            // const data = (await boards.list(page)).data;
-            // setBoardList(data.boardDtoList);
-            // setCurrentPage(page);
+            try {
+                const data = await boards.list(page);
+                setBoardList(data.boardDtoList);
+                setCurrentPage(page);
+            } catch (error) {
+                console.log(error);
+            }
         }
     };
 

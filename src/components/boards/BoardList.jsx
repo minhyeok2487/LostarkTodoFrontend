@@ -6,23 +6,23 @@ import "./Board.css";
 const BoardList = ({ boardList }) => {
     return (
         <div>
-            <div class="board board--list" id="list">
+            <div className="board board--list" id="list">
                 {/* <!-- 리스트 --> */}
-                <div class="list list--default">
+                <div className="list list--default">
                     <ul>
                         {/* <!-- 전체 공지 --> */}
                         {boardList.map((board) => (
-                            <li key={board.id} class="">
+                            <li key={board.id} className="">
                                 <Link to={`/boards/${board.id}`}>
-                                    <div class="list__category" aria-label="카테고리">
-                                        {board.notice && <span class="icon icon--notice">공지</span>}
+                                    <div className="list__category" aria-label="카테고리">
+                                        {board.notice && <span className="icon icon--notice">공지</span>}
                                     </div>
-                                    <div class="list__subject" aria-label="제목">
-                                        <span class="list__title">{board.title}</span>
-                                        {/* <span class="icon icon--new">새 글</span> */}
+                                    <div className="list__subject" aria-label="제목">
+                                        <span className="list__title">{board.title}</span>
+                                        {/* <span className="icon icon--new">새 글</span> */}
                                     </div>
-                                    <div class="list__read" aria-label="조회수">{board.views}</div>
-                                    <div class="list__date" aria-label="등록일">{new Date(board.regDate).toLocaleString()}</div>
+                                    <div className="list__read" aria-label="조회수">{board.views}</div>
+                                    <div className="list__date" aria-label="등록일">{new Date(board.regDate).toLocaleString()}</div>
                                 </Link>
                             </li>
                         ))}
