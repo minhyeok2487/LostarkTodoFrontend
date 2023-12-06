@@ -1,5 +1,4 @@
 import * as React from 'react';
-import '../App.css';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -122,6 +121,9 @@ export default function Navbar() {
           <Toolbar>
             <MenuItem onClick={() => (window.location.href = "/")}>
               <img alt="logo" src='/logo.png' style={{ width: 120 }} />
+            </MenuItem>
+            <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/boards")}>
+              <p>공지사항</p>
             </MenuItem>
             <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/friends")}>
               <p>깐부</p>
