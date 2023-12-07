@@ -3,7 +3,7 @@ import { call } from "../service/api-service";
 // 전체 조회
 export const list = async (page) => {
     try {
-        const response = await call(`/v2/boards/list/${page}`, "GET", null);
+        const response = await call(`/v2/boards?page=${page}`, "GET", null);
         return response;
     } catch (error) {
         console.log(error);
