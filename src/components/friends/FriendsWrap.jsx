@@ -67,7 +67,7 @@ export default function FriendsWrap() {
 
         setTabValue(index);
         setState(friend.areWeFriend);
-        setFriendUsername(friend.username);
+        setFriendUsername(friend.friendUsername);
         setCharacters(friend.characterList);
         setFriendSetting(friend.fromFriendSettings);
     };
@@ -97,7 +97,7 @@ export default function FriendsWrap() {
                     setFriends(response);
                     setTabValue(0);
                     setState(response[0].areWeFriend);
-                    setFriendUsername(response[0].username);
+                    setFriendUsername(response[0].friendUsername);
                     setCharacters(response[0].characterList);
                     setFriendSetting(response[0].fromFriendSettings);
                 }

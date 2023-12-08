@@ -18,8 +18,11 @@ export default function FriendBasicSpeedDial(props) {
         if (name === "캐릭터 정보 업데이트") {
             if(props.friendSetting.setting) {
                 props.setShowLinearProgress(true);
+                const updateContent = {
+                    friendUsername : props.friendUsername
+                };
                 try {
-                    const response = await call("/v2/friend/characterList/"+props.friendUsername, "PATCH", null);
+                    const response = await call("/v2/friends/characterList", "PATCH", updateContent);
                     props.setCharacters(response);
                     props.setShowLinearProgress(false);
                     props.showMessage("정보 업데이트가 완료되었습니다.");

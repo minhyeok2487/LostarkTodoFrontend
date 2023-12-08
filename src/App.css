@@ -23,6 +23,13 @@
 html, body {background-color: var(--background);height:100%}
 :root {--background: #eff1f7;--nav-color:#fff;--text-color: rgb(0, 0, 0);--text-done-color: rgb(50, 50, 50);--button-color: #d0e1f9;--content-border: 1px ridge black}
 .wrap {display:flex;align-items:center;flex-direction:column;margin-top:20px;font-size:14px;color:#222;height:100%;}
+footer {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  color: #888;
+}
+
 
 /* 다크모드 */
 .ui-dark {--background: #242424;--nav-color:#414141;--text-color: rgb(255, 255, 255);--text-done-color: rgb(200, 200, 200);--button-color: #4f6580;--content-border: 1px ridge white}
