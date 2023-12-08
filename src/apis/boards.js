@@ -1,4 +1,4 @@
-import { call } from "../service/api-service";
+import { call } from "./api";
 
 // 전체 조회
 export const list = async (page) => {

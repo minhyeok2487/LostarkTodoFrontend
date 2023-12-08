@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Navbar from './fragments/Navbar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -15,11 +15,16 @@ import BoardListContainer from './containers/board/BoardListContainer';
 import BoardReadContainer from './containers/board/BoardReadContainer';
 import BoardInsertContainer from './containers/board/BoardInsertContainer';
 import BoardUpdateContainer from './containers/board/BoardUpdateContainer';
+import CommentListContainer from './containers/comments/CommentListContainer';
+import CircularLoading from './components/fragments/CircularLoading';
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <>
       <div>
+        {isLoading && <CircularLoading />}
         <Navbar />
         <BrowserRouter>
           <Routes>
@@ -28,11 +33,11 @@ const App = () => {
             <Route path='signup' element={<SignUp />} />
             <Route path='sociallogin' element={<SocialLogin />} />
             <Route path='info' element={<Info />} />
-            <Route path='comments' element={<Comments />} />
+            <Route path='comments' element={<CommentListContainer setIsLoading={setIsLoading} />} />
             <Route path='setting' element={<Setting />} />
             <Route path='member/apikey' element={<ApiKeyUpdateForm />} />
             <Route path='friends' element={<FriendWrap />} />
-            
+
             {/* 게시글(공지사항) 관련 */}
             <Route path='/boards' element={<BoardListContainer />} />
             <Route path='/boards/:no' element={<BoardReadContainer />} />

@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { call } from "../service/api-service";
-import '../App.css';
 import Comment from "./Commnet";
 import CommentForm from "./CommentForm";
-import Info from "../components/Info";
-import DiscordIcon from "../icons/DiscordIcon";
 
 const Comments = () => {
     const [backendComments, setBackendComments] = useState([]);

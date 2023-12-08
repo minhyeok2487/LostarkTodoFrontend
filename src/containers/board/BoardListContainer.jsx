@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { call } from "../../service/api-service";
 import * as boards from '../../apis/boards';
-import { Link } from 'react-router-dom';
 import SearchBox from '../../components/search/SearchBox';
 import BoardList from '../../components/boards/BoardList';
 import DiscordIcon from '../../icons/DiscordIcon';
+import PageNation from '../../components/fragments/PageNation';
 
 // 게시글 목록
 const BoardListContainer = () => {
@@ -41,25 +40,6 @@ const BoardListContainer = () => {
             }
         }
     };
-
-    // Generate an array with page numbers based on totalPages
-    const generatePageNumbers = () => {
-        const pageNumbers = [];
-        for (let i = 1; i <= totalPages; i++) {
-            pageNumbers.push(
-                <a
-                    key={i}
-                    href="javascript: void(0);"
-                    className={`pagination__number ${currentPage === i ? 'pagination__number--active' : ''}`}
-                    onClick={() => handlePageClick(i)}
-                >
-                    {i}
-                </a>
-            );
-        }
-        return pageNumbers;
-    };
-
 
     return (
         <div>
@@ -101,21 +81,11 @@ const BoardListContainer = () => {
                 {/* 업데이트 공지 */}
                 <BoardList boardList={boardList}></BoardList>
                 {/* 페이징 */}
-                <div className="pagination" aria-label="페이지네이션">
-                    <a href="javascript: void(0);" className="pagination__first" onClick={() => handlePageClick(1)}>
-                        처음
-                    </a>
-                    <a href="javascript: void(0);" className="pagination__prev" onClick={() => handlePageClick(currentPage - 1)}>
-                        이전
-                    </a>
-                    {generatePageNumbers()}
-                    <a href="javascript: void(0);" className="pagination__next" onClick={() => handlePageClick(currentPage + 1)}>
-                        다음
-                    </a>
-                    <a href="javascript: void(0);" className="pagination__last" onClick={() => handlePageClick(totalPages)}>
-                        마지막
-                    </a>
-                </div>
+                <PageNation 
+                    handlePageClick = {handlePageClick}
+                    totalPages={totalPages}
+                    currentPage={currentPage}
+                />
                 {/* // 페이징 */}
                 {/* <div>
                     <Link to="/boards/insert">글쓰기</Link>

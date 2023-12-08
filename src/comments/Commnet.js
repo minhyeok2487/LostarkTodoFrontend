@@ -24,7 +24,7 @@ const Comment = ({
   const canReply = (currentUser.role === "ADMIN" || "PUBLISHER") || (currentUser.id === comment.memberId);
   const canEdit = currentUser.id === comment.memberId;
   const replyId = parentId ? parentId : comment.id;
-  const lastModifiedDate = new Date(comment.lastModifiedDate).toLocaleString();
+  const regDate = new Date(comment.regDate).toLocaleString();
   var username = "";
   if (comment.role === "ADMIN") {
     username = "관리자";
@@ -44,7 +44,7 @@ const Comment = ({
           <div>
             <span className="comment-author"
               style={{ color: comment.role === "ADMIN" ? "blue" : "" }}
-            >{username}</span>({lastModifiedDate})
+            >{username}</span>({regDate})
           </div>
         </div>
         {!isEditing && <div className="comment-text">{comment.body}</div>}
