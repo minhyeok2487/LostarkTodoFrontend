@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import * as comment from '../../apis/comments';
 import CommentList from '../../components/comments/CommentList';
-import PageNation from '../../components/fragments/PageNation';
+import PageNation from '../../fragments/PageNation';
 
 // 방명록 리스트
+// 루트 코멘트 5개 + 답글 출력
 const CommentListContainer = ({setIsLoading}) => {
 
     //state 설정
@@ -41,16 +42,20 @@ const CommentListContainer = ({setIsLoading}) => {
     };
 
     //게시글 수정
-    const updateComment = async (text, commentId) => {
-        const data = await comment.updateComment(text, commentId);
-        setBackendComments(data);
+    const updateComment = async (text, commentId, page) => {
+        const data = await comment.updateComment(text, commentId, page);
+        setBackendComments(data.commentDtoList);
+        isRootComments(data.commentDtoList);
         setActiveComment(null);
     };
 
     //게시글 삭제
     const deleteComment = async (commentId) => {
         const data = await comment.deleteComment(commentId);
-        setBackendComments(data);
+        setBackendComments(data.commentDtoList);
+        setTotalPages(data.totalPages);
+        isRootComments(data.commentDtoList);
+        setCurrentPage(1);
         setActiveComment(null);
     };
 
@@ -93,7 +98,9 @@ const CommentListContainer = ({setIsLoading}) => {
                 deleteComment={deleteComment}
                 updateComment={updateComment}
                 currentUser={currentUser}
+                currentPage={currentPage}
             />
+            {/* 페이징 버튼 */}
             <PageNation
                 handlePageClick={handlePageClick}
                 currentPage={currentPage}

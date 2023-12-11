@@ -27,13 +27,13 @@ export const addComment = async (text, parentId = null) => {
 };
 
 // 게시글 수정
-export const updateComment = async (text, commentId) => {
+export const updateComment = async (text, commentId, page) => {
     const updateContent = {
         body: text,
         id: commentId
     };
     try {
-        const response = await call("/comments", "PATCH", updateContent);
+        const response = await call(`/comments?page=${page}`, "PATCH", updateContent);
         return response;
     } catch (error) {
         console.log(error);
