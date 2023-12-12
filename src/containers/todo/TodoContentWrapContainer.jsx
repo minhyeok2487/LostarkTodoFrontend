@@ -173,6 +173,7 @@ const TodoContentWrapContainer = ({
             setIsLoading={setIsLoading}
             showMessage={showMessage}
             characters={characters}
+            setCharacters={setCharacters}
             updateDayContent={updateDayContent}
             updateDayContentAll={updateDayContentAll}
             updateDayContentGuage={updateDayContentGuage}

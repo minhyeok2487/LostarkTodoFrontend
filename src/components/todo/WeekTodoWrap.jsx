@@ -407,7 +407,6 @@ const WeekTodoWrap = ({
                 />}
             </div>
         </div>
-
     );
 };
 

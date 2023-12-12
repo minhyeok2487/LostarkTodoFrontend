@@ -84,3 +84,92 @@ export const updateChallenge = async (character, content) => {
         throw error;
     }
 }
+
+// 캐릭터 주간숙제 추가 폼 데이터 호출
+export const getTodoFormData = async (characterId, characterName) => {
+    try {
+        return await call("/v2/character/week/form/" + characterId + "/" + characterName, "GET", null);
+    } catch (error) {
+        alert(error.errorMessage);
+        throw error;
+    }
+}
+
+// 캐릭터 주간 숙제 업데이트(추가/삭제)
+export const updateWeekTodo = async (characterId, characterName, content) => {
+    try {
+        return await call("/v2/character/week/raid/" + characterId + "/" + characterName, "POST", content);
+    } catch (error) {
+        alert(error.errorMessage);
+        throw error;
+    }
+}
+
+// 캐릭터 주간 숙제 업데이트 All(추가/삭제)
+export const updateWeekTodoAll = async (characterId, characterName, content) => {
+    try {
+        return await call("/v2/character/week/raid/" + characterId + "/" + characterName + "/all", "POST", content);
+    } catch (error) {
+        alert(error.errorMessage);
+        throw error;
+    }
+}
+
+// 캐릭터 주간숙제 체크
+export const updateWeekCheck = async (characterId, characterName, weekCategory, currentGate, totalGate) => {
+    const updateContent = {
+        characterId: characterId,
+        characterName: characterName,
+        weekCategory: weekCategory,
+        currentGate: currentGate,
+        totalGate: totalGate
+    };
+    try {
+        return await call("/v2/character/week/raid/check", "PATCH", updateContent);
+    } catch (error) {
+        alert(error.errorMessage);
+        throw error;
+    }
+}
+
+export const updateWeekCheckAll = async (characterId, characterName, weekCategory) => {
+    const updateContent = {
+        characterId: characterId,
+        characterName: characterName,
+        weekCategory: weekCategory
+    };
+    try {
+        return await call("/v2/character/week/raid/check/all", "PATCH", updateContent);
+    } catch (error) {
+        alert(error.errorMessage);
+        throw error;
+    }
+}
+
+// 골드획득 캐릭터 업데이트
+export const updateGoldCharacter = async (characterId, characterName) => {
+    const updateContent = {
+        characterId: characterId,
+        characterName: characterName,
+    };
+    try {
+        return await call("/v2/character/gold-character/", "PATCH", updateContent);
+    } catch (error) {
+        alert(error.errorMessage);
+        throw error;
+    }
+}
+
+export const updateWeekMessage = async (characterId, todoId, message) => {
+    const updateContent = {
+        characterId: characterId,
+        todoId: todoId,
+        message: message
+    };
+    try {
+        return await call("/v2/character/week/message", "PATCH", updateContent);
+    } catch (error) {
+        alert(error.errorMessage);
+        throw error;
+    }
+}
