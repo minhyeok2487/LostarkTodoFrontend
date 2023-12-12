@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import * as todo from '../../apis/todo';
 import TodoMain from '../../components/todo/TodoMain';
 import BasicSpeedDial from '../../fragments/BasicSpeedDial';
+import TodoWrap from "../../components/todo/TodoWrap";
 
 // 숙제 관리 사이트 메인
-const TodoContainer = ({ setIsLoading, showMessage }) => {
+const TodoContainer = ({setIsLoading, showMessage}) => {
 
     // state 설정
     const [allCharacters, setAllCharacters] = useState([]); //전체 캐릭터 리스트
@@ -67,6 +68,7 @@ const TodoContainer = ({ setIsLoading, showMessage }) => {
 
     // 반응형 사이트 함수
     const [itemsPerRow, setItemsPerRow] = useState(calculateItemsPerRow());
+
     function calculateItemsPerRow() {
         var screenWidth = window.innerWidth;
         if (screenWidth >= 1300) {
@@ -82,35 +84,27 @@ const TodoContainer = ({ setIsLoading, showMessage }) => {
     }
 
     return (
-        <div>
-            <BasicSpeedDial
-                setIsLoading={setIsLoading}
-                setCharacters={setCharacters}
-                showMessage={showMessage}
-                setShowCharacterSortForm={setShowCharacterSortForm}
-            />
-            <TodoMain
-                allCharacters={allCharacters}
-                characters={characters}
-                setCharacters={setCharacters}
-                servers={servers}
-                setServers={setServers}
-                selectedServer={selectedServer}
-                setSelectedServer={setSelectedServer}
-                showCharacterSortForm={showCharacterSortForm}
-                setShowCharacterSortForm={setShowCharacterSortForm}
-                itemsPerRow={itemsPerRow}
-                setIsLoading={setIsLoading}
-                showMessage={showMessage}
-                openModal={openModal}
-                setOpenModal={setOpenModal}
-                modalContent={modalContent}
-                setModalContent={setModalContent}
-                modalTitle={modalTitle}
-                setModalTitle={setModalTitle}
-                closeContentModal={closeContentModal}
-            />
-        </div>
+        <TodoWrap
+            setIsLoading={setIsLoading}
+            setCharacters={setCharacters}
+            showMessage={showMessage}
+            setShowCharacterSortForm={setShowCharacterSortForm}
+            allCharacters={allCharacters}
+            characters={characters}
+            servers={servers}
+            setServers={setServers}
+            selectedServer={selectedServer}
+            setSelectedServer={setSelectedServer}
+            showCharacterSortForm={showCharacterSortForm}
+            itemsPerRow={itemsPerRow}
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+            modalContent={modalContent}
+            setModalContent={setModalContent}
+            modalTitle={modalTitle}
+            setModalTitle={setModalTitle}
+            closeContentModal={closeContentModal}
+        />
     );
 };
 

@@ -9,7 +9,6 @@ export const list = async () => {
         if (error.errorMessage[0] === "등록된 캐릭터가 없습니다.") {
             window.location.href = "/signup";
         } else {
-            alert(error.errorMessage);
             localStorage.setItem("ACCESS_TOKEN", null);
             window.location.href = "/login";
         }
@@ -39,7 +38,6 @@ export const updateDayContentAll = async (characterId, characterName, category) 
     try {
         return await call("/v2/character/day-content/check/" + category + "/all", "PATCH", updateContent);
     } catch (error) {
-        alert(error.errorMessage);
         throw error;
     }
 }
@@ -49,7 +47,6 @@ export const saveSort = async (characters) => {
     try {
         return await call("/member/characterList/sorting", "PATCH", characters);
     } catch (error) {
-        alert(error.errorMessage);
         throw error;
     }
 }
@@ -66,7 +63,6 @@ export const updateDayContentGuage = async (characterId, characterName, chaosGau
     try {
         return await call("/v2/character/day-content/gauge", "PATCH", updateContent);
     } catch (error) {
-        alert(error.errorMessage);
         throw error;
     }
 }
@@ -80,7 +76,6 @@ export const updateChallenge = async (character, content) => {
     try {
         return await call("/v2/character/challenge", "PATCH", updateContent);
     } catch (error) {
-        alert(error.errorMessage);
         throw error;
     }
 }
@@ -90,7 +85,6 @@ export const getTodoFormData = async (characterId, characterName) => {
     try {
         return await call("/v2/character/week/form/" + characterId + "/" + characterName, "GET", null);
     } catch (error) {
-        alert(error.errorMessage);
         throw error;
     }
 }
@@ -110,7 +104,6 @@ export const updateWeekTodoAll = async (characterId, characterName, content) => 
     try {
         return await call("/v2/character/week/raid/" + characterId + "/" + characterName + "/all", "POST", content);
     } catch (error) {
-        alert(error.errorMessage);
         throw error;
     }
 }
@@ -127,7 +120,6 @@ export const updateWeekCheck = async (characterId, characterName, weekCategory, 
     try {
         return await call("/v2/character/week/raid/check", "PATCH", updateContent);
     } catch (error) {
-        alert(error.errorMessage);
         throw error;
     }
 }
@@ -141,7 +133,6 @@ export const updateWeekCheckAll = async (characterId, characterName, weekCategor
     try {
         return await call("/v2/character/week/raid/check/all", "PATCH", updateContent);
     } catch (error) {
-        alert(error.errorMessage);
         throw error;
     }
 }
@@ -169,7 +160,79 @@ export const updateWeekMessage = async (characterId, todoId, message) => {
     try {
         return await call("/v2/character/week/message", "PATCH", updateContent);
     } catch (error) {
-        alert(error.errorMessage);
+        throw error;
+    }
+}
+
+/*주간 에포나 체크*/
+export const weekEponaCheck = async (characterId, characterName) => {
+    const updateContent = {
+        id: characterId,
+        characterName: characterName
+    };
+    try {
+        return await call("/v2/character/week/epona", "PATCH", updateContent);
+    } catch (error) {
+        throw error;
+    }
+}
+
+/*주간 에포나 체크 All*/
+export const weekEponaCheckAll = async (characterId, characterName) => {
+    const updateContent = {
+        id: characterId,
+        characterName: characterName
+    };
+    try {
+        return await call("/v2/character/week/epona/all", "PATCH", updateContent);
+    } catch (error) {
+        throw error;
+    }
+}
+
+/*실마엘 교환 체크*/
+export const silmaelChange = async (characterId, characterName) => {
+    const updateContent = {
+        id: characterId,
+        characterName: characterName
+    };
+    try {
+        return await call("/v2/character/week/silmael", "PATCH", updateContent);
+    } catch (error) {
+        throw error;
+    }
+}
+
+/*큐브 티켓 추가*/
+export const addCubeTicket = async (characterId, characterName) => {
+    const updateContent = {
+        id: characterId,
+        characterName: characterName
+    };
+    try {
+        return await call("/v2/character/week/cube/add", "PATCH", updateContent);
+    } catch (error) {
+        throw error;
+    }
+}
+
+/*큐브 티켓 감소*/
+export const substractCubeTicket = async (characterId, characterName) => {
+    const updateContent = {
+        id: characterId,
+        characterName: characterName
+    };
+    try {
+        return await call("/v2/character/week/cube/substract", "PATCH", updateContent);
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const getCubeContent = async (name) => {
+    try {
+        return await call("/v2/character/cube/" + name, "GET", null);
+    } catch (error) {
         throw error;
     }
 }

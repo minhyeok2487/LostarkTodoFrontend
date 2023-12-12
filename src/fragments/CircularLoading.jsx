@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 export default function CircularLoading() {
   return (
     <div className="circular-loading-overlay">
-      <CircularProgress />
+      <CircularProgress size={200} />
     </div>
   );
 }

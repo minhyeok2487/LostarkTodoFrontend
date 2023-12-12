@@ -6,6 +6,7 @@ const TodoProfit = ({
     getWeekGold,
     totalWeekGold
 }) => {
+    const percentage = (getWeekGold / totalWeekGold * 100).toFixed(1);
     return (
         <div className="setting-wrap">
             <div className="content-box">
@@ -19,8 +20,14 @@ const TodoProfit = ({
             <div className="content-box">
                 <p>주간 수익</p>
                 <span className="bar">
-                    <i style={{ width: `${getWeekGold / totalWeekGold * 100}%` }}></i>
-                    <em style={{ textAlign: "center" }}>{(getWeekGold / totalWeekGold * 100).toFixed(1)} %</em>
+                  {isNaN(percentage) ? (
+                      <em style={{left:"30.0%"}}>골드 획득 캐릭터를 지정해주세요</em>
+                  ) : (
+                      <>
+                          <i style={{ width: `${percentage}%` }}></i>
+                          <em style={{ textAlign: "center" }}>{percentage} %</em>
+                      </>
+                  )}
                 </span>
                 <p className={`${getWeekGold / totalWeekGold}` === 1 ? "on" : ""}>{getWeekGold.toLocaleString()} / <span>{totalWeekGold.toLocaleString()}</span>G</p>
             </div>

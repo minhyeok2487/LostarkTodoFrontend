@@ -1,6 +1,6 @@
 import { call } from "./api";
 
-// 전체 조회
+/*전체 조회*/
 export const list = async (page) => {
     try {
         const response = await call(`/v2/boards?page=${page}`, "GET", null);
@@ -11,7 +11,7 @@ export const list = async (page) => {
     }
 }
 
-// 단건 조회
+/*단건 조회*/
 export const select = async (no) => {
     try {
         const response = await call(`/v2/boards/${no}`, "GET", null);
@@ -22,7 +22,7 @@ export const select = async (no) => {
     }
 }
 
-// 등록
+/*등록*/
 export const insert = async (title, content) => {
     const updateContent = {
         title : title,

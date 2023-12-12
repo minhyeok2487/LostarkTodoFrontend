@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
-import TodoWeekContainer from '../../containers/todo/TodoWeekContainer';
+import TodoWeekRaidContainer from '../../containers/todo/TodoWeekRaidContainer';
 
 const TodoContentWrap = ({
     setIsLoading,
@@ -162,7 +162,8 @@ const TodoContentWrap = ({
                                 </div>
                             </div>
                         </div>
-                        <TodoWeekContainer
+                        {/*주간레이드 (안에 주간 숙제 있음)*/}
+                        <TodoWeekRaidContainer
                             characters={characters}
                             setCharacters={setCharacters}
                             character={character}

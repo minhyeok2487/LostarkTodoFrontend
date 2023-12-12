@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import * as comment from '../../apis/comments';
 import CommentList from '../../components/comments/CommentList';
 import PageNation from '../../fragments/PageNation';
+import CommentWrap from "../../components/comments/CommentWrap";
 
 // 방명록 리스트
 // 루트 코멘트 5개 + 답글 출력
@@ -88,25 +89,19 @@ const CommentListContainer = ({setIsLoading}) => {
     };
 
     return (
-        <div>
-            <CommentList
-                addComment={addComment}
-                rootComments={rootComments}
-                getReplies={getReplies}
-                activeComment={activeComment}
-                setActiveComment={setActiveComment}
-                deleteComment={deleteComment}
-                updateComment={updateComment}
-                currentUser={currentUser}
-                currentPage={currentPage}
-            />
-            {/* 페이징 버튼 */}
-            <PageNation
-                handlePageClick={handlePageClick}
-                currentPage={currentPage}
-                totalPages={totalPages}
-            />
-        </div>
+        <CommentWrap
+            addComment={addComment}
+            rootComments={rootComments}
+            getReplies={getReplies}
+            activeComment={activeComment}
+            setActiveComment={setActiveComment}
+            deleteComment={deleteComment}
+            updateComment={updateComment}
+            currentUser={currentUser}
+            currentPage={currentPage}
+            handlePageClick={handlePageClick}
+            totalPages={totalPages}
+        />
     );
 };
 
