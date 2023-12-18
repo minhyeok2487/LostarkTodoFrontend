@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import * as todo from '../../apis/todo';
-import TodoMain from '../../components/todo/TodoMain';
-import BasicSpeedDial from '../../fragments/BasicSpeedDial';
 import TodoWrap from "../../components/todo/TodoWrap";
 
 // 숙제 관리 사이트 메인
@@ -52,6 +50,11 @@ const TodoContainer = ({setIsLoading, showMessage}) => {
 
     // 페이지 로드시 호출
     useEffect(() => {
+        const accessToken = localStorage.getItem("ACCESS_TOKEN");
+        console.log(accessToken);
+        if (accessToken === null) {
+            window.location.href = "/login";
+        }
         // 캐릭터 데이터 호출
         getCharacters();
 

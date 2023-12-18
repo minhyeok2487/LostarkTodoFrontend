@@ -14,7 +14,7 @@ const BoardListContainer = () => {
     const getBoardList = async (page) => {
         try {
             const data = await boards.list(page);
-            setBoardList(data.boardDtoList);
+            setBoardList(data.boardResponseDtoList);
             setTotalPages(data.totalPages);
             setNoticeList(data.noticeList);
         } catch (error) {

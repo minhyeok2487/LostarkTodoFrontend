@@ -6,6 +6,7 @@ export const list = async () => {
         const response = await call("/v2/member/characterList", "GET", null);
         return response;
     } catch (error) {
+        console.log(error);
         if (error.errorMessage[0] === "등록된 캐릭터가 없습니다.") {
             window.location.href = "/signup";
         } else {

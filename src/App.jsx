@@ -65,6 +65,18 @@ const App = () => {
             <Route path='/boards/update/:no' element={<BoardUpdateContainer />} />
           </Routes>
         </BrowserRouter>
+        {/* 구글 애드센스 */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9665234618246720"
+                crossOrigin="anonymous"></script>
+        <ins className="adsbygoogle"
+             style={{display:"block"}}
+             data-ad-client="ca-pub-9665234618246720"
+             data-ad-slot="1480898783"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
         <footer>
           <p>© 2023 LoaTodo. LoaTodo isn’t endorsed by Smilegate RPG and doesn’t reflect the views <br />
             or opinions of Smilegate RPG or anyone officially involved in producing or managing Lostark.
