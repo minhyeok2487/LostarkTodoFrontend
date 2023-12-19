@@ -51,7 +51,6 @@ const TodoContainer = ({setIsLoading, showMessage}) => {
     // 페이지 로드시 호출
     useEffect(() => {
         const accessToken = localStorage.getItem("ACCESS_TOKEN");
-        console.log(accessToken);
         if (accessToken === null) {
             window.location.href = "/login";
         }
