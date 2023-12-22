@@ -16,6 +16,7 @@ import CommentListContainer from './containers/comments/CommentListContainer';
 import CircularLoading from './fragments/CircularLoading';
 import TodoContainer from './containers/todo/TodoContainer';
 import Notification from './fragments/Notification';
+import HomeContainer from "./containers/home/HomeContainer";
 
 const App = () => {
   //Notification 관련
@@ -49,7 +50,8 @@ const App = () => {
         />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<TodoContainer setIsLoading={setIsLoading} showMessage={showMessage}/>} />
+            <Route path="" element={<HomeContainer setIsLoading={setIsLoading} showMessage={showMessage}/>} />
+            <Route path="todo" element={<TodoContainer setIsLoading={setIsLoading} showMessage={showMessage}/>} />
             <Route path="login" element={<Login />} />
             <Route path='signup' element={<SignUp />} />
             <Route path='sociallogin' element={<SocialLogin />} />

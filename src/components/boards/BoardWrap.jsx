@@ -1,5 +1,4 @@
 import React from 'react';
-import BoardMain from "./BoardMain";
 import SearchBox from "../search/SearchBox";
 import BoardList from "./BoardList";
 import PageNation from "../../fragments/PageNation";
@@ -13,10 +12,9 @@ const BoardWrap = ({
                    }) => {
     return (
         <div>
-            <BoardMain />
             <div className="content content--notice">
                 {/* 리스트 검색 */}
-                <SearchBox placeholder={"검색어를 입력해주세요."} data={boardList} />
+                {/*<SearchBox placeholder={"검색어를 입력해주세요."} data={boardList} />*/}
 
                 {/* 메인공지 */}
                 <BoardList boardList={noticeList}></BoardList>

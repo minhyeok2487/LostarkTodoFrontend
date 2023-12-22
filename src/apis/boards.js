@@ -11,6 +11,16 @@ export const list = async (page) => {
     }
 }
 
+export const listV3 = async (page, size) => {
+    try {
+        const response = await call(`/v3/boards?page=${parseInt(page)}&size=${parseInt(size)}`, "GET", null);
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 /*단건 조회*/
 export const select = async (no) => {
     try {

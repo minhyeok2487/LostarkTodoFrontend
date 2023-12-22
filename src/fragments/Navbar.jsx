@@ -122,8 +122,8 @@ export default function Navbar() {
             <MenuItem onClick={() => (window.location.href = "/")}>
               <img alt="logo" src='/logo.png' style={{ width: 120 }} />
             </MenuItem>
-            <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/boards")}>
-              <p>공지사항</p>
+            <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/todo")}>
+              <p>숙제</p>
             </MenuItem>
             <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/friends")}>
               <p>깐부</p>
