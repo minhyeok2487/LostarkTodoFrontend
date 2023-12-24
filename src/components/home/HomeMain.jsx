@@ -8,16 +8,19 @@ const HomeMain = ({
                       showMessage
                   }) => {
     return (
-        <div className="comments home">
-            <HomeNoticesContainer
-                setIsLoading={setIsLoading}
-                showMessage={showMessage}
-            />
-            <HomeBoardContainer
-                setIsLoading={setIsLoading}
-                showMessage={showMessage}
-            />
-        </div>
+        <>
+            <img src="./christms.jpeg" style={{display:"flex", maxWidth:"50%", height:"auto", margin:"0 auto"}}/>
+            <div className="comments home">
+                <HomeNoticesContainer
+                    setIsLoading={setIsLoading}
+                    showMessage={showMessage}
+                />
+                <HomeBoardContainer
+                    setIsLoading={setIsLoading}
+                    showMessage={showMessage}
+                />
+            </div>
+        </>
     );
 };
 
