@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBox from "../search/SearchBox";
 import BoardList from "./BoardList";
 import PageNation from "../../fragments/PageNation";
+import BoardText from "./BoardText";
 
 const BoardWrap = ({
                        boardList,
@@ -13,6 +14,7 @@ const BoardWrap = ({
     return (
         <div>
             <div className="content content--notice">
+                <BoardText/>
                 {/* 리스트 검색 */}
                 {/*<SearchBox placeholder={"검색어를 입력해주세요."} data={boardList} />*/}
 

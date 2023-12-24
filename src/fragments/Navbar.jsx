@@ -1,174 +1,120 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import MenuItem from '@mui/material/MenuItem';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import Menu from '@mui/material/Menu';
-import { logout } from '../service/api-service';
+import './Navbar.css'
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import {logout} from '../service/api-service';
+import {useRef, useState} from "react";
 
 export default function Navbar() {
 
-  const isLogin = () => {
-    if (localStorage.getItem("ACCESS_TOKEN") !== null && localStorage.getItem("ACCESS_TOKEN") !== "null") {
-      return true;
-    } else {
-      return false;
+    const [isOpen, setIsOpen] = useState(false);
+    const [usernameOpen, setUsernameOpen] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [loginName, setLoginName] = useState(null);
+
+    React.useEffect(() => {
+        const bgMode = window.localStorage.getItem("bgMode");
+        if (bgMode === "dark") {
+            document.getElementsByTagName("html")[0].classList.add("ui-dark");
+            document.getElementsByClassName("theme-input")[0].checked = true;
+            setIsDarkMode(true);
+        }
+
+        const username = window.localStorage.getItem("username");
+        if (username !== null) {
+            setLoginName(username);
+        } else {
+            setLoginName(null);
+        }
+
+    }, []);
+
+    const darkOnOff = () => {
+        if (
+            document.getElementsByTagName("html")[0].classList.contains("ui-dark")
+        ) {
+            document.getElementsByTagName("html")[0].classList.remove("ui-dark");
+            window.localStorage.setItem("bgMode", "light");
+            document.getElementsByClassName("theme-input")[0].checked = false;
+            setIsDarkMode(false);
+        } else {
+            document.getElementsByTagName("html")[0].classList.add("ui-dark");
+            window.localStorage.setItem("bgMode", "dark");
+            document.getElementsByClassName("theme-input")[0].checked = true;
+            setIsDarkMode(true);
+        }
+    };
+
+    const toggleClickEvent = () => {
+        const dropDownMenu = document.querySelector('.dropdown_menu');
+        dropDownMenu.classList.toggle('open')
+
+        const isOpenNow = dropDownMenu.classList.contains('open');
+        setIsOpen(isOpenNow);
     }
-  }
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    (isLogin) && (
-      <Menu
-        sx={{ mt: '35px' }}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        id={menuId}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={isMenuOpen}
-        onClose={handleMenuClose}
-      >
-        <MenuItem onClick={() => (window.location.href = "/member/apikey")}>apikey 변경</MenuItem>
-        <MenuItem onClick={logout}>Logout</MenuItem>
-      </Menu>
-    )
-  );
-
-
-
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    (isLogin) && (
-      <Menu
-        anchorEl={mobileMoreAnchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        id={mobileMenuId}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={isMobileMenuOpen}
-        onClose={handleMobileMenuClose}
-      >
-        <MenuItem onClick={() => (window.location.href = "/member/apikey")}>apikey 변경</MenuItem>
-        <MenuItem onClick={logout}>Logout</MenuItem>
-      </Menu>
-    )
-  );
-
-  React.useEffect(() => {
-    const bgMode = window.localStorage.getItem("bgMode");
-    if (bgMode === "dark") {
-      document.getElementsByTagName("html")[0].classList.add("ui-dark");
-      document.getElementsByClassName("theme-input")[0].checked = true;
+    const handlerDropdownUser = () => {
+        setUsernameOpen(!usernameOpen);
     }
-  }, []);
 
-  const darkOnOff = () => {
-    if (
-      document.getElementsByTagName("html")[0].classList.contains("ui-dark")
-    ) {
-      document.getElementsByTagName("html")[0].classList.remove("ui-dark");
-      window.localStorage.setItem("bgMode", "light");
-      document.getElementsByClassName("theme-input")[0].checked = false;
-    } else {
-      document.getElementsByTagName("html")[0].classList.add("ui-dark");
-      window.localStorage.setItem("bgMode", "dark");
-      document.getElementsByClassName("theme-input")[0].checked = true;
-    }
-  };
+    return (
+        <header>
+            <div className="navbar">
+                <div className="logo" onClick={() => (window.location.href = "/")}>
+                    {isDarkMode ? (
+                        <img alt="logo" src='/logo_white.png'/>
+                    ) : (
+                        <img alt="logo" src='/logo.png'/>
+                    )}
+                </div>
+                <ul className="links">
+                    <li><a href="/todo">숙제</a></li>
+                    <li><a href="/friends">깐부</a></li>
+                    <li><a href="/comments">방명록</a></li>
+                </ul>
+                <div className="buttons">
+                    <div>
+                        {loginName === null ? (
+                            <a href="/login" className="action_btn">Login</a>
+                        ) : (
+                            <div onClick={() => handlerDropdownUser()} className="login_name">{loginName}</div>
+                        )}
+                    </div>
+                    <input className="theme-input" type="checkbox" id="darkmode-toggle" onChange={darkOnOff}/>
+                    <label className="theme-label" htmlFor="darkmode-toggle"></label>
+                </div>
+                <div className="toggle_btn">
+                    <input className="theme-input" type="checkbox" id="darkmode-toggle" onChange={darkOnOff}/>
+                    <label className="theme-label" htmlFor="darkmode-toggle"></label>
+                    <div className="icon" onClick={() => toggleClickEvent()}>
+                        {isOpen ? <CloseIcon sx={{fontSize: 30}}/> : <MenuIcon sx={{fontSize: 30}}/>}
+                    </div>
+                </div>
+            </div>
 
-  return (
-    <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" color='inherit' style={{ backgroundColor: "var(--nav-color)" }}>
-          <Toolbar>
-            <MenuItem onClick={() => (window.location.href = "/")}>
-              <img alt="logo" src='/logo.png' style={{ width: 120 }} />
-            </MenuItem>
-            <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/todo")}>
-              <p>숙제</p>
-            </MenuItem>
-            <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/friends")}>
-              <p>깐부</p>
-            </MenuItem>
-            <MenuItem style={{ color: "var(--text-color)" }} onClick={() => (window.location.href = "/comments")}>
-              <p>방명록</p>
-            </MenuItem>
-            <Box sx={{ flexGrow: 1 }} />
-            <Box>
-              <input className="theme-input" type="checkbox" id="darkmode-toggle" onChange={darkOnOff} />
-              <label className="theme-label" htmlFor="darkmode-toggle"></label>
-            </Box>
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              {isLogin &&
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  style={{ color: "white" }}
-                >
-                  <AccountCircle />
-                </IconButton>
-              }
-            </Box>
-            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
-                style={{ color: "white" }}
-              >
-                <MoreIcon />
-              </IconButton>
-            </Box>
-          </Toolbar>
-        </AppBar>
-        {renderMobileMenu}
-        {renderMenu}
-      </Box>
+            {usernameOpen && <div className="user_info">
+                <li><a href="/member/apikey">API Key 변경</a></li>
+                <li>
+                    <div onClick={logout}>로그아웃</div>
+                </li>
+            </div>}
 
-    </>
-  );
+            <div className="dropdown_menu">
+                <li><a href="/todo">숙제</a></li>
+                <li><a href="/friends">깐부</a></li>
+                <li><a href="/comments">방명록</a></li>
+                <li>
+                    {loginName === null ? (
+                        <a href="/login" className="action_btn">Login</a>
+                    ) : (
+                        <div className="login_box">
+                            <div className="login_name">{loginName}</div>
+                            <a href="/member/apikey">API Key 변경</a>
+                            <div onClick={logout} className="logout_btn">로그아웃</div>
+                        </div>
+                    )}
+                </li>
+            </div>
+        </header>
+    );
 }

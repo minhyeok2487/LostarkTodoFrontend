@@ -30,8 +30,6 @@ const HomeBoardContainer = ({
 
     return (<HomeBoards
         boardList={boardList}
-        totalPages={totalPages}
-        currentPage={currentPage}
     />);
 };
 

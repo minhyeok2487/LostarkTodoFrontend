@@ -9,12 +9,13 @@ const SocialLogin = (props) => {
   };
 
   const token = getUrlParameter("token");
-
-  console.log("토큰 파싱: " + token);
+  const username = getUrlParameter("username");
+  // console.log("토큰 파싱: " + token);
 
   if (token) {
-    console.log("로컬스토리지에 토큰 저장" + token);
+    // console.log("로컬스토리지에 토큰 저장" + token);
     localStorage.setItem("ACCESS_TOKEN", token);
+    localStorage.setItem("username", username);
     return (
       <Navigate
         to={{

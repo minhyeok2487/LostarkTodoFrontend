@@ -1,30 +1,34 @@
 import React from 'react';
-import {Link} from "react-router-dom";
 
 const HomeBoards = ({
-                        boardList,
-                        totalPages,
-                        currentPage
+                        boardList
                     }) => {
+    const isRecent = (regDate) => {
+        const currentDate = new Date();
+        const boardDate = new Date(regDate);
+        const timeDifference = currentDate - boardDate;
+        const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+        return daysDifference < 3;
+    };
+
     return (
-        <div className="" >
-            <div className="">
-                <a href="/boards">사이트 공지사항</a>
+        <div className="notice-board-container">
+            <div className="notice-board-header">
+                <a href="/boards" className="notice-board-link">LoaTodo 공지사항</a>
             </div>
-            <div className="">
-                <ul>
+            <div className="notice-board-list">
+                <ul className="board-ul">
                     {boardList.map((board) => (
-                        <li key={board.id} className="">
-                            <Link to={`/boards/${board.id}`}>
-                                <div className="" aria-label="카테고리">
-                                    <span className="">공지</span>
+                        <li key={board.id} className="board-item">
+                            <div className="board-link">
+                                <div className="board-category" aria-label="카테고리">
+                                    <span className="category-span">공지사항</span>
                                 </div>
-                                <div className="" aria-label="제목">
-                                    <span className="">{board.title}</span>
+                                <div className="board-title" aria-label="제목">
+                                    <a href={`/boards/${board.id}`} className="title-span">{board.title}</a>
                                 </div>
-                                <div className="" aria-label="조회수">{board.views}</div>
-                                <div className="" aria-label="등록일">{new Date(board.regDate).toLocaleString()}</div>
-                            </Link>
+                                {isRecent(board.regDate) && <div className="board-new">N</div>}
+                            </div>
                         </li>
                     ))}
                 </ul>
