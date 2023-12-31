@@ -9,7 +9,7 @@ const HomeMain = ({
                   }) => {
     return (
         <>
-            <img src="./christms.jpeg" style={{display:"flex", maxWidth:"50%", height:"auto", margin:"0 auto"}}/>
+            <img src="./123.jpg" style={{display:"flex", maxWidth:"70%", height:"auto", margin:"0 auto"}}/>
             <div className="comments home">
                 <HomeNoticesContainer
                     setIsLoading={setIsLoading}
