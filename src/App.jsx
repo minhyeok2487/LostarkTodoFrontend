@@ -42,7 +42,7 @@ const App = () => {
     <>
       <div>
         {isLoading && <CircularLoading />}
-        <Navbar />
+        <Navbar setIsLoading={setIsLoading} />
         < Notification
           message={snackbarMessage}
           open={openSnackbar}

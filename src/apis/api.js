@@ -1,5 +1,5 @@
 const API_BASE_URL = "https://api.loatodo.com";
-// const API_BASE_URL = "http://localhost:8080";
+// const API_BASE_URL = "http://localhost:5000";
 
 export function call(api, method, request) {
     let headers = new Headers({

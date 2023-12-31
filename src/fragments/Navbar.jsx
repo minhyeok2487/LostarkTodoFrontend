@@ -2,10 +2,10 @@ import * as React from 'react';
 import './Navbar.css'
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import {logout} from '../service/api-service';
-import {useRef, useState} from "react";
+import * as auth from '../apis/auth';
+import {useState} from "react";
 
-export default function Navbar() {
+export default function Navbar({setIsLoading}) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [usernameOpen, setUsernameOpen] = useState(false);
@@ -57,6 +57,17 @@ export default function Navbar() {
         setUsernameOpen(!usernameOpen);
     }
 
+    const logout = async () => {
+        try {
+            setIsLoading(true);
+            await auth.logout();
+        } catch (error) {
+            console.error('Error Logout', error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     return (
         <header>
             <div className="navbar">
@@ -95,7 +106,7 @@ export default function Navbar() {
             {usernameOpen && <div className="user_info">
                 <li><a href="/member/apikey">API Key 변경</a></li>
                 <li>
-                    <div onClick={logout}>로그아웃</div>
+                    <div onClick={()=>logout()}>로그아웃</div>
                 </li>
             </div>}
 
@@ -110,7 +121,7 @@ export default function Navbar() {
                         <div className="login_box">
                             <div className="login_name">{loginName}</div>
                             <a href="/member/apikey">API Key 변경</a>
-                            <div onClick={logout} className="logout_btn">로그아웃</div>
+                            <div onClick={()=>logout()} className="logout_btn">로그아웃</div>
                         </div>
                     )}
                 </li>
