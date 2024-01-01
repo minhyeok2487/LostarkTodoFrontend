@@ -102,13 +102,15 @@ export default function Navbar({setIsLoading}) {
                     </div>
                 </div>
             </div>
-
-            {usernameOpen && <div className="user_info">
-                <li><a href="/member/apikey">API Key 변경</a></li>
-                <li>
-                    <div onClick={()=>logout()}>로그아웃</div>
-                </li>
-            </div>}
+            
+            <div className="user_info_wrap">
+                {usernameOpen && <div className="user_info">
+                    <li><a href="/member/apikey">API Key 변경</a></li>
+                    <li>
+                        <div onClick={()=>logout()}>로그아웃</div>
+                    </li>
+                </div>}
+            </div>
 
             <div className="dropdown_menu">
                 <li><a href="/todo">숙제</a></li>

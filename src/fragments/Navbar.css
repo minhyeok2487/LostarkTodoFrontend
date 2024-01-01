@@ -113,7 +113,7 @@ header {
     border-radius: 10px;
     overflow: hidden;
     transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 9999999999;
+    z-index: 9999999999999;
 }
 
 .dropdown_menu.open {
@@ -175,17 +175,23 @@ header {
     background-color: rgba(0,0,0,0%);
 }
 
+.user_info_wrap {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    justify-content: right;
+    margin: 0 auto;
+}
 
 .user_info {
     position: absolute;
-    right: 4rem;
-    top: 60px;
     width: 300px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
     border-radius: 10px;
     overflow: hidden;
     transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 9999999999999999;
 }
 
 .user_info li {
