@@ -3,9 +3,10 @@ import './Navbar.css'
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import * as auth from '../apis/auth';
-import {useState} from "react";
+import { useState } from "react";
+import NotificationComponent from '../components/notification/NotificationComponent';
 
-export default function Navbar({setIsLoading}) {
+export default function Navbar({ setIsLoading }) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [usernameOpen, setUsernameOpen] = useState(false);
@@ -73,9 +74,9 @@ export default function Navbar({setIsLoading}) {
             <div className="navbar">
                 <div className="logo" onClick={() => (window.location.href = "/")}>
                     {isDarkMode ? (
-                        <img alt="logo" src='/logo_white.png'/>
+                        <img alt="logo" src='/logo_white.png' />
                     ) : (
-                        <img alt="logo" src='/logo.png'/>
+                        <img alt="logo" src='/logo.png' />
                     )}
                 </div>
                 <ul className="links">
@@ -83,31 +84,33 @@ export default function Navbar({setIsLoading}) {
                     <li><a href="/friends">깐부</a></li>
                     <li><a href="/comments">방명록</a></li>
                 </ul>
+
                 <div className="buttons">
-                    <div>
+                    <NotificationComponent />
+                    <div style={{marginLeft:10}}>
                         {loginName === null ? (
                             <a href="/login" className="action_btn">Login</a>
                         ) : (
                             <div onClick={() => handlerDropdownUser()} className="login_name">{loginName}</div>
                         )}
                     </div>
-                    <input className="theme-input" type="checkbox" id="darkmode-toggle" onChange={darkOnOff}/>
+                    <input className="theme-input" type="checkbox" id="darkmode-toggle" onChange={darkOnOff} />
                     <label className="theme-label" htmlFor="darkmode-toggle"></label>
                 </div>
                 <div className="toggle_btn">
-                    <input className="theme-input" type="checkbox" id="darkmode-toggle" onChange={darkOnOff}/>
+                    <input className="theme-input" type="checkbox" id="darkmode-toggle" onChange={darkOnOff} />
                     <label className="theme-label" htmlFor="darkmode-toggle"></label>
                     <div className="icon" onClick={() => toggleClickEvent()}>
-                        {isOpen ? <CloseIcon sx={{fontSize: 30}}/> : <MenuIcon sx={{fontSize: 30}}/>}
+                        {isOpen ? <CloseIcon sx={{ fontSize: 30 }} /> : <MenuIcon sx={{ fontSize: 30 }} />}
                     </div>
                 </div>
             </div>
-            
+
             <div className="user_info_wrap">
                 {usernameOpen && <div className="user_info">
                     <li><a href="/member/apikey">API Key 변경</a></li>
                     <li>
-                        <div onClick={()=>logout()}>로그아웃</div>
+                        <div onClick={() => logout()}>로그아웃</div>
                     </li>
                 </div>}
             </div>
@@ -123,7 +126,7 @@ export default function Navbar({setIsLoading}) {
                         <div className="login_box">
                             <div className="login_name">{loginName}</div>
                             <a href="/member/apikey">API Key 변경</a>
-                            <div onClick={()=>logout()} className="logout_btn">로그아웃</div>
+                            <div onClick={() => logout()} className="logout_btn">로그아웃</div>
                         </div>
                     )}
                 </li>
