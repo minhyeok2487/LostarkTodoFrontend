@@ -47,13 +47,20 @@ header {
     gap: 2rem;
 }
 
-.navbar .toggle_btn {
+.navbar .menus {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar .menus .toggle_btn {
     font-size: 1.5rem;
     cursor: pointer;
     display: none;
 }
 
-.navbar .buttons {
+.navbar .menus .buttons {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -227,14 +234,50 @@ header {
     justify-content: center;
 }
 
+.notification-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.notification-list {
+    min-width: 300px;
+    position: absolute;
+    top: 100%;
+    right: -100px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: rgba(200, 200, 200, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 9999999999999999;
+}
+
+
+.notifications li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.notifications li:hover {
+    color: orange;
+    background-color: rgba(0,0,0,0%);
+}
+
+.notifications li:last-child {
+    border-bottom: none;
+}
 
 @media (max-width: 900px) {
     .navbar .links,
-    .navbar .buttons {
+    .navbar .menus .buttons {
         display: none;
     }
 
-    .navbar .toggle_btn {
+    .navbar .menus .toggle_btn {
         display: flex;
     }
 

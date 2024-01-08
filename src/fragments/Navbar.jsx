@@ -6,7 +6,7 @@ import * as auth from '../apis/auth';
 import { useState } from "react";
 import NotificationComponent from '../components/notification/NotificationComponent';
 
-export default function Navbar({ setIsLoading }) {
+export default function Navbar({ setIsLoading, showMessage }) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [usernameOpen, setUsernameOpen] = useState(false);
@@ -85,25 +85,27 @@ export default function Navbar({ setIsLoading }) {
                     <li><a href="/comments">방명록</a></li>
                 </ul>
 
-                <div className="buttons">
-                    <NotificationComponent />
-                    <div style={{marginLeft:10}}>
-                        {loginName === null ? (
-                            <a href="/login" className="action_btn">Login</a>
-                        ) : (
-                            <div onClick={() => handlerDropdownUser()} className="login_name">{loginName}</div>
-                        )}
-                    </div>
+                <div className="menus">
+                    {loginName !== null && <NotificationComponent showMessage={showMessage} />}
                     <input className="theme-input" type="checkbox" id="darkmode-toggle" onChange={darkOnOff} />
                     <label className="theme-label" htmlFor="darkmode-toggle"></label>
-                </div>
-                <div className="toggle_btn">
-                    <input className="theme-input" type="checkbox" id="darkmode-toggle" onChange={darkOnOff} />
-                    <label className="theme-label" htmlFor="darkmode-toggle"></label>
-                    <div className="icon" onClick={() => toggleClickEvent()}>
-                        {isOpen ? <CloseIcon sx={{ fontSize: 30 }} /> : <MenuIcon sx={{ fontSize: 30 }} />}
+                    <div className="buttons">
+                        <div style={{ marginLeft: 10 }}>
+                            {loginName === null ? (
+                                <a href="/login" className="action_btn">Login</a>
+                            ) : (
+                                <div onClick={() => handlerDropdownUser()} className="login_name">{loginName}</div>
+                            )}
+                        </div>
                     </div>
+                    <div className="toggle_btn">
+                        <div className="icon" onClick={() => toggleClickEvent()}>
+                            {isOpen ? <CloseIcon sx={{ fontSize: 30 }} /> : <MenuIcon sx={{ fontSize: 30 }} />}
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
 
             <div className="user_info_wrap">

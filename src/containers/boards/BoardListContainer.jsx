@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import * as boards from '../../apis/boards';
 import BoardWrap from "../../components/boards/BoardWrap";
+import {listDefault} from "../../apis/boards";
 
 // 게시글 목록
 const BoardListContainer = () => {
@@ -13,7 +14,7 @@ const BoardListContainer = () => {
     // 게시글 목록 데이터
     const getBoardList = async (page) => {
         try {
-            const data = await boards.list(page);
+            const data = await boards.listDefault(page);
             setBoardList(data.boardResponseDtoList);
             setTotalPages(data.totalPages);
             setNoticeList(data.noticeList);
@@ -29,8 +30,8 @@ const BoardListContainer = () => {
     const handlePageClick = async (page) => {
         if (page <= totalPages) {
             try {
-                const data = await boards.list(page);
-                setBoardList(data.boardDtoList);
+                const data = await boards.listDefault(page);
+                setBoardList(data.boardResponseDtoList);
                 setCurrentPage(page);
             } catch (error) {
                 console.log(error);

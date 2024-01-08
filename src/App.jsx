@@ -42,16 +42,16 @@ const App = () => {
     <>
       <div>
         {isLoading && <CircularLoading />}
-        <Navbar setIsLoading={setIsLoading} />
-        < Notification
+        <Navbar setIsLoading={setIsLoading} showMessage={showMessage} />
+        <Notification
           message={snackbarMessage}
           open={openSnackbar}
           handleClose={handleSnackbarClose}
         />
         <BrowserRouter>
           <Routes>
-            <Route path="" element={<HomeContainer setIsLoading={setIsLoading} showMessage={showMessage}/>} />
-            <Route path="todo" element={<TodoContainer setIsLoading={setIsLoading} showMessage={showMessage}/>} />
+            <Route path="" element={<HomeContainer setIsLoading={setIsLoading} showMessage={showMessage} />} />
+            <Route path="todo" element={<TodoContainer setIsLoading={setIsLoading} showMessage={showMessage} />} />
             <Route path="login" element={<Login />} />
             <Route path='signup' element={<SignUp />} />
             <Route path='sociallogin' element={<SocialLogin />} />
@@ -68,7 +68,7 @@ const App = () => {
           </Routes>
         </BrowserRouter>
         {/* 구글 애드센스 */}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9665234618246720"
+        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9665234618246720"
                 crossOrigin="anonymous"></script>
         <ins className="adsbygoogle"
              style={{display:"block"}}
@@ -78,7 +78,7 @@ const App = () => {
              data-full-width-responsive="true"></ins>
         <script>
           (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        </script> */}
         <footer>
           <p>© 2023 LoaTodo. LoaTodo isn’t endorsed by Smilegate RPG and doesn’t reflect the views <br />
             or opinions of Smilegate RPG or anyone officially involved in producing or managing Lostark.

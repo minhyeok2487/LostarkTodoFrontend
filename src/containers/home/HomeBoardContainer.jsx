@@ -14,7 +14,7 @@ const HomeBoardContainer = ({
     const getBoardList = async (page, size) => {
         setIsLoading(true);
         try {
-            const data = await boards.listV3(page, size);
+            const data = await boards.list(page, size);
             setBoardList(data.boardResponseDtoList);
             setTotalPages(data.totalPages);
         } catch (error) {

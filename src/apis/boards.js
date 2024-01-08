@@ -1,9 +1,9 @@
 import { call } from "./api";
 
-/*전체 조회*/
-export const list = async (page) => {
+// 메인 공지 + 게시판 전체글 10개씩 가져오기
+export const listDefault = async (page) => {
     try {
-        const response = await call(`/v2/boards?page=${page}`, "GET", null);
+        const response = await call(`/v3/boards/default?page=${parseInt(page)}`, "GET", null);
         return response;
     } catch (error) {
         console.log(error);
@@ -11,7 +11,8 @@ export const list = async (page) => {
     }
 }
 
-export const listV3 = async (page, size) => {
+/*전체 조회*/
+export const list = async (page, size) => {
     try {
         const response = await call(`/v3/boards?page=${parseInt(page)}&size=${parseInt(size)}`, "GET", null);
         return response;
@@ -24,7 +25,7 @@ export const listV3 = async (page, size) => {
 /*단건 조회*/
 export const select = async (no) => {
     try {
-        const response = await call(`/v2/boards/${no}`, "GET", null);
+        const response = await call(`/v3/boards/${no}`, "GET", null);
         return response;
     } catch (error) {
         console.log(error);
@@ -39,7 +40,7 @@ export const insert = async (title, content) => {
         content : content
     }
     try {
-        const response = await call("/v2/boards", "POST", updateContent);
+        const response = await call("/v3/boards", "POST", updateContent);
         return response;
     } catch (error) {
         console.log(error);

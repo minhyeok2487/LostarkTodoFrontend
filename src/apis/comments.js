@@ -3,7 +3,7 @@ import { call } from "./api";
 // 전체 조회
 export const list = async (page) => {
     try {
-        const response = await call(`/comments?page=${page}`, "GET", null);
+        const response = await call(`/v3/comments?page=${page}`, "GET", null);
         return response;
     } catch (error) {
         console.log(error);
@@ -18,7 +18,7 @@ export const addComment = async (text, parentId = null) => {
         parentId: parentId
     };
     try {
-        const response = await call("/comments", "POST", updateContent);
+        const response = await call("/v3/comments", "POST", updateContent);
         return response;
     } catch (error) {
         console.log(error);
@@ -33,7 +33,7 @@ export const updateComment = async (text, commentId, page) => {
         id: commentId
     };
     try {
-        const response = await call(`/comments?page=${page}`, "PATCH", updateContent);
+        const response = await call(`/v3/comments?page=${page}`, "PATCH", updateContent);
         return response;
     } catch (error) {
         console.log(error);
@@ -48,7 +48,7 @@ export const deleteComment = async (commentId) => {
     };
     if (window.confirm("삭제하시겠습니까?")) {
         try {
-            const response = await call("/comments", "DELETE", updateContent);
+            const response = await call("/v3/comments", "DELETE", updateContent);
             return response;
         } catch (error) {
             console.log(error);

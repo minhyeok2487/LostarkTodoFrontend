@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.4fc24c74.css",
-    "main.js": "/static/js/main.f98bedf3.js",
+    "main.css": "/static/css/main.ed0ff08c.css",
+    "main.js": "/static/js/main.e88b4f36.js",
     "static/js/787.e960ea05.chunk.js": "/static/js/787.e960ea05.chunk.js",
     "static/media/Pretendard-Bold.woff": "/static/media/Pretendard-Bold.fa2df9785f5e0c36d909.woff",
     "static/media/Pretendard-Light.woff": "/static/media/Pretendard-Light.bc1121875ed27dc273fb.woff",
     "static/media/Pretendard-Regular.woff": "/static/media/Pretendard-Regular.a97abcb6f03db9c6720f.woff",
     "index.html": "/index.html",
-    "main.4fc24c74.css.map": "/static/css/main.4fc24c74.css.map",
-    "main.f98bedf3.js.map": "/static/js/main.f98bedf3.js.map",
+    "main.ed0ff08c.css.map": "/static/css/main.ed0ff08c.css.map",
+    "main.e88b4f36.js.map": "/static/js/main.e88b4f36.js.map",
     "787.e960ea05.chunk.js.map": "/static/js/787.e960ea05.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4fc24c74.css",
-    "static/js/main.f98bedf3.js"
+    "static/css/main.ed0ff08c.css",
+    "static/js/main.e88b4f36.js"
   ]
 }
