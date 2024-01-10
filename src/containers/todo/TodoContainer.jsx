@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import * as todo from '../../apis/todo';
 import TodoWrap from "../../components/todo/TodoWrap";
+import SignUpCharacters from "../../components/auth/SignUpCharacters";
 
 // 숙제 관리 사이트 메인
 const TodoContainer = ({setIsLoading, showMessage}) => {
 
     // state 설정
+    const [isCharacterList, setIsCharacterList] = useState(true);
     const [allCharacters, setAllCharacters] = useState([]); //전체 캐릭터 리스트
     const [characters, setCharacters] = useState([]); //출력할 캐릭터 리스트
     const [servers, setServers] = useState([]); //서버 리스트
@@ -26,34 +28,39 @@ const TodoContainer = ({setIsLoading, showMessage}) => {
 
     // 캐릭터 데이터
     const getCharacters = async () => {
-        setIsLoading(true);
-        const data = await todo.list();
-        setAllCharacters(data);
+        try {
+            setIsLoading(true);
+            const data = await todo.list();
+            setAllCharacters(data);
 
-        // setServers { serverKey: count }
-        const serverInfoObject = Object.keys(data).reduce((acc, serverKey) => {
-            acc[serverKey] = data[serverKey].length;
-            return acc;
-        }, {});
-        setServers(serverInfoObject);
+            // setServers { serverKey: count }
+            const serverInfoObject = Object.keys(data).reduce((acc, serverKey) => {
+                acc[serverKey] = data[serverKey].length;
+                return acc;
+            }, {});
+            setServers(serverInfoObject);
 
-        // setCharacters default maxCount
-        const maxKey = Object.keys(serverInfoObject).reduce((prevKey, currentKey) => {
-            return serverInfoObject[currentKey] > serverInfoObject[prevKey] ? currentKey : prevKey;
-        }, Object.keys(serverInfoObject)[0]);
+            // setCharacters default maxCount
+            const maxKey = Object.keys(serverInfoObject).reduce((prevKey, currentKey) => {
+                return serverInfoObject[currentKey] > serverInfoObject[prevKey] ? currentKey : prevKey;
+            }, Object.keys(serverInfoObject)[0]);
 
-        setSelectedServer(maxKey);
-        setCharacters(data[maxKey]);
-        setIsLoading(false);
+            setSelectedServer(maxKey);
+            setCharacters(data[maxKey]);
+        } catch (error) {
+            if (error.errorMessage === "등록된 캐릭터가 없습니다.") {
+                showMessage(error.errorMessage);
+                setIsCharacterList(false);
+            }
+        } finally {
+            setIsLoading(false);
+        }
+
     };
 
 
     // 페이지 로드시 호출
     useEffect(() => {
-        const accessToken = localStorage.getItem("ACCESS_TOKEN");
-        if (accessToken === null) {
-            window.location.href = "/login";
-        }
         // 캐릭터 데이터 호출
         getCharacters();
 
@@ -66,7 +73,7 @@ const TodoContainer = ({setIsLoading, showMessage}) => {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
+    }, [isCharacterList]);
 
     // 반응형 사이트 함수
     const [itemsPerRow, setItemsPerRow] = useState(calculateItemsPerRow());
@@ -86,28 +93,36 @@ const TodoContainer = ({setIsLoading, showMessage}) => {
     }
 
     return (
-        <TodoWrap
-            setIsLoading={setIsLoading}
-            setCharacters={setCharacters}
-            showMessage={showMessage}
-            setShowCharacterSortForm={setShowCharacterSortForm}
-            allCharacters={allCharacters}
-            characters={characters}
-            servers={servers}
-            setServers={setServers}
-            selectedServer={selectedServer}
-            setSelectedServer={setSelectedServer}
-            showCharacterSortForm={showCharacterSortForm}
-            itemsPerRow={itemsPerRow}
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-            modalContent={modalContent}
-            setModalContent={setModalContent}
-            modalTitle={modalTitle}
-            setModalTitle={setModalTitle}
-            closeContentModal={closeContentModal}
-        />
+        <>
+            {isCharacterList ? (
+                <TodoWrap
+                    setIsLoading={setIsLoading}
+                    setCharacters={setCharacters}
+                    showMessage={showMessage}
+                    setShowCharacterSortForm={setShowCharacterSortForm}
+                    allCharacters={allCharacters}
+                    characters={characters}
+                    servers={servers}
+                    setServers={setServers}
+                    selectedServer={selectedServer}
+                    setSelectedServer={setSelectedServer}
+                    showCharacterSortForm={showCharacterSortForm}
+                    itemsPerRow={itemsPerRow}
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                    modalContent={modalContent}
+                    setModalContent={setModalContent}
+                    modalTitle={modalTitle}
+                    setModalTitle={setModalTitle}
+                    closeContentModal={closeContentModal}
+                />
+            ) :
+                <SignUpCharacters/>
+            }
+        </>
     );
+
+
 };
 
 export default TodoContainer;

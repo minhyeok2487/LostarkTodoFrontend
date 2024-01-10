@@ -6,12 +6,7 @@ export const list = async () => {
         const response = await call("/v2/member/characterList", "GET", null);
         return response;
     } catch (error) {
-        if (error.errorMessage === "등록된 캐릭터가 없습니다.") {
-            window.location.href = "/signup";
-        } else {
-            localStorage.setItem("ACCESS_TOKEN", null);
-            window.location.href = "/login";
-        }
+        console.log(error);
         throw error;
     }
 }
@@ -80,7 +75,7 @@ export const updateChallenge = async (character, content) => {
     }
 }
 
-// 캐릭터 주간숙제 추가 폼 데이터 호출
+// 캐릭터 주간 레이드 추가 폼 데이터 호출
 export const getTodoFormData = async (characterId, characterName) => {
     try {
         return await call("/v2/character/week/form/" + characterId + "/" + characterName, "GET", null);
@@ -89,7 +84,7 @@ export const getTodoFormData = async (characterId, characterName) => {
     }
 }
 
-// 캐릭터 주간 숙제 업데이트(추가/삭제)
+// 캐릭터 주간 레이드 업데이트(추가/삭제)
 export const updateWeekTodo = async (characterId, characterName, content) => {
     try {
         return await call("/v2/character/week/raid/" + characterId + "/" + characterName, "POST", content);
@@ -99,7 +94,7 @@ export const updateWeekTodo = async (characterId, characterName, content) => {
     }
 }
 
-// 캐릭터 주간 숙제 업데이트 All(추가/삭제)
+// 캐릭터 주간 레이드 업데이트 All(추가/삭제)
 export const updateWeekTodoAll = async (characterId, characterName, content) => {
     try {
         return await call("/v2/character/week/raid/" + characterId + "/" + characterName + "/all", "POST", content);
@@ -108,7 +103,7 @@ export const updateWeekTodoAll = async (characterId, characterName, content) => 
     }
 }
 
-// 캐릭터 주간숙제 체크
+// 캐릭터 주간 레이드 체크
 export const updateWeekCheck = async (characterId, characterName, weekCategory, currentGate, totalGate) => {
     const updateContent = {
         characterId: characterId,
@@ -124,6 +119,7 @@ export const updateWeekCheck = async (characterId, characterName, weekCategory, 
     }
 }
 
+// 캐릭터 주간 레이드 체크 All
 export const updateWeekCheckAll = async (characterId, characterName, weekCategory) => {
     const updateContent = {
         characterId: characterId,
@@ -151,6 +147,7 @@ export const updateGoldCharacter = async (characterId, characterName) => {
     }
 }
 
+// 캐릭터 주간 레이드 메시지 수정
 export const updateWeekMessage = async (characterId, todoId, message) => {
     const updateContent = {
         characterId: characterId,

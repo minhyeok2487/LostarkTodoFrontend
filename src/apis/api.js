@@ -1,5 +1,4 @@
-const API_BASE_URL = "https://api.loatodo.com";
-// const API_BASE_URL = "http://localhost:5000";
+import {API_BASE_URL} from "../config/api-config";
 
 export function call(api, method, request) {
     let headers = new Headers({
@@ -23,7 +22,7 @@ export function call(api, method, request) {
     }
 
     return fetch(options.url, options).then((response) => {
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 201) {
             return response.json();
         } else if (response.status === 403) {
             window.location.href = "/login";
@@ -36,19 +35,4 @@ export function call(api, method, request) {
             throw errorMessage;
         });
     });
-}
-
-export function logout() {
-    call("/auth/logout", "GET", null).then((response) => { });
-    localStorage.setItem("ACCESS_TOKEN", null);
-    window.location.href = "/login";
-}
-
-export function signup(userDTO) {
-    return call("/member/signup", "POST", userDTO);
-}
-
-export function socialLogin(provider) {
-    const frontendUrl = window.location.protocol + "//" + window.location.host;
-    window.location.href = API_BASE_URL + "/auth/authorize/" + provider + "?redirect_url=" + frontendUrl;
 }

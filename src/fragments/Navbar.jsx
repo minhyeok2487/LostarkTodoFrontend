@@ -6,11 +6,9 @@ import * as auth from '../apis/auth';
 import { useState } from "react";
 import NotificationComponent from '../components/notification/NotificationComponent';
 
-export default function Navbar({ setIsLoading, showMessage }) {
-
+export default function Navbar({isDarkMode, setIsDarkMode, setIsLoading, showMessage}) {
     const [isOpen, setIsOpen] = useState(false);
     const [usernameOpen, setUsernameOpen] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(false);
     const [loginName, setLoginName] = useState(null);
 
     React.useEffect(() => {
@@ -28,7 +26,7 @@ export default function Navbar({ setIsLoading, showMessage }) {
             setLoginName(null);
         }
 
-    }, []);
+    }, [setIsDarkMode]);
 
     const darkOnOff = () => {
         if (
@@ -61,7 +59,12 @@ export default function Navbar({ setIsLoading, showMessage }) {
     const logout = async () => {
         try {
             setIsLoading(true);
-            await auth.logout();
+            const response = await auth.logout();
+            if (response.success) {
+                localStorage.removeItem("ACCESS_TOKEN");
+                localStorage.removeItem("username");
+                window.location.href = "/";
+            }
         } catch (error) {
             console.error('Error Logout', error);
         } finally {

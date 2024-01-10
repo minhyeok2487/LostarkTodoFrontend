@@ -3,26 +3,26 @@ import BasicSpeedDial from "../../fragments/BasicSpeedDial";
 import TodoMain from "./TodoMain";
 
 const TodoWrap = ({
-                      setIsLoading,
-                      setCharacters,
-                      showMessage,
-                      setShowCharacterSortForm,
-                      allCharacters,
-                      characters,
-                      servers,
-                      setServers,
-                      selectedServer,
-                      setSelectedServer,
-                      showCharacterSortForm,
-                      itemsPerRow,
-                      openModal,
-                      setOpenModal,
-                      modalContent,
-                      setModalContent,
-                      modalTitle,
-                      setModalTitle,
-                      closeContentModal
-                  }) => {
+      setIsLoading,
+      setCharacters,
+      showMessage,
+      setShowCharacterSortForm,
+      allCharacters,
+      characters,
+      servers,
+      setServers,
+      selectedServer,
+      setSelectedServer,
+      showCharacterSortForm,
+      itemsPerRow,
+      openModal,
+      setOpenModal,
+      modalContent,
+      setModalContent,
+      modalTitle,
+      setModalTitle,
+      closeContentModal
+  }) => {
     return (
         <div>
             {/*오른쪽 Dial 버튼*/}
