@@ -6,15 +6,15 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 
 export default function FriendBasicSpeedDial(props) {
     const icons = [
-        { name: '캐릭터 순서 변경' },
+        // { name: '캐릭터 순서 변경' },
         { name: '캐릭터 정보 업데이트' },
     ];
 
 
     const actions = async (name) => {
-        if (name === "캐릭터 순서 변경") {
-            props.setShowCharacterSortForm(true);
-        }
+        // if (name === "캐릭터 순서 변경") {
+        //     props.setShowCharacterSortForm(true);
+        // }
         if (name === "캐릭터 정보 업데이트") {
             if(props.friendSetting.setting) {
                 props.setShowLinearProgress(true);
