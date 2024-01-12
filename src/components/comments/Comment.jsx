@@ -22,9 +22,9 @@ const Comment = ({
       activeComment.id === comment.id &&
       activeComment.type === "replying";
     const canDelete =
-      (currentUser.id === comment.memberId && replies.length === 0);
-    const canReply = (currentUser.role === "ADMIN" || "PUBLISHER") || (currentUser.id === comment.memberId);
-    const canEdit = currentUser.id === comment.memberId;
+      (currentUser && currentUser.id === comment.memberId && replies.length === 0);
+    const canReply = currentUser && ((currentUser.role === "ADMIN" || "PUBLISHER") || (currentUser.id === comment.memberId));
+    const canEdit = currentUser && (currentUser.id === comment.memberId);
     const replyId = parentId ? parentId : comment.id;
     const regDate = new Date(comment.regDate).toLocaleString();
     var username = "";
@@ -39,7 +39,7 @@ const Comment = ({
     return (
       <div key={comment.id} className="comment">
         <div className="comment-image-container">
-          <img src="/user-icon.png" />
+          <img alt="user-icon" src="/user-icon.png" />
         </div>
         <div className="comment-right-part">
           <div className="comment-content">

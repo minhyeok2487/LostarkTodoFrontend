@@ -3,7 +3,7 @@ import './App.css';
 import Navbar from './fragments/Navbar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './components/auth/Login';
-import SocialLogin from './components/SocialLogin';
+import SocialLogin from './components/auth/SocialLogin';
 import Setting from './components/Setting';
 import ApiKeyUpdateForm from './components/member/ApiKeyUpdateForm';
 import FriendWrap from './components/friends/FriendsWrap';
@@ -15,9 +15,10 @@ import CommentListContainer from './containers/comments/CommentListContainer';
 import CircularLoading from './fragments/CircularLoading';
 import TodoContainer from './containers/todo/TodoContainer';
 import Notification from './fragments/Notification';
-import HomeContainer from "./containers/home/HomeContainer";
 import SignUp from "./components/auth/SignUp";
 import SignUpCharacters from "./components/auth/SignUpCharacters";
+import Footer from "./utils/Footer";
+import HomeMain from "./components/home/HomeMain";
 
 const App = () => {
   //Notification 관련
@@ -62,7 +63,7 @@ const App = () => {
         />
         <BrowserRouter>
           <Routes>
-            <Route path="" element={<HomeContainer setIsLoading={setIsLoading} showMessage={showMessage} />} />
+            <Route path="" element={<HomeMain setIsLoading={setIsLoading} showMessage={showMessage} />} />
             <Route path="login" element={<Login isDarkMode={isDarkMode} showMessage={showMessage} setLoginName={setLoginName} loginName={loginName} />} />
             <Route path='signup' element={<SignUp setIsLoading={setIsLoading}/>} />
             <Route path='signup/character' element={<SignUpCharacters />} />
@@ -73,11 +74,16 @@ const App = () => {
                                                     isDarkMode={isDarkMode} showMessage={showMessage}
                                                    setLoginName={setLoginName} loginName={loginName} />} />
             }
+            {loginName ?
+                <Route path='friends' element={<FriendWrap setIsLoading={setIsLoading}/>} />:
+                <Route path="friends" element={<Login message="로그인 후 LoaTodo 깐부 기능을 이용해보세요!!"
+                                                   isDarkMode={isDarkMode} showMessage={showMessage}
+                                                   setLoginName={setLoginName} loginName={loginName} />} />
+            }
 
             <Route path='comments' element={<CommentListContainer setIsLoading={setIsLoading} />} />
             <Route path='setting' element={<Setting />} />
             <Route path='member/apikey' element={<ApiKeyUpdateForm />} />
-            <Route path='friends' element={<FriendWrap setIsLoading={setIsLoading}/>} />
 
             {/* 게시글(공지사항) 관련 */}
             <Route path='/boards' element={<BoardListContainer />} />
@@ -98,11 +104,7 @@ const App = () => {
         <script>
           (adsbygoogle = window.adsbygoogle || []).push({});
         </script> */}
-        <footer>
-          <p>© 2023 LoaTodo. LoaTodo isn’t endorsed by Smilegate RPG and doesn’t reflect the views <br />
-            or opinions of Smilegate RPG or anyone officially involved in producing or managing Lostark.
-          </p>
-        </footer>
+        <Footer />
       </div>
     </>
   );

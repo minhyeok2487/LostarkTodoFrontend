@@ -55,10 +55,11 @@ const TodoContainer = ({setIsLoading, showMessage}) => {
         } finally {
             setIsLoading(false);
         }
-
     };
 
 
+    // 반응형 사이트 함수
+    const [itemsPerRow, setItemsPerRow] = useState(calculateItemsPerRow());
     // 페이지 로드시 호출
     useEffect(() => {
         // 캐릭터 데이터 호출
@@ -75,8 +76,6 @@ const TodoContainer = ({setIsLoading, showMessage}) => {
         };
     }, [isCharacterList]);
 
-    // 반응형 사이트 함수
-    const [itemsPerRow, setItemsPerRow] = useState(calculateItemsPerRow());
 
     function calculateItemsPerRow() {
         var screenWidth = window.innerWidth;

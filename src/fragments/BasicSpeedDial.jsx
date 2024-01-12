@@ -1,8 +1,6 @@
 import React from 'react';
 import { call } from "../service/api-service";
-import SpeedDial from '@mui/material/SpeedDial';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-import SpeedDialAction from '@mui/material/SpeedDialAction';
+import {SpeedDial, SpeedDialAction, SpeedDialIcon} from "@mui/material";
 
 export default function BasicSpeedDial({
     setIsLoading,
@@ -11,7 +9,7 @@ export default function BasicSpeedDial({
     setShowCharacterSortForm,
 }) {
     const icons = [
-        // { name: '캐릭터 순서 변경' },
+        { name: '캐릭터 순서 변경' },
         { name: '출력 내용 변경' },
         { name: '캐릭터 정보 업데이트' },
         { name: '중복 캐릭터 삭제' },
@@ -19,9 +17,9 @@ export default function BasicSpeedDial({
 
 
     const actions = async (name) => {
-        // if (name === "캐릭터 순서 변경") {
-        //     setShowCharacterSortForm(true);
-        // }
+        if (name === "캐릭터 순서 변경") {
+            setShowCharacterSortForm(true);
+        }
         if (name === "출력 내용 변경") {
             window.location.href = "setting";
         }

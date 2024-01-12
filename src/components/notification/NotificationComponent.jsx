@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Badge from '@mui/material/Badge';
-import IconButton from '@mui/material/IconButton';
+import {Badge, IconButton} from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
 // 알림 버튼

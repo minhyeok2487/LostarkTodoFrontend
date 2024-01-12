@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { call } from "../../service/api-service";
 import CharacterSortForm from "../todo/CharacterSortForm";
-import { Grid } from "@mui/material";
-import DoneIcon from '@mui/icons-material/Done';
-import CloseIcon from '@mui/icons-material/Close';
 import FriendWeekTodoWrap from "./FriendWeekTodoWrap";
-import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import DoneIcon from "@mui/icons-material/Done";
+import {Grid} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const FriendTodoWrap = (props) => {
     //------------------------- 일일 수익 & 주간 수익 관련 -------------------------

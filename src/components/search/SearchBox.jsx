@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './SearchBox.css';
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 
 function SearchBox({ placeholder, data }) {

@@ -1,10 +1,11 @@
 import * as React from 'react';
 import './Navbar.css'
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
 import * as auth from '../apis/auth';
 import { useState } from "react";
 import NotificationComponent from '../components/notification/NotificationComponent';
+import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
+import Logo from "../utils/Logo";
 
 export default function Navbar({isDarkMode, setIsDarkMode, setIsLoading, showMessage}) {
     const [isOpen, setIsOpen] = useState(false);
@@ -75,13 +76,7 @@ export default function Navbar({isDarkMode, setIsDarkMode, setIsLoading, showMes
     return (
         <header>
             <div className="navbar">
-                <div className="logo" onClick={() => (window.location.href = "/")}>
-                    {isDarkMode ? (
-                        <img alt="logo" src='/logo_white.png' />
-                    ) : (
-                        <img alt="logo" src='/logo.png' />
-                    )}
-                </div>
+                <Logo isDarkMode={isDarkMode} />
                 <ul className="links">
                     <li><a href="/todo">숙제</a></li>
                     <li><a href="/friends">깐부</a></li>

@@ -1,6 +1,6 @@
 import React from "react";
 import { call } from "../../service/api-service";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 
 const FriendCubeWrap = (props) => {
     const addCubeTicket = async (characterId, authority) => {

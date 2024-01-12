@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import {Container, Grid, Typography, TextField, Button} from "@mui/material";
 import * as auth from "../../apis/auth";
 import {Link} from "react-router-dom";
 import LinearIndeterminate from '../../fragments/LinearIndeterminate';
+import {Button, Container, Grid, TextField, Typography} from "@mui/material";
 
 function SignUpCharacters({message = null}) {
     const [showLinearProgress, setShowLinearProgress] = useState(false);
@@ -28,7 +28,6 @@ function SignUpCharacters({message = null}) {
 
 
     return (
-
         <>
             {showLinearProgress && <LinearIndeterminate/>}
             <Container component="main" maxWidth="xs" style={{marginTop: "8%"}}>

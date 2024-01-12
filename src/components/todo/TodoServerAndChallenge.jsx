@@ -1,8 +1,6 @@
 import React from 'react';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import Fade from '@mui/material/Fade';
-import DoneIcon from '@mui/icons-material/Done';
+import {Button, Fade, Menu} from "@mui/material";
+import DoneIcon from "@mui/icons-material/Done";
 
 const TodoServerAndChallenge = ({
     open,

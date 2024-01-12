@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import '../App.css';
 import { call } from "../service/api-service";
 import LinearIndeterminate from '../fragments/LinearIndeterminate';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import { Grid } from "@mui/material";
+import {FormControl, Grid, MenuItem, Select} from "@mui/material";
 
 
 export default function Setting() {

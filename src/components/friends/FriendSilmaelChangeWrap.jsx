@@ -1,6 +1,6 @@
 import React from 'react';
-import CloseIcon from '@mui/icons-material/Close';
 import { call } from "../../service/api-service";
+import CloseIcon from "@mui/icons-material/Close";
 
 const FriendSilmaelChangeWrap = (props) => {
     const silmaelChange = async (characterId, authority) => {

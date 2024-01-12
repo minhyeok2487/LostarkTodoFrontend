@@ -128,7 +128,7 @@ footer {
 .character-wrap:first-child .content:not(.gauge-box){height:32px;margin-left: -5px;padding:5px 3px 5px 15px;border-top: 1px solid #e9e9e9;border-bottom: 1px solid #e9e9e9}
 .character-wrap:first-child .content:not(.gauge-box):before{content:"";position:absolute;top:0;left:5px;width: 3px;height:calc(100% + 22px);background:#cfecff;z-index:4;}
 .character-wrap:first-child .content:not(.gauge-box) .content-button.done{background:#32a0e7 url(../public/images/ico_chk04.png) no-repeat left 3px top 3px / 12px;z-index:1;}
-.character-wrap:first-child .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root{margin-left:auto;background:url(../public/images/ico_more.png) no-repeat center / 16px} 
+.character-wrap:first-child .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root{margin-left:auto;background:url(../public/images/ico_more.png) no-repeat center / 16px}
 .character-wrap:first-child .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root path{display:none;}
 .gauge-box{margin: -7px 0 -4px 3px;padding: 0 5px 7px !important;background: #fff}
 
@@ -145,7 +145,7 @@ footer {
 .character-wrap:nth-child(2) .content:not(.gauge-box):before{content:"";position:absolute;top:0;left:0;width: 3px;height:calc(100% + 18px);background:#fee1dd;z-index:4;}
 .character-wrap:nth-child(2) .content:not(.gauge-box) .input-field input{font-weight:300 !important;color:#eb6351}
 .character-wrap:nth-child(2) .content:not(.gauge-box):last-child .content-button.done{background:#ffc74e url(../public/images/ico_chk04.png) no-repeat left 3px top 3px / 12px;z-index:1;}
-.character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root{background:url(../public/images/ico_memo.png) no-repeat center / 16px} 
+.character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root{background:url(../public/images/ico_memo.png) no-repeat center / 16px}
 .character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root path{display:none;}
 .character-wrap:nth-child(2) .content:not(.gauge-box):last-child:before{background:#ffe7b3}
 .character-wrap:nth-child(2) .content:not(.gauge-box):last-child > div > div{margin-bottom:0;}
@@ -365,4 +365,33 @@ pre p:first-child{border-top:0;font-weight:700;font-size:18px;}
   .chaosVisual ul{padding-left:10px;}
   .comment{margin-bottom:15px;}
   .plus + div{margin-left:4px !important}
+}
+
+.footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: #555; /* 원하는 텍스트 색상으로 설정 */
+}
+
+.icon-btn-search {
+  margin-left:auto;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 100%;
+  background:url(../public/images/ico_more.png) no-repeat center / 16px;
+}
+
+.character-sort-wrap {
+  background-color: white;
+  max-width: 1280px;
+  width: 100%;
+  margin-top: 7px;
+  height: 100%;
+  margin-bottom: 30px;
 }

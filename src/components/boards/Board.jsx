@@ -1,6 +1,4 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 //게시글 조회
 const Board = ({ board, no }) => {
@@ -14,7 +12,6 @@ const Board = ({ board, no }) => {
                 <p className="reg-date">{new Date(board.regDate).toLocaleString()}</p>
             </div>
             <div className="board-content" dangerouslySetInnerHTML={createMarkup()} />
-            {/* <Link to={`/boards/update/${no}`}>수정</Link> */}
         </div>
     );
 };

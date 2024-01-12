@@ -11,28 +11,28 @@ const PageNation = ({
         if(totalPages <= 10) {
             for (let i = 1; i <= totalPages; i++) {
                 pageNumbers.push(
-                    <a
+                    <button
                         key={i}
-                        href="#"
                         className={`pagination__number ${currentPage === i ? 'pagination__number--active' : ''}`}
                         onClick={() => handlePageClick(i)}
+                        role="link"
                     >
                         {i}
-                    </a>
+                    </button>
                 );
             }
         } else {
             if (currentPage < 6) {
                 for (let i = 1; i <= 10; i++) {
                     pageNumbers.push(
-                        <a
+                        <button
                             key={i}
-                            href="#"
                             className={`pagination__number ${currentPage === i ? 'pagination__number--active' : ''}`}
                             onClick={() => handlePageClick(i)}
+                            role="link"
                         >
                             {i}
-                        </a>
+                        </button>
                     );
                 }
             } else {
@@ -42,14 +42,14 @@ const PageNation = ({
                 }
                 for (let i = currentPage-5; i <= lastPage; i++) {
                     pageNumbers.push(
-                        <a
+                        <button
                             key={i}
-                            href="#"
                             className={`pagination__number ${currentPage === i ? 'pagination__number--active' : ''}`}
                             onClick={() => handlePageClick(i)}
+                            role="link"
                         >
                             {i}
-                        </a>
+                        </button>
                     );
                 }
             }
@@ -60,19 +60,19 @@ const PageNation = ({
 
     return (
         <div className="pagination" aria-label="페이지네이션">
-            <a href="#" className="pagination__first" onClick={() => handlePageClick(1)}>
+            <button className="pagination__first" onClick={() => handlePageClick(1)}>
                 처음
-            </a>
-            <a href="#" className="pagination__prev" onClick={() => handlePageClick(currentPage - 1)}>
+            </button>
+            <button className="pagination__prev" onClick={() => handlePageClick(currentPage - 1)}>
                 이전
-            </a>
+            </button>
             {generatePageNumbers()}
-            <a href="#" className="pagination__next" onClick={() => handlePageClick(currentPage + 1)}>
+            <button className="pagination__next" onClick={() => handlePageClick(currentPage + 1)}>
                 다음
-            </a>
-            <a href="#" className="pagination__last" onClick={() => handlePageClick(totalPages)}>
+            </button>
+            <button className="pagination__last" onClick={() => handlePageClick(totalPages)}>
                 마지막
-            </a>
+            </button>
         </div>
     );
 };

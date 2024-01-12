@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TodoServerAndChallenge from '../../components/todo/TodoServerAndChallenge';
-import MenuItem from '@mui/material/MenuItem';
 import * as todo from '../../apis/todo';
+import {MenuItem} from "@mui/material";
 
 const TodoServerAndChallengeContainer = ({
     setIsLoading,

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as todoApi from '../../apis/todo';
-import Button from "@mui/material/Button";
 import TodoWeekRaid from "../../components/todo/TodoWeekRaid";
+import {Button} from "@mui/material";
 
 const TodoWeekRaidContainer = ({
                                    characters,

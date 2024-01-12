@@ -1,8 +1,6 @@
 import React from 'react';
 import { call } from "../../service/api-service";
-import SpeedDial from '@mui/material/SpeedDial';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-import SpeedDialAction from '@mui/material/SpeedDialAction';
+import {SpeedDial, SpeedDialAction, SpeedDialIcon} from "@mui/material";
 
 export default function FriendBasicSpeedDial(props) {
     const icons = [

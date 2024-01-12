@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from "react";
 import '../../App.css';
-import './Auth.css'
+import '../../style/Auth.css'
 import * as auth from "../../apis/auth";
-import AuthTimer from "./AuthTimer";
+import EmailTimer from "./utils/EmailTimer";
+import SocialLoginBtns from "./utils/SocialLoginBtns";
+import InputBox from "./utils/InputBox";
+import {emailRegex, passwordRegex} from "./utils/Regex";
 
 function SignUp({setIsLoading}) {
     const [username, setUsername] = useState("");
@@ -21,37 +24,8 @@ function SignUp({setIsLoading}) {
         if (isLogin) {
             window.location.href = "/";
         }
-        // Update styles when usernameMessage changes
-        const usernameInput = document.getElementById("username");
-        if (usernameInput) {
-            usernameInput.style.borderColor = usernameMessage ? "red" : "";
-        }
 
-        const authEmailInput = document.getElementById("email_auth");
-        if (authEmailInput) {
-            authEmailInput.style.borderColor = authNumberMessage ? "red" : "";
-        }
-
-        // Update styles when passwordMessage changes
-        const passwordInput = document.getElementById("password");
-        if (passwordInput) {
-            passwordInput.style.borderColor = passwordMessage ? "red" : "";
-        }
-
-        const equalPasswordInput = document.getElementById("equal_password");
-        if (equalPasswordInput) {
-            equalPasswordInput.style.borderColor = equalPasswordMessage ? "red" : "";
-        }
-
-    }, [usernameMessage, passwordMessage, authNumberMessage, equalPasswordMessage]);
-
-    const handleSocialLogin = (provider) => {
-        auth.socialLogin(provider);
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,20}$/
-
+    }, []);
 
     function setMessage() {
         setUsernameMessage("");
@@ -60,14 +34,15 @@ function SignUp({setIsLoading}) {
         setEqualPasswordMessage("");
     }
 
+    // 메일 전송
     const submitMail = async () => {
         setMessage();
         if (!username) {
             setUsernameMessage("이메일을 입력해주세요.");
             return;
         }
-        if (!emailRegex.test(username)) {
-            setUsernameMessage("올바른 이메일 형식을 입력해주세요.");
+        if (!emailRegex(username)) {
+            setUsernameMessage("이메일 형식을 입력해주세요.");
             return;
         }
 
@@ -86,8 +61,9 @@ function SignUp({setIsLoading}) {
 
     const authMail = async () => {
         setMessage();
-        if (!authNumber) {
-            setAuthNumberMessage("인증번호를 입력해주세요.");
+        if (!authNumber || isNaN(authNumber)) {
+            setAuthNumberMessage("인증번호를 올바르게 입력해주세요.");
+            return;
         }
 
         try {
@@ -95,9 +71,9 @@ function SignUp({setIsLoading}) {
             const response = await auth.authMail(username, authNumber);
             if (response.success) {
                 setStartTimer(false);
-                const usernameInput = document.getElementById("username");
+                const usernameInput = document.getElementById("email-input-box");
                 usernameInput.readOnly = true;
-                const authEmailInput = document.getElementById("email_auth");
+                const authEmailInput = document.getElementById("email-auth-input-box");
                 authEmailInput.readOnly = true;
                 setAuthEmail(true);
             } else {
@@ -128,12 +104,12 @@ function SignUp({setIsLoading}) {
             return;
         }
 
-        if (!emailRegex.test(username)) {
+        if (!emailRegex(username)) {
             setUsernameMessage("올바른 이메일 형식을 입력해주세요.");
             return;
         }
 
-        if (!passwordRegex.test(password)) {
+        if (!passwordRegex(password)) {
             setPasswordMessage("비밀번호는 8~10자 영문, 숫자 조합이어야 합니다.");
             return;
         }
@@ -169,68 +145,64 @@ function SignUp({setIsLoading}) {
                     <p>모코코만큼 환영합니다.</p>
                 </div>
                 <div className="signup-wrap">
-                    <div className="input-login-box">
-                        <div className="email-box">
-                            <input type="email"
-                                   id="username"
-                                   placeholder="이메일"
-                                   value={username}
-                                   onChange={(e) => setUsername(e.target.value)}
-                                   required
+                    <div className="input-btn-wrap">
+                        <div className="input-btn">
+                            <InputBox
+                                className={"login"}
+                                type={"email"}
+                                id={"email-input-box"}
+                                placeholder={"이메일"}
+                                value={username}
+                                setValue={setUsername}
+                                onKeyPress={submitMail}
+                                message={usernameMessage}
                             />
                             <button className="email-submit-btn" onClick={submitMail}>전송</button>
                         </div>
-                        {usernameMessage && <span className="input-warn-message">{usernameMessage}</span>}
-                        <AuthTimer startTimer={startTimer}/>
+                        <EmailTimer startTimer={startTimer}/>
                     </div>
-                    <div className="input-login-box">
-                        <div className="email-box">
-                            <input type="text"
-                                   id="email_auth"
-                                   placeholder="인증번호 확인(숫자)"
-                                   value={authNumber}
-                                   onChange={(e) => {
-                                       const numericValue = e.target.value.replace(/\D/g, '');
-                                       setAuthNumber(numericValue);
-                                   }}
-                                   required
+                    <div className="input-btn-wrap">
+                        <div className="input-btn">
+                            <InputBox
+                                className={"email_auth"}
+                                type={"text"}
+                                id={"email-auth-input-box"}
+                                placeholder={"인증번호 확인 (숫자)"}
+                                value={authNumber}
+                                setValue={setAuthNumber}
+                                onKeyPress={authMail}
+                                message={authNumberMessage}
                             />
                             <button className="email-auth-btn" onClick={authMail}>확인</button>
                         </div>
-                        {authNumberMessage && <span className="input-warn-message">{authNumberMessage}</span>}
                     </div>
-                    <div className="input-password-box">
-                        <input
-                            type="password"
-                            id="password"
-                            placeholder="비밀번호 (8 ~ 20자 영문, 숫자 조합)"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                        {passwordMessage && <span className="input-warn-message">{passwordMessage}</span>}
-                    </div>
-                    <div className="input-password-box">
-                        <input
-                            type="password"
-                            id="equal_password"
-                            placeholder="비밀번호 확인"
-                            value={equalPassword}
-                            onChange={(e) => setEqualPassword(e.target.value)}
-                            required
-                        />
-                    </div>
+                    <InputBox
+                        className={"password"}
+                        type={"password"}
+                        id={"password-input-box"}
+                        placeholder={"비밀번호 (8~20자 영문, 숫자)"}
+                        value={password}
+                        setValue={setPassword}
+                        onKeyPress={signUp}
+                        message={passwordMessage}
+                    />
+                    <InputBox
+                        className={"password"}
+                        type={"password"}
+                        id={"password-equal-input-box"}
+                        placeholder={"비밀번호 확인"}
+                        value={equalPassword}
+                        setValue={setEqualPassword}
+                        onKeyPress={signUp}
+                        message={equalPasswordMessage}
+                    />
                     <button className="login-btn" onClick={signUp}>회원가입</button>
                     <div className="link-wrap">
                         <a className="signup" href="./login">뒤로가기</a>
                     </div>
                 </div>
                 <div className="bar">또는</div>
-                <div className="auth-login-btns">
-                    <button type="button" className="login-with-google-btn" onClick={() => handleSocialLogin("google")}>
-                        구글 로그인으로 시작하기
-                    </button>
-                </div>
+                <SocialLoginBtns/>
             </div>
         </>
     );

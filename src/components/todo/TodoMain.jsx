@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TodoProfitsContainer from '../../containers/todo/TodoProfitsContainer';
 import TodoContentWrapContainer from '../../containers/todo/TodoContentWrapContainer';
 import TodoServerAndChallengeContainer from '../../containers/todo/TodoServerAndChallengeContainer';
 import TodoModal from './TodoModal';
-import CharacterSortForm from './CharacterSortForm';
+import CharacterSortFormV2 from "./CharacterSortFormV2";
 
 const TodoMain = ({
     setIsLoading,
@@ -26,13 +26,14 @@ const TodoMain = ({
     setModalTitle,
     closeContentModal,
 }) => {
+
     return (
         <div className="wrap">
             {/*일일 수익, 주간수익*/}
             <TodoProfitsContainer characters={characters} />
 
             {/*캐릭터 정렬(활성시만 보임)*/}
-            {showCharacterSortForm && <CharacterSortForm
+            {showCharacterSortForm && <CharacterSortFormV2
                 setIsLoading={setIsLoading}
                 characters={characters}
                 setCharacters={setCharacters}
@@ -70,6 +71,7 @@ const TodoMain = ({
                 modalTitle={modalTitle}
                 modalContent={modalContent}
             />
+
         </div >
     );
 };

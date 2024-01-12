@@ -1,9 +1,9 @@
 import React from 'react';
-import { Grid } from "@mui/material";
-import DoneIcon from '@mui/icons-material/Done';
-import CloseIcon from '@mui/icons-material/Close';
-import SearchIcon from '@mui/icons-material/Search';
 import TodoWeekRaidContainer from '../../containers/todo/TodoWeekRaidContainer';
+import {Grid} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import DoneIcon from "@mui/icons-material/Done";
+import SearchIcon from "@mui/icons-material/Search";
 
 const TodoContentWrap = ({
     setIsLoading,
@@ -96,8 +96,7 @@ const TodoContentWrap = ({
                                         <p>카오스던전</p>
                                         <p className="gold">{character.chaosGold} G</p>
                                     </div>
-                                    <SearchIcon onClick={() => openDayContentAvg(character, "카오스던전")} style={{ cursor: "pointer" }} />
-                                    {/* pub 순서변경 */}
+                                    <input type="button" className="icon-btn-search" onClick={() => openDayContentAvg(character, "카오스던전")} />
                                 </div>
                                 <div className="content gauge-box" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
                                     onContextMenu={(e) => updateDayContentGuage(e, character.id, "chaos")}

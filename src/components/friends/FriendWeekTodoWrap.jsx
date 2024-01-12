@@ -1,10 +1,10 @@
 import React from 'react';
 import { call } from "../../service/api-service";
-import DoneIcon from '@mui/icons-material/Done';
-import CloseIcon from '@mui/icons-material/Close';
 import FriendCubeWrap from './FriendCubeWrap';
 import FriendWeekEponaWrap from './FriendWeekEponaWrap';
 import FriendSilmaelChangeWrap from './FriendSilmaelChangeWrap';
+import DoneIcon from "@mui/icons-material/Done";
+import CloseIcon from "@mui/icons-material/Close";
 
 const FriendWeekTodoWrap = ({
     characters,

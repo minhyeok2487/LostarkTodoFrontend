@@ -2,9 +2,13 @@ import {call} from "./api";
 import {API_BASE_URL} from "../config/api-config";
 
 // 로그인
-export const login = async (userDTO) => {
+export const login = async (username, password) => {
+    const data = {
+        username: username,
+        password: password
+    }
     try {
-        return await call("/v3/auth/login", "POST", userDTO);
+        return await call("/v3/auth/login", "POST", data);
     } catch (error) {
         throw error;
     }

@@ -2,20 +2,22 @@ import React, {useState, useEffect} from "react";
 import {call} from "../../service/api-service";
 import Notification from '../../fragments/Notification';
 import LinearIndeterminate from '../../fragments/LinearIndeterminate';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import Modal from "@mui/material/Modal";
-import Typography from "@mui/material/Typography";
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import FriendTodoWrap from "./FriendTodoWrap";
 import FriendBasicSpeedDial from "./FriendBasicSpeedDial";
 import SignUpCharacters from "../auth/SignUpCharacters";
+import {
+    Box,
+    Button,
+    FormControl,
+    MenuItem,
+    Modal,
+    Select,
+    Tab,
+    Tabs,
+    TextField,
+    Typography
+} from "@mui/material";
+import PropTypes from "prop-types";
 
 
 //------------------------- 탭관련 -------------------------
