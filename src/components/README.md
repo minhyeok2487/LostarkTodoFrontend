@@ -15,4 +15,7 @@
 ### 2) 공지사항(단일) : Board.jsx
 ### 3) 공지사항 작성폼 : BoardInsert.jsx (주소창에 boards/insert)
 
+# 3. todo
+- 숙제 관리
+
 
