@@ -116,7 +116,7 @@ const TodoContainer = ({setIsLoading, showMessage}) => {
                     closeContentModal={closeContentModal}
                 />
             ) :
-                <SignUpCharacters/>
+                <SignUpCharacters setIsLoading={setIsLoading}/>
             }
         </>
     );

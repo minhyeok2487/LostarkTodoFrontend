@@ -6,6 +6,7 @@ import NotificationComponent from '../components/notification/NotificationCompon
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import Logo from "../utils/Logo";
+import {Link} from "react-router-dom";
 
 export default function Navbar({isDarkMode, setIsDarkMode, setIsLoading, showMessage}) {
     const [isOpen, setIsOpen] = useState(false);
@@ -78,9 +79,9 @@ export default function Navbar({isDarkMode, setIsDarkMode, setIsLoading, showMes
             <div className="navbar">
                 <Logo isDarkMode={isDarkMode} />
                 <ul className="links">
-                    <li><a href="/todo">숙제</a></li>
-                    <li><a href="/friends">깐부</a></li>
-                    <li><a href="/comments">방명록</a></li>
+                    <li><Link to="/todo">숙제</Link></li>
+                    <li><Link to="/friends">깐부</Link></li>
+                    <li><Link to="/comments">방명록</Link></li>
                 </ul>
 
                 <div className="menus">
@@ -90,7 +91,7 @@ export default function Navbar({isDarkMode, setIsDarkMode, setIsLoading, showMes
                     <div className="buttons">
                         <div style={{ marginLeft: 10 }}>
                             {loginName === null ? (
-                                <a href="/login" className="action_btn">Login</a>
+                                <Link to="/login" className="action_btn">Login</Link>
                             ) : (
                                 <div onClick={() => handlerDropdownUser()} className="login_name">{loginName}</div>
                             )}
@@ -108,7 +109,7 @@ export default function Navbar({isDarkMode, setIsDarkMode, setIsLoading, showMes
 
             <div className="user_info_wrap">
                 {usernameOpen && <div className="user_info">
-                    <li><a href="/member/apikey">API Key 변경</a></li>
+                    <li><Link to="/member/apikey">API Key 변경</Link></li>
                     <li>
                         <div onClick={() => logout()}>로그아웃</div>
                     </li>
@@ -116,16 +117,16 @@ export default function Navbar({isDarkMode, setIsDarkMode, setIsLoading, showMes
             </div>
 
             <div className="dropdown_menu">
-                <li><a href="/todo">숙제</a></li>
-                <li><a href="/friends">깐부</a></li>
-                <li><a href="/comments">방명록</a></li>
+                <li><Link to="/todo">숙제</Link></li>
+                <li><Link to="/friends">깐부</Link></li>
+                <li><Link to="/comments">방명록</Link></li>
                 <li>
                     {loginName === null ? (
-                        <a href="/login" className="action_btn">Login</a>
+                        <Link to="/login" className="action_btn">Login</Link>
                     ) : (
                         <div className="login_box">
                             <div className="login_name">{loginName}</div>
-                            <a href="/member/apikey">API Key 변경</a>
+                            <Link to="/member/apikey">API Key 변경</Link>
                             <div onClick={() => logout()} className="logout_btn">로그아웃</div>
                         </div>
                     )}

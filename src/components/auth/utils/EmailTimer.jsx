@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+// 타이머 기능
 function EmailTimer({ startTimer }) {
     const [minutes, setMinutes] = useState(3);
     const [seconds, setSeconds] = useState(0);

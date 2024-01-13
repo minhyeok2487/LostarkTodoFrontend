@@ -423,7 +423,7 @@ export default function FriendsWrap({setIsLoading}) {
                         </div>
                     </>
                 ) :
-                <SignUpCharacters/>
+                <SignUpCharacters setIsLoading={setIsLoading}/>
             }
             < Notification
                 message={snackbarMessage}

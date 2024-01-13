@@ -1,6 +1,7 @@
 import React from 'react';
 import * as auth from "../../../apis/auth";
 
+// 소셜 로그인 버튼들
 const SocialLoginBtns = () => {
     const handleSocialLogin = (provider) => {
         auth.socialLogin(provider);

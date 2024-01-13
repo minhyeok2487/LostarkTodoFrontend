@@ -1,81 +1,90 @@
 import React, {useState} from "react";
 import * as auth from "../../apis/auth";
-import {Link} from "react-router-dom";
-import LinearIndeterminate from '../../fragments/LinearIndeterminate';
-import {Button, Container, Grid, TextField, Typography} from "@mui/material";
+import InputBox from "./utils/InputBox";
+import {Link, useNavigate} from "react-router-dom";
 
-function SignUpCharacters({message = null}) {
-    const [showLinearProgress, setShowLinearProgress] = useState(false);
+function SignUpCharacters({setIsLoading}) {
+    const [apiKey, setApiKey] = useState("");
+    const [apiKeyMessage, setApiKeyMessage] = useState("");
+    const [character, setCharacter] = useState("");
+    const [characterMessage, setCharacterMessage] = useState("");
 
-    const handleSubmit = async (event) => {
+    const navigate = useNavigate();
+
+    // 메시지 리셋
+    function messageReset() {
+        setApiKeyMessage("");
+        setCharacterMessage("");
+    }
+
+    // 유효성 검사
+    function validation() {
+        if (!apiKey || !character) {
+            if (!apiKey) {
+                setApiKeyMessage("ApiKey를 입력해주세요.");
+            }
+            if (!character) {
+                setCharacterMessage("대표캐릭터를 입력해주세요.");
+            }
+            return;
+        }
+    }
+
+    const addCharacter = async () => {
+        messageReset();
+        validation();
         try {
-            setShowLinearProgress(true);
-            event.preventDefault();
-            // 오브젝트에서 form에 저장된 데이터를 맵의 형태로 바꿔줌.
-            const data = new FormData(event.target);
-            const apiKey = data.get("apiKey");
-            const characterName = data.get("characterName");
-            await auth.addCharacters(apiKey, characterName);
+            setIsLoading(true);
+            await auth.addCharacters(apiKey, character);
             alert("완료되었습니다.");
-            window.location.reload();
-
+            navigate("/");
         } catch (error) {
-            alert(error.errorMessage);
+            if (error.errorMessage === "존재하지 않는 캐릭터명 입니다.") {
+                setCharacterMessage(error.errorMessage);
+            } else if (error.errorMessage === "올바르지 않은 apiKey 입니다." ||
+                error.errorMessage === "사용한도 (1분에 100개)를 초과했습니다.") {
+                setApiKeyMessage(error.errorMessage);
+            } else {
+                alert(error.errorMessage);
+            }
         } finally {
-            setShowLinearProgress(false);
+            setIsLoading(false);
         }
     };
 
 
     return (
-        <>
-            {showLinearProgress && <LinearIndeterminate/>}
-            <Container component="main" maxWidth="xs" style={{marginTop: "8%"}}>
-                <form noValidate onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <Typography component="h1" variant="h5" textAlign={"center"}>
-                                캐릭터 정보 추가
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="apiKey"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="apiKey"
-                                label="로스트아크 ApiKey"
-                            />
-                            <Link to="https://canfactory.tistory.com/1081" target="_blank" variant="body2">
-                                apikey발급을 모르십니까?
-                            </Link>
-                            <p>api 에러시, 복사 하기전 사이트에 번역이 켜있으면 끄고 복사해주세요! </p>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="characterName"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="characterName"
-                                label="대표캐릭터"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                            >
-                                캐릭터 정보 추가
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </form>
-            </Container>
-        </>
+        <div className="auth-container">
+            <div className="mention">
+                <p>캐릭터 정보 추가</p>
+            </div>
+            <div className="signup-wrap">
+                <InputBox
+                    className={"apikey"}
+                    type={"text"}
+                    id={"apikey-input-box"}
+                    placeholder={"로스트아크 ApiKey"}
+                    value={apiKey}
+                    setValue={setApiKey}
+                    onKeyPress={addCharacter}
+                    message={apiKeyMessage}
+                />
+                <InputBox
+                    className={"character"}
+                    type={"text"}
+                    id={"character-input-box"}
+                    placeholder={"대표 캐릭터"}
+                    value={character}
+                    setValue={setCharacter}
+                    onKeyPress={addCharacter}
+                    message={characterMessage}
+                />
+                <button className="login-btn" onClick={addCharacter}>캐릭터 정보 추가</button>
+                <div className="link-wrap">
+                    <Link className="signup" to="/">홈으로</Link>
+                </div>
+            </div>
+        </div>
     );
 };
 

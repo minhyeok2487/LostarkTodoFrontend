@@ -6,6 +6,7 @@ import EmailTimer from "./utils/EmailTimer";
 import SocialLoginBtns from "./utils/SocialLoginBtns";
 import InputBox from "./utils/InputBox";
 import {emailRegex, passwordRegex} from "./utils/Regex";
+import {Link, useNavigate} from "react-router-dom";
 
 function SignUp({setIsLoading}) {
     const [username, setUsername] = useState("");
@@ -19,15 +20,18 @@ function SignUp({setIsLoading}) {
     const [equalPassword, setEqualPassword] = useState("")
     const [equalPasswordMessage, setEqualPasswordMessage] = useState("");
 
+    const navigate = useNavigate();
+
     useEffect(() => {
+        // 로그인 상태이면 home으로 리다이렉트
         const isLogin = window.localStorage.getItem("username");
         if (isLogin) {
-            window.location.href = "/";
+            navigate('/');
         }
-
     }, []);
 
-    function setMessage() {
+    // 메시지 리셋
+    function messageReset() {
         setUsernameMessage("");
         setAuthNumberMessage("");
         setPasswordMessage("");
@@ -36,7 +40,7 @@ function SignUp({setIsLoading}) {
 
     // 메일 전송
     const submitMail = async () => {
-        setMessage();
+        messageReset();
         if (!username) {
             setUsernameMessage("이메일을 입력해주세요.");
             return;
@@ -60,7 +64,7 @@ function SignUp({setIsLoading}) {
     }
 
     const authMail = async () => {
-        setMessage();
+        messageReset();
         if (!authNumber || isNaN(authNumber)) {
             setAuthNumberMessage("인증번호를 올바르게 입력해주세요.");
             return;
@@ -87,7 +91,7 @@ function SignUp({setIsLoading}) {
     }
 
     const signUp = async () => {
-        setMessage();
+        messageReset();
         if (!username || !authNumber || !password || !equalPassword) {
             if (!username) {
                 setUsernameMessage("이메일을 입력해주세요.");
@@ -130,7 +134,7 @@ function SignUp({setIsLoading}) {
             const response = await auth.signup(username, authNumber, password, equalPassword);
             if (response.success) {
                 alert("회원가입이 정상처리 되었습니다.");
-                window.location.href = "/login";
+                navigate("/login");
             }
         } catch (error) {
             setPasswordMessage("이메일 또는 패스워드가 일치하지 않습니다.");
@@ -139,72 +143,70 @@ function SignUp({setIsLoading}) {
     }
 
     return (
-        <>
-            <div className="auth-container">
-                <div className="mention">
-                    <p>모코코만큼 환영합니다.</p>
-                </div>
-                <div className="signup-wrap">
-                    <div className="input-btn-wrap">
-                        <div className="input-btn">
-                            <InputBox
-                                className={"login"}
-                                type={"email"}
-                                id={"email-input-box"}
-                                placeholder={"이메일"}
-                                value={username}
-                                setValue={setUsername}
-                                onKeyPress={submitMail}
-                                message={usernameMessage}
-                            />
-                            <button className="email-submit-btn" onClick={submitMail}>전송</button>
-                        </div>
-                        <EmailTimer startTimer={startTimer}/>
-                    </div>
-                    <div className="input-btn-wrap">
-                        <div className="input-btn">
-                            <InputBox
-                                className={"email_auth"}
-                                type={"text"}
-                                id={"email-auth-input-box"}
-                                placeholder={"인증번호 확인 (숫자)"}
-                                value={authNumber}
-                                setValue={setAuthNumber}
-                                onKeyPress={authMail}
-                                message={authNumberMessage}
-                            />
-                            <button className="email-auth-btn" onClick={authMail}>확인</button>
-                        </div>
-                    </div>
-                    <InputBox
-                        className={"password"}
-                        type={"password"}
-                        id={"password-input-box"}
-                        placeholder={"비밀번호 (8~20자 영문, 숫자)"}
-                        value={password}
-                        setValue={setPassword}
-                        onKeyPress={signUp}
-                        message={passwordMessage}
-                    />
-                    <InputBox
-                        className={"password"}
-                        type={"password"}
-                        id={"password-equal-input-box"}
-                        placeholder={"비밀번호 확인"}
-                        value={equalPassword}
-                        setValue={setEqualPassword}
-                        onKeyPress={signUp}
-                        message={equalPasswordMessage}
-                    />
-                    <button className="login-btn" onClick={signUp}>회원가입</button>
-                    <div className="link-wrap">
-                        <a className="signup" href="./login">뒤로가기</a>
-                    </div>
-                </div>
-                <div className="bar">또는</div>
-                <SocialLoginBtns/>
+        <div className="auth-container">
+            <div className="mention">
+                <p>모코코만큼 환영합니다.</p>
             </div>
-        </>
+            <div className="signup-wrap">
+                <div className="input-btn-wrap">
+                    <div className="input-btn">
+                        <InputBox
+                            className={"login"}
+                            type={"email"}
+                            id={"email-input-box"}
+                            placeholder={"이메일"}
+                            value={username}
+                            setValue={setUsername}
+                            onKeyPress={submitMail}
+                            message={usernameMessage}
+                        />
+                        <button className="email-submit-btn" onClick={submitMail}>전송</button>
+                    </div>
+                    <EmailTimer startTimer={startTimer}/>
+                </div>
+                <div className="input-btn-wrap">
+                    <div className="input-btn">
+                        <InputBox
+                            className={"email_auth"}
+                            type={"text"}
+                            id={"email-auth-input-box"}
+                            placeholder={"인증번호 확인 (숫자)"}
+                            value={authNumber}
+                            setValue={setAuthNumber}
+                            onKeyPress={authMail}
+                            message={authNumberMessage}
+                        />
+                        <button className="email-auth-btn" onClick={authMail}>확인</button>
+                    </div>
+                </div>
+                <InputBox
+                    className={"password"}
+                    type={"password"}
+                    id={"password-input-box"}
+                    placeholder={"비밀번호 (8~20자 영문, 숫자)"}
+                    value={password}
+                    setValue={setPassword}
+                    onKeyPress={signUp}
+                    message={passwordMessage}
+                />
+                <InputBox
+                    className={"password"}
+                    type={"password"}
+                    id={"password-equal-input-box"}
+                    placeholder={"비밀번호 확인"}
+                    value={equalPassword}
+                    setValue={setEqualPassword}
+                    onKeyPress={signUp}
+                    message={equalPasswordMessage}
+                />
+                <button className="login-btn" onClick={signUp}>회원가입</button>
+                <div className="link-wrap">
+                    <Link className="signup" to="/login">뒤로가기</Link>
+                </div>
+            </div>
+            <div className="bar">또는</div>
+            <SocialLoginBtns/>
+        </div>
     );
 }
 

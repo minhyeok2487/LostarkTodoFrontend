@@ -52,7 +52,7 @@
   - 권한 확인 기능 추가 해야함
 
 ## components - 화면 출력 부분
-- **boards** : 기본 BoardWrap
+- **boards** : 기본 BoardMain
 - **comments** : 기본 CommentWrap
 - **todo** : 기본 TodoWrap
 

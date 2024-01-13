@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
+// 소셜 로그인 기능
 const SocialLogin = (props) => {
   const getUrlParameter = (name) => { // 쿼리 파라미터에서 값을 추출 해 주는 함수
     let search = window.location.search;
