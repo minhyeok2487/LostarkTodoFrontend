@@ -26,6 +26,7 @@ const TodoMain = ({
     setModalTitle,
     closeContentModal,
 }) => {
+    console.log(characters);
 
     return (
         <div className="wrap">

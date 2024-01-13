@@ -75,6 +75,21 @@ export const updateChallenge = async (character, content) => {
     }
 }
 
+// 캐릭터 주간 레이드 순서 변경 저장
+export const saveRaidSort = async (character) => {
+    const characterId = character.id;
+    const characterName = character.characterName;
+    const data = character.todoList.map((todo, index) => ({
+        weekCategory: todo.weekCategory,
+        sortNumber: index + 1,
+    }));
+    try {
+        return await call("/v2/character/week/raid/" + characterId + "/" + characterName + "/sort", "PUT", data);
+    } catch (error) {
+        throw error;
+    }
+}
+
 // 캐릭터 주간 레이드 추가 폼 데이터 호출
 export const getTodoFormData = async (characterId, characterName) => {
     try {
