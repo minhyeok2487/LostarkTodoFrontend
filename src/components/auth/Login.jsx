@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import '../../App.css';
 import '../../style/Auth.css'
 import * as auth from "../../apis/auth";
@@ -6,23 +6,12 @@ import Logo from "../../utils/Logo";
 import InputBox from "./utils/InputBox";
 import {emailRegex} from "./utils/Regex";
 import SocialLoginBtns from "./utils/SocialLoginBtns";
-import {Link, useNavigate} from 'react-router-dom';
 
 function Login({message = null, isDarkMode, loginName, setLoginName}) {
     const [username, setUsername] = useState("");
     const [usernameMessage, setUsernameMessage] = useState("");
     const [password, setPassword] = useState("");
     const [passwordMessage, setPasswordMessage] = useState("");
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        // 로그인 상태이면 home으로 리다이렉트
-        const isLogin = window.localStorage.getItem("username");
-        if (isLogin) {
-            navigate('/');
-        }
-    }, []);
 
     // 유효성 검사
     function validation() {
@@ -60,7 +49,7 @@ function Login({message = null, isDarkMode, loginName, setLoginName}) {
                 localStorage.setItem("username", username);
                 setLoginName(username);
                 // token이 존재하는 경우 홈으로 이동
-                navigate('/');
+                window.location.href='/';
             }
         } catch (error) {
             setPasswordMessage("이메일 또는 패스워드가 일치하지 않습니다.");
@@ -96,7 +85,7 @@ function Login({message = null, isDarkMode, loginName, setLoginName}) {
                 />
                 <button className="login-btn" onClick={login}>로그인</button>
                 <div className="link-wrap">
-                    <Link className="signup" to="/signup">회원가입</Link>
+                    <a className="signup" href="/signup">회원가입</a>
                     {/*<a className="find-password" onClick={() => alert("기능 준비중입니다. 잠시만 기다려주세요.")}>비밀번호를*/}
                     {/*    잊어버렸어요</a>*/}
                 </div>

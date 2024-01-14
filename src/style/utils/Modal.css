@@ -1,0 +1,27 @@
+.miniModal {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    border: 0;
+    text-align: center;
+    background-color: #ffffff;
+    max-height: 450px;
+}
+
+.closeButton:hover {
+    color: #ff0000;
+}
+
+.modal-title {
+    color: white;
+    background-color: black;
+    border-radius: 7px;
+    text-align: center;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 2;
+    font-weight: bold;
+    padding-right: 10px;
+    padding-left: 10px;
+}

@@ -137,7 +137,7 @@ export default function FriendsWrap({setIsLoading}) {
     /**
      * 각종 정보창 모달 관련
      */
-        // 모달 열기/닫기 상태 관리
+    // 모달 열기/닫기 상태 관리
     const [openModal, setOpenModal] = useState(false);
     const [modalContent, setModalContent] = useState("");
     const [modalTitle, setModalTitle] = useState("");
