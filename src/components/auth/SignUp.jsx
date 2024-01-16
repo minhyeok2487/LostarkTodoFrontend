@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import '../../App.css';
 import '../../style/Auth.css'
 import * as auth from "../../apis/auth";
@@ -21,14 +21,6 @@ function SignUp({setIsLoading}) {
     const [equalPasswordMessage, setEqualPasswordMessage] = useState("");
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        // 로그인 상태이면 home으로 리다이렉트
-        const isLogin = window.localStorage.getItem("username");
-        if (isLogin) {
-            navigate('/');
-        }
-    }, []);
 
     // 메시지 리셋
     function messageReset() {

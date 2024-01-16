@@ -1,0 +1,57 @@
+@import url('/src/App.css');
+
+.speed-dial-menu {
+    position: fixed;
+    top: 100px;
+    right: 40px;
+    z-index: 1;
+    font-weight: bold;
+}
+
+.speed-dial-button {
+    width: 50px;
+    height: 50px;
+    background-color: var(--text-color);
+    color: var(--background);
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 50px;
+    padding-bottom: 10px;
+}
+
+.speed-dial-items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.speed-dial-items.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.speed-dial-item {
+    background-color: var(--text-color);
+    color: var(--background);
+    text-align: center;
+    width: 150px;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.speed-dial-item:hover {
+    background-color: #555;
+}

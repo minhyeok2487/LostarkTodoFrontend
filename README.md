@@ -54,7 +54,7 @@
 ## components - 화면 출력 부분
 - **boards** : 기본 BoardMain
 - **comments** : 기본 CommentWrap
-- **todo** : 기본 TodoWrap
+- **todo** : 기본 TodoMain
 
 ## containers - 화면 기능 부분
 - **boards** : 기본 BoardListContainer

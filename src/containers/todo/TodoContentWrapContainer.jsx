@@ -148,8 +148,8 @@ const TodoContentWrapContainer = ({
             );
         } else {
             modalContent = (
-                <div class="chaosVisual">
-                    <span className="tip">API 최긘 경매장 가격으로 평균 값을 가져옵니다.</span>
+                <div className="chaosVisual">
+                    <span className="tip">API 최근 경매장 가격으로 평균 값을 가져옵니다.</span>
                     <p>컨텐츠 <strong>{character.guardian.name}</strong></p>
                     <div className="flex one">
                         <ul>
