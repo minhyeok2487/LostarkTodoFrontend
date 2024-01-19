@@ -18,7 +18,7 @@ export const updateDayContent = async (characterId, characterName, category) => 
         characterName: characterName
     };
     try {
-        return await call("/v2/character/day-content/check/" + category, "PATCH", updateContent);
+        return await call("/v3/character/day-content/check/" + category, "PATCH", updateContent);
     } catch (error) {
         throw error;
     }
@@ -31,7 +31,7 @@ export const updateDayContentAll = async (characterId, characterName, category) 
         characterName: characterName
     };
     try {
-        return await call("/v2/character/day-content/check/" + category + "/all", "PATCH", updateContent);
+        return await call("/v3/character/day-content/check/" + category + "/all", "PATCH", updateContent);
     } catch (error) {
         throw error;
     }
