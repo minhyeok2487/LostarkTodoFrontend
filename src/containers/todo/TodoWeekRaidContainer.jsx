@@ -265,8 +265,8 @@ const TodoWeekRaidContainer = ({
                 if (character.characterName === characterName) {
                     try {
                         const response = await todoApi.updateCheckGold(character.id, characterName, weekCategory, updateValue);
-                        makeAddTodoForm(character.id, characterName, character.goldCharacter, response);
-                        return character;
+                        makeAddTodoForm(character.id, characterName, character.goldCharacter, response.weekContentDtoList);
+                        return response.characterDto;
                     } catch (error) {
                         showMessage(error.errorMessage);
                         return {
