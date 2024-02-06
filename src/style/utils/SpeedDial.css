@@ -55,3 +55,24 @@
 .speed-dial-item:hover {
     background-color: #555;
 }
+
+.delete-user-characters-form ul {
+    list-style: none;
+    text-align: left;
+}
+
+.delete-user-characters-form button {
+    border: none;
+    background-color: #ffdd8d;
+    border-radius: 4px;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 17px;
+}
+
+.delete-user-characters-form button:hover {
+    font-weight: bold;
+    background-color: #f8b200;
+}
+

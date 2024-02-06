@@ -96,6 +96,10 @@ const TodoMain = ({setIsLoading, showMessage}) => {
                         showMessage={showMessage}
                         showCharacterSortForm={showCharacterSortForm}
                         setShowCharacterSortForm={setShowCharacterSortForm}
+                        setModalTitle={setModalTitle}
+                        setModalContent={setModalContent}
+                        setOpenModal={setOpenModal}
+                        closeContentModal={closeContentModal}
                     />
 
                     {/*메인 화면*/}
