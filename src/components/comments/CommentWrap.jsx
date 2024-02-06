@@ -1,6 +1,6 @@
 import React from 'react';
 import CommentList from "./CommentList";
-import PageNation from "../../fragments/PageNation";
+import PageNation from "../utils/PageNation";
 
 const CommentWrap = ({
                          addComment,

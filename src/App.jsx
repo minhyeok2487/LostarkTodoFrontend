@@ -75,7 +75,7 @@ const App = () => {
                                           setLoginName={setLoginName} loginName={loginName}/>}
                         />
                         <Route path="friends"
-                               element={loginName ? <FriendWrap setIsLoading={setIsLoading}/>  :
+                               element={loginName ? <FriendWrap setIsLoading={setIsLoading}/> :
                                    <Login message="로그인 후 LoaTodo 깐부 기능을 이용해보세요!!"
                                           isDarkMode={isDarkMode} showMessage={showMessage}
                                           setLoginName={setLoginName} loginName={loginName}/>}

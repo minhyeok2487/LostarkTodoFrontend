@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import * as comment from '../../apis/comments';
 import CommentList from '../../components/comments/CommentList';
-import PageNation from '../../fragments/PageNation';
+import PageNation from '../../components/utils/PageNation';
 import CommentWrap from "../../components/comments/CommentWrap";
 
 // 방명록 리스트

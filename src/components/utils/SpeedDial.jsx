@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { call } from '../../service/api-service';
 import '../../style/utils/SpeedDial.css';
+import * as apis from '../../apis/member';
 
 export default function SpeedDial({
    setIsLoading,
@@ -19,7 +20,6 @@ export default function SpeedDial({
         setIsLoading(true);
         try {
             let response;
-
             if (name === '캐릭터 순서 변경') {
                 setShowCharacterSortForm(!showCharacterSortForm);
             } else if (name === '출력 내용 변경') {
@@ -28,6 +28,14 @@ export default function SpeedDial({
                 response = await call('/member/characterList', 'PATCH', null);
                 setCharacters(response);
                 showMessage('정보 업데이트가 완료되었습니다.');
+            } else if (name === '등록 캐릭터 삭제') {
+                response = await apis.deleteUserCharacters();
+                if (response.success) {
+                    alert(response.message);
+                    window.location.href = "/";
+                } else {
+                    showMessage(response.message);
+                }
             } else if (name === '중복 캐릭터 삭제') {
                 response = await call('/member/duplicate', 'DELETE', null);
                 setCharacters(response);
@@ -40,10 +48,11 @@ export default function SpeedDial({
         }
     };
 
-    const icons = [
+    const menus = [
         { name: '캐릭터 순서 변경' },
         { name: '출력 내용 변경' },
         { name: '캐릭터 정보 업데이트' },
+        { name: '등록 캐릭터 삭제' },
         { name: '중복 캐릭터 삭제' },
     ];
 
@@ -53,13 +62,13 @@ export default function SpeedDial({
                 {isSpeedDialOpen ? 'x' : '+'}
             </button>
             <ul className={`speed-dial-items ${isSpeedDialOpen ? 'active' : ''}`}>
-                {icons.map((icon) => (
+                {menus.map((menu) => (
                     <li
-                        key={icon.name}
+                        key={menu.name}
                         className="speed-dial-item"
-                        onClick={() => handleAction(icon.name)}
+                        onClick={() => handleAction(menu.name)}
                     >
-                        {icon.name}
+                        {menu.name}
                     </li>
                 ))}
             </ul>

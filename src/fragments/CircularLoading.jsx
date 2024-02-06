@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {CircularProgress} from "@mui/material";
+import {LinearProgress} from "@mui/material";
 
 export default function CircularLoading() {
   return (
-    <div className="circular-loading-overlay">
-      <CircularProgress size={200} />
+    <div className="loading-overlay">
+        <LinearProgress color='success' style={{height:7}}/>
     </div>
   );
 }

@@ -1,0 +1,32 @@
+.week-form-wrap {
+    margin-top: 15px;
+    padding-right: 10px;
+    padding-left: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.week-category-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.gold-check-btn {
+    border: none;
+    background-color: #ffdd8d;
+    border-radius: 4px;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+}
+
+.gold-check-btn:hover {
+    font-weight: bold;
+    background-color: #f8b200;
+}
+
+.gold-check-btn.checked {
+    background-color: #8dfbff !important;
+}
