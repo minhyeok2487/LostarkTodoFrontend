@@ -22,7 +22,7 @@ const TodoWeekRaidContainer = ({
         }
     };
 
-    const makeAddTodoForm = (characterId, characterName, goldCharacter, data) => {
+    const makeAddTodoForm = (characterId, characterName, goldCharacter, goldCheckVersion, data) => {
         setModalTitle(characterName + " 주간 숙제 관리");
         const todosByCategory = {};
         const todosGoldCheck = {};
@@ -50,15 +50,17 @@ const TodoWeekRaidContainer = ({
             <div key={index} className="week-form-wrap">
                 <div className="week-category-name">
                     <p>{weekCategory}</p>
-                    {todosGoldCheck[weekCategory] ?
-                        <button className="gold-check-btn checked"
-                                onClick={() => updateWeekGoldCheck(weekCategory, characterName, !todosGoldCheck[weekCategory])}>
-                            골드 획득 지정 해제
-                        </button> :
-                        <button className="gold-check-btn"
-                                onClick={() => updateWeekGoldCheck(weekCategory, characterName, !todosGoldCheck[weekCategory])}>
-                            골드 획득 지정
-                        </button>
+                    {goldCheckVersion &&
+                        (todosGoldCheck[weekCategory] ?
+                            <button className="gold-check-btn checked"
+                                    onClick={() => updateWeekGoldCheck(weekCategory, characterName, !todosGoldCheck[weekCategory])}>
+                                골드 획득 지정 해제
+                            </button> :
+                            <button className="gold-check-btn"
+                                    onClick={() => updateWeekGoldCheck(weekCategory, characterName, !todosGoldCheck[weekCategory])}>
+                                골드 획득 지정
+                            </button>
+                        )
                     }
                 </div>
                 <div className="week-category-wrap" style={{flexDirection: "column"}}>
@@ -94,22 +96,33 @@ const TodoWeekRaidContainer = ({
 
         const modalContent = (
             <div>
-                <Button
-                    variant="contained"
-                    onClick={() => updateGoldCharacter(characterName)}
-                    style={{cursor: "pointer"}}
-                >
-                    골드 획득 캐릭터 지정 {goldCharacter ? "해제" : ""}
-                </Button>
+                <div style={{display:'flex', flexDirection:"row", justifyContent:"space-around"}}>
+                    <Button
+                        variant="contained"
+                        size="small"
+                        onClick={() => updateGoldCharacter(characterName)}
+                        style={{cursor: "pointer"}}
+                    >
+                        골드 획득 캐릭터 지정 {goldCharacter ? "해제" : ""}
+                    </Button>
+                    <Button
+                        variant="contained"
+                        onClick={() => updateGoldCheckVersion(characterId)}
+                        style={{cursor: "pointer"}}
+                    >
+                        골드 획득 체크 방식 : {goldCheckVersion ? "체크 방식" : "상위 3개"}
+                    </Button>
+                </div>
                 {content}
-            </div>);
+            </div>
+        );
         setModalContent(modalContent);
         setOpenModal(true);
     }
 
-    const openAddTodoForm = async (characterId, characterName, goldCharacter) => {
+    const openAddTodoForm = async (characterId, characterName, goldCharacter, goldCheckVersion) => {
         const data = await getAddTodoFormData(characterId, characterName);
-        makeAddTodoForm(characterId, characterName, goldCharacter, data);
+        makeAddTodoForm(characterId, characterName, goldCharacter, goldCheckVersion, data);
     };
 
     /*2-1. 캐릭터 주간 숙제 업데이트(추가/삭제)*/
@@ -120,7 +133,7 @@ const TodoWeekRaidContainer = ({
                 if (character.characterName === characterName) {
                     try {
                         const response = await todoApi.updateWeekTodo(characterId, characterName, content);
-                        await openAddTodoForm(characterId, characterName, response.goldCharacter);
+                        await openAddTodoForm(characterId, characterName, response.goldCharacter, response.settings.goldCheckVersion);
                         character.todoList = response.todoList;
                         return character;
                     } catch (error) {
@@ -148,7 +161,7 @@ const TodoWeekRaidContainer = ({
                 if (character.characterName === characterName) {
                     try {
                         const response = await todoApi.updateWeekTodoAll(characterId, characterName, content);
-                        await openAddTodoForm(characterId, characterName, response.goldCharacter);
+                        await openAddTodoForm(characterId, characterName, response.goldCharacter, response.settings.goldCheckVersion);
                         character.todoList = response.todoList;
                         return character;
                     } catch (error) {
@@ -257,6 +270,34 @@ const TodoWeekRaidContainer = ({
         }
     };
 
+    const updateGoldCheckVersion = async (characterId) => {
+        try {
+            setIsLoading(true);
+            const updatedCharacters = await Promise.all(characters.map(async (character) => {
+                if (character.id === characterId) {
+                    try {
+                        const response = await todoApi.updateGoldCheckVersion(character.id, character.characterName);
+                        character.settings.goldCheckVersion = response.settings.goldCheckVersion;
+                        character.todoList = response.todoList;
+                        await openAddTodoForm(character.id, character.characterName, character.goldCharacter, character.settings.goldCheckVersion);
+                        return character;
+                    } catch (error) {
+                        showMessage(error.errorMessage);
+                        return {
+                            ...character,
+                        };
+                    }
+                }
+                return character;
+            }));
+            setCharacters(updatedCharacters);
+        } catch (error) {
+            console.error('Error updateWeekTodo All:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     // 컨텐츠 골드 획득 지정
     const updateWeekGoldCheck = async (weekCategory, characterName, updateValue) => {
         try {
@@ -265,7 +306,7 @@ const TodoWeekRaidContainer = ({
                 if (character.characterName === characterName) {
                     try {
                         const response = await todoApi.updateCheckGold(character.id, characterName, weekCategory, updateValue);
-                        makeAddTodoForm(character.id, characterName, character.goldCharacter, response.weekContentDtoList);
+                        makeAddTodoForm(character.id, characterName, character.goldCharacter, character.settings.goldCheckVersion, response.weekContentDtoList);
                         return response.characterDto;
                     } catch (error) {
                         showMessage(error.errorMessage);

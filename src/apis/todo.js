@@ -161,6 +161,18 @@ export const updateGoldCharacter = async (characterId, characterName) => {
     }
 }
 
+export const updateGoldCheckVersion = async (characterId, characterName) => {
+    const updateContent = {
+        characterId: characterId,
+        characterName: characterName,
+    };
+    try {
+        return await call("/v3/character/settings/gold-check-version", "PATCH", updateContent);
+    } catch (error) {
+        throw error;
+    }
+}
+
 // 컨텐츠 골드 획득 지정/해제
 export const updateCheckGold = async (characterId, characterName, weekCategory, updateValue) => {
     const updateContent = {
