@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import BoardList from "./BoardList";
-import PageNation from "../../fragments/PageNation";
+import PageNation from "../utils/PageNation";
 import BoardText from "./BoardText";
 import * as boards from "../../apis/boards";
 

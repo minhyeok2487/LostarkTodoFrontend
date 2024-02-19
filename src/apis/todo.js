@@ -3,7 +3,7 @@ import { call } from "./api";
 // 전체 조회
 export const list = async () => {
     try {
-        const response = await call("/v2/member/characterList", "GET", null);
+        const response = await call("/v3/member/characters", "GET", null);
         return response;
     } catch (error) {
         console.log(error);
@@ -18,7 +18,7 @@ export const updateDayContent = async (characterId, characterName, category) => 
         characterName: characterName
     };
     try {
-        return await call("/v2/character/day-content/check/" + category, "PATCH", updateContent);
+        return await call("/v3/character/day-content/check/" + category, "PATCH", updateContent);
     } catch (error) {
         throw error;
     }
@@ -31,7 +31,7 @@ export const updateDayContentAll = async (characterId, characterName, category) 
         characterName: characterName
     };
     try {
-        return await call("/v2/character/day-content/check/" + category + "/all", "PATCH", updateContent);
+        return await call("/v3/character/day-content/check/" + category + "/all", "PATCH", updateContent);
     } catch (error) {
         throw error;
     }
@@ -157,7 +157,33 @@ export const updateGoldCharacter = async (characterId, characterName) => {
     try {
         return await call("/v2/character/gold-character/", "PATCH", updateContent);
     } catch (error) {
-        alert(error.errorMessage);
+        throw error;
+    }
+}
+
+export const updateGoldCheckVersion = async (characterId, characterName) => {
+    const updateContent = {
+        characterId: characterId,
+        characterName: characterName,
+    };
+    try {
+        return await call("/v3/character/settings/gold-check-version", "PATCH", updateContent);
+    } catch (error) {
+        throw error;
+    }
+}
+
+// 컨텐츠 골드 획득 지정/해제
+export const updateCheckGold = async (characterId, characterName, weekCategory, updateValue) => {
+    const updateContent = {
+        characterId: characterId,
+        characterName: characterName,
+        weekCategory: weekCategory,
+        updateValue: updateValue
+    };
+    try {
+        return await call("/v3/character/week/raid/gold-check", "PATCH", updateContent);
+    } catch (error) {
         throw error;
     }
 }

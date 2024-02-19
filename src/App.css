@@ -375,7 +375,7 @@ pre p:first-child{border-top:0;font-weight:700;font-size:18px;}
   padding: 10px;
   text-align: center;
   font-size: 14px;
-  color: #555; /* 원하는 텍스트 색상으로 설정 */
+  color: #555;
 }
 
 .icon-btn-search {

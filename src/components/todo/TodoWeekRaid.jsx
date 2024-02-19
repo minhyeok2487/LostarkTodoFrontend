@@ -71,7 +71,7 @@ const TodoWeekRaid = ({
                 }
                 <button
                     className={"content-button"}
-                    onClick={() => openAddTodoForm(character.id, character.characterName, character.goldCharacter)}
+                    onClick={() => openAddTodoForm(character.id, character.characterName, character.goldCharacter, character.settings.goldCheckVersion)}
                 >
                     편집{/* pub 추가 */}
                 </button>

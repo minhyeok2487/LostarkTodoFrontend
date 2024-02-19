@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import '../../style/Todo.css'
 import SpeedDial from "../utils/SpeedDial";
 import * as todo from "../../apis/todo";
 import TodoProfit from "./TodoProfit";
@@ -23,7 +24,8 @@ const TodoMain = ({setIsLoading, showMessage}) => {
     const getCharacters = async () => {
         try {
             setIsLoading(true);
-            const data = await todo.list();
+            let data = await todo.list();
+            data = data['characterDtoMap'];
             setAllCharacters(data);
 
             // setServers { serverKey: count }
@@ -94,6 +96,10 @@ const TodoMain = ({setIsLoading, showMessage}) => {
                         showMessage={showMessage}
                         showCharacterSortForm={showCharacterSortForm}
                         setShowCharacterSortForm={setShowCharacterSortForm}
+                        setModalTitle={setModalTitle}
+                        setModalContent={setModalContent}
+                        setOpenModal={setOpenModal}
+                        closeContentModal={closeContentModal}
                     />
 
                     {/*메인 화면*/}
