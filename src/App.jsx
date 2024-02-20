@@ -69,16 +69,16 @@ const App = () => {
                         <Route path='signup/character' element={<SignUpCharacters setIsLoading={setIsLoading}/>}/>
                         <Route path='sociallogin' element={<SocialLogin/>}/>
                         <Route path="todo"
-                               element={loginName ? <TodoMain setIsLoading={setIsLoading} showMessage={showMessage}/> :
-                                   <Login message="로그인 후 LoaTodo 숙제관리 기능을 이용해보세요!!"
-                                          isDarkMode={isDarkMode} showMessage={showMessage}
-                                          setLoginName={setLoginName} loginName={loginName}/>}
+                            element={loginName ? <TodoMain setIsLoading={setIsLoading} showMessage={showMessage}/> :
+                                        <Login message="안녕하세요 :) 로아투두와 일주일 레이드를 관리해보세요!"
+                                        isDarkMode={isDarkMode} showMessage={showMessage}
+                                        setLoginName={setLoginName} loginName={loginName}/>}
                         />
                         <Route path="friends"
-                               element={loginName ? <FriendWrap setIsLoading={setIsLoading}/> :
-                                   <Login message="로그인 후 LoaTodo 깐부 기능을 이용해보세요!!"
-                                          isDarkMode={isDarkMode} showMessage={showMessage}
-                                          setLoginName={setLoginName} loginName={loginName}/>}
+                            element={loginName ? <FriendWrap setIsLoading={setIsLoading}/> :
+                                        <Login message="로그인 후 로아투두로 깐부와 함께 레이드를 관리해보세요!"
+                                        isDarkMode={isDarkMode} showMessage={showMessage}
+                                        setLoginName={setLoginName} loginName={loginName}/>}
                         />
                         <Route path='comments' element={<CommentListContainer setIsLoading={setIsLoading}/>}/>
                         <Route path='setting' element={<Setting/>}/>
