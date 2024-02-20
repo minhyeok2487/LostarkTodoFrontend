@@ -2,6 +2,7 @@
 .home-wrap {
     display:flex;
     flex-direction:column;
+    max-width: 1200px;
 }
 
 .home-content {
@@ -13,6 +14,7 @@
 .main-characters {
     display: flex;
     flex-direction: row;
+    width: 60%;
 }
 
 .characters-info {
@@ -38,6 +40,12 @@
 
 .main-characters .character-list .character-info-box {
     border: 1px solid black;
+}
+
+
+/*-----------------MainProfits----------------*/
+.main-profit {
+    width: 40%;
 }
 
 /*-----------------MainNotices----------------*/
@@ -237,3 +245,21 @@
     margin-bottom: 10px;
     font-size: 16px;
 }
+
+.main-weekly-content .content-container {
+    text-align: center; /* Center align the content */
+    margin-top: 20px; /* Add space between the paragraph and the image */
+}
+
+.main-weekly-content img {
+    width: 13%; /* Ensure the image doesn't exceed its container */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Center the image */
+    margin: 0 auto; /* Center the image horizontally */
+}
+
+.main-weekly-content p {
+    font-size: 16px;
+    margin-top: 10px; /* Add space between the image and the paragraph */
+}
+

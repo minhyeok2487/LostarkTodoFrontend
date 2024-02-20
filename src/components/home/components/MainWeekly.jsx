@@ -55,10 +55,14 @@ const MainWeekly = () => {
             </div>
             <div className="main-weekly-content">
                 <p>{`${monthYearString} ${currentDate.getDate()}일 ${['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'][currentDate.getDay()]}`}</p>
-                <ul>
-                    <li>캐릭터이름1 / 카멘 하드 / with. 깐부1, 깐부2</li>
-                    <li>캐릭터이름2 / 일리아칸 하드 / 메모메모메모</li>
-                </ul>
+                {/*<ul>*/}
+                {/*    <li>캐릭터이름1 / 카멘 하드 / with. 깐부1, 깐부2</li>*/}
+                {/*    <li>캐릭터이름2 / 일리아칸 하드 / 메모메모메모</li>*/}
+                {/*</ul>*/}
+                <div className="content-container">
+                    <img alt="wating-img" src="/images/준비중.png"/>
+                    <p>기능 준비중입니다.</p>
+                </div>
             </div>
         </div>
     );
