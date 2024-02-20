@@ -44,7 +44,7 @@ const MainNotices = () => {
     return (
         <div className="main-notices"
             // 개발 후 스타일 지우기
-            style={{background:"#98FB98"}}
+            // style={{background:"#98FB98"}}
         >
             <div className="main-notices-header">
                 <h2>소식</h2>
@@ -61,17 +61,17 @@ const MainNotices = () => {
             <div className="notice-board-container">
                 {noticeGroup === "로스트아크" &&
                     <>
-                        <div className="notice-board-header">
+                        {/* <div className="notice-board-header">
                             <a href="https://lostark.game.onstove.com/News/Notice/List" target="_blank" className="notice-board-link">로스트아크 공지사항</a>
-                        </div>
+                        </div> */}
                         <NoticesWrap dataList={noticesList} type={"Lostark"} />
                     </>
                 }
                 {noticeGroup === "로아투두" &&
                     <>
-                        <div className="notice-board-header">
+                        {/* <div className="notice-board-header">
                             <a href="/boards" className="notice-board-link" target="_blank">LoaTodo 공지사항</a>
-                        </div>
+                        </div> */}
                         <NoticesWrap dataList={boardList} type={"LoaTodo"} />
                     </>
                 }

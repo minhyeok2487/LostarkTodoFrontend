@@ -4,7 +4,7 @@ const MainRaids = () => {
     return (
         <div className="main-raids"
             // 개발 후 스타일 지우기
-             style={{background:"#B0E0E6"}}
+            //  style={{background:"#B0E0E6"}}
         >
             <div className="main-raids-header">
                 <h2>레이드 별 현황</h2>

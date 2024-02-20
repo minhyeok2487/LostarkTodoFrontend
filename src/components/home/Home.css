@@ -2,7 +2,22 @@
 .home-wrap {
     display:flex;
     flex-direction:column;
-    max-width: 1200px;
+    max-width: 1280px;
+}
+
+.content-box{
+    border:0;
+    padding:0;
+}
+.content-box+.content-box{
+    margin:0;
+}
+
+.home-wrap h1,
+.home-wrap h2{
+    margin:0;
+    font-size:22px;
+    font-weight:500
 }
 
 .home-content {
@@ -15,10 +30,54 @@
     display: flex;
     flex-direction: row;
     width: 60%;
+    background:#fff;
+    border-radius:16px;
+    margin-right:24px;
+    padding:24px;
+    border:1px solid #dddddd
 }
 
-.characters-info {
+.characters-info{
+    width:200px;
+    margin-right:16px;
 
+}
+
+.characters-info .represent{
+    margin-top:16px;
+    
+    padding:16px 0;
+    text-align:center;
+    background:#f3f3f3;
+    border-radius:16px;
+}
+.characters-info .represent .img{
+    display:block;
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    margin:0 auto;
+    background-image: url(https://img.lostark.co.kr/armory/8/377f7b462cdd3f7b5dd18250b019b61aa2604ce7ce7b81b01f47a576c636e814.png?v=20231224072938);
+    background-position: left 10px top -30px;
+}
+.characters-info .represent .level{
+    font-size:14px;
+    margin-top: 2px;
+    display: block;
+    color: #666
+}
+
+.characters-info .represent .info{
+    display:block;
+    font-size:14px;
+    margin-top: 2px;
+    color: #666
+}
+.characters-info .represent .name{
+    display:block;
+    margin-top:5px;
+    font-weight:500;
+    font-size:14px;
 }
 
 .characters-info-header {
@@ -38,14 +97,20 @@
     background-color: gray;
 }
 
-.main-characters .character-list .character-info-box {
-    border: 1px solid black;
+.main-characters .character-list{display:flex;}
+.main-characters .character-list .character-item > div{
+    max-width: none;
+    flex-basis: auto;
 }
 
 
 /*-----------------MainProfits----------------*/
 .main-profit {
     width: 40%;
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    border:1px solid #dddddd
 }
 
 /*-----------------MainNotices----------------*/
@@ -53,6 +118,12 @@
     display: flex;
     flex-direction: column;
     width: 40%;
+    margin-right:16px;
+    margin-top:16px;
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    border:1px solid #dddddd
 }
 
 .main-notices .main-notices-header {
@@ -86,13 +157,11 @@
 }
 
 .notice-board-list {
-    border: 1px solid #ddd;
-    border-radius: 5px;
 }
 
 .board-ul {
     list-style: none;
-    padding-left: 12px;
+    padding-left: 0;
 }
 
 .board-item {
@@ -165,6 +234,11 @@
 /*-----------------MainRaids----------------*/
 .main-raids {
     width: 100%;
+    margin-top:16px;
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    border:1px solid #dddddd
 }
 
 .main-raids-content {
@@ -191,6 +265,11 @@
     width: 60%;
     display: flex;
     flex-direction: column;
+    margin-top:16px;
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    border:1px solid #dddddd
 }
 
 .main-weekly .main-weekly-header {

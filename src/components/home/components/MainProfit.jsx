@@ -5,7 +5,7 @@ const MainProfit = () => {
     return (
         <div className="main-profit"
             // 개발 후 스타일 지우기
-            style={{background:"#ffffe0"}}
+            // style={{background:"#ffffe0"}}
         >
             <h1>내 숙제</h1>
             <div className="content-box">

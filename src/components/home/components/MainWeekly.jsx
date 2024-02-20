@@ -26,7 +26,7 @@ const MainWeekly = () => {
     const monthYearString = `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
 
     return (
-        <div className="main-weekly" style={{ background: "#FBEFFB" }}>
+        <div className="main-weekly">
             <h2>이번주 레이드 현황</h2>
             <div className="main-weekly-header">
                 <div>
