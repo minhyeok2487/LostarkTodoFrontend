@@ -90,7 +90,7 @@ export default function Navbar({isDarkMode, setIsDarkMode, setIsLoading, showMes
                     <div className="buttons">
                         <div style={{ marginLeft: 10 }}>
                             {loginName === null ? (
-                                <a href="/login" className="action_btn">Login</a>
+                                <a href="/login" className="action_btn">로그인</a>
                             ) : (
                                 <div onClick={() => handlerDropdownUser()} className="login_name">{loginName}</div>
                             )}
@@ -119,7 +119,7 @@ export default function Navbar({isDarkMode, setIsDarkMode, setIsLoading, showMes
                 <li><a href="/comments" >방명록</a></li>
                 <li>
                     {loginName === null ? (
-                        <a href="/login" className="action_btn">Login</a>
+                        <a href="/login" className="action_btn">로그인</a>
                     ) : (
                         <div className="login_box">
                             <div className="login_name">{loginName}</div>

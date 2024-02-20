@@ -66,9 +66,9 @@ header {
 }
 
 .action_btn {
-    background-color: orange;
-    padding: 0.5rem 1rem;
-    border: none;
+    border:1px solid #fff;
+    margin-left:12px;
+    padding:6px 16px;
     outline: none;
     border-radius: 20px;
     font-size: 0.8rem;
