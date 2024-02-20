@@ -1,11 +1,73 @@
-.comments.home {
+/*-----------------------------------------------------------------------*/
+.home-wrap {
+    display:flex;
+    flex-direction:column;
+    max-width: 1200px;
+}
+
+.home-content {
     display: flex;
     flex-direction: row;
-    max-width: 1280px;
+    width: 100%;
+}
+
+.main-characters {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+}
+
+.characters-info {
+
+}
+
+.characters-info-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.characters-info .characters-info-summary {
+
+}
+
+.characters-info .characters-info-summary .summary-button {
+    background-color: white;
+}
+
+.characters-info .characters-info-summary .summary-button.check {
+    background-color: gray;
+}
+
+.main-characters .character-list .character-info-box {
+    border: 1px solid black;
+}
+
+
+/*-----------------MainProfits----------------*/
+.main-profit {
+    width: 40%;
+}
+
+/*-----------------MainNotices----------------*/
+.main-notices {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.main-notices .main-notices-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.main-notices .main-notices-header h2 {
+    margin-left: 10px;
+    font-weight: bold;
 }
 
 .notice-board-container {
-    width: 48%;
+    width: 100%;
     max-width: 640px;
     margin: 20px auto 0;
     color: var(--text-color);
@@ -100,14 +162,104 @@
     border-top: 1px solid #ddd;
 }
 
-@media (max-width: 900px) {
-    .comments.home {
-        flex-direction: column;
-    }
-
-    .notice-board-container {
-        width: 90%;
-        max-width: 600px;
-        margin: 10px auto 0;
-    }
+/*-----------------MainRaids----------------*/
+.main-raids {
+    width: 100%;
 }
+
+.main-raids-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main-raids-content .radis-content-box {
+    width: calc(20%); /* Adjust the width of each box as needed */
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-raids-content p {
+    margin: 0;
+    font-size: 16px;
+}
+
+/*-----------------MainWeekly----------------*/
+.main-weekly {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-weekly .main-weekly-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.main-weekly .main-weekly-date {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.main-weekly .main-weekly-date .weekly-date-box {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px 10px 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.main-weekly .main-weekly-date .weekly-date-box:hover {
+    background-color: #dddddd;
+}
+
+.main-weekly .main-weekly-date .weekly-date-box.check {
+    background-color: #dddddd;
+}
+
+.main-weekly-content {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-weekly-content p {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.main-weekly-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.main-weekly-content ul li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.main-weekly-content .content-container {
+    text-align: center; /* Center align the content */
+    margin-top: 20px; /* Add space between the paragraph and the image */
+}
+
+.main-weekly-content img {
+    width: 13%; /* Ensure the image doesn't exceed its container */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Center the image */
+    margin: 0 auto; /* Center the image horizontally */
+}
+
+.main-weekly-content p {
+    font-size: 16px;
+    margin-top: 10px; /* Add space between the image and the paragraph */
+}
+
