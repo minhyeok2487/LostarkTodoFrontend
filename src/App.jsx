@@ -62,7 +62,7 @@ const App = () => {
                     <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}
                             setIsLoading={setIsLoading} showMessage={showMessage}/>
                     <Routes>
-                        <Route path="" element={<HomeMain setIsLoading={setIsLoading} showMessage={showMessage}/>}/>
+                        <Route path="" element={<HomeMain setIsLoading={setIsLoading} showMessage={showMessage} loginName={loginName}/>}/>
                         <Route path="login" element={<Login isDarkMode={isDarkMode} showMessage={showMessage}
                                                             setLoginName={setLoginName} loginName={loginName}/>}/>
                         <Route path='signup' element={<SignUp setIsLoading={setIsLoading}/>}/>
@@ -102,7 +102,6 @@ const App = () => {
         <script>
           (adsbygoogle = window.adsbygoogle || []).push({});
         </script> */}
-                <Footer/>
             </div>
         </>
     );
