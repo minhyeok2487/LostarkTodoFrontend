@@ -1,23 +1,16 @@
-/** {*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    box-sizing: border-box;*/
-/*}*/
 
 header {
     position: relative;
-    padding: 0 2rem;
+    padding: 0 32px;
     box-sizing: border-box;
 }
 
 .navbar {
     width: 100%;
     height: 60px;
-    max-width: 1400px;
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
 }
 
 .navbar li {
@@ -27,14 +20,13 @@ header {
 
 .navbar a {
     text-decoration: none;
-    font-size: 1.15rem;
-    font-weight: bold;
-    color:var(--text-color);
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
 }
 
-.navbar a:hover {
-    color: orange;
-    background-color: rgba(0,0,0,0%);
+.navbar .logo {
+    height: 46px
 }
 
 .navbar .logo img {
@@ -43,8 +35,13 @@ header {
 }
 
 .navbar .links {
+    margin-left:24px;
     display: flex;
-    gap: 2rem;
+    gap: 32px;
+}
+
+.navbar .links a:hover {
+    border-bottom: 1px solid #fff;
 }
 
 .navbar .menus {
@@ -52,6 +49,7 @@ header {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-left: auto;
 }
 
 .navbar .menus .toggle_btn {
@@ -138,12 +136,12 @@ header {
     text-decoration: none;
     font-size: 1rem;
     font-weight: bold;
-    color:var(--text-color);
+    color: var(--text-color);
 }
 
 .dropdown_menu li a:hover {
     color: orange;
-    background-color: rgba(0,0,0,0%);
+    background-color: rgba(0, 0, 0, 0%);
 }
 
 .dropdown_menu .action_btn {
@@ -179,7 +177,7 @@ header {
 .dropdown_menu .login_box .logout_btn:hover {
     cursor: pointer;
     color: orange;
-    background-color: rgba(0,0,0,0%);
+    background-color: rgba(0, 0, 0, 0%);
 }
 
 .user_info_wrap {
@@ -206,26 +204,26 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    color:var(--text-color);
+    color: var(--text-color);
 }
 
 .user_info li a {
     text-decoration: none;
     font-size: 1rem;
     font-weight: bold;
-    color:var(--text-color);
+    color: var(--text-color);
 }
 
 .user_info li a:hover {
     cursor: pointer;
     color: orange;
-    background-color: rgba(0,0,0,0%);
+    background-color: rgba(0, 0, 0, 0%);
 }
 
 .user_info li:hover {
     cursor: pointer;
     color: orange;
-    background-color: rgba(0,0,0,0%);
+    background-color: rgba(0, 0, 0, 0%);
 }
 
 .user_info .action_btn {
@@ -264,7 +262,7 @@ header {
 
 .notifications li:hover {
     color: orange;
-    background-color: rgba(0,0,0,0%);
+    background-color: rgba(0, 0, 0, 0%);
 }
 
 .notifications li:last-child {
@@ -272,6 +270,7 @@ header {
 }
 
 @media (max-width: 900px) {
+
     .navbar .links,
     .navbar .menus .buttons {
         display: none;

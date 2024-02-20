@@ -1,214 +1,32 @@
 @import url('/src/App.css');
 
-.auth-container {
-    display:flex;
-    flex-direction: column;
-    max-width: 1280px;
-    width: 100%;
-    margin: 100px auto;
-    align-items: center;
-}
-
-.auth-container .input-box {
-    position: relative;
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: left;
-}
-
-.auth-container .input-box input {
-    font-weight: bold;
-    font-size: 16px;
-    width: 95%;
-    height: 30px;
-    padding: 10px;
-    border: 1px solid #CCC;
-    border-radius: 10px;
-    margin-bottom: 3px;
-}
-
-.auth-container .input-box input:read-only {
-    background-color: #ddd;
-}
-
-.auth-container .input-warn-message {
-    color: red;
-    margin-left: 7px;
-}
-
-.auth-container .message {
-    font-weight: bold;
-    color: mediumslateblue;
-}
-
-.auth-container .mention p{
-    margin-top: -50px;
-    font-size: 30px;
-    font-weight: bold;
-    color: var(--text-color);
-}
-
-.login-wrap {
-    width: 400px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.login-btn {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    height: 30px;
-    width: 400px;
-    border-radius: 20px;
-    border: none;
-    background-color: #3b82f6;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.login-btn:hover {
-    color: orange;
-}
-
-.link-wrap {
-    margin-top: 10px;
-    width: 95%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.link-wrap a {
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.link-wrap .signup {
-    color: blue;
-}
-
-.link-wrap .find-password {
-    color: #aaa;
-}
-
-.link-wrap a:hover {
-    color: orange;
-    background: none;
-}
-
-.auth-container .bar {
-    width: 400px;
-    display: flex;
-    align-items: center;
-    color: #aaa;
-    font-size: 14px;
-    margin: 30px;
-}
+.auth-container{display:flex;flex-direction:column;max-width:450px;width:100%;margin:60px auto;padding:40px 60px 80px 60px;align-items:center;border:1px solid #e8e8e8;background:#fff;border-radius:16px;box-sizing:content-box}
+.auth-container .message{font-weight:400;color:#101010;margin-bottom:24px;}
+.auth-container .input-box{position:relative;width:100%;text-align:left;}
+.auth-container .input-box input{font-weight:400;font-size:16px;width:100%;height:30px;padding:26px 16px;border:1px solid #e8e8e8;border-radius:10px;color:#101010;box-sizing:border-box;}
+.auth-container .input-box input:read-only{background-color:#f3f3f3;}
+.auth-container .input-warn-message{color:#ff4545;margin-left:7px;font-size:14px;}
+.auth-container .mention p{font-size:30px;font-weight:bold;color:var(--text-color);}
+.login-wrap{width:400px;text-align:center;display:flex;flex-direction:column;align-items:center;}
+.login-btn{margin-top:16px;margin-bottom:16px;height:50px;width:100%;border-radius:20px;border:none;background-color:#333;color:#fff;font-size:16px;font-weight:bold;cursor:pointer;}
+.link-wrap{margin-top:10px;width:95%;display:flex;flex-direction:row;justify-content:center;}
+.link-wrap .signup{color:#101010;font-weight:700;text-decoration:none;border-bottom:1px solid #101010;}
+.link-wrap .find-password{color:#aaa;}
+.auth-container .bar{width:400px;display:flex;align-items:center;color:#101010;font-size:14px;margin:30px;}
 .auth-container .bar::before,
-.auth-container .bar::after {
-    content: "";
-    flex-grow: 1;
-    background: #aaa;
-    height: 1px;
-    font-size: 0px;
-    line-height: 0px;
-    margin: 0px 16px;
+.auth-container .bar::after{content:"";flex-grow:1;background:#e8e8e8;height:1px;font-size:0px;line-height:0px;margin:0px 16px;}
+.signup-wrap{width:400px;text-align:center;display:flex;flex-direction:column;align-items:center;}
+.auth-container .input-box + .input-box{margin-top:12px;}
+.signup-wrap .input-btn-wrap{display:flex;flex-direction:column;width:100%;}
+.signup-wrap .input-btn-wrap + .input-btn-wrap{margin-top:12px;}
+.signup-wrap .input-btn-wrap + .input-box{margin-top:12px;}
+.signup-wrap .input-btn-wrap .input-btn{display:flex;flex-direction:row;align-items:center;}
+.signup-wrap .input-btn-wrap .input-btn button{width:88px;height:52px;border-radius:10px;border:none;background-color:#101010;color:white;font-size:16px;font-weight:bold;cursor:pointer;margin-left:13px;}
+.disable{background-color:gray;cursor:auto;}
+.login-with-google-btn{width:400px;height:50px;padding-left:40px;transition:background-color .3s;cursor:pointer;border:none;border-radius:20px;color:#101010;font-size:16px;font-weight:700;background:url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=) no-repeat left 100px center / 24px;border:1px solid #101010;}
+
+@media only screen and (max-width:500px){
+    .auth-container{width:100%;box-sizing:border-box;}
+    .login-with-google-btn{width:100%}
+    .login-wrap{width:100%;}
 }
-
-.signup-wrap {
-    width: 400px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.signup-wrap .input-btn-wrap {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.signup-wrap .input-btn-wrap .input-btn {
-    display: flex;
-    flex-direction: row;
-}
-
-.signup-wrap .input-btn-wrap .input-btn button {
-    width: 60px;
-    height: 52px;
-    border-radius: 10px;
-    border: none;
-    background-color: #3b82f6;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 13px;
-}
-
-.disable {
-    background-color: gray;
-    cursor: auto;
-}
-
-.login-with-google-btn {
-    width: 400px;
-    transition: background-color .3s, box-shadow .3s;
-    cursor: pointer;
-    padding: 12px 16px 12px 42px;
-    border: none;
-    border-radius: 20px;
-    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
-
-    color: #757575;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
-
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
-    background-color: white;
-    background-repeat: no-repeat;
-    background-position: 12px 11px;
-
-    &:hover {
-        box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
-    }
-
-    &:active {
-        background-color: #eeeeee;
-    }
-
-    &:focus {
-        outline: none;
-        box-shadow:
-                0 -1px 0 rgba(0, 0, 0, .04),
-                0 2px 4px rgba(0, 0, 0, .25),
-                0 0 0 3px #c8dafc;
-    }
-
-    &:disabled {
-        filter: grayscale(100%);
-        background-color: #ebebeb;
-        box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
-        cursor: not-allowed;
-    }
-}
-
-@media only screen and (max-width: 500px) {
-    .login-wrap,
-    .bar,
-    .login-btn {
-        width: 95%;
-    }
-
-    .login-with-google-btn {
-        width: 100%;
-    }
-}
-
-

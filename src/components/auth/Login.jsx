@@ -60,8 +60,8 @@ function Login({message = null, isDarkMode, loginName, setLoginName}) {
     return (
         <div className="auth-container">
             {/*메시지 받으면 보임 (ex. 비로그인 상태에서 숙제, 깐부탭 클릭 시)*/}
-            <div className="message">{message}</div>
             <Logo isDarkMode={isDarkMode}/>
+            <div className="message">{message}</div>
             <div className="login-wrap">
                 <InputBox
                     className={"login"}

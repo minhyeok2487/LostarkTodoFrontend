@@ -137,7 +137,7 @@ function SignUp({setIsLoading}) {
     return (
         <div className="auth-container">
             <div className="mention">
-                <p>모코코만큼 환영합니다.</p>
+                <p>모코코만큼 환영해요 :)</p>
             </div>
             <div className="signup-wrap">
                 <div className="input-btn-wrap">
