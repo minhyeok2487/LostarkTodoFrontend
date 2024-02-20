@@ -228,7 +228,7 @@ footer {
   width: 40px;
   height: 40px;
   display: flex;
-  background: url(../public/images/ico_dark.png) no-repeat center;
+  background: url(../public/images/ico_dark.png) no-repeat center / 100%;
   border-radius: 10px;
   cursor: pointer;
   z-index: 9999;
