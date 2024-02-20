@@ -66,30 +66,25 @@ header {
 }
 
 .action_btn {
+    display:block;
     border:1px solid #fff;
-    margin-left:12px;
+    margin-left:6px;
     padding:6px 16px;
     outline: none;
-    border-radius: 20px;
+    border-radius: 12px;
     font-size: 0.8rem;
     font-weight: bold;
     cursor: pointer;
-    margin-right: 1rem;
-}
-
-.action_btn:hover {
-    background-color: orange !important;
-    color: #fff !important;
 }
 
 .login_name {
-    color: var(--text-color);
+    color:#fff;
     padding: 0.5rem 0.2rem;
     border: none;
     outline: none;
-    font-size: 1rem;
+    font-size: 16px;
+    font-weight:400;
     cursor: pointer;
-    margin-right: 1rem;
 }
 
 .navbar .toggle_btn {
@@ -190,40 +185,45 @@ header {
 
 .user_info {
     position: absolute;
-    width: 300px;
-    background: rgba(255, 255, 255, 0.1);
+    top: 68px;
+    right:45px;
+    width: 160px;
+    padding:5px 0;
+    background:#fff;
+    border-radius:12px;
     backdrop-filter: blur(15px);
-    border-radius: 10px;
     overflow: hidden;
     transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 9999999999999999;
 }
 
 .user_info li {
-    padding: 0.7rem;
+    padding:7px 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-color);
 }
 
 .user_info li a {
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: bold;
-    color: var(--text-color);
+    color:#101010;
+    text-decoration:none;
+    line-height: 22px;
+    border-bottom:1px solid #fff;
 }
-
 .user_info li a:hover {
-    cursor: pointer;
-    color: orange;
-    background-color: rgba(0, 0, 0, 0%);
+    line-height: 22px;
+    border-bottom:1px solid #222;
 }
 
-.user_info li:hover {
+.user_info li div{
+    margin-bottom:1px;
+}
+.user_info li div:hover {
     cursor: pointer;
-    color: orange;
-    background-color: rgba(0, 0, 0, 0%);
+    line-height: 22px;
+    margin-top:-1px;
+    margin-bottom:-2px;
+    border-bottom:1px solid #222;
 }
 
 .user_info .action_btn {
@@ -237,6 +237,11 @@ header {
     display: flex;
     align-items: center;
     margin-right: 10px;
+    background:url("../../public/images/ico_alert02.png") no-repeat center / 24px;
+}
+
+.notification-container path{
+    display: none;
 }
 
 .notification-list {
