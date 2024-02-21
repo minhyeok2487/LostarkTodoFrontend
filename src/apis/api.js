@@ -25,7 +25,7 @@ export function call(api, method, request) {
         if (response.status === 200 || response.status === 201) {
             return response.json();
         } else if (response.status === 403) {
-            window.location.href = "/login";
+            // window.location.href = "/login";
             throw response.json();
         } else {
             throw response.json();

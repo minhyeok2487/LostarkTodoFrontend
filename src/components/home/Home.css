@@ -40,7 +40,6 @@
 .characters-info{
     width:200px;
     margin-right:16px;
-
 }
 
 .characters-info .represent{
@@ -57,8 +56,7 @@
     height:50px;
     border-radius:50%;
     margin:0 auto;
-    background-image: url(https://img.lostark.co.kr/armory/8/377f7b462cdd3f7b5dd18250b019b61aa2604ce7ce7b81b01f47a576c636e814.png?v=20231224072938);
-    background-position: left 10px top -30px;
+    background-size: 400%;
 }
 .characters-info .represent .level{
     font-size:14px;
@@ -97,12 +95,16 @@
     background-color: gray;
 }
 
-.main-characters .character-list{display:flex;}
+.main-characters .character-list{display:flex; flex-wrap: wrap;}
 .main-characters .character-list .character-item > div{
     max-width: none;
     flex-basis: auto;
 }
 
+.main-characters .character-list .character-info-box {
+    width: 80px;
+    border: 1px solid black;
+}
 
 /*-----------------MainProfits----------------*/
 .main-profit {
