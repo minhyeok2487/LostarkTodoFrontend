@@ -1,45 +1,61 @@
 import React from 'react';
-import ToggleButton from "../../utils/ToggleButton";
-import SelectLabels from "../../utils/SelectLabels";
-import { Grid } from "@mui/material";
 
-const MainCharacters = ({ serverList, server, setServer, characters }) => {
+const MainCharacters = ({ characters, mainCharacter }) => {
+    const calAverageLevel = characters.reduce((accumulator, character) => {
+        accumulator += character.itemLevel;
+        return accumulator;
+    }, 0);
+
+    const supportList = ["바드", "도화가", "홀리나이트"];
+    const countDealer = characters.reduce((accumulator, character) => {
+        if (!supportList.includes(character.characterClassName)) {
+            accumulator++
+        }
+        return accumulator;
+    }, 0);
+
+    const countSupport = characters.reduce((accumulator, character) => {
+        if (supportList.includes(character.characterClassName)) {
+            accumulator++
+        }
+        return accumulator;
+    }, 0);
+
+
     return (
-        <div className="main-characters"
-            // 개발 후 스타일 지우기
-            // style={{background:"#aaaaaa"}}
-        >
+        <div className="main-characters">
             <div className="characters-info">
                 <div className="characters-info-header">
                     <h1>대표 캐릭터</h1>
-                    {/* <SelectLabels valueList={serverList} value={server} setValue={setServer}/> */}
                 </div>
                 {/* Render selected character info */}
                 <div className="represent">
-                    <span className="img"></span>
-                    <span className="name">마볼링</span>
-                    <span className="level">Lv.1650.00</span>
-                    <span className="info">@루페온 도화가</span>
+                    <span className="img"
+                          style={{
+                              backgroundImage: mainCharacter.characterImage !== null ? `url(${mainCharacter.characterImage})` : "",
+                              backgroundPosition: mainCharacter.characterClassName === "도화가" || mainCharacter.characterClassName === "기상술사" ? "50% 32%" : "50% 10%",
+                              backgroundColor: "black", // 캐릭터가 이미지가 없으면 배경색을 검정으로 설정
+                          }}>
+                    ></span>
+                    <span className="name">{mainCharacter.characterName}</span>
+                    <span className="level">Lv. {mainCharacter.itemLevel}</span>
+                    <span className="info">@{mainCharacter.serverName} {mainCharacter.characterClassName}</span>
                 </div>
-                <div>평균 아이템 레벨 : Lv.1650.00</div>
+                <div>평균 아이템 레벨 : Lv.{(calAverageLevel/characters.length).toFixed(2)}</div>
                 <div className="characters-info-summary">
-                    <span className="summary check">총 6캐릭</span>
-                    <span className="summary">딜러 4캐릭</span>
-                    <span className="summary">서폿 2캐릭</span>
+                    <span className="summary check">총 {characters.length}캐릭</span>
+                    <span className="summary">딜러 {countDealer}캐릭</span>
+                    <span className="summary">서폿 {countSupport}캐릭</span>
                 </div>
             </div>
             <div className="character-list">
-                <Grid container className="character-item">
-                    {characters.map((character, index) => (
-                        <Grid key={index} item xs={4}>
-                            <div className="character-info-box">
-                                <span>@{character.serverName} {character.characterClassName}</span>
-                                <h3>{character.characterName}</h3>
-                                <h2>Lv. {character.itemLevel}</h2>
-                            </div>
-                        </Grid>
-                    ))}
-                </Grid>
+                {characters.map((character, index) => (
+                    <div key={index} className="character-info-box">
+                        <span>@{character.serverName} {character.characterClassName}</span>
+                        <h3>{character.characterName}</h3>
+                        <h2>Lv. {character.itemLevel}</h2>
+                    </div>
+                ))}
             </div>
         </div>
     );
