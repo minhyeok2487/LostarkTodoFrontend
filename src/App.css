@@ -50,6 +50,8 @@ body {
   font-size: 14px;
   color: #222;
   height: 100%;
+  padding-top:50px;
+  padding-bottom:50px;
 }
 
 footer {
@@ -444,7 +446,7 @@ footer {
   background: #fee1dd;
 }
 
-todo-wrap {
+.todo-wrap {
   max-width: 1280px;
   margin-top: 7px;
   height: 100%;
@@ -833,6 +835,11 @@ input:focus {
 }
 
 header {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:2;
   width: 100% !important;
   box-shadow: 0px 0px 20px 7px rgba(0, 0, 0, 0.03) !important;
   background: #333
@@ -1352,6 +1359,7 @@ pre p:first-child {
   margin: 20px auto 0;
   color: var(--text-color);
   height: 100%;
+  padding-top:60px;
 }
 
 .comments-title {
