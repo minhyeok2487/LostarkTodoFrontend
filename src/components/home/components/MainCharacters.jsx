@@ -24,11 +24,10 @@ const MainCharacters = ({ characters, mainCharacter }) => {
 
     return (
         <div className="main-characters">
+            <div className="characters-info-header">
+                <h1>대표 캐릭터</h1>
+            </div>
             <div className="characters-info">
-                <div className="characters-info-header">
-                    <h1>대표 캐릭터</h1>
-                </div>
-                {/* Render selected character info */}
                 <div className="represent">
                     <span className="img"
                           style={{
@@ -39,23 +38,39 @@ const MainCharacters = ({ characters, mainCharacter }) => {
                     ></span>
                     <span className="name">{mainCharacter.characterName}</span>
                     <span className="level">Lv. {mainCharacter.itemLevel}</span>
-                    <span className="info">@{mainCharacter.serverName} {mainCharacter.characterClassName}</span>
+                    <span className="info">@{mainCharacter.serverName} </span>
+                    <span className="info">{mainCharacter.characterClassName}</span>
                 </div>
-                <div>평균 아이템 레벨 : Lv.{(calAverageLevel/characters.length).toFixed(2)}</div>
-                <div className="characters-info-summary">
-                    <span className="summary check">총 {characters.length}캐릭</span>
-                    <span className="summary">딜러 {countDealer}캐릭</span>
-                    <span className="summary">서폿 {countSupport}캐릭</span>
+                <div className="character-list">
+                    {characters.map((character, index) => (
+                        <div key={index} className="character-info-box">
+                            <span className="character-server">@{character.serverName}</span>
+                            <span className="character-className">{character.characterClassName}</span>
+                            <span className="character-name">{character.characterName}</span>
+                            <span className="character-itemLevel">Lv. {character.itemLevel}</span>
+                        </div>
+                    ))}
                 </div>
             </div>
-            <div className="character-list">
-                {characters.map((character, index) => (
-                    <div key={index} className="character-info-box">
-                        <span>@{character.serverName} {character.characterClassName}</span>
-                        <h3>{character.characterName}</h3>
-                        <h2>Lv. {character.itemLevel}</h2>
+            <div className="characters-info">
+                <div className="characters-average">
+                    <span className="characters-average-text">평균 아이템 레벨 : &nbsp;</span>
+                    <span className="characters-average-level">Lv.{(calAverageLevel/characters.length).toFixed(2)}</span>
+                </div>
+                <div className="characters-info-summary">
+                    <div className="summary">
+                        <span>총 : &nbsp;</span>
+                        <span>{characters.length} 캐릭</span>
                     </div>
-                ))}
+                    <div className="summary">
+                        <span>딜러 : &nbsp;</span>
+                        <span>{countDealer} 캐릭</span>
+                    </div>
+                    <div className="summary">
+                        <span>서폿 : &nbsp;</span>
+                        <span>{countSupport} 캐릭</span>
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -55,25 +55,27 @@ const MainProfit = ({characters}) => {
     return (
         <div className="main-profit">
             <h1>내 숙제</h1>
-            <div className="content-box">
-                <div>
-                    <p>일일 숙제</p>
-                    <p>완료 {getDay} / 총 {totalDay}</p>
+            <div className="main-profit-box days">
+                <div className="main-profit-text">
+                    <span>일일 숙제</span>
+                    <span>완료 {getDay} / 총 {totalDay}</span>
                 </div>
                 <span className="bar">
-                    <i style={{width: `${getDay}/${totalDay}%`}}></i>
+                    <i style={{ width: `${getDay / totalDay * 100}%` }}></i>
+                    <em>{(getDay / totalDay * 100).toFixed(1)} %</em>
                 </span>
             </div>
-            <div className="content-box">
-                <div>
-                    <p>주간 숙제</p>
-                    <p>완료 {getWeek} / 총 {totalWeek}</p>
+            <div className="main-profit-box weeks">
+                <div className="main-profit-text">
+                    <span>주간 숙제</span>
+                    <span>완료 {getWeek} / 총 {totalWeek}</span>
                 </div>
                 <span className="bar">
-                    <i style={{width: `${getWeek}/${totalWeek}%`}}></i>
+                    <i style={{ width: `${getWeek / totalWeek * 100}%` }}></i>
+                    <em>{(getWeek / totalWeek * 100).toFixed(1)} %</em>
                 </span>
             </div>
-            <p>이번주 @@@@@@ 만큼 벌었어요!!</p>
+            <p>이번주 @@@@@@ 만큼 벌었어요!!! (개발예정...)</p>
         </div>
     );
 };
