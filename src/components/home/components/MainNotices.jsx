@@ -4,7 +4,7 @@ import ToggleButton from "@mui/material/ToggleButton";
 import NoticesWrap from "./NoticesWrap";
 
 const MainNotices = ({notices, boards}) => {
-    const [noticeGroup, setNoticeGroup] = React.useState('로스트아크');
+    const [noticeGroup, setNoticeGroup] = React.useState('로아투두');
     const handleChange = (event, newValue) => {
         if (newValue !== null) {
             setNoticeGroup(newValue);
@@ -21,8 +21,8 @@ const MainNotices = ({notices, boards}) => {
                     exclusive
                     onChange={handleChange}
                 >
-                    <ToggleButton value="로스트아크">로스트아크</ToggleButton>
                     <ToggleButton value="로아투두">로아투두</ToggleButton>
+                    <ToggleButton value="로스트아크">로스트아크</ToggleButton>
                 </ToggleButtonGroup>
             </div>
             <div className="notice-board-container">

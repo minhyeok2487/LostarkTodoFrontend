@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './Home.css';
+import '../../style/Home.css';
 import * as homeApi from "../../apis/home";
 import * as homeData from "./HomeData";
 import MainCharacters from "./components/MainCharacters";
@@ -33,8 +33,8 @@ const HomeMain = ({showMessage, loginName}) => {
     }
 
     useEffect(() => {
-        getBoardList(1, 5);
-        getNoticesList(1, 5);
+        getBoardList(1, 6);
+        getNoticesList(1, 6);
         getData();
 
     }, []);

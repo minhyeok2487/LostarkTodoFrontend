@@ -6,6 +6,7 @@ import NotificationComponent from '../components/notification/NotificationCompon
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import Logo from "../utils/Logo";
+import { NavLink, useLocation } from 'react-router-dom';
 
 export default function Navbar({isDarkMode, setIsDarkMode, setIsLoading, showMessage}) {
     const [isOpen, setIsOpen] = useState(false);
@@ -72,15 +73,16 @@ export default function Navbar({isDarkMode, setIsDarkMode, setIsLoading, showMes
             setIsLoading(false);
         }
     }
+    const location = useLocation();
 
     return (
         <header>
             <div className="navbar">
-                <Logo isDarkMode={isDarkMode} />
+                <Logo isDarkMode={true} />
                 <ul className="links">
-                    <li><a href="/todo">숙제</a></li>
-                    <li><a href="/friends">깐부</a></li>
-                    <li><a href="/comments">방명록</a></li>
+                    <li><NavLink to="/todo" className={location.pathname === '/todo' ? 'active' : ''}>숙제</NavLink></li>
+                    <li><NavLink to="/friends" className={location.pathname === '/friends' ? 'active' : ''}>깐부</NavLink></li>
+                    <li><NavLink to="/comments" className={location.pathname === '/comments' ? 'active' : ''}>방명록</NavLink></li>
                 </ul>
 
                 <div className="menus">

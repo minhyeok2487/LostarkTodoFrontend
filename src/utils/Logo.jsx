@@ -8,7 +8,7 @@ const Logo = ({isDarkMode}) => {
             {isDarkMode ? (
                 <img alt="logo" src='/logo_white.png'/>
             ) : (
-                <img alt="logo" src='/logo_white.png'/>
+                <img alt="logo" src='/logo.png'/>
             )}
         </Link>
     );
