@@ -17,17 +17,23 @@ const HomeMain = ({showMessage, loginName}) => {
     const [notices, setNotices] = useState([]);
     const [boards, setBoards] = useState([]);
     const [homeRaid, setHomeRaid] = useState(homeData.RaidData);
+    const [weekTotalGold, setWeekTotalGold] = useState(0);
+    const [dayTotalGold, setDayTotalGold] = useState(0);
     const getData = async () => {
         try {
             const data = await homeApi.getHomeData();
             setChracters(data["characterDtoList"]);
             setMainCharacter(data["mainCharacter"]);
             setHomeRaid(data["homeRaidDtoList"]);
+            setWeekTotalGold(data["weekTotalGold"]);
+            setDayTotalGold(data["dayTotalGold"]);
         } catch (error) {
             showMessage("등록된 캐릭터가 존재하지 않아 임시 데이터가 보여집니다.");
             setChracters(homeData.charactersData);
             setMainCharacter(homeData.charactersData[0]);
             setHomeRaid(homeData.RaidData);
+            setWeekTotalGold(6000.00);
+            setDayTotalGold(4000.00);
         }
 
     }
@@ -72,7 +78,7 @@ const HomeMain = ({showMessage, loginName}) => {
                     }
 
                     {/*숙제 수익 요약*/}
-                    <MainProfit characters={characters} />
+                    <MainProfit characters={characters} weekTotalGold={weekTotalGold} dayTotalGold={dayTotalGold} />
                 </div>
                 <div className="home-content">
                     {/*로스트아크, LoaTodo 공지사항*/}

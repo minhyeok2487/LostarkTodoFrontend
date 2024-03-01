@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MainProfit = ({characters}) => {
+const MainProfit = ({characters, weekTotalGold, dayTotalGold}) => {
     // className="content-box" 이름 바꾸기
 
     if (!Array.isArray(characters)) {
@@ -75,7 +75,10 @@ const MainProfit = ({characters}) => {
                     <em>{(getWeek / totalWeek * 100).toFixed(1)} %</em>
                 </span>
             </div>
-            <p>이번주 @@@@@@ 만큼 벌었어요!!! (개발예정...)</p>
+            <div>
+                <p>이번주 총 수익 : {(dayTotalGold + weekTotalGold).toFixed(2)} Gold
+                    / 일일 : {dayTotalGold.toFixed(2)} / 주간 : {weekTotalGold}</p>
+            </div>
         </div>
     );
 };
