@@ -12,7 +12,6 @@ import CircularLoading from './fragments/CircularLoading';
 import Notification from './fragments/Notification';
 import SignUp from "./components/auth/SignUp";
 import SignUpCharacters from "./components/auth/SignUpCharacters";
-import Footer from "./utils/Footer";
 import HomeMain from "./components/home/HomeMain";
 import BoardMain from "./components/boards/BoardMain";
 import Board from "./components/boards/Board";
@@ -62,7 +61,7 @@ const App = () => {
                     <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}
                             setIsLoading={setIsLoading} showMessage={showMessage}/>
                     <Routes>
-                        <Route path="" element={<HomeMain setIsLoading={setIsLoading} showMessage={showMessage} loginName={loginName}/>}/>
+                        <Route path="" element={<HomeMain setIsLoading={setIsLoading} showMessage={showMessage} isLoading={isLoading}/>}/>
                         <Route path="login" element={<Login isDarkMode={isDarkMode} showMessage={showMessage}
                                                             setLoginName={setLoginName} loginName={loginName}/>}/>
                         <Route path='signup' element={<SignUp setIsLoading={setIsLoading}/>}/>
