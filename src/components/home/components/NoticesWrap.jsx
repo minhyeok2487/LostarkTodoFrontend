@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import * as notices from "../../../apis/notices";
 
 const NoticesWrap = ({
-    dataList,
-    type
-}) => {
+                         dataList,
+                         type
+                     }) => {
     const isRecent = (date) => {
         const currentDate = new Date();
         const boardDate = new Date(date);

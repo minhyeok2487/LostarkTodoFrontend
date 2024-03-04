@@ -55,7 +55,7 @@ img, button {border:0 none; vertical-align:middle}
 hr {height:0; display:none}
 i, em, address {font-style:normal}
 label, button {cursor:pointer}
-caption, legend {width:0; height:0; margin:0; padding:0; text-indent:-9999em; overflow:hidden; font-size:0;} 
+caption, legend {width:0; height:0; margin:0; padding:0; text-indent:-9999em; overflow:hidden; font-size:0;}
 header, footer, section, article, aside, nav, hgroup, details, menu, figure, figcaption {display:block}
 input, textarea, select {margin:0; padding:0; font-family:'NanumGothic', sans-serif;font-weight: 800; font-size:12px; color:#000; vertical-align:middle;box-sizing:border-box;}
 select{width:100%;height:52px;font-size:22px;color:#000;border:1px solid #000;padding-left:15px;appearance:none;-webkit-appearance:none;-moz-appearance:none;}

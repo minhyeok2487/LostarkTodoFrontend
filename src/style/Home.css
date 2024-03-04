@@ -438,7 +438,7 @@
 
 .board-title {
     padding:4px 10px;
-    
+
 }
 
 .board-title a {
@@ -516,7 +516,7 @@
 }
 
 .main-raids-content .radis-content-box {
-    width: 100%; 
+    width: 100%;
     padding: 12px;
     border: 1px solid var(--border);
     border-radius: 16px;
@@ -635,7 +635,6 @@
     color:var(--fColor);
 }
 
-
 .main-weekly .main-weekly-date {
     display: flex;
     flex-direction: row;
@@ -671,7 +670,6 @@
     font-weight:500;
     color:var(--fColor)
 }
-
 
 
 .main-weekly .main-weekly-date .weekly-date-box.check {
@@ -775,7 +773,7 @@
     margin-left: 16px;
     font-weight: 600;
     font-size: 20px;
-    
+
 }
 .main-friends .content:nth-child(5) .flag{
     height:30px;

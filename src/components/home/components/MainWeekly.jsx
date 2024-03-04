@@ -41,34 +41,34 @@ const MainWeekly = ({isLoading}) => {
                 </div>
             </h2>
             {isLoading ? <Skeleton variant="rounded" width="100%" height="90%"/> :
-            <>
-                <div className="main-weekly-date">
-                    {[0, 1, 2, 3, 4, 5, 6].map((offset) => {
-                        const date = new Date(wednesdayDate);
-                        date.setDate(wednesdayDate.getDate() + offset);
-                        const classNames = `weekly-date-box${offset === (dayOfWeek >= 3 ? dayOfWeek - 3 : 4 + dayOfWeek) ? ' check' : ''}`;
-                        return (
-                            <div className={classNames} key={offset} onClick={() => handleDateBoxClick(date)}>
-                                <p className="date">{date.getDate()}</p>
-                                <p className="weekly">
-                                    {['일', '월', '화', '수', '목', '금', '토'][date.getDay()]}
-                                </p>
-                            </div>
-                        );
-                    })}
-                </div>
-                <div className="main-weekly-content">
-                    <p className="tit">{`${monthYearString} ${currentDate.getDate()}일 ${['일', '월', '화', '수', '목', '금', '토'][currentDate.getDay()]}`}</p>
-                    {/*<ul>*/}
-                    {/*    <li>캐릭터이름1 / 카멘 하드 / with. 깐부1, 깐부2</li>*/}
-                    {/*    <li>캐릭터이름2 / 일리아칸 하드 / 메모메모메모</li>*/}
-                    {/*</ul>*/}
-                    <div className="content-container">
-                        <img alt="wating-img" src="/images/준비중.png"/>
-                        <p>기능 준비중입니다.</p>
+                <>
+                    <div className="main-weekly-date">
+                        {[0, 1, 2, 3, 4, 5, 6].map((offset) => {
+                            const date = new Date(wednesdayDate);
+                            date.setDate(wednesdayDate.getDate() + offset);
+                            const classNames = `weekly-date-box${offset === (dayOfWeek >= 3 ? dayOfWeek - 3 : 4 + dayOfWeek) ? ' check' : ''}`;
+                            return (
+                                <div className={classNames} key={offset} onClick={() => handleDateBoxClick(date)}>
+                                    <p className="date">{date.getDate()}</p>
+                                    <p className="weekly">
+                                        {['일', '월', '화', '수', '목', '금', '토'][date.getDay()]}
+                                    </p>
+                                </div>
+                            );
+                        })}
                     </div>
-                </div>
-            </>}
+                    <div className="main-weekly-content">
+                        <p className="tit">{`${monthYearString} ${currentDate.getDate()}일 ${['일', '월', '화', '수', '목', '금', '토'][currentDate.getDay()]}`}</p>
+                        {/*<ul>*/}
+                        {/*    <li>캐릭터이름1 / 카멘 하드 / with. 깐부1, 깐부2</li>*/}
+                        {/*    <li>캐릭터이름2 / 일리아칸 하드 / 메모메모메모</li>*/}
+                        {/*</ul>*/}
+                        <div className="content-container">
+                            <img alt="wating-img" src="/images/준비중.png"/>
+                            <p>기능 준비중입니다.</p>
+                        </div>
+                    </div>
+                </>}
         </div>
     );
 };

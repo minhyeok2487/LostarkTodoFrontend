@@ -34,11 +34,11 @@ const MainCharacters = ({ characters, mainCharacter, isLoading }) => {
                     <div className="characters-info">
                         <div className="represent">
                             <span className="img"
-                                style={{
-                                    backgroundImage: mainCharacter.characterImage !== null ? `url(${mainCharacter.characterImage})` : "",
-                                    backgroundPosition: mainCharacter.characterClassName === "도화가" || mainCharacter.characterClassName === "기상술사" ? "50% 32%" : "50% 15%",
-                                    backgroundColor: "black", // 캐릭터가 이미지가 없으면 배경색을 검정으로 설정
-                                }}>
+                                  style={{
+                                      backgroundImage: mainCharacter.characterImage !== null ? `url(${mainCharacter.characterImage})` : "",
+                                      backgroundPosition: mainCharacter.characterClassName === "도화가" || mainCharacter.characterClassName === "기상술사" ? "50% 32%" : "50% 15%",
+                                      backgroundColor: "black", // 캐릭터가 이미지가 없으면 배경색을 검정으로 설정
+                                  }}>
                             </span>
                             <span className="name">{mainCharacter.characterName}</span>
                             <span className="level">Lv. {mainCharacter.itemLevel}</span>
