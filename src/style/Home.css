@@ -635,7 +635,6 @@
     color:var(--fColor);
 }
 
-
 .main-weekly .main-weekly-date {
     display: flex;
     flex-direction: row;
@@ -671,7 +670,6 @@
     font-weight:500;
     color:var(--fColor)
 }
-
 
 
 .main-weekly .main-weekly-date .weekly-date-box.check {
