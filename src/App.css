@@ -842,7 +842,7 @@ header {
   top:0;
   left:0;
   right:0;
-  z-index:2;
+  z-index:99;
   width: 100% !important;
   box-shadow: 0px 0px 20px 7px rgba(0, 0, 0, 0.03) !important;
   background: #333
