@@ -15,7 +15,7 @@ const MainRaids = ({homeRaid, isLoading}) => {
                             <div key={index} className="radis-content-box">
                                 <p className="raid-name">{raid.name}</p>
                                 <p className="radi-score"><em>{raid.count}</em> / {raid.totalCount}</p>
-                                <p className="radi-summary"><span>서폿 <em>?</em></span> <span>딜러 <em>?</em></span></p>
+                                <p className="radi-summary"><span>서폿 <em>?</em></span> <span>딜러 <em>?</em></span> (개발중)</p>
                             </div>
                         ))}
                     </div>
