@@ -26,7 +26,7 @@ const MainCharacters = ({ characters, mainCharacter, isLoading }) => {
     return (
         <div className="main-characters">
             <div className="characters-info-header">
-                <h1>대표 캐릭터</h1>
+                <h1>내 캐릭터</h1>
             </div>
             {isLoading ?
                 <Skeleton variant="rounded" width="100%" height="100%" sx={{marginTop:3}} /> :
@@ -34,16 +34,15 @@ const MainCharacters = ({ characters, mainCharacter, isLoading }) => {
                     <div className="characters-info">
                         <div className="represent">
                             <span className="img"
-                                  style={{
-                                      backgroundImage: mainCharacter.characterImage !== null ? `url(${mainCharacter.characterImage})` : "",
-                                      backgroundPosition: mainCharacter.characterClassName === "도화가" || mainCharacter.characterClassName === "기상술사" ? "50% 32%" : "50% 10%",
-                                      backgroundColor: "black", // 캐릭터가 이미지가 없으면 배경색을 검정으로 설정
-                                  }}>
-                            ></span>
+                                style={{
+                                    backgroundImage: mainCharacter.characterImage !== null ? `url(${mainCharacter.characterImage})` : "",
+                                    backgroundPosition: mainCharacter.characterClassName === "도화가" || mainCharacter.characterClassName === "기상술사" ? "50% 32%" : "50% 15%",
+                                    backgroundColor: "black", // 캐릭터가 이미지가 없으면 배경색을 검정으로 설정
+                                }}>
+                            </span>
                             <span className="name">{mainCharacter.characterName}</span>
                             <span className="level">Lv. {mainCharacter.itemLevel}</span>
-                            <span className="info">@{mainCharacter.serverName} </span>
-                            <span className="info">{mainCharacter.characterClassName}</span>
+                            <span className="info">@{mainCharacter.serverName} {mainCharacter.characterClassName}</span>
                         </div>
                         <div className="character-list">
                             {characters.map((character, index) => (
@@ -56,23 +55,24 @@ const MainCharacters = ({ characters, mainCharacter, isLoading }) => {
                             ))}
                         </div>
                     </div>
-                    <div className="characters-info">
+                    <div className="characters-info total">
                         <div className="characters-average">
-                            <span className="characters-average-text">평균 아이템 레벨 : &nbsp;</span>
+                            <span className="characters-average-text">평균 아이템 레벨</span>
                             <span className="characters-average-level">Lv.{(calAverageLevel/characters.length).toFixed(2)}</span>
                         </div>
                         <div className="characters-info-summary">
                             <div className="summary">
-                                <span>총 : &nbsp;</span>
-                                <span>{characters.length} 캐릭</span>
+                                <span>총</span>
+                                <span className="val">{characters.length}</span>
+                                <span>캐릭</span>
                             </div>
                             <div className="summary">
-                                <span>딜러 : &nbsp;</span>
-                                <span>{countDealer} 캐릭</span>
+                                <span>딜러</span>
+                                <span className="val">{countDealer}</span>
                             </div>
                             <div className="summary">
-                                <span>서폿 : &nbsp;</span>
-                                <span>{countSupport} 캐릭</span>
+                                <span>서폿</span>
+                                <span className="val">{countSupport}</span>
                             </div>
                         </div>
                     </div>

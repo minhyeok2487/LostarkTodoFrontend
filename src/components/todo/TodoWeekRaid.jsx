@@ -55,16 +55,16 @@ const TodoWeekRaid = ({
                     <p className="txt">마우스 우클릭 시 한번에 체크됩니다</p>}
                 {showSortRaid ?
                     <button
-                        className={"content-button"}
+                        className={"content-button sort"}
                         onClick={() => saveRaidSort()}
-                        style={{right: "55px", backgroundColor: "#81DAF5"}}
+                        style={{right: "55px", backgroundColor: "rgb(235 235 235)"}}
                     >
                         저장
                     </button> :
                     <button
-                        className={"content-button"}
+                        className={"content-button sort"}
                         onClick={() => setShowSortRaid(true)}
-                        style={{right: "55px", backgroundColor: "#F5ECCE"}}
+                        style={{right: "55px", backgroundColor: "rgb(235 235 235)"}}
                     >
                         정렬
                     </button>
