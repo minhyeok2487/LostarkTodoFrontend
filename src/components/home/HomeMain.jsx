@@ -10,24 +10,41 @@ import MainWeekly from "./components/MainWeekly";
 import Footer from "../../utils/Footer";
 import * as noticesApi from "../../apis/notices";
 import * as boardsApi from "../../apis/boards";
+import MainFriends from "./components/MainFriends";
 
-const HomeMain = ({showMessage, loginName}) => {
+const HomeMain = ({showMessage, setIsLoading, isLoading}) => {
     const [characters, setChracters] = useState(homeData.charactersData);
     const [mainCharacter, setMainCharacter] = useState(homeData.charactersData[0]);
     const [notices, setNotices] = useState([]);
     const [boards, setBoards] = useState([]);
     const [homeRaid, setHomeRaid] = useState(homeData.RaidData);
+    const [weekTotalGold, setWeekTotalGold] = useState(0);
+    const [dayTotalGold, setDayTotalGold] = useState(0);
+    const [friendsDayList, setFriendsDayList] = useState([]);
+    const [friendsWeekList, setFriendsWeekList] = useState([]);
+    const [friendsTotalList, setFriendsTotalList] = useState([]);
+
     const getData = async () => {
         try {
+            setIsLoading(true);
             const data = await homeApi.getHomeData();
             setChracters(data["characterDtoList"]);
             setMainCharacter(data["mainCharacter"]);
             setHomeRaid(data["homeRaidDtoList"]);
+            setWeekTotalGold(data["weekTotalGold"]);
+            setDayTotalGold(data["dayTotalGold"]);
+            setFriendsDayList(data["friendsDayList"]);
+            setFriendsWeekList(data["friendsWeekList"]);
+            setFriendsTotalList(data["friendsTotalList"]);
         } catch (error) {
             showMessage("등록된 캐릭터가 존재하지 않아 임시 데이터가 보여집니다.");
             setChracters(homeData.charactersData);
             setMainCharacter(homeData.charactersData[0]);
             setHomeRaid(homeData.RaidData);
+            setWeekTotalGold(6000.00);
+            setDayTotalGold(4000.00);
+        } finally {
+            setIsLoading(false);
         }
 
     }
@@ -60,34 +77,43 @@ const HomeMain = ({showMessage, loginName}) => {
     }
 
     return (
-        <div className="wrap">
-            <div className="home-wrap">
-                <div className="home-content">
-                    {/*대표 캐릭터*/}
-                    {(characters !== null && mainCharacter !== null) &&
+            <div className="wrap">
+                <div className="home-wrap">
+                    <div className="home-content">
+                        {/*대표 캐릭터*/}
                         <MainCharacters
                             characters={characters}
                             mainCharacter={mainCharacter}
+                            isLoading={isLoading}
                         />
-                    }
 
-                    {/*숙제 수익 요약*/}
-                    <MainProfit characters={characters} />
-                </div>
-                <div className="home-content">
-                    {/*로스트아크, LoaTodo 공지사항*/}
-                    <MainNotices notices={notices} boards={boards} />
+                        {/*숙제 수익 요약*/}
+                        <MainProfit characters={characters}
+                                    weekTotalGold={weekTotalGold}
+                                    dayTotalGold={dayTotalGold}
+                                    isLoading={isLoading}
+                        />
+                    </div>
+                    <div className="home-content">
+                        {/*로스트아크, LoaTodo 공지사항*/}
+                        <MainNotices notices={notices} boards={boards} isLoading={isLoading} />
 
-                    {/*이번주 레이드 현황*/}
-                    <MainWeekly />
+                        {/*이번주 레이드 현황*/}
+                        <MainWeekly isLoading={isLoading} />
+                    </div>
+                    <div className="home-content">
+                        {/*레이드 별 현황*/}
+                        {homeRaid !== null && <MainRaids homeRaid={homeRaid} isLoading={isLoading} />}
+                    </div>
+                    <div className="home-content">
+                        {/*깐부 일일 숙제 현황*/}
+                        {friendsDayList !== null && <MainFriends friendList={friendsDayList} title={"깐부 이번주 일일 숙제 랭킹"} isLoading={isLoading}/>}
+                        {friendsDayList !== null && <MainFriends friendList={friendsWeekList} title={"깐부 이번주 주간 숙제 랭킹"} isLoading={isLoading}/>}
+                        {friendsDayList !== null && <MainFriends friendList={friendsTotalList} title={"깐부 이번주 총 숙제 랭킹"} isLoading={isLoading}/>}
+                    </div>
                 </div>
-                <div className="home-content">
-                    {/*레이드 별 현황*/}
-                    {homeRaid !== null && <MainRaids homeRaid={homeRaid}/>}
-                </div>
+                <Footer/>
             </div>
-            <Footer/>
-        </div>
     );
 };
 

@@ -30,6 +30,7 @@
     display: flex;
     flex-direction: column;
     width: 60%;
+    min-height: 280px;
     background:#fff;
     border-radius:16px;
     margin-right:24px;
@@ -168,6 +169,7 @@
 /*-----------------MainProfits----------------*/
 .main-profit {
     width: 40%;
+    min-height: 280px;
     background:#fff;
     border-radius:16px;
     padding:24px 24px 12px;
@@ -236,6 +238,7 @@
     display: flex;
     flex-direction: column;
     width: 40%;
+    min-height: 450px;
     margin-right:16px;
     margin-top:16px;
     background:#fff;
@@ -352,6 +355,7 @@
 /*-----------------MainRaids----------------*/
 .main-raids {
     width: 100%;
+    min-height: 290px;
     margin-top:16px;
     background:#fff;
     border-radius:16px;
@@ -381,13 +385,14 @@
 /*-----------------MainWeekly----------------*/
 .main-weekly {
     width: 60%;
+    min-height: 450px;
     display: flex;
     flex-direction: column;
     margin-top:16px;
     background:#fff;
     border-radius:16px;
     padding:24px;
-    border:1px solid #dddddd
+    border:1px solid #dddddd;
 }
 
 .main-weekly .main-weekly-header {
@@ -471,6 +476,119 @@
     margin-top: 10px; /* Add space between the image and the paragraph */
 }
 
+/*--------------------------메인 깐부--------------------------------------*/
+.main-friends {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    min-height: 200px;
+    background:#fff;
+    border-radius:16px;
+    margin-right:12px;
+    padding:24px 24px 12px;
+    border:1px solid #dddddd;
+    margin-top: 10px;
+    height: auto;
+    max-height: 280px;
+    overflow: auto;
+}
+
+.main-friends .header {
+    margin-bottom: 10px;
+}
+
+.main-friends .content {
+    display: flex;
+    flex-direction: row;
+    width: 99%;
+    justify-content: space-between;
+    border-radius:10px;
+    border:1px solid #dddddd;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.main-friends .content .main-friends-rank {
+    margin-left: 30px;
+    font-weight: bold;
+    font-size: 28px;
+    color: white;
+}
+
+.main-friends .content .main-friends-text {
+    margin-right: 20px;
+    font-size: 20px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 65%;
+}
+
+.main-friends .content .main-friends-text .main-friends-gold {
+    color: #747474;
+    margin-top: 3px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.flag {
+    width: 40px;
+    height: 45px;
+    box-sizing: content-box;
+    position: relative;
+    font-size: 25px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.flag:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 13px solid #ffffff;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+}
+
+.main-friends .content:nth-child(2) {
+    background-color: #ECE0F8;
+}
+
+.main-friends .content:nth-child(2) .flag {
+    background-color: #9F81F7;
+}
+
+.main-friends .content:nth-child(2) .flag:after {
+    border-bottom : 13px solid #ECE0F8;
+}
+
+.main-friends .content:nth-child(3) {
+    background-color: #E0E6F8;
+}
+
+.main-friends .content:nth-child(3) .flag {
+    background-color: #81BEF7;
+}
+
+.main-friends .content:nth-child(3) .flag:after {
+    border-bottom : 13px solid #E0E6F8;
+}
+
+.main-friends .content:nth-child(4) {
+    background-color: #E0F8EC;
+}
+
+.main-friends .content:nth-child(4) .flag {
+    background-color: #01DF3A;
+}
+
+.main-friends .content:nth-child(4) .flag:after {
+    border-bottom : 13px solid #E0F8EC;
+}
+
 /*모바일*/
 @media (max-width: 900px) {
     .home-wrap {
@@ -498,6 +616,10 @@
         margin: 10px 0 0;
     }
     .main-raids {
+        width: 90%;
+        margin: 10px 0 0;
+    }
+    .main-friends {
         width: 90%;
         margin: 10px 0 0;
     }
