@@ -15,8 +15,9 @@ header {
 
 .links .active {
     /*주소 활성화*/
-    color: #fff; /* 활성화된 링크 텍스트 색상 */
-    font-weight: 700; /* 텍스트 굵기 강조 */
+    color: #007bff; /* 활성화된 링크 텍스트 색상 */
+    font-weight: bold; /* 텍스트 굵기 강조 */
+    text-decoration: underline; /* 밑줄 추가 */
 }
 
 

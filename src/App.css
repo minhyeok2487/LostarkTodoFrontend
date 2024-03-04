@@ -3,21 +3,21 @@
   font-family: 'Pretendard';
   src: url('../public/font/Pretendard-Light.woff') format('woff');
   font-weight: 300;
-  /* font-display: swap; */
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
   src: url('../public/font/Pretendard-Regular.woff') format('woff');
   font-weight: 400;
-  /* font-display: swap; */
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
   src: url('../public/font/Pretendard-Bold.woff') format('woff');
   font-weight: 500;
-  /* font-display: swap; */
+  font-display: swap;
 }
 
 /* 기본 */
@@ -50,7 +50,7 @@ body {
   font-size: 14px;
   color: #222;
   height: 100%;
-  padding-top:52px;
+  padding-top:50px;
   padding-bottom:50px;
 }
 
@@ -148,7 +148,7 @@ footer {
 
 .ui-dark .content-wrap {
   background-color: #414141 !important;
-  ;
+;
 }
 
 .ui-dark .css-14dnp92-MuiTypography-root {
@@ -302,7 +302,7 @@ footer {
   position: relative;
   display: flex;
   flex-direction: row;
-  max-width: 1600px;
+  max-width: 1280px;
   width: 100%;
 }
 
@@ -362,7 +362,7 @@ footer {
   width: 18px;
   height: 18px;
   background: url(../public/images/ico_chk04.png) no-repeat left 3px top 3px / 12px;
-  ;
+;
   position: absolute;
   left: -72px;
   top: -9px;
@@ -376,11 +376,11 @@ footer {
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  padding: 20px 16px;
+  padding: 10px 15px;
   background: #fff;
   border: 1px solid #e9e9e9;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 14px;
   position: relative;
 }
 
@@ -395,13 +395,13 @@ footer {
 
 .content-box p:first-child {
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .content-box p:last-child {
   padding-left: 26px;
   background: url(../public/images/ico_coin.png) no-repeat center left / 18px;
-  font-weight: 400 !important;
+  font-weight: 300 !important;
   line-height: 18px;
 }
 
@@ -415,27 +415,27 @@ footer {
 
 .content-box .bar {
   position: relative;
-  width: 500px;
-  height: 24px;
+  width: 350px;
+  height: 15px;
   background: #eee;
   border-radius: 15px;
-  margin:12px 0;
+  margin: 8px 0;
 }
 
 .content-box .bar i {
   position: absolute;
   left: 0;
   top: 0;
-  height: 24px;
+  height: 15px;
   border-radius: 15px;
 }
 
 .content-box .bar em {
   position: absolute;
-  left: 47%;
-  top: 3px;
+  left: 45.5%;
+  top: 1px;
   font-style: normal;
-  font-size: 16px;
+  font-size: 12px;
 }
 
 .content-box:first-child i {
@@ -447,7 +447,7 @@ footer {
 }
 
 .todo-wrap {
-  max-width: 1600px;
+  max-width: 1280px;
   margin-top: 7px;
   height: 100%;
 }
@@ -461,10 +461,8 @@ footer {
   padding-left: 7px !important;
 }
 
-
-
 .character-wrap {
-  width: 257px;
+  width: 206px;
   background: #fff;
   border: 1px solid #e9e9e9;
 }
@@ -503,7 +501,7 @@ footer {
 }
 
 .character-wrap:first-child .content:not(.gauge-box) {
-  height: 36px;
+  height: 32px;
   margin-left: -5px;
   padding: 5px 3px 5px 15px;
   border-top: 1px solid #e9e9e9;
@@ -684,7 +682,7 @@ footer {
 .gold {
   margin-top: 1px !important;
   padding-left: 16px;
-  font-size: 12px !important;
+  font-size: 12px;
   background: url(../public/images/ico_coin.png) no-repeat center left / 12px;
 }
 
@@ -735,7 +733,6 @@ footer {
 
 .content p {
   margin: 0px;
-  font-size:14px;
 }
 
 .gauge-wrap {
@@ -824,7 +821,7 @@ input:focus {
   margin-top: 10px;
   display: flex;
   flex-direction: row;
-  max-width: 1600px;
+  max-width: 1280px;
   border: 1px solid black;
   color: var(--text-color);
 }
@@ -868,7 +865,7 @@ header {
 
 /* 아코디언 */
 .sort-wrap {
-  max-width: 1600px;
+  max-width: 1280px;
   margin: 7px 0 !important;
   background-color: #fff !important;
   border: 1px solid #e9e9e9 !important;
@@ -1358,7 +1355,7 @@ pre p:first-child {
 }
 
 .comments {
-  max-width: 1600px;
+  max-width: 1280px;
   margin: 20px auto 0;
   color: var(--text-color);
   height: 100%;
@@ -1693,7 +1690,7 @@ footer {
 
 .character-sort-wrap {
   background-color: white;
-  max-width: 1600px;
+  max-width: 1280px;
   width: 100%;
   margin-top: 7px;
   height: 100%;
