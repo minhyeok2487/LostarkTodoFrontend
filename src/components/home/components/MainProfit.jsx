@@ -57,32 +57,35 @@ const MainProfit = ({characters, weekTotalGold, dayTotalGold, isLoading}) => {
         <div className="main-profit">
             <h1>내 숙제</h1>
             {isLoading ? <Skeleton variant="rounded" width="100%" height="85%" sx={{marginTop:2}} /> :
-            <>
-                <div className="main-profit-box days">
-                    <div className="main-profit-text">
-                        <span>일일 숙제</span>
-                        <span>완료 {getDay} / 총 {totalDay}</span>
-                    </div>
-                    <span className="bar">
+                <>
+                    <div className="main-profit-box days">
+                        <div className="main-profit-text">
+                            <span className="tit">일일 숙제</span>
+                            <span><em>완료 {getDay}</em> / 총 {totalDay}</span>
+                        </div>
+                        <span className="bar">
                         <i style={{ width: `${getDay / totalDay * 100}%` }}></i>
                         <em>{(getDay / totalDay * 100).toFixed(1)} %</em>
                     </span>
-                </div>
-                <div className="main-profit-box weeks">
-                    <div className="main-profit-text">
-                        <span>주간 숙제</span>
-                        <span>완료 {getWeek} / 총 {totalWeek}</span>
                     </div>
-                    <span className="bar">
+                    <div className="main-profit-box weeks">
+                        <div className="main-profit-text">
+                            <span className="tit">주간 숙제</span>
+                            <span><em>완료 {getWeek}</em> / 총 {totalWeek}</span>
+                        </div>
+                        <span className="bar">
                         <i style={{ width: `${getWeek / totalWeek * 100}%` }}></i>
                         <em>{(getWeek / totalWeek * 100).toFixed(1)} %</em>
                     </span>
-                </div>
-                <div>
-                    <p>이번주 총 수익 : {(dayTotalGold + weekTotalGold).toFixed(2)} Gold
-                        / 일일 : {dayTotalGold.toFixed(2)} / 주간 : {weekTotalGold}</p>
-                </div>
-            </>}
+                    </div>
+                    <div>
+                        <ul className="total">
+                            <li><span>주간 <i>총</i> 수익<i>(A+B)</i></span> <em>{(dayTotalGold + weekTotalGold).toFixed(2)} G</em></li>
+                            <li><span>주간 <i>일일</i> 수익<i>(A)</i></span> <em>{dayTotalGold.toFixed(2)} G</em></li>
+                            <li><span>주간 <i>레이드</i> 수익<i>(B)</i></span> <em>{weekTotalGold} G</em></li>
+                        </ul>
+                    </div>
+                </>}
         </div>
     );
 };

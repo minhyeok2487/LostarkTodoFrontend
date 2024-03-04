@@ -77,43 +77,43 @@ const HomeMain = ({showMessage, setIsLoading, isLoading}) => {
     }
 
     return (
-            <div className="wrap">
-                <div className="home-wrap">
-                    <div className="home-content">
-                        {/*대표 캐릭터*/}
-                        <MainCharacters
-                            characters={characters}
-                            mainCharacter={mainCharacter}
-                            isLoading={isLoading}
-                        />
+        <div className="wrap">
+            <div className="home-wrap">
+                <div className="home-content">
+                    {/*숙제 수익 요약*/}
+                    <MainProfit characters={characters}
+                                weekTotalGold={weekTotalGold}
+                                dayTotalGold={dayTotalGold}
+                                isLoading={isLoading}
+                    />
 
-                        {/*숙제 수익 요약*/}
-                        <MainProfit characters={characters}
-                                    weekTotalGold={weekTotalGold}
-                                    dayTotalGold={dayTotalGold}
-                                    isLoading={isLoading}
-                        />
-                    </div>
-                    <div className="home-content">
-                        {/*로스트아크, LoaTodo 공지사항*/}
-                        <MainNotices notices={notices} boards={boards} isLoading={isLoading} />
-
-                        {/*이번주 레이드 현황*/}
-                        <MainWeekly isLoading={isLoading} />
-                    </div>
-                    <div className="home-content">
-                        {/*레이드 별 현황*/}
-                        {homeRaid !== null && <MainRaids homeRaid={homeRaid} isLoading={isLoading} />}
-                    </div>
-                    <div className="home-content">
-                        {/*깐부 일일 숙제 현황*/}
-                        {friendsDayList !== null && <MainFriends friendList={friendsDayList} title={"깐부 이번주 일일 숙제 랭킹"} isLoading={isLoading}/>}
-                        {friendsDayList !== null && <MainFriends friendList={friendsWeekList} title={"깐부 이번주 주간 숙제 랭킹"} isLoading={isLoading}/>}
-                        {friendsDayList !== null && <MainFriends friendList={friendsTotalList} title={"깐부 이번주 총 숙제 랭킹"} isLoading={isLoading}/>}
-                    </div>
+                    {/*대표 캐릭터*/}
+                    <MainCharacters
+                        characters={characters}
+                        mainCharacter={mainCharacter}
+                        isLoading={isLoading}
+                    />
                 </div>
-                <Footer/>
+                <div className="home-content">
+                    {/*레이드 별 현황*/}
+                    {homeRaid !== null && <MainRaids homeRaid={homeRaid} isLoading={isLoading} />}
+                </div>
+                <div className="home-content">
+                    {/*로스트아크, LoaTodo 공지사항*/}
+                    <MainNotices notices={notices} boards={boards} isLoading={isLoading} />
+
+                    {/*이번주 레이드 현황*/}
+                    <MainWeekly isLoading={isLoading} />
+                </div>
+                <div className="home-content">
+                    {/*깐부 일일 숙제 현황*/}
+                    {friendsDayList !== null && <MainFriends friendList={friendsDayList} title={"깐부 주간 일일숙제 랭킹"} isLoading={isLoading}/>}
+                    {friendsDayList !== null && <MainFriends friendList={friendsWeekList} title={"깐부 주간 레이드 랭킹"} isLoading={isLoading}/>}
+                    {friendsDayList !== null && <MainFriends friendList={friendsTotalList} title={"깐부 주간 랭킹"} isLoading={isLoading}/>}
+                </div>
             </div>
+            <Footer/>
+        </div>
     );
 };
 

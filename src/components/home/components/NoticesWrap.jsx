@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import * as notices from "../../../apis/notices";
 
 const NoticesWrap = ({
-    dataList,
-    type
-}) => {
+                         dataList,
+                         type
+                     }) => {
     const isRecent = (date) => {
         const currentDate = new Date();
         const boardDate = new Date(date);
@@ -19,7 +19,7 @@ const NoticesWrap = ({
                     <li key={data.id} className="board-item">
                         <div className="board-link">
                             <div className="board-category" aria-label="카테고리">
-                                <span className="category-span">공지사항</span>
+                                <span className="category-span">공지</span>
                             </div>
                             <div className="board-title" aria-label="제목">
                                 {type === "Lostark" && <a href={`${data.link}`} target="_blank" className="title-span">{data.title}</a>}

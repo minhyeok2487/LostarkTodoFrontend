@@ -23,8 +23,8 @@ const CommentList = ({
                 p.update - 개발 예정
                 p.modify - 수정 예정
             */}
-            <h2>방명록</h2>
-            <p>하고싶으신 말씀 자유롭게 남겨주세요!</p>
+            <h2>방명록 <p>하고싶으신 말씀 자유롭게 남겨주세요!</p></h2>
+
             <div className="noticeBox box01">
                 <p className="notice">주요 공지사항</p>
                 <div className="cont">

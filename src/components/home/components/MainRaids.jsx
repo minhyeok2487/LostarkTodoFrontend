@@ -6,17 +6,16 @@ const MainRaids = ({homeRaid, isLoading}) => {
         <div className="main-raids">
             <div className="main-raids-header">
                 <h2>레이드 별 현황</h2>
+                <div class="btn-work"><button>숙제 바로가기</button></div>
             </div>
             {isLoading ? <Skeleton variant="rounded" width="100%" height="90%" sx={{marginTop:2}} /> :
                 <>
-                    <div className="main-raids-info">
-                        <p>레이드 완주율</p>
-                    </div>
                     <div className="main-raids-content">
                         {homeRaid.map((raid, index) => (
                             <div key={index} className="radis-content-box">
-                                <p>{raid.name}</p>
-                                <p>{raid.count} / {raid.totalCount} 캐릭 중</p>
+                                <p className="raid-name">{raid.name}</p>
+                                <p className="radi-score"><em>{raid.count}</em> / {raid.totalCount}</p>
+                                <p className="radi-summary"><span>서폿 <em>?</em></span> <span>딜러 <em>?</em></span></p>
                             </div>
                         ))}
                     </div>
