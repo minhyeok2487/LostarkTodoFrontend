@@ -672,11 +672,7 @@
     color:var(--fColor)
 }
 
-.main-weekly .main-weekly-date .weekly-date-box:hover {
-    background-color: #333;
-    color:var(--bg);
-    transition:all 0.3s;
-}
+
 
 .main-weekly .main-weekly-date .weekly-date-box.check {
     background-color: #333;
@@ -686,6 +682,14 @@
     color:#fff;
 }
 
+.main-weekly .main-weekly-date .weekly-date-box:hover {
+    background-color: #333;
+    color:#fff;
+    transition:all 0.3s;
+}
+.main-weekly .main-weekly-date .weekly-date-box:hover .weekly{
+    color:#fff;
+}
 
 .main-weekly-content {
     padding: 20px;
