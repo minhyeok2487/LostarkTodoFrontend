@@ -2,14 +2,14 @@
 .home-wrap {
     display:flex;
     flex-direction:column;
-    max-width: 1280px;
+    width: 1600px;
 }
 
-.content-box{
+.home-wrap .content-box{
     border:0;
     padding:0;
 }
-.content-box+.content-box{
+.home-wrap .content-box+.content-box{
     margin:0;
 }
 
