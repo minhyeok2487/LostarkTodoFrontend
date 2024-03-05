@@ -853,10 +853,12 @@
         width: 100%;
         margin-top:12px;
         margin-left: 0;
+        padding:20px 20px 12px;
         box-sizing: border-box;
     }
     .main-profit {
         width: 100%;
+        padding:20px 20px 12px;
         box-sizing: border-box;
     }
     .main-profit .total span{
@@ -877,6 +879,7 @@
         box-sizing: border-box;
         margin-top:12px;
         margin-right: 0;
+        padding:20px;
     }
     .characters-info .represent{
         width:160px;
@@ -917,6 +920,7 @@
     .main-weekly {
         width: 100%;
         box-sizing: border-box;
+        padding:20px;
     }
     .main-weekly h2{
         padding-bottom:50px;
@@ -950,9 +954,14 @@
     .main-raids {
         width: 100%;
         box-sizing: border-box;
+        padding:20px 20px 12px;
     }
     .main-friends {
         width: 100%;
         box-sizing: border-box;
+        padding:20px 20px 12px;
+    }
+    .main-friends + .main-friends{
+        margin-left:0;
     }
 }
