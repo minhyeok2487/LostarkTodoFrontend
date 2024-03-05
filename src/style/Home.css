@@ -277,6 +277,7 @@
     font-style: normal;
     font-size: 14px;
     text-align: center;
+    color:var(--fColor);
 }
 .main-profit-box.days{
     margin-top:16px;
@@ -428,6 +429,7 @@
     display: flex;
     align-items: center;
     border-radius: 99px;
+    flex:none;
 }
 
 .category-span {
@@ -840,7 +842,7 @@
 /*모바일*/
 @media (max-width: 900px) {
     .home-wrap {
-        margin-top: 50px;
+        width:100%;
     }
     .home-content {
         flex-direction: column;
@@ -848,27 +850,109 @@
         align-items: center;
     }
     .main-characters {
-        width: 90%;
-        margin: 0 0 0 10px;
+        width: 100%;
+        margin-top:12px;
+        margin-left: 0;
+        box-sizing: border-box;
     }
     .main-profit {
-        width: 90%;
-        margin: 10px 0 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .main-profit .total span{
+        font-size:12px;
+    }
+    .main-profit .total em{
+        font-size:16px;
+    }
+    .characters-info{
+        flex-direction:column;
+    }
+    .main-profit .total{
+        padding-top:16px;
+        margin-bottom:8px;
     }
     .main-notices {
-        width: 90%;
-        margin: 10px 0 0;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top:12px;
+        margin-right: 0;
+    }
+    .characters-info .represent{
+        width:160px;
+        margin-bottom:16px;
+        margin-right:0;
+    }
+    .character-list{
+        height:140px !important;
+    }
+    .character-list .character-info-box .character-server{
+        display:none;
+    }
+    .character-list .character-info-box .character-className{
+        min-width:60px;
+    }
+    .character-list .character-info-box .character-name{
+        font-size:14px;
+        min-width:110px;
+    }
+    .characters-info-summary{
+        border-top:1px dashed var(--border);
+        padding-top:8px !important;
+        margin-top:6px;
+    }
+
+    .main-raids-content{
+        flex-direction:column;
+
+    }
+    .radis-content-box{
+        box-sizing: border-box;
+
+    }
+    .main-raids-content .radis-content-box + .radis-content-box{
+        margin-left:0;
+        margin-top:12px;
     }
     .main-weekly {
-        width: 90%;
-        margin: 10px 0 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .main-weekly h2{
+        padding-bottom:50px;
+        position:relative;
+    }
+    .main-weekly h2 .main-weekly-header{
+        position:absolute;
+        top:40px;
+        left:-16px;
+    }
+    .notice-board-list{
+        margin-top:6px;
+    }
+    .main-weekly-content .content-container{
+        margin-top:12px;
+    }
+    .board-title a{
+        display:inline-block;
+        font-size:14px;
+        width:240px;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        white-space:nowrap;
+    }
+    .main-friends-name{
+        font-size:14px;
+    }
+    .main-weekly .main-weekly-date .weekly-date-box{
+        padding:10px 10px;
     }
     .main-raids {
-        width: 90%;
-        margin: 10px 0 0;
+        width: 100%;
+        box-sizing: border-box;
     }
     .main-friends {
-        width: 90%;
-        margin: 10px 0 0;
+        width: 100%;
+        box-sizing: border-box;
     }
 }

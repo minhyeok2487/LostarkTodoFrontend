@@ -46,10 +46,10 @@ function ApiKeyUpdateForm() {
                 required
                 fullWidth
                 id="apiKey"
-                label="로스트아크 ApiKey"
+                label="로스트아크 API KEY"
               />
               <Link to="https://canfactory.tistory.com/1081" target="_blank" variant="body2" style={{color:"var(--text-color)"}}>
-                apikey발급을 모르십니까?
+                API KEY 발급하는 방법이 궁금해요!
               </Link>
             </Grid>
             <Grid item xs={12}>

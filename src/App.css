@@ -242,7 +242,7 @@ footer {
 .ui-dark .gauge-wrap {
   background-color: #fff;
   color: #222 !important;
-  border-color:#555;
+  border-color:#fff;
   opacity:0.8;
 }
 
@@ -647,7 +647,6 @@ footer {
 }
 
 .character-wrap:nth-child(2) .content:not(.gauge-box)>div>div {
-  margin-bottom: 5px;
 }
 
 .character-wrap:nth-child(2) .content>.content-button {
@@ -1635,7 +1634,7 @@ pre p:first-child {
   }
 
   .wrap {
-    padding: 0 3vw;
+    padding:43px 3vw 20px;
     font-size: 12px;
   }
 
@@ -1719,8 +1718,27 @@ pre p:first-child {
   }
 
   .comments {
-    max-width: 340px;
     overflow: hidden;
+    padding:55px 3vw 20px;
+  }
+  .comments h2{
+    margin-left: 10px;
+  }
+
+  .pagination{
+    flex-wrap:wrap;
+    padding:0 12px 20px !important;
+  }
+  .pagination button{
+    width:30px !important;
+    height:30px !important;
+    padding:3px 5px !important;
+    margin-bottom:10px !important;
+    text-align:center;
+  }
+
+  .pagination .pagination__first, .pagination .pagination__prev, .pagination .pagination__next, .pagination .pagination__last{
+    width:auto !important;
   }
 
   .css-hyum1k-MuiToolbar-root {
@@ -1741,6 +1759,13 @@ pre p:first-child {
 
   .plus+div {
     margin-left: 4px !important
+  }
+
+  footer{
+    margin-top:30px;
+  }
+  .character-wrap:nth-child(2) .content:not(.gauge-box):last-child .css-i4bv87-MuiSvgIcon-root{
+    margin-left:0;
   }
 }
 
