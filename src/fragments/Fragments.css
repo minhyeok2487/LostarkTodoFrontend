@@ -25,6 +25,7 @@
     color:  var(--fColor);
     transition: background-color 0.3s, color 0.3s;
     border-radius:50%;
+    flex:none;
 }
 
 .pagination button:hover {

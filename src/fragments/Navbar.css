@@ -109,42 +109,63 @@ header {
     color: var(--text-color);
 }
 
+.navbar .toggle_btn .icon path{
+    color:#fff;
+}
+
 .dropdown_menu {
     display: none;
     position: absolute;
-    right: 2rem;
-    top: 60px;
+    right: 16px;
+    top: 48px;
     height: 0px;
     width: 300px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
+    background:#fff;
+
     border-radius: 10px;
     overflow: hidden;
     transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 9999999999999;
 }
 
+.ui-dark .dropdown_menu{
+    background-color:#414141;
+}
+
+.setting-wrap .content-button{
+    font-size:0;
+}
+.setting-wrap .content-button:before{
+    content:"도가토";
+    font-size:14px;
+    color: #fff;
+}
+.setting-wrap .content-button:last-child:before{
+    content:"도비스";
+}
+
 .dropdown_menu.open {
-    height: 250px;
+    height: 230px;
+    border:1px solid var(--border);
 }
 
 .dropdown_menu li {
-    padding: 0.7rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 16px;
 }
 
 .dropdown_menu li a {
     text-decoration: none;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 500;
     color: var(--text-color);
 }
 
 .dropdown_menu li a:hover {
-    color: orange;
-    background-color: rgba(0, 0, 0, 0%);
+    font-weight:600;
+    border-bottom:1px solid #fff;
 }
 
 .dropdown_menu .action_btn {
@@ -162,10 +183,12 @@ header {
 
 .dropdown_menu .login_box .login_name {
     cursor: default;
+    color: var(--fColor);
+    padding:0;
 }
 
 .dropdown_menu .login_box a {
-    margin: 0.5rem;
+    margin-top:16px;
 }
 
 .dropdown_menu .login_box .logout_btn {
@@ -174,13 +197,13 @@ header {
     justify-content: center;
     color: var(--text-color);
     cursor: pointer;
-    margin-top: 0.4rem;
+    margin-top: 16px;
 }
 
 .dropdown_menu .login_box .logout_btn:hover {
     cursor: pointer;
-    color: orange;
-    background-color: rgba(0, 0, 0, 0%);
+    font-weight:600;
+    border-bottom:1px solid #fff;
 }
 
 .user_info_wrap {
@@ -304,7 +327,7 @@ header {
 
 @media (max-width: 576px) {
     .dropdown_menu {
-        left: 2rem;
+        left: 120px;
         width: unset;
     }
 }

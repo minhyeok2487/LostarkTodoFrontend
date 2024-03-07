@@ -14,7 +14,7 @@ const MainFriends = ({friendList, title, isLoading}) => {
                             <div className="main-friends-rank flag">{index+1}</div>
                             <div className="main-friends-text">
                                 <span className="main-friends-name">{friend.characterName}</span>
-                                <span className="main-friends-gold">({friend.gold.toFixed(0)} G)</span>
+                                <span className="main-friends-gold">{friend.gold.toFixed(0)} G</span>
                             </div>
                         </div>
                     ))}
