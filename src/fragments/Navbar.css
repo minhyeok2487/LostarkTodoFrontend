@@ -15,8 +15,8 @@ header {
 
 .links .active {
     /*주소 활성화*/
-    color: #007bff; /* 활성화된 링크 텍스트 색상 */
-    font-weight: bold; /* 텍스트 굵기 강조 */
+    color: #fff; /* 활성화된 링크 텍스트 색상 */
+    font-weight: 600; /* 텍스트 굵기 강조 */
     text-decoration: underline; /* 밑줄 추가 */
 }
 
@@ -75,9 +75,8 @@ header {
 
 .action_btn {
     display:block;
-    border:1px solid #fff;
     margin-left:6px;
-    padding:6px 16px;
+    padding:0;
     outline: none;
     border-radius: 12px;
     font-size: 0.8rem;
@@ -138,14 +137,41 @@ header {
 .setting-wrap .content-button:before{
     content:"도가토";
     font-size:14px;
-    color: #fff;
+    color: var(--fColor);
 }
+
+[role="tabpanel"] div .wrap {padding-top:7px;}
+
 .setting-wrap .content-button:last-child:before{
     content:"도비스";
 }
+[role="tabpanel"] > div > .setting-wrap .content-button{
+    font-size:14px;
+    margin-top:12px;
+    padding-left:0;
+}
+
+[role="tabpanel"] > div > .setting-wrap .content-button + p{
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+    margin-top: 8px;
+    font-weight: 600
+}
+
+[role="tabpanel"] > div > .setting-wrap .content-button:after{
+    display:none;
+}
+[role="tabpanel"] > div > .setting-wrap .content-button:before{
+    display:none;
+}
+
+.MuiTabs-indicator{background:#333 !important;}
+.ui-dark .MuiTabs-indicator{background:#fff !important;}
 
 .dropdown_menu.open {
-    height: 230px;
+    height: auto;
     border:1px solid var(--border);
 }
 
@@ -154,6 +180,9 @@ header {
     align-items: center;
     justify-content: center;
     margin-top: 16px;
+}
+.dropdown_menu li:last-child{
+    margin-bottom:16px;
 }
 
 .dropdown_menu li a {

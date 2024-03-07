@@ -783,6 +783,10 @@
     color:var(--fColor);
 }
 
+.main-friends .content:nth-child(n + 6){
+    display: none;
+}
+
 .main-friends .content .main-friends-text {
     margin-right: 16px;
     font-size: 20px;

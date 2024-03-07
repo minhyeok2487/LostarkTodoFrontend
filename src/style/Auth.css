@@ -6,7 +6,7 @@
 .auth-container .input-box input{font-weight:400;font-size:16px;width:100%;height:30px;padding:26px 16px;border:1px solid #e8e8e8;border-radius:10px;color:#101010;box-sizing:border-box;}
 .auth-container .input-box input:read-only{background-color:#f3f3f3;}
 .auth-container .input-warn-message{color:#ff4545;margin-left:7px;font-size:14px;}
-.auth-container .mention p{font-size:30px;font-weight:bold;color:var(--text-color);}
+.auth-container .mention p{font-size:30px;font-weight:bold;color:#333;}
 .login-wrap{width:400px;text-align:center;display:flex;flex-direction:column;align-items:center;}
 .login-btn{margin-top:16px;margin-bottom:16px;height:50px;width:100%;border-radius:20px;border:none;background-color:#333;color:#fff;font-size:16px;font-weight:bold;cursor:pointer;}
 .link-wrap{margin-top:10px;width:95%;display:flex;flex-direction:row;justify-content:center;}
@@ -21,12 +21,19 @@
 .signup-wrap .input-btn-wrap + .input-btn-wrap{margin-top:12px;}
 .signup-wrap .input-btn-wrap + .input-box{margin-top:12px;}
 .signup-wrap .input-btn-wrap .input-btn{display:flex;flex-direction:row;align-items:center;}
-.signup-wrap .input-btn-wrap .input-btn button{width:88px;height:52px;border-radius:10px;border:none;background-color:#101010;color:white;font-size:16px;font-weight:bold;cursor:pointer;margin-left:13px;}
+.signup-wrap .input-btn-wrap .input-btn button{width:88px;height:52px;border-radius:10px;border:none;background-color:#333;color:white;font-size:16px;font-weight:bold;cursor:pointer;margin-left:13px;}
 .disable{background-color:gray;cursor:auto;}
 .login-with-google-btn{width:400px;height:50px;padding-left:40px;transition:background-color .3s;cursor:pointer;border:none;border-radius:20px;color:#101010;font-size:16px;font-weight:700;background:url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=) no-repeat left 100px center / 24px;border:1px solid #101010;}
 
 @media only screen and (max-width:500px){
-    .auth-container{width:100%;box-sizing:border-box;}
-    .login-with-google-btn{width:100%}
+    .auth-container{position:fixed;left:0;right:0;top:0;bottom:0;width:100%;border-radius:0;box-sizing:border-box;margin-top:60px;padding:24px 24px 60px 24px;margin-bottom:0;}
+    .auth-container .logo{width:250px}
+    .auth-container .logo img{width:100%;height:auto;}
+    .auth-container .bar{width:100%;}
+    .auth-container .message{color: #101010;margin-bottom: 16px;font-size: 14px;font-weight: 400;word-break: keep-all;margin-top: 36px;text-align: center;}
+    .auth-login-btns{width:100%;}
+    .login-with-google-btn{width:100%;background-position:left 16px center;}
     .login-wrap{width:100%;}
+    .signup-wrap{width:100%;margin-top:24px;}
+    .ui-dark .auth-container .bar{background:#fff !important;}
 }

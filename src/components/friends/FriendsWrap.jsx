@@ -204,7 +204,7 @@ export default function FriendsWrap({setIsLoading}) {
                     showMessage(error.errorMessage);
                 });
         }
-        if (category === "깐부 요청 진행중" || category === "깐부 요청 받음" || category === "요청 거부") {
+        if (category === "깐부 요청중" || category === "깐부 요청 받음" || category === "요청 거부") {
             handleRequest("delete", fromMember);
         }
 
@@ -339,7 +339,7 @@ export default function FriendsWrap({setIsLoading}) {
                             friendUsername={friendUsername}
                         />
                         <div className="wrap">
-                            <div>
+                            <div class="input-txt">
                                 <TextField id="find-character" label="캐릭터 닉네임 입력" variant="outlined" size="small"/>
                                 <Button variant="outlined" onClick={() => findCharacter()}>검색</Button>
                             </div>

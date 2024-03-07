@@ -1622,6 +1622,16 @@ pre p:first-child {
   margin-top: 0;
 }
 
+.setTxt{
+  display:flex;
+  align-items:center;
+
+}
+.css-8vnh0h-MuiPaper-root-MuiAlert-root{background:#333 !important;word-break:keep-all;}
+
+.input-txt fieldset{border-color:var(--border) !important;}
+
+
 /* 모바일 */
 @media (max-width: 900px) {
   .sort-wrap {
