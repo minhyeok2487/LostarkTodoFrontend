@@ -11,22 +11,26 @@ const MainProfit = ({characters, weekTotalGold, dayTotalGold, isLoading}) => {
 
     //1. 총 일일 숙제
     const totalDay = characters.reduce((accumulator, character) => {
-        if (character.settings.showChaos) {
-            accumulator++;
-        }
-        if (character.settings.showGuardian) {
-            accumulator++;
+        if (character.settings.showCharacter) {
+            if (character.settings.showChaos) {
+                accumulator++;
+            }
+            if (character.settings.showGuardian) {
+                accumulator++;
+            }
         }
         return accumulator;
     }, 0);
 
     //2. 일일 숙제
     const getDay = characters.reduce((accumulator, character) => {
-        if (character.chaosCheck === 2) {
-            accumulator++;
-        }
-        if (character.guardianCheck === 1) {
-            accumulator++;
+        if (character.settings.showCharacter) {
+            if (character.chaosCheck === 2) {
+                accumulator++;
+            }
+            if (character.guardianCheck === 1) {
+                accumulator++;
+            }
         }
         return accumulator;
     }, 0);
