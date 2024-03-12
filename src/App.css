@@ -125,7 +125,7 @@ footer {
 
 .ui-dark .character-wrap:nth-child(2) .content:not(.gauge-box):last-child .minus,
 .ui-dark .character-wrap:nth-child(2) .content:not(.gauge-box):last-child .plus {
-  border-color:#555;
+  border:none;
 }
 
 .ui-dark .css-hyum1k-MuiToolbar-root .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
@@ -133,7 +133,7 @@ footer {
 }
 
 .ui-dark .content-button.sort {
-  color:#333 !important;
+  color:#fff !important;
 }
 
 .ui-dark .css-i4bv87-MuiSvgIcon-root {
@@ -197,6 +197,7 @@ footer {
 
 .ui-dark .setting-wrap .content-button::after {
   border: 1px solid #666 !important;
+
 }
 
 .ui-dark .setting-wrap .content-button {
@@ -255,7 +256,7 @@ footer {
 }
 
 .ui-dark .content-box .bar em {
-  color: #bbb !important;
+  color: #555 !important;
 }
 
 .ui-dark .noticeBox {
@@ -361,7 +362,11 @@ footer {
 
 .content-button-text {
   position: absolute;
-  color: black;
+  width:100%;
+  height:100%;
+  left:0;
+  top:0;
+  color: var(--fColor);
 }
 
 .setting-wrap {
@@ -391,8 +396,8 @@ footer {
   height: 21px;
   border: 1px solid #e9e9e9;
   position: absolute;
-  left: 13px;
-  top: 9px;
+  left: 10px;
+  top: 10px;
   z-index: 0;
   border-radius:4px;
 }
@@ -415,13 +420,14 @@ footer {
 
 .setting-wrap .content-button.done .content-button-text:before {
   content: '';
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   background: #73a982;
   position: absolute;
-  left: -72px;
-  top: -9px;
+  left: 10px;
+  top: 10px;
   z-index: 0;
+  border-radius: 4px
 }
 
 .setting-wrap .content-button.done .content-button-text:after {
@@ -431,8 +437,8 @@ footer {
   background: url(../public/images/ico_chk04.png) no-repeat left 4.9px top 4px / 12px;
 ;
   position: absolute;
-  left: -72px;
-  top: -9px;
+  left: 10px;
+  top: 11px;
   z-index: 0;
 }
 
@@ -592,11 +598,16 @@ footer {
 
 .character-wrap:first-child .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root {
   margin-left: auto;
-  background: url(../public/images/ico_more.png) no-repeat center / 16px
+  background: url(../public/images/ico_more.png) no-repeat center / 16px !important
+}
+
+.ui-dark .character-wrap:first-child .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root {
+  margin-left: auto;
+  background: url(../public/images/ico_more_w.png) no-repeat center / 16px !important
 }
 
 .character-wrap:first-child .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root path {
-  display: none;
+  display: none !important;
 }
 
 .gauge-box {
@@ -666,9 +677,10 @@ footer {
 }
 
 .character-wrap:nth-child(2) .content:not(.gauge-box) {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding:0 10px 7px 10px;
+
 }
+.character-todo:last-child .content:not(.gauge-box){padding-bottom:0 !important;}
 
 /* .character-wrap:nth-child(2) .content:not(.gauge-box):before {
   content: "";
@@ -695,6 +707,10 @@ footer {
   background: url(../public/images/ico_memo.png) no-repeat center / 16px !important
 }
 
+.ui-dark .character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root {
+  background: url(../public/images/ico_memo_w.png) no-repeat center / 16px !important
+}
+
 .character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root path {
   display: none;
 }
@@ -713,22 +729,26 @@ footer {
 }
 
 .character-wrap:nth-child(2) .content:not(.gauge-box):last-child .css-i4bv87-MuiSvgIcon-root {
-  margin-left: auto;
+  margin-left: auto !important;
   background: url(../public/images/ico_more.png) no-repeat center / 16px !important;
+}
+
+.ui-dark .character-wrap:nth-child(2) .content:not(.gauge-box):last-child .css-i4bv87-MuiSvgIcon-root {
+  margin-left: auto !important;
+  background: url(../public/images/ico_more_w.png) no-repeat center / 16px !important;
 }
 
 .character-wrap:nth-child(2) .content:not(.gauge-box):last-child .minus,
 .character-wrap:nth-child(2) .content:not(.gauge-box):last-child .plus {
-  min-width: 24px;
-  height: 24px;
-  border: 1px solid #e9e9e9;
+  min-width: 22px;
+  height: 22px;
   background-color: #FFC74F;
   display: flex;
   justify-content: center;
-  font-size: 18px;
+  font-size: 16px;
   color: #fff;
   border-radius:4px;
-  line-height:21px;
+  line-height:22px;
 }
 
 .character-wrap:nth-child(2) .gauge-box {
@@ -905,7 +925,7 @@ header {
   top:0;
   left:0;
   right:0;
-  z-index:2;
+  z-index:4;
   width: 100% !important;
   box-shadow: 0px 0px 20px 7px rgba(0, 0, 0, 0.03) !important;
   background: #333
@@ -1634,6 +1654,10 @@ pre p:first-child {
 
 /* 모바일 */
 @media (max-width: 900px) {
+
+  .character-wrap:nth-child(2) .content:not(.gauge-box){
+    padding:0 5px 7px 5px;
+  }
   .sort-wrap {
     display: none;
     /* 요소 숨기기 */
@@ -1645,7 +1669,7 @@ pre p:first-child {
 
   .wrap {
     padding:43px 3vw 20px;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .character-wrap {
@@ -1674,13 +1698,14 @@ pre p:first-child {
     word-break: keep-all;
   }
 
-  .setting-wrap .content-button:after {
+  /* .setting-wrap .content-button:after {
     left: 9px;
-  }
+    right:auto;
+  } */
 
-  .setting-wrap .content-button.done {
+  /* .setting-wrap .content-button.done {
     background-position: left 14px top 14px;
-  }
+  } */
 
   .wrap>.setting-wrap:first-child {
     flex-direction: column;
@@ -1719,13 +1744,15 @@ pre p:first-child {
     padding: 0 !important
   }
 
-  .setting-wrap .content-button.done .content-button-text:before {
-    left: -16.9vw;
+  /* .setting-wrap .content-button.done .content-button-text:before {
+    left:3px;
+    right:auto;
   }
 
   .setting-wrap .content-button.done .content-button-text:after {
-    left: -16.8vw;
-  }
+    left:0 !important;
+    right:-50px;
+  } */
 
   .comments {
     overflow: hidden;
@@ -1777,16 +1804,22 @@ pre p:first-child {
   .character-wrap:nth-child(2) .content:not(.gauge-box):last-child .css-i4bv87-MuiSvgIcon-root{
     margin-left:0;
   }
+
 }
 
 
 .icon-btn-search {
-  margin-left: auto;
-  border: none;
-  cursor: pointer;
-  width: 30px;
-  height: 100%;
+  margin-left: auto !important;
+  border: none !important;
+  cursor: pointer !important;
+  width: 30px !important;
+  height: 100% !important;
+  outline: none !important;
   background: url(../public/images/ico_more.png) no-repeat center / 16px !important;
+}
+
+.ui-dark .icon-btn-search {
+  background: url(../public/images/ico_more_w.png) no-repeat center / 16px !important;
 }
 
 .character-sort-wrap {
