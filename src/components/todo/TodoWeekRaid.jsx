@@ -126,8 +126,7 @@ const TodoWeekRaid = ({
                                             onClick={() => updateWeekCheck(character.characterName, todo)}
                                             onContextMenu={(e) => updateWeekCheckAll(e, character.characterName, todo)}
                                         >
-                                        <span
-                                            className="gold">{character.goldCharacter ? todo.gold + " G" : ""}</span> {/* pub span gold 추가 */}
+                                            <span className="gold">{character.goldCharacter ? todo.gold + " G" : ""}</span> {/* pub span gold 추가 */}
                                         </div>
                                         <div className={"input-field"} id={"input_field_" + todo.id}>
                                             {todo.message !== null && (
@@ -152,8 +151,7 @@ const TodoWeekRaid = ({
                                     {/* 여기서 부터 */}
                                     <div>
                                         {todo.message === null ?
-                                            <AddBoxIcon id={"input_field_icon_" + todo.id}
-                                                        onClick={() => changeShow(character.id, todo.id)}/> : ""}
+                                            <input type="button" className="icon-btn-message" id={"input_field_icon_" + todo.id} onClick={() => changeShow(character.id, todo.id)} /> : ""}
                                     </div>
                                     {/* 여기까지 "+" 버튼 */}
                                 </div>

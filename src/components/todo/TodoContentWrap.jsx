@@ -137,8 +137,7 @@ const TodoContentWrap = ({
                                         <p>가디언토벌</p>
                                         <p className="gold">{character.guardianGold} G</p>
                                     </div>
-                                    {/* pub 순서변경 */}
-                                    <SearchIcon onClick={() => openDayContentAvg(character, "가디언토벌")} style={{ cursor: "pointer" }} />
+                                    <input type="button" className="icon-btn-search" onClick={() => openDayContentAvg(character, "가디언토벌")} />
                                 </div>
                                 <div className="content gauge-box" style={{ height: 24, padding: 0, position: "relative", cursor: "pointer" }}
                                     onContextMenu={(e) => updateDayContentGuage(e, character.id, "guardian")}

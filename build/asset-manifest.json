@@ -1,18 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.1cc77663.css",
-    "main.js": "/static/js/main.9bdc3608.js",
+    "main.css": "/static/css/main.69c0ab60.css",
+    "main.js": "/static/js/main.41b43470.js",
     "static/js/496.9e46478d.chunk.js": "/static/js/496.9e46478d.chunk.js",
     "static/media/Pretendard-Bold.woff": "/static/media/Pretendard-Bold.fa2df9785f5e0c36d909.woff",
     "static/media/Pretendard-Light.woff": "/static/media/Pretendard-Light.bc1121875ed27dc273fb.woff",
     "static/media/Pretendard-Regular.woff": "/static/media/Pretendard-Regular.a97abcb6f03db9c6720f.woff",
+    "static/media/Pretendard-SemiBold.woff": "/static/media/Pretendard-SemiBold.9f6b39f88e7e6a3fd0b2.woff",
+    "static/media/Pretendard-Medium.woff": "/static/media/Pretendard-Medium.edd5e28caa1cc4a9e0b7.woff",
     "index.html": "/index.html",
-    "main.1cc77663.css.map": "/static/css/main.1cc77663.css.map",
-    "main.9bdc3608.js.map": "/static/js/main.9bdc3608.js.map",
+    "main.69c0ab60.css.map": "/static/css/main.69c0ab60.css.map",
+    "main.41b43470.js.map": "/static/js/main.41b43470.js.map",
     "496.9e46478d.chunk.js.map": "/static/js/496.9e46478d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1cc77663.css",
-    "static/js/main.9bdc3608.js"
+    "static/css/main.69c0ab60.css",
+    "static/js/main.41b43470.js"
   ]
 }

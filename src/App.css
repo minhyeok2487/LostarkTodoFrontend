@@ -703,14 +703,6 @@ footer {
   z-index: 1;
 }
 
-.character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root {
-  background: url(../public/images/ico_memo.png) no-repeat center / 16px !important
-}
-
-.ui-dark .character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root {
-  background: url(../public/images/ico_memo_w.png) no-repeat center / 16px !important
-}
-
 .character-wrap:nth-child(2) .content:not(.gauge-box) .css-i4bv87-MuiSvgIcon-root path {
   display: none;
 }
@@ -1820,6 +1812,20 @@ pre p:first-child {
 
 .ui-dark .icon-btn-search {
   background: url(../public/images/ico_more_w.png) no-repeat center / 16px !important;
+}
+
+.icon-btn-message {
+  margin-left: auto !important;
+  border: none !important;
+  cursor: pointer !important;
+  width: 30px !important;
+  height: 100% !important;
+  outline: none !important;
+  background: url(../public/images/ico_memo.png) no-repeat center / 16px !important;
+}
+
+.ui-dark .icon-btn-message {
+  background: url(../public/images/ico_memo_w.png) no-repeat center / 16px !important;
 }
 
 .character-sort-wrap {

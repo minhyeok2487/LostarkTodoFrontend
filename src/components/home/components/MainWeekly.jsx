@@ -37,7 +37,7 @@ const MainWeekly = ({isLoading}) => {
                     </div>
                 </div>
                 <div className="btn-calendar">
-                    <button>일정 추가</button>
+                    <button onClick={()=>alert("기능 준비중입니다.")}>일정 추가</button>
                 </div>
             </h2>
             {isLoading ? <Skeleton variant="rounded" width="100%" height="90%"/> :

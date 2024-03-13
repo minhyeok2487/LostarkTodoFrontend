@@ -1,12 +1,18 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useCallback } from 'react';
 import '../../style/utils/Modal.css';
 
 const ModalBox = ({
-  openModal,
-  closeContentModal,
-  modalTitle,
-  modalContent
-}) => {
+                      openModal,
+                      closeContentModal,
+                      modalTitle,
+                      modalContent
+                  }) => {
+    const handleKeyDown = useCallback((event) => {
+        if (event.keyCode === 27 && openModal) { // ESC key
+            closeContentModal();
+        }
+    }, [openModal, closeContentModal]);
+
     useEffect(() => {
         const dialog = document.querySelector("dialog");
 
@@ -22,13 +28,17 @@ const ModalBox = ({
         if (openModal) {
             dialog.showModal();
             dialog.addEventListener("click", handleExternalClick);
+            document.addEventListener("keydown", handleKeyDown);
         } else {
             dialog.close();
             dialog.removeEventListener("click", handleExternalClick);
+            document.removeEventListener("keydown", handleKeyDown);
         }
 
-
-    }, [openModal, closeContentModal]);
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [openModal, closeContentModal, handleKeyDown]);
 
     return (
         <dialog className="miniModal">
