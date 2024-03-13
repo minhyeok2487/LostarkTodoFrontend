@@ -40,7 +40,7 @@ const CubeWrap = ({
                         +
                     </button>
                     <div
-                        style={{ width: "100%", marginLeft: 10 }}
+                        style={{ width: "100%", marginLeft: 5 }}
                     >
                         큐브 티켓
                     </div>

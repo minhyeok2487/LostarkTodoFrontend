@@ -57,14 +57,14 @@ const TodoWeekRaid = ({
                     <button
                         className={"content-button sort"}
                         onClick={() => saveRaidSort()}
-                        style={{right: "55px", backgroundColor: "rgb(235 235 235)"}}
+                        style={{right: "55px"}}
                     >
                         저장
                     </button> :
                     <button
                         className={"content-button sort"}
                         onClick={() => setShowSortRaid(true)}
-                        style={{right: "55px", backgroundColor: "rgb(235 235 235)"}}
+                        style={{right: "55px"}}
                     >
                         정렬
                     </button>
