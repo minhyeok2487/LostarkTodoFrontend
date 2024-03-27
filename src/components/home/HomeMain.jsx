@@ -79,6 +79,14 @@ const HomeMain = ({showMessage, setIsLoading, isLoading}) => {
     return (
         <div className="wrap">
             <div className="home-wrap">
+                <div className="home-content" style={{
+                    width : "100%",
+                    backgroundColor : "black",
+                    display : "flex",
+                    justifyContent: "center"
+                }}>
+                    <a href="https://forms.gle/B7F8dsw7FkreUJBy8" target="_blank" style={{color:"white", fontWeight:"bold", fontSize:"20px"}}>LoaTodo 프론트엔드 개발자 구인(클릭)!! 많은 지원 부탁드립니다!!!</a>
+                </div>
                 <div className="home-content">
                     {/*숙제 수익 요약*/}
                     <MainProfit characters={characters}
