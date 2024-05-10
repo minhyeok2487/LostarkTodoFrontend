@@ -32,6 +32,7 @@ const GoogleAdvertise = ({
           fontWeight: "bold",
           textAlign: "center",
           padding: "16px",
+          width: "100%"
         }}
       >
         광고 표시 영역

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../style/Home.css';
 import * as homeApi from "../../apis/home";
 import * as homeData from "./HomeData";
@@ -11,8 +11,9 @@ import Footer from "../../utils/Footer";
 import * as noticesApi from "../../apis/notices";
 import * as boardsApi from "../../apis/boards";
 import MainFriends from "./components/MainFriends";
+import DefaultLayout from '../../layouts/DefaultLayout';
 
-const HomeMain = ({showMessage, setIsLoading, isLoading}) => {
+const HomeMain = ({ showMessage, setIsLoading, isLoading }) => {
     const [characters, setChracters] = useState(homeData.charactersData);
     const [mainCharacter, setMainCharacter] = useState(homeData.charactersData[0]);
     const [notices, setNotices] = useState([]);
@@ -77,21 +78,21 @@ const HomeMain = ({showMessage, setIsLoading, isLoading}) => {
     }
 
     return (
-        <div className="wrap">
+        <DefaultLayout >
             <div className="home-wrap">
                 <div className="home-content" style={{
-                    width : "100%",
-                    backgroundColor : "black",
-                    display : "flex",
+                    width: "100%",
+                    backgroundColor: "black",
+                    display: "flex",
                     justifyContent: "center"
                 }}>
                 </div>
                 <div className="home-content">
                     {/*숙제 수익 요약*/}
                     <MainProfit characters={characters}
-                                weekTotalGold={weekTotalGold}
-                                dayTotalGold={dayTotalGold}
-                                isLoading={isLoading}
+                        weekTotalGold={weekTotalGold}
+                        dayTotalGold={dayTotalGold}
+                        isLoading={isLoading}
                     />
 
                     {/*대표 캐릭터*/}
@@ -114,13 +115,13 @@ const HomeMain = ({showMessage, setIsLoading, isLoading}) => {
                 </div>
                 <div className="home-content">
                     {/*깐부 일일 숙제 현황*/}
-                    {friendsDayList !== null && <MainFriends friendList={friendsDayList} title={"깐부 주간 일일숙제 랭킹"} isLoading={isLoading}/>}
-                    {friendsDayList !== null && <MainFriends friendList={friendsWeekList} title={"깐부 주간 레이드 랭킹"} isLoading={isLoading}/>}
-                    {friendsDayList !== null && <MainFriends friendList={friendsTotalList} title={"깐부 주간 랭킹"} isLoading={isLoading}/>}
+                    {friendsDayList !== null && <MainFriends friendList={friendsDayList} title={"깐부 주간 일일숙제 랭킹"} isLoading={isLoading} />}
+                    {friendsDayList !== null && <MainFriends friendList={friendsWeekList} title={"깐부 주간 레이드 랭킹"} isLoading={isLoading} />}
+                    {friendsDayList !== null && <MainFriends friendList={friendsTotalList} title={"깐부 주간 랭킹"} isLoading={isLoading} />}
                 </div>
             </div>
-            <Footer/>
-        </div>
+            <Footer />
+        </DefaultLayout>
     );
 };
 
